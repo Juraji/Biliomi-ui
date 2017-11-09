@@ -1,0 +1,24 @@
+Options +FollowSymLinks
+IndexIgnore */*
+RewriteEngine On
+RewriteBase /
+
+FallbackResource /index.html
+
+# Rewrite www. to main
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+# Use compressed files if possible
+AddEncoding gzip .jsgz .cssgz .htmlgz .datagz
+AddType application/x-javascript .jsgz
+AddType text/css .cssgz
+AddType text/html .htmlgz
+AddType text/plain .datagz
+
+# If client accepts compressed files
+RewriteCond %{HTTP:Accept-Encoding} gzip
+# and if compressed file exists
+RewriteCond %{REQUEST_FILENAME}gz -f
+# send .html.gz instead of .html
+RewriteRule ^(.+)\.(html|css|js|data)$ $1.$2gz [L]

@@ -1,0 +1,68 @@
+{
+  "name": "biliomi-ui",
+  "version": "4.0.0",
+  "description": "The web-based control panel for Biliomi Edit",
+  "scripts": {
+    "start": "webpack-dev-server --config webpack-conf/webpack.development.conf.js --no-inline --progress --port 3000",
+    "build": "npm run clean:dist && webpack --config webpack-conf/webpack.production.conf.js --profile --bail",
+    "clean": "rimraf node_modules dist",
+    "clean:dist": "rimraf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juraji/Biliomi-ui.git"
+  },
+  "author": "Juraji",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Juraji/Biliomi-ui/issues"
+  },
+  "homepage": "https://github.com/Juraji/Biliomi-ui#readme",
+  "dependencies": {
+    "@angular/common": "^5.0.1",
+    "@angular/compiler": "^5.0.1",
+    "@angular/core": "^5.0.1",
+    "@angular/forms": "^5.0.1",
+    "@angular/http": "^5.0.1",
+    "@angular/platform-browser": "^5.0.1",
+    "@angular/platform-browser-dynamic": "^5.0.1",
+    "@angular/router": "^5.0.1",
+    "event-source-polyfill": "0.0.11",
+    "moment": "^2.19.1",
+    "moment-timezone": "^0.5.14",
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.5.2",
+    "zone.js": "^0.8.18"
+  },
+  "devDependencies": {
+    "@types/es6-shim": "^0.31.35",
+    "@types/js-yaml": "^3.9.1",
+    "@types/moment-timezone": "^0.5.1",
+    "@types/node": "^8.0.50",
+    "@types/webpack": "^3.8.1",
+    "@types/youtube": "0.0.31",
+    "angular2-router-loader": "^0.3.5",
+    "compression-webpack-plugin": "^1.0.1",
+    "copy-webpack-plugin": "^4.2.0",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.5",
+    "html-loader": "^0.5.1",
+    "html-webpack-plugin": "^2.30.1",
+    "json-loader": "^0.5.7",
+    "less": "^2.7.3",
+    "less-loader": "^4.0.5",
+    "less-plugin-clean-css": "^1.5.1",
+    "null-loader": "^0.1.1",
+    "pug-html-loader": "^1.1.5",
+    "raw-loader": "^0.5.1",
+    "rimraf": "^2.6.2",
+    "source-map-loader": "^0.2.3",
+    "style-loader": "^0.19.0",
+    "ts-loader": "^3.1.1",
+    "typescript": "^2.6.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
+  }
+}

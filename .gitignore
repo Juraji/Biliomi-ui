@@ -1,3 +1,12 @@
-# Jetbrains project file
+# Jetbrains project files
 /.idea/
 /Biliomi-ui.iml
+
+# Node dependencies
+node_modules/
+
+# UI config file (Copy the sample when needed)
+/resources/config.yml
+
+# Build output directory
+/dist/
