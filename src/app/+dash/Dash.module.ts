@@ -3,6 +3,8 @@ import {SharedModule} from "../shared/Shared.module";
 import {RouterModule, Routes} from "@angular/router";
 import {DashComponent} from "./Dash.component";
 import {NavChannelInfoComponent} from "./declarations/NavChannelInfo.component";
+import {NavAuthBarComponent} from "./declarations/NavAuthBar.component";
+import {NavFollowerStatsComponent} from "./declarations/NavFollowerStats.component";
 
 const ROUTES: Routes = [
   {
@@ -24,7 +26,9 @@ const ROUTES: Routes = [
   ],
   declarations: [
     DashComponent,
-    NavChannelInfoComponent
+    NavChannelInfoComponent,
+    NavAuthBarComponent,
+    NavFollowerStatsComponent
   ]
 })
 export class DashModule {

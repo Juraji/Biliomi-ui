@@ -1,0 +1,2 @@
+a.mat-button(mat-button, [href]="authService.channelName | twitchUserLink", title="Go to Twitch.tv", target="_blank") Hi {{authService.username}}
+a.mat-button(mat-button, (click)="authService.logout()", title="Log out of the web panel") Log out

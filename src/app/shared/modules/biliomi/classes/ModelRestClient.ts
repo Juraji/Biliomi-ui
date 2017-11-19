@@ -2,7 +2,7 @@ import {BiliomiApiService} from "../services/BiliomiApi.service";
 import {HttpParams} from "@angular/common/http";
 
 export abstract class ModelRestClient<T> {
-  private _api: BiliomiApiService;
+  protected _api: BiliomiApiService;
   private _baseResourceUri: string;
 
   constructor(api: BiliomiApiService, baseResourceUri: string) {
