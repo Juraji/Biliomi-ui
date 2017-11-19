@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 
 @Component({
-  selector: "page-not-found",
+  selector: "page-not-found-page",
   templateUrl: require("./PageNotFound.template.pug")
 })
 export class PageNotFoundComponent {

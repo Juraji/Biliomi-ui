@@ -8,6 +8,7 @@ require("zone.js/dist/zone");
 // noinspection ES6UnusedImports
 import {Observable} from "rxjs";
 import "rxjs/add/observable/interval";
+import "rxjs/add/operator/filter";
 import "rxjs/add/operator/toPromise";
 
 // Moment.js
@@ -23,5 +24,4 @@ import "@angular/platform-browser-dynamic";
 import "@angular/core";
 import "@angular/common";
 import "@angular/router";
-import "@angular/http";
 import "@angular/forms";

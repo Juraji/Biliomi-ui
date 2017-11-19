@@ -1,18 +1,21 @@
-// Angular Material Theme
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+//@import "toolkit/grids";
+@import "toolkit/swatches";
+@import "toolkit/lists";
 
 // Customization overrides
 @import "customization/ng-material";
+@import "customization/biliomi-reference";
 
 // Pages
 @import "pages/login";
+@import "pages/page-not-found";
+@import "pages/dash";
+
+// Components
+@import "components/nav-channel-info-component";
 
 body {
   padding: 0;
   margin: 0;
-}
-
-.biliomi-app-avatar {
-  background-image: url("../images/biliomi-icon-cropped-small.gif");
-  background-size: cover;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

@@ -2,6 +2,7 @@ import {NgModule, Type} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
 import {ServicesLibrary} from "../../classes/abstract/ServicesLibrary";
 import {BiliomiApiService} from "./services/BiliomiApi.service";
+import {ChannelInfoClient} from "./clients/settings/ChannelInfo.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [];
 
@@ -16,7 +17,12 @@ export class BiliomiModule extends ServicesLibrary {
     super(BiliomiModule);
 
     this.providers.push([
-      BiliomiApiService
+      BiliomiApiService,
+
+      // Model clients
+
+      // Settings clients
+      ChannelInfoClient
     ]);
   }
 

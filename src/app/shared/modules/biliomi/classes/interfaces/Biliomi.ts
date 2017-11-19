@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.25.322 on 2017-11-08 20:47:11.
+// Generated using typescript-generator version 1.29.366 on 2017-11-12 13:45:13.
 
 export namespace Biliomi {
 
@@ -478,16 +478,41 @@ export namespace Biliomi {
         BuildDate: string;
     }
 
-    export type IDirection = "INCOMING" | "OUTGOING";
+    export enum IDirection {
+        INCOMING = "INCOMING",
+        OUTGOING = "OUTGOING",
+    }
 
-    export type IGender = "MALE" | "FEMALE" | "NEUTRAL";
+    export enum IGender {
+        MALE = "MALE",
+        FEMALE = "FEMALE",
+        NEUTRAL = "NEUTRAL",
+    }
 
-    export type IModerationAction = "WARN" | "PURGE" | "TIMEOUT" | "BAN";
+    export enum IModerationAction {
+        WARN = "WARN",
+        PURGE = "PURGE",
+        TIMEOUT = "TIMEOUT",
+        BAN = "BAN",
+    }
 
-    export type IModerationReason = "POSTED_LINK" | "EXCESSIVE_CAPS" | "REPEATED_CHARACTERS" | "UNKNOWN";
+    export enum IModerationReason {
+        POSTED_LINK = "POSTED_LINK",
+        EXCESSIVE_CAPS = "EXCESSIVE_CAPS",
+        REPEATED_CHARACTERS = "REPEATED_CHARACTERS",
+        UNKNOWN = "UNKNOWN",
+    }
 
-    export type ISubscriberPlanType = "PRIME" | "TIER1" | "TIER2" | "TIER3";
+    export enum ISubscriberPlanType {
+        PRIME = "PRIME",
+        TIER1 = "TIER1",
+        TIER2 = "TIER2",
+        TIER3 = "TIER3",
+    }
 
-    export type ITokenUserType = "CASTER" | "MODERATOR";
+    export enum ITokenUserType {
+        CASTER = "CASTER",
+        MODERATOR = "MODERATOR",
+    }
 
 }

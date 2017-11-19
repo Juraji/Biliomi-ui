@@ -1,12 +1,24 @@
 import {NgModule, Type} from "@angular/core";
-import {MatButtonModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule} from "@angular/material";
+import {
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatSidenavModule
+} from "@angular/material";
 
 const NG_MATERIAL_MODULES: Type<any>[] = [
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
   MatButtonModule,
-  MatIconModule
+  MatIconModule,
+  MatSidenavModule,
+  MatGridListModule,
+  MatButtonToggleModule
 ];
 
 @NgModule({
