@@ -13,6 +13,7 @@ import ITwitchFollowEvent = Biliomi.ITwitchFollowEvent;
 import ITwitchSubscriberEvent = Biliomi.ITwitchSubscriberEvent;
 import ITwitchHostInEvent = Biliomi.ITwitchHostInEvent;
 import IIrcChatMessageEvent = Biliomi.IIrcChatMessageEvent;
+import ITwitchBitsEvent = Biliomi.ITwitchBitsEvent;
 
 @Component({
   selector: "dash-page",
@@ -41,6 +42,7 @@ export class DashComponent implements AfterViewInit {
     events.connect();
     events.subscribe((e: ITwitchFollowEvent) => this._onBiliomiTwitchFollowEvent(e), [BILIOMI_EVENTS.TWITCH_FOLLOW_EVENT]);
     events.subscribe((e: ITwitchSubscriberEvent) => this._onBiliomiTwitchSubscriberEvent(e), [BILIOMI_EVENTS.TWITCH_SUBSCRIBER_EVENT]);
+    events.subscribe((e: ITwitchBitsEvent) => this._onBiliomiTwitchBitsEvent(e), [BILIOMI_EVENTS.TWITCH_BITS_EVENT]);
     events.subscribe((e: ITwitchHostInEvent) => this._onBiliomiTwitchHostInEvent(e), [BILIOMI_EVENTS.TWITCH_HOST_IN_EVENT]);
     events.subscribe((e: IIrcChatMessageEvent) => this._onBiliomiMessageEvent(e), [BILIOMI_EVENTS.IRC_CHAT_MESSAGE_EVENT])
   }
@@ -62,22 +64,26 @@ export class DashComponent implements AfterViewInit {
   }
 
   private _onBiliomiTwitchFollowEvent(e: ITwitchFollowEvent) {
-    this._matSnackBar.open("New follower: " + e.Username, "Ok");
+    this._matSnackBar.open("New follower: " + e.Username + "!", "Ok");
   }
 
   private _onBiliomiTwitchSubscriberEvent(e: ITwitchSubscriberEvent) {
     let prefix: string = (e.IsResub ? "Recurring subscriber" : "New subscriber");
-    this._matSnackBar.open(prefix + ": " + e.Username + " (plan: " + e.SubPlan + ")", "Ok");
+    this._matSnackBar.open(prefix + ": " + e.Username + "! (plan: " + e.SubPlan + ")", "Ok");
+  }
+
+  private _onBiliomiTwitchBitsEvent(e: ITwitchBitsEvent) {
+    this._matSnackBar.open(e.Username + " cheered " + e.BitsUsed + " bits, making it a total of " + e.TotalBitsUsed + " bits cheered in this channel!", "Ok")
   }
 
   private _onBiliomiTwitchHostInEvent(e: ITwitchHostInEvent) {
-    this._matSnackBar.open("Incoming host: " + e.ChannelName, "Ok")
+    this._matSnackBar.open("Incoming host: " + e.ChannelName + "!", "Ok")
   }
 
   private _onBiliomiMessageEvent(e: IIrcChatMessageEvent) {
     console.log(e, this._auth.username);
     if (StringUtils.containsIgnoreCase(e.Message, this._auth.username)) {
-      this._matSnackBar.open("You've been mentioned in the chat by " + e.Username, "Ok", {duration: 1e4});
+      this._matSnackBar.open("You've been mentioned in the chat by " + e.Username + ".", "Ok", {duration: 1e4});
     }
   }
 }
