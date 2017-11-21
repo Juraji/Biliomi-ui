@@ -4,6 +4,8 @@ import {ServicesLibrary} from "../../classes/abstract/ServicesLibrary";
 import {BiliomiApiService} from "./services/BiliomiApi.service";
 import {ChannelInfoClient} from "./clients/settings/ChannelInfo.client";
 import {UsersClient} from "./clients/model/Users.client";
+import {GamesClient} from "./clients/model/Games.client";
+import {BiliomiEventsService} from "./services/BiliomiEvents.service";
 
 const BILIOMI_EXPORTS: Type<any>[] = [];
 
@@ -19,9 +21,11 @@ export class BiliomiModule extends ServicesLibrary {
 
     this.providers.push([
       BiliomiApiService,
+      BiliomiEventsService,
 
       // Model clients
       UsersClient,
+      GamesClient,
 
       // Settings clients
       ChannelInfoClient

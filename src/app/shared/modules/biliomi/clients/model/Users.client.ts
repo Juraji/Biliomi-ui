@@ -14,7 +14,7 @@ export class UsersClient extends ModelRestClient<IUser> {
     super(api, "/core/users");
   }
 
-  public async load(refresh?: boolean) {
+  public async load(refresh?: boolean): Promise<IUser[]> {
     if (!this._cache.hasData() || refresh) {
       let data: IUser[] = await super.getList();
       this._cache.set(data);

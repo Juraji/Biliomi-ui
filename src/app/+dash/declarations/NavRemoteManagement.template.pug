@@ -1,0 +1,19 @@
+a.mat-icon-button(mat-button, (click)="toggleManagementCard()", )
+  mat-icon(*ngIf="isEventsConnected", title="Remote management") settings_power
+  mat-icon(*ngIf="!isEventsConnected", title="Biliomi's seems to not be available, try reloading") warning
+
+mat-card.info-card.mat-elevation-z6(*ngIf="managementCardVisible", #managementCard="")
+  mat-card-header
+    mat-icon(matCardAvatar) settings_power
+    mat-card-title Remote Management
+    mat-card-subtitle &nbsp;
+
+  mat-card-content
+    p.text-ok(*ngIf="isEventsConnected") Biliomi is running and available!
+    p.text-not-ok(*ngIf="!isEventsConnected") Biliomi's seems to not be available, try reloading
+
+    .mat-button-row(*ngIf="isEventsConnected")
+      button(mat-raised-button, title="Restart Biliomi", (click)="powerRestartBiliomi()")
+        mat-icon refresh
+      button(mat-raised-button, title="Shut down Biliomi", (click)="powerShutDownBiliomi()")
+        mat-icon power_settings_new

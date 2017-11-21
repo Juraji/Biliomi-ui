@@ -1,0 +1,27 @@
+-
+  var markers = [];
+  for (var i = 0; i < 60; i++) markers[i] = 'rotate(' + 360 * (i / 60) + ')';
+
+mixin handAnimate(dur)
+  animateTransform(attributeName="transform", type="rotate", from="0", to="360", begin="0s", dur=dur, repeatCount="indefinite")
+
+mat-card
+  mat-card-content
+    .clock-wrapper
+      svg(viewBox="0 0 100 100")
+        g(transform="translate(50, 50)")
+          text(class="timezone-text", text-anchor="middle", x="0", y="-20") {{timeZoneText}}
+
+          g(class="markers")
+            each rot, i in markers
+              if i % 5 == 0
+                line(class="major", y1="35", y2="46", transform=rot)
+              else
+                line(class="minor", y1="42", y2="45", transform=rot)
+
+          g([attr.transform]="clockHands['hours'] | svgTransform:'rotate'")
+            line(class="hand hours", y1="2", y2="-20"): +handAnimate("24h")
+          g([attr.transform]="clockHands['minutes'] | svgTransform:'rotate'")
+            line(class="hand minutes", y1="4", y2="-30"): +handAnimate("1h")
+          g([attr.transform]="clockHands['seconds'] | svgTransform:'rotate'")
+            line(class="hand seconds", y1="7", y2="-38"): +handAnimate("60s")

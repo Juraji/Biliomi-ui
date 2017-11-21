@@ -1,12 +1,46 @@
 // Angular Material Theme
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 
+mat-card {
+  margin-bottom: 1.2%;
+}
+
 mat-form-field {
   width: 100%;
-  margin: .5em 0;
+  margin: 1em 0;
 
   mat-icon {
     cursor: pointer;
     user-select: none;
+  }
+}
+
+mat-icon {
+  &.mat-icon-inline {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+  }
+
+  &.mat-card-avatar {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+mat-paginator {
+  &.hide-items-label {
+    .mat-paginator-page-size {
+      display: none;
+    }
+  }
+}
+
+.mat-button-row {
+  margin-top: 1em;
+
+  .mat-button, .mat-raised-button {
+    margin-right: .5em;
   }
 }

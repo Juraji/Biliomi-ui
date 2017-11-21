@@ -1,0 +1,15 @@
+mat-card
+  mat-card-header
+    mat-icon(matCardAvatar) chat
+    mat-card-title Chatters
+    mat-card-subtitle {{channelInfoClient.ViewerCount}}
+
+  mat-card-content
+    ul.list-unstyled
+      li.text-muted(*ngIf="channelInfoClient.ViewerCount == 0") No viewers
+      li(*ngFor="let viewer of channelInfoClient.Viewers | arrayPageSlice:matPageEvent")
+        span([ngClass]="{'text-primary':viewer.Caster, 'text-secondary':viewer.Moderator}") {{viewer.DisplayName}}
+        small.text-muted &nbsp;{{viewer.UserGroup.Name}}
+
+  mat-card-actions(*ngIf="channelInfoClient.ViewerCount > 10")
+    mat-paginator.hide-items-label([length]="channelInfoClient.ViewerCount", pageSize="10", (page)="matPageEvent = $event")

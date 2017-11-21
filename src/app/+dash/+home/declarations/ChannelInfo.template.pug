@@ -1,16 +1,13 @@
-a.mat-button(mat-button, (click)="toggleInfoCard()")
-  mat-icon.pad-right.text-muted(*ngIf="!channelInfoClient.IsOnline") cast
-  mat-icon.pad-right.text-ok(*ngIf="channelInfoClient.IsOnline") cast_connected
-  | {{channelInfoClient.CurrentGame.Name}}
-
-mat-card.info-card.mat-elevation-z6(*ngIf="infoCardVisible")
+mat-card
   mat-card-header
     img(matCardAvatar, [src]="channelInfoClient.LogoUri")
     mat-card-title {{channelInfoClient.ChannelName}}
     mat-card-subtitle([ngClass]="{'text-ok': channelInfoClient.IsOnline, 'text-not-ok': !channelInfoClient.IsOnline}")
       | {{channelInfoClient.IsOnline ? "online" : "offline"}}
 
-  img.stream-preview(matCardImage, [src]="channelInfoClient.PreviewUri || channelInfoClient.LogoUri")
+  .aspect-ratio-wrapper(matCardImage)
+    .aspect-ratio-content
+      img.stream-preview([src]="channelInfoClient.PreviewUri || channelInfoClient.LogoUri")
 
   mat-card-content
     ul.list-unstyled

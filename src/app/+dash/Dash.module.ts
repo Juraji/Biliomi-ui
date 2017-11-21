@@ -5,6 +5,7 @@ import {DashComponent} from "./Dash.component";
 import {NavChannelInfoComponent} from "./declarations/NavChannelInfo.component";
 import {NavAuthBarComponent} from "./declarations/NavAuthBar.component";
 import {NavFollowerStatsComponent} from "./declarations/NavFollowerStats.component";
+import {NavRemoteManagementComponent} from "./declarations/NavRemoteManagement.component";
 
 const ROUTES: Routes = [
   {
@@ -28,7 +29,8 @@ const ROUTES: Routes = [
     DashComponent,
     NavChannelInfoComponent,
     NavAuthBarComponent,
-    NavFollowerStatsComponent
+    NavFollowerStatsComponent,
+    NavRemoteManagementComponent
   ]
 })
 export class DashModule {

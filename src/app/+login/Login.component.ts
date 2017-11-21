@@ -11,7 +11,8 @@ import IRestAuthorizationResponse = Biliomi.IRestAuthorizationResponse;
 
 @Component({
   selector: "login-page",
-  templateUrl: require("./Login.template.pug")
+  templateUrl: require("./Login.template.pug"),
+  styleUrls: [require("./Login.less").toString()]
 })
 export class LoginComponent implements OnInit {
   private _api: BiliomiApiService;

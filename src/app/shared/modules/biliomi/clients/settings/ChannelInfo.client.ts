@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 import {SettingsRestClient} from "../../classes/SettingsRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
+import {BiliomiApiService} from "../../services/BiliomiApi.service";
 import IChannelInfo = Biliomi.IChannelInfo;
 import IUser = Biliomi.IUser;
 import IGame = Biliomi.IGame;
-import {BiliomiApiService} from "../../services/BiliomiApi.service";
 
 @Injectable()
 export class ChannelInfoClient extends SettingsRestClient<IChannelInfo> implements IChannelInfo {
@@ -20,12 +20,27 @@ export class ChannelInfoClient extends SettingsRestClient<IChannelInfo> implemen
   public Viewers: IUser[] = [];
   public Hosters: IUser[] = [];
 
+  public get ViewerCount(): number {
+    return this.Viewers.length;
+  }
+
+  public get HosterCount(): number {
+    return this.Hosters.length;
+  }
+
   constructor(api: BiliomiApiService) {
     super(api, "/info/channel", 6e4);
   }
 
   public async load(refresh: boolean = false): Promise<void> {
     await super.load(refresh);
+
+    // Sort viewers by Username for easthetics
+    this.Viewers = this.Viewers.sort((a: IUser, b: IUser) => a.Username.localeCompare(b.Username));
+    // Sort hosters by Username for easthetics
+    this.Hosters = this.Hosters.sort((a: IUser, b: IUser) => a.Username.localeCompare(b.Username));
+
+    // Append a timestamp to the preview uri, so angular will refresh it
     if (this.PreviewUri != null) {
       this.PreviewUri += '?t=' + new Date().getMilliseconds();
     }

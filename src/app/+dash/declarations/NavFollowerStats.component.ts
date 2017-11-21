@@ -6,7 +6,8 @@ import IUser = Biliomi.IUser;
 
 @Component({
   selector: "nav-follower-stats-component",
-  templateUrl: require("./NavFollowerStats.template.pug")
+  templateUrl: require("./NavFollowerStats.template.pug"),
+  styleUrls: [require("./NavFollowerStats.less").toString()]
 })
 export class NavFollowerStatsComponent implements OnInit {
   private _parentElement: ElementRef;

@@ -1,5 +1,10 @@
 /*  SECTIONS  */
-.columns-section {
+
+// The point at which columns will stack to blocks and
+// hidden-on-break will activate
+@break-point: 1024px;
+
+.columns {
   clear: both;
   padding: 0;
   margin: 0;
@@ -23,6 +28,16 @@
     display: block;
     float: left;
     margin: 0 0 0 1.2%;
+
+    @media (max-width: @break-point) {
+      float: none;
+      width: 100% !important;
+      margin: 0;
+
+      &.hide-on-break {
+        display: none;
+      }
+    }
 
     &:first-child {
       margin-left: 0;

@@ -8,9 +8,9 @@ import {ConfigService} from "./services/Config.service";
 import {AuthService} from "./services/Auth.service";
 import {AuthGuard} from "./router-guards/Auth.guard";
 import {HttpClientModule} from "@angular/common/http";
-import {TwitchUserLinkPipe} from "./pipes/TwitchUserLinkPipe.";
-import {TimePipe} from "./pipes/TimePipe";
-import {DatePipe} from "./pipes/DatePipe";
+import {TwitchUserLinkPipe} from "./pipes/TwitchUserLink.pipe";
+import {TimePipe} from "./pipes/Time.pipe";
+import {DatePipe} from "./pipes/Date.pipe";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,

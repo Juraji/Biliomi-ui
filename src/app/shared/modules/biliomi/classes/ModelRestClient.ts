@@ -26,7 +26,8 @@ export abstract class ModelRestClient<T> {
     return this._api.put<T>(this._baseResourceUri + "/" + id, obj, params);
   }
 
-  public delete(id: number, params: HttpParams): Promise<void> {
+  // noinspection ReservedWordAsName
+  public delete(id: number, params: HttpParams): Promise<boolean> {
     return this._api.delete(this._baseResourceUri + "/" + id, params);
   }
 }

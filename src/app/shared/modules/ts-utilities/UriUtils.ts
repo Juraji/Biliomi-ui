@@ -1,6 +1,6 @@
 import {StringUtils} from "./StringUtils";
 
-export class UrlUtils {
+export class UriUtils {
 
   /**
    * Appends the key-value pairs from the params map as querystring items to the url.

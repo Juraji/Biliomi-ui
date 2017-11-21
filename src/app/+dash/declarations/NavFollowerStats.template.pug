@@ -1,11 +1,11 @@
 a.mat-button(mat-button, (click)="toggleFollowerStatsCard()")
-  mat-icon.text-ok(title="Viewers in chat") person_pin
+  mat-icon.text-ok(title="Viewers in chat") chat
   | {{channelInfoClient.Viewers.length}}
   span.spacer
   mat-icon.text-not-ok(title="Followers") favorite
   | {{channelInfoClient.FollowerCount}}
   span.spacer
-  mat-icon.text-ok(title="Subscribers") tag_faces
+  mat-icon.text-ok(title="Subscribers") attach_money
   | {{channelInfoClient.SubscriberCount}}
 
 mat-card.info-card.mat-elevation-z6(#followerStatsCard="", *ngIf="followerStatsCardVisible")
