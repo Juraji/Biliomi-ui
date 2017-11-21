@@ -81,7 +81,6 @@ export class DashComponent implements AfterViewInit {
   }
 
   private _onBiliomiMessageEvent(e: IIrcChatMessageEvent) {
-    console.log(e, this._auth.username);
     if (StringUtils.containsIgnoreCase(e.Message, this._auth.username)) {
       this._matSnackBar.open("You've been mentioned in the chat by " + e.Username + ".", "Ok", {duration: 1e4});
     }
