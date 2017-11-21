@@ -20,7 +20,7 @@ mat-card
                 line(class="minor", y1="42", y2="45", transform=rot)
 
           g([attr.transform]="clockHands['hours'] | svgTransform:'rotate'")
-            line(class="hand hours", y1="2", y2="-20"): +handAnimate("24h")
+            line(class="hand hours", y1="2", y2="-20"): +handAnimate("12h")
           g([attr.transform]="clockHands['minutes'] | svgTransform:'rotate'")
             line(class="hand minutes", y1="4", y2="-30"): +handAnimate("1h")
           g([attr.transform]="clockHands['seconds'] | svgTransform:'rotate'")
