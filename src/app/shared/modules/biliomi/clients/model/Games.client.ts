@@ -20,7 +20,7 @@ export class GamesClient extends ModelRestClient<IGame> {
       if (data != null) {
         this._cache.set(data.sort(GamesClient.gameSort));
       } else {
-        this._cache.set([]);
+        this._cache.clear();
       }
     }
 

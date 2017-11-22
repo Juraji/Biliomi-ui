@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from "@angular/core";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
-import {URI_TWITCH_CHANNEL, URI_TWITCH_PROFILE} from "../constants/Uris";
 import {StringUtils} from "../modules/ts-utilities/StringUtils";
+import {TWITCH_URIS} from "../constants/Uris";
 
 @Pipe({name: "twitchUserLink"})
 export class TwitchUserLinkPipe implements PipeTransform {
@@ -15,7 +15,7 @@ export class TwitchUserLinkPipe implements PipeTransform {
     if (StringUtils.isEmpty(username)) return null;
     username = username.toLowerCase();
     return this._sanitizer.bypassSecurityTrustUrl(
-      StringUtils.messageFormat((profile ? URI_TWITCH_PROFILE : URI_TWITCH_CHANNEL), username)
+      StringUtils.messageFormat((profile ? TWITCH_URIS.PROFILE : TWITCH_URIS.CHANNEL), username)
     );
   }
 }

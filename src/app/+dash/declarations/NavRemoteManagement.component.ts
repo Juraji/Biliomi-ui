@@ -11,9 +11,9 @@ import {BILIOMI_CLI_COMMANDS} from "../../shared/modules/biliomi/constants/Bilio
 })
 export class NavRemoteManagementComponent {
   private _api: BiliomiApiService;
-  private _events: BiliomiEventsService;
   private _matSnackBar: MatSnackBar;
   private _parentElement: ElementRef;
+  private eventsService: BiliomiEventsService;
   private managementCardVisible: boolean = false;
 
   @ViewChild("managementCard", {read: ElementRef})
@@ -25,15 +25,11 @@ export class NavRemoteManagementComponent {
     }
   }
 
-  constructor(api: BiliomiApiService, events: BiliomiEventsService, matSnackBar: MatSnackBar, parentElement: ElementRef) {
+  constructor(api: BiliomiApiService, eventsService: BiliomiEventsService, matSnackBar: MatSnackBar, parentElement: ElementRef) {
     this._api = api;
-    this._events = events;
     this._matSnackBar = matSnackBar;
     this._parentElement = parentElement;
-  }
-
-  private get isEventsConnected(): boolean {
-    return this._events.isConnected;
+    this.eventsService = eventsService;
   }
 
   private toggleManagementCard() {

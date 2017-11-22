@@ -15,7 +15,7 @@ export abstract class ModelRestClient<T> {
   }
 
   public getList(params?: HttpParams): Promise<T[]> {
-    return this._api.get(this._baseResourceUri, params);
+    return this._api.get<T[]>(this._baseResourceUri, params);
   }
 
   public post(obj: T, params?: HttpParams): Promise<T> {

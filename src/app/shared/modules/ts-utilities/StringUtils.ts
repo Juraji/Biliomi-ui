@@ -28,13 +28,16 @@ export class StringUtils {
    * @returns {string}
    */
   public static messageFormat(pattern: string, ...replacements: Array<any>) {
-    let pi: number, piPat: string;
-    for (pi = 0; pi < replacements.length; pi++) {
-      piPat = "{" + pi + "}";
-      while (pattern.indexOf(piPat) > -1) {
-        pattern = pattern.replace(piPat, replacements[pi]);
+    if (StringUtils.isNotEmpty(pattern) && replacements != null && replacements.length > 0) {
+      let pi: number, piPat: string;
+      for (pi = 0; pi < replacements.length; pi++) {
+        piPat = "{" + pi + "}";
+        while (pattern.indexOf(piPat) > -1) {
+          pattern = pattern.replace(piPat, replacements[pi]);
+        }
       }
     }
+
     return pattern;
   }
 

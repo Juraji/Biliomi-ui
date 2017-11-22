@@ -5,7 +5,7 @@ export class ListCache<T> {
     return this._list.length > 0;
   }
 
-  public set(data: T[] = null) {
+  public set(data: T[]) {
     if (data != null) {
       this._list = data;
     }
@@ -13,5 +13,9 @@ export class ListCache<T> {
 
   public get(): T[] {
     return this._list;
+  }
+
+  public clear() {
+    this._list = [];
   }
 }

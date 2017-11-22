@@ -23,7 +23,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.ts$/,
+                test: /(?!\.d)..\.ts$/,
                 use: [
                     {loader: "ts-loader"},
                     {loader: "angular2-router-loader"}

@@ -16,7 +16,7 @@ export class TimeUtils {
    *
    * @returns {moment.Moment}
    */
-  public static getMoment() {
+  public static get now(): moment.Moment {
     return moment();
   }
 
@@ -28,7 +28,7 @@ export class TimeUtils {
    * @returns {string}
    */
   public static millisToAge(millis: number): string {
-    return this.millisToRelTimeStrYMD(this.getMoment().diff(moment(millis)));
+    return this.millisToRelTimeStrYMD(this.now.diff(moment(millis)));
   }
 
   /**

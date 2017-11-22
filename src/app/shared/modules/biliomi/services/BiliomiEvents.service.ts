@@ -13,7 +13,6 @@ import {BILIOMI_API} from "../constants/BiliomiApiVariables";
 import IEventSource = sse.IEventSource;
 import IEvent = Biliomi.IEvent;
 import IOnMessageEvent = sse.IOnMessageEvent;
-import ReadyState = sse.ReadyState;
 
 @Injectable()
 export class BiliomiEventsService {
@@ -29,15 +28,15 @@ export class BiliomiEventsService {
   }
 
   public get isConnected(): boolean {
-    return this._eventSource != null && this._eventSource.readyState == ReadyState.OPEN;
+    return this._eventSource != null && this._eventSource.readyState == this._eventSource.OPEN;
   }
 
   public get isConnecting(): boolean {
-    return this._eventSource != null && this._eventSource.readyState == ReadyState.CONNECTING;
+    return this._eventSource != null && this._eventSource.readyState == this._eventSource.CONNECTING;
   }
 
   public async connect() {
-    if (this.isConnected || !this._auth.isTokenValid) {
+    if (this.isConnected || this.isConnecting || !this._auth.isTokenValid) {
       // Do nothing when already connected or auth is invalid
       return;
     }

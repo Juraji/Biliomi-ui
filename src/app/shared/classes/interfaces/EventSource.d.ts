@@ -6,44 +6,24 @@ declare const EventSource: sse.IEventSource;
 
 declare module sse {
 
-  /** The readyState attribute represents the state of the connection. */
-  enum ReadyState {
-
-    /** The connection has not yet been established, or it was closed and the user agent is reconnecting. */
-    CONNECTING = 0,
-
-      /** The user agent has an open connection and is dispatching events as it receives them. */
-    OPEN = 1,
-
-      /** The connection is not open, and the user agent is not trying to reconnect. Either there was a fatal error or the close() method was invoked. */
-    CLOSED = 2
-  }
-
   interface IEventSource {
     new (url: string, eventSourceInitDict?: IEventSourceInit): IEventSource;
 
-    /** The serialisation of this EventSource object's url. */
     url: string;
     withCredentials: boolean;
-    /** Always 0 */
-    CONNECTING: ReadyState;
-    /** Always 1 */
-    OPEN: ReadyState;
-    /** Always 2 */
-    CLOSED: ReadyState;
-    /** The ready state of the underlying connection. */
-    readyState: ReadyState;
+    CONNECTING: number; // 0
+    OPEN: number; // 1
+    CLOSED: number; // 2
+    readyState: number;
     onopen: (event: Event) => any;
     onmessage: (event: IOnMessageEvent) => void;
     onerror: (event: Event) => any;
-    /** The close() method must abort any instances of the fetch algorithm started for this EventSource object, and must set the readyState attribute to CLOSED. */
     close: () => void;
     addEventListener: (type: string, h: (event: IOnMessageEvent) => void) => void;
     removeEventListener: (type: string, h: (event: IOnMessageEvent) => void) => void;
   }
 
   interface IEventSourceInit {
-    /** Defines if request should set corsAttributeState to true.  */
     withCredentials?: boolean;
   }
 
