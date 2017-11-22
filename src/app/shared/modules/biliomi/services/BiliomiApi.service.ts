@@ -185,7 +185,7 @@ export class BiliomiApiService {
 
   private async getApiUriFor(resourceUri: string): Promise<string> {
     let settings: IConfig = await this._configService.getConfig();
-    return settings.apiBase + BILIOMI_API.API_SUFFIX + resourceUri;
+    return settings.apiBase + BILIOMI_API.API_URI_PREFIX + resourceUri;
   }
 
   private buildHeaders(): HttpHeaders {

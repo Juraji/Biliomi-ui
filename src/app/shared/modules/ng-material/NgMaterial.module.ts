@@ -1,37 +1,22 @@
 import {NgModule, Type} from "@angular/core";
-import {
-  MatAutocompleteModule,
-  MatButtonModule,
-  MatButtonToggleModule,
-  MatCardModule,
-  MatExpansionModule,
-  MatFormFieldModule,
-  MatGridListModule,
-  MatIconModule,
-  MatInputModule,
-  MatListModule,
-  MatPaginatorModule,
-  MatSidenavModule,
-  MatSnackBarModule,
-  MatTableModule
-} from "@angular/material";
 import {ArrayPageSlicePipe} from "./ArrayPageSlice.pipe";
+import * as material from "@angular/material";
 
 const NG_MATERIAL_MODULES: Type<any>[] = [
-  MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatButtonModule,
-  MatIconModule,
-  MatSidenavModule,
-  MatGridListModule,
-  MatButtonToggleModule,
-  MatPaginatorModule,
-  MatTableModule,
-  MatListModule,
-  MatAutocompleteModule,
-  MatSnackBarModule,
-  MatExpansionModule,
+  material.MatCardModule,
+  material.MatFormFieldModule,
+  material.MatInputModule,
+  material.MatButtonModule,
+  material.MatIconModule,
+  material.MatSidenavModule,
+  material.MatGridListModule,
+  material.MatButtonToggleModule,
+  material.MatPaginatorModule,
+  material.MatTableModule,
+  material.MatListModule,
+  material.MatAutocompleteModule,
+  material.MatSnackBarModule,
+  material.MatExpansionModule,
 ];
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [

@@ -42,7 +42,7 @@ export class BiliomiEventsService {
     let qm: Map<string, any> = new Map<string, any>();
     qm.set("token", this._auth.apiToken);
 
-    let eventsUri: string = UriUtils.appendQueryString(apiBase + BILIOMI_API.API_SUFFIX + BILIOMI_API.EVENTS_ENDPOINT, qm);
+    let eventsUri: string = UriUtils.appendQueryString(apiBase + BILIOMI_API.API_URI_PREFIX + BILIOMI_API.EVENTS_ENDPOINT, qm);
     this._eventSource = new EventSource(eventsUri);
     this._eventSource.addEventListener("message", (e: IOnMessageEvent) => {
       if (StringUtils.isNotEmpty(e.data)) {

@@ -1,5 +1,5 @@
 export const BILIOMI_API = {
-  API_SUFFIX: "/api",
+  API_URI_PREFIX: "/api",
   EVENTS_ENDPOINT: "/events",
   COMMAND_ENDPOINT: "/events/commands/run",
   CLI_COMMAND_ENDPOINT: "/events/commands/cli/run",
@@ -14,8 +14,6 @@ export const BILIOMI_CLI_COMMANDS = {
   API_ADD_USER: "apiadduser",
   // Delete a REST api user
   API_DELETE_USER: "apideleteuser",
-  // List REST api users
-  API_LIST_USERS: "apilistusers",
   // Export a CSV of your custom commands
   EXPORT_COMMANDS: "exportcommands",
   // Export a CSV of all system commands
