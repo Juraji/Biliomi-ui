@@ -9,10 +9,11 @@ import {UriUtils} from "../../ts-utilities/UriUtils";
 import {StringUtils} from "../../ts-utilities/StringUtils";
 import {Consumer, Runnable} from "../../ts-utilities/FunctionalInterface";
 import {Subscription} from "rxjs/Subscription";
+import {BILIOMI_API} from "../constants/BiliomiApiVariables";
 import IEventSource = sse.IEventSource;
 import IEvent = Biliomi.IEvent;
 import IOnMessageEvent = sse.IOnMessageEvent;
-import {BILIOMI_API} from "../constants/BiliomiApiVariables";
+import ReadyState = sse.ReadyState;
 
 @Injectable()
 export class BiliomiEventsService {
@@ -28,7 +29,11 @@ export class BiliomiEventsService {
   }
 
   public get isConnected(): boolean {
-    return this._eventSource != null && this._eventSource.readyState == this._eventSource.OPEN;
+    return this._eventSource != null && this._eventSource.readyState == ReadyState.OPEN;
+  }
+
+  public get isConnecting(): boolean {
+    return this._eventSource != null && this._eventSource.readyState == ReadyState.CONNECTING;
   }
 
   public async connect() {
