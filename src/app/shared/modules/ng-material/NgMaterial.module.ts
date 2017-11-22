@@ -17,6 +17,7 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatAutocompleteModule,
   material.MatSnackBarModule,
   material.MatExpansionModule,
+  material.MatToolbarModule,
 ];
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [

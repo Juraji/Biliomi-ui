@@ -1,17 +1,22 @@
 mat-sidenav-container
-  nav.app-navbar.mat-elevation-z6
-    a.mat-icon-button(mat-button, (click)="sideNav.toggle()", title="Toggle menu")
-      mat-icon menu
-    nav-channel-info-component
-    nav-follower-stats-component
-    nav-auth-bar-component.app-navbar-right
-    nav-remote-management-component.app-navbar-right
+  mat-toolbar(color="primary")
+    mat-toolbar-row
+      a.mat-icon-button(mat-button, (click)="sideNav.toggle()", title="Toggle menu")
+        mat-icon menu
+      nav-channel-info-component
+      nav-follower-stats-component
+      .flex-spacer
+      nav-remote-management-component
+      nav-auth-bar-component
+
+  //nav.app-navbar.mat-elevation-z6
+
 
   .main-content-wrapper.columns
     #content-column.content-column
       router-outlet
     #chat-column.content-column
-      | Chat
+      //chat-component
 
   mat-sidenav(#sideNav="")
     nav
