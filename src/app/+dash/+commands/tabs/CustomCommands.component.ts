@@ -3,7 +3,7 @@ import {MatPaginator} from "@angular/material";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CustomCommandsClient} from "../../../shared/modules/biliomi/clients/model/CustomCommands.client";
 import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
-import {RestMatDataSource} from "../../../shared/modules/ng-material/RestMatDataSource.class";
+import {RestMatDataSource} from "../../../shared/modules/ng-material/classes/RestMatDataSource.class";
 import {ARG_COMMAND_REPLACEMENTS} from "../../../shared/modules/biliomi/classes/constants/CommandReplacements";
 import ICustomCommand = Biliomi.ICustomCommand;
 

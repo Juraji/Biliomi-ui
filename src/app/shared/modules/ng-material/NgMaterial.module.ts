@@ -1,5 +1,5 @@
 import {NgModule, Type} from "@angular/core";
-import {ArrayPageSlicePipe} from "./ArrayPageSlice.pipe";
+import {ArrayPageSlicePipe} from "./pipes/ArrayPageSlice.pipe";
 import * as material from "@angular/material";
 
 const NG_MATERIAL_MODULES: Type<any>[] = [
@@ -19,6 +19,8 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatTableModule,
   material.MatTabsModule,
   material.MatToolbarModule,
+  material.MatProgressSpinnerModule,
+  material.MatProgressBarModule,
 ];
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [

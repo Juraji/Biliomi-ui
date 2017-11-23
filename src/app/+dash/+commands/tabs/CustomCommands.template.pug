@@ -1,4 +1,6 @@
-.mat-elevation-z8
+mat-progress-bar(*ngIf="!dataSource.isInitialized", mode="indeterminate")
+
+.mat-elevation-z8(*ngIf="dataSource.isInitialized")
   mat-table(#table="", [dataSource]="dataSource")
     ng-container(matColumnDef="Command")
       mat-header-cell(*matHeaderCellDef="") Command
