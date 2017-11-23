@@ -23,7 +23,7 @@ form#channel-edit-form((submit)="submitChannelEdit()")
       mat-error(*ngIf="channelStatusControl.hasError('required')") Please enter a valid status.
 
     .mat-button-row
-      button(mat-raised-button, color="primary", [disabled]="!formOk", title="Save")
+      button(mat-raised-button, color="primary", [disabled]="!isFormOk", title="Save")
         mat-icon done
       button(mat-raised-button, type="button", (click)="refreshFields()", title="Refresh data")
         mat-icon refresh

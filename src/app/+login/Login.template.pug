@@ -22,4 +22,4 @@ form#login-form((submit)="submitCredentials()")
         mat-error(*ngIf="passwordControl.hasError('invalidEntry')") Password incorrect, try again.
 
     mat-card-actions
-      button(mat-raised-button, color="primary", [disabled]="!formOk") Login
+      button(mat-raised-button, color="primary", [disabled]="!isFormOk") Login

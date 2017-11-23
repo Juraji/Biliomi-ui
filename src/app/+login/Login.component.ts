@@ -1,11 +1,11 @@
 import {Component, OnInit} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
-import {DefaultFormFieldStateMatcher} from "../shared/modules/ng-material/DefaultFormFieldStateMatcher";
 import {BiliomiApiService} from "../shared/modules/biliomi/services/BiliomiApi.service";
 import {Biliomi} from "../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {AuthService} from "../shared/services/Auth.service";
 import {Router} from "@angular/router";
 import {DASH_ROUTE} from "../Main.module";
+import {DefaultFormFieldStateMatcher} from "../shared/modules/ng-material/classes/DefaultFormFieldStateMatcher.class";
 import IRestAuthorizationRequest = Biliomi.IRestAuthorizationRequest;
 import IRestAuthorizationResponse = Biliomi.IRestAuthorizationResponse;
 
@@ -35,18 +35,19 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private get formOk(): boolean {
+  private get isFormOk(): boolean {
     return this.usernameControl.valid && this.passwordControl.valid;
   }
 
   private async submitCredentials() {
-    if (this.formOk) {
+    if (this.isFormOk) {
       let authRequest: IRestAuthorizationRequest = {
         Username: this.usernameControl.value,
         Password: this.passwordControl.value,
       };
 
-      let response: IRestAuthorizationResponse = await this._api.post<IRestAuthorizationRequest, IRestAuthorizationResponse>("/auth/login", authRequest);
+      let response: IRestAuthorizationResponse = await this._api
+        .post<IRestAuthorizationRequest, IRestAuthorizationResponse>("/auth/login", authRequest);
       if (response.Token == null) {
         if (response.Message.indexOf("username") > 0) {
           this.usernameControl.setErrors({invalidEntry: true});

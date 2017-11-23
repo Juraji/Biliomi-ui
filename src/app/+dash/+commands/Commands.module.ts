@@ -3,7 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/Shared.module";
 import {CommandsComponent} from "./Commands.component";
 import {CustomCommandsComponent} from "./tabs/CustomCommands.component";
-import {DefaultCommandsComponent} from "./tabs/DefaultCommands.component";
+import {SystemCommandsComponent} from "./tabs/SystemCommands.component";
 import {CommandAttributesComponent} from "./declarations/CommandAttributesComponent";
 
 const ROUTES: Routes = [
@@ -22,7 +22,7 @@ const ROUTES: Routes = [
   declarations: [
     CommandsComponent,
     CustomCommandsComponent,
-    DefaultCommandsComponent,
+    SystemCommandsComponent,
     CommandAttributesComponent
   ]
 })

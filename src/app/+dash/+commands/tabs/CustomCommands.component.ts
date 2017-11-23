@@ -16,7 +16,7 @@ export class CustomCommandsComponent implements OnInit, AfterViewInit {
   private _api: BiliomiApiService;
   private dataSource: RestMatDataSource<ICustomCommand> = new RestMatDataSource<ICustomCommand>();
 
-  @ViewChild(MatPaginator)
+  @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;
 
   constructor(customCommandsClient: CustomCommandsClient, api: BiliomiApiService) {

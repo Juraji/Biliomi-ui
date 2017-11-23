@@ -2,8 +2,8 @@ import {Component, OnInit} from "@angular/core";
 import {ChannelInfoClient} from "../../../shared/modules/biliomi/clients/settings/ChannelInfo.client";
 import {GamesClient} from "../../../shared/modules/biliomi/clients/model/Games.client";
 import {FormControl, Validators} from "@angular/forms";
-import {DefaultFormFieldStateMatcher} from "../../../shared/modules/ng-material/DefaultFormFieldStateMatcher";
 import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
+import {DefaultFormFieldStateMatcher} from "../../../shared/modules/ng-material/classes/DefaultFormFieldStateMatcher.class";
 
 @Component({
   selector: "channel-edit-component",
@@ -27,10 +27,10 @@ export class ChannelEditComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.refreshFields()
+    this.refreshFields();
   }
 
-  private get formOk(): boolean {
+  private get isFormOk(): boolean {
     return this.channelGameControl.valid && this.channelStatusControl.valid;
   }
 
@@ -42,7 +42,7 @@ export class ChannelEditComponent implements OnInit {
   }
 
   private async submitChannelEdit() {
-    if (this.formOk) {
+    if (this.isFormOk) {
 
       // Only update the game if it has actually changed
       if (this.channelGameControl.value != this.channelInfoClient.CurrentGame.Name){
