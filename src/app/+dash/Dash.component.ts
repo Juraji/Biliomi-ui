@@ -8,7 +8,7 @@ import {BiliomiEventsService} from "../shared/modules/biliomi/services/BiliomiEv
 import {Biliomi} from "../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {StringUtils} from "../shared/modules/ts-utilities/StringUtils";
 import {AuthService} from "../shared/services/Auth.service";
-import {BILIOMI_EVENTS} from "../shared/modules/biliomi/constants/BiliomiApiVariables";
+import {BILIOMI_EVENTS} from "../shared/modules/biliomi/classes/constants/BiliomiApiVariables";
 import ITwitchFollowEvent = Biliomi.ITwitchFollowEvent;
 import ITwitchSubscriberEvent = Biliomi.ITwitchSubscriberEvent;
 import ITwitchHostInEvent = Biliomi.ITwitchHostInEvent;
@@ -36,7 +36,7 @@ export class DashComponent implements AfterViewInit {
     this._matSnackBar = matSnackBar;
 
     // Subscribe to Api errors in order to display them in a snackbar
-    this._api.postRequestErrorInterceptor.subscribe(this._onHttpError);
+    this._api.postRequestErrorInterceptor.subscribe((e: HttpErrorResponse) => this._onHttpError(e));
 
     // Connect to Biliomi's events service and hook the appropriate subscribers
     events.connect();

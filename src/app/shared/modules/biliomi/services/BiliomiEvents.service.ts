@@ -9,7 +9,7 @@ import {UriUtils} from "../../ts-utilities/UriUtils";
 import {StringUtils} from "../../ts-utilities/StringUtils";
 import {Consumer, Runnable} from "../../ts-utilities/FunctionalInterface";
 import {Subscription} from "rxjs/Subscription";
-import {BILIOMI_API} from "../constants/BiliomiApiVariables";
+import {BILIOMI_API} from "../classes/constants/BiliomiApiVariables";
 import IEventSource = sse.IEventSource;
 import IEvent = Biliomi.IEvent;
 import IOnMessageEvent = sse.IOnMessageEvent;

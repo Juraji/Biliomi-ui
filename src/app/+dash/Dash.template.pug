@@ -3,14 +3,13 @@ mat-sidenav-container
     mat-toolbar-row
       a.mat-icon-button(mat-button, (click)="sideNav.toggle()", title="Toggle menu")
         mat-icon menu
+      a.mat-icon-button(mat-button, routerLink="/dash/home", title="Go to Home")
+        mat-icon home
       nav-channel-info-component
       nav-follower-stats-component
       .flex-spacer
       nav-remote-management-component
       nav-auth-bar-component
-
-  //nav.app-navbar.mat-elevation-z6
-
 
   .main-content-wrapper.columns
     #content-column.content-column
@@ -22,5 +21,5 @@ mat-sidenav-container
     nav
       h3 Biliomi
       ul
-        li: a(routerLink="/dash/home", [routerLinkActiveOptions]="{exact: true}", routerLinkActive="active") Dash
-        li: a(routerLink="/dash/settings", [routerLinkActiveOptions]="{exact: true}", routerLinkActive="active") Settings
+        li: a(routerLink="/dash/home") Dash
+        li: a(routerLink="/dash/commands") Commands

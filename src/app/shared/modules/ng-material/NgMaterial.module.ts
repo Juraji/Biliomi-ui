@@ -3,20 +3,21 @@ import {ArrayPageSlicePipe} from "./ArrayPageSlice.pipe";
 import * as material from "@angular/material";
 
 const NG_MATERIAL_MODULES: Type<any>[] = [
-  material.MatCardModule,
-  material.MatFormFieldModule,
-  material.MatInputModule,
-  material.MatButtonModule,
-  material.MatIconModule,
-  material.MatSidenavModule,
-  material.MatGridListModule,
-  material.MatButtonToggleModule,
-  material.MatPaginatorModule,
-  material.MatTableModule,
-  material.MatListModule,
   material.MatAutocompleteModule,
-  material.MatSnackBarModule,
+  material.MatButtonModule,
+  material.MatButtonToggleModule,
+  material.MatCardModule,
   material.MatExpansionModule,
+  material.MatFormFieldModule,
+  material.MatGridListModule,
+  material.MatIconModule,
+  material.MatInputModule,
+  material.MatListModule,
+  material.MatPaginatorModule,
+  material.MatSidenavModule,
+  material.MatSnackBarModule,
+  material.MatTableModule,
+  material.MatTabsModule,
   material.MatToolbarModule,
 ];
 

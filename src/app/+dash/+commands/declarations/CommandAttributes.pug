@@ -1,0 +1,16 @@
+ul.list-unstyled
+  li(*ngIf="command.SystemCommand")
+    span.text-muted System Command:&nbsp;
+    span Yes
+  li(*ngIf="command.SystemCommand")
+    span.text-muted Moderator Can Activate:&nbsp;
+    span {{(command.ModeratorCanAlwaysActivate ? "yes" : "No")}}
+  li(*ngIf="!command.SystemCommand")
+    span.text-muted User Group:&nbsp;
+    span {{command.UserGroup.Name}}
+  li
+    span.text-muted Cooldown:&nbsp;
+    span {{command.Cooldown | time}}
+  li
+    span.text-muted Price:&nbsp;
+    span {{command.Price | points | async}}

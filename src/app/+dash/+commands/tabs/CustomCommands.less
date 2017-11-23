@@ -1,0 +1,35 @@
+custom-commands-component {
+
+  .mat-cell, .mat-header-cell {
+    padding: 0 .5em;
+
+    &:first-child {
+      padding-left: 0;
+    }
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &.mat-column-Command {
+      min-width: 300px;
+    }
+
+    &.mat-column-Attributes {
+      max-width: 200px;
+    }
+
+    &.mat-column-Aliasses {
+      max-width: 150px;
+    }
+
+    &.mat-column-Edit {
+      max-width: 64px;
+    }
+  }
+
+  small.command-message {
+    display: block;
+    margin-bottom: .5em;
+  }
+}

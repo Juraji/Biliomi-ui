@@ -6,8 +6,15 @@ import {ChannelInfoClient} from "./clients/settings/ChannelInfo.client";
 import {UsersClient} from "./clients/model/Users.client";
 import {GamesClient} from "./clients/model/Games.client";
 import {BiliomiEventsService} from "./services/BiliomiEvents.service";
+import {SystemSettingsClient} from "./clients/settings/SystemSettings.client";
+import {CustomCommandsClient} from "./clients/model/CustomCommands.client";
+import {PointsPipe} from "./pipes/Points.pipe";
+import {PointsSettingsClient} from "./clients/settings/PointsSettings.client";
 
-const BILIOMI_EXPORTS: Type<any>[] = [];
+const BILIOMI_EXPORTS: Type<any>[] = [
+  // Pipes
+  PointsPipe
+];
 
 @NgModule({
   imports: [HttpClientModule],
@@ -26,9 +33,12 @@ export class BiliomiModule extends ServicesLibrary {
       // Model clients
       UsersClient,
       GamesClient,
+      CustomCommandsClient,
 
       // Settings clients
-      ChannelInfoClient
+      ChannelInfoClient,
+      SystemSettingsClient,
+      PointsSettingsClient
     ]);
   }
 

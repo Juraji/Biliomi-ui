@@ -16,6 +16,10 @@ const ROUTES: Routes = [
       {
         path: "home",
         loadChildren: "./+home/Home.module#HomeModule"
+      },
+      {
+        path: "commands",
+        loadChildren: "./+commands/Commands.module#CommandsModule"
       }
     ]
   }

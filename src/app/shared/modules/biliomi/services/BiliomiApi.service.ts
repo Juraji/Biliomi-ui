@@ -4,8 +4,8 @@ import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} fr
 import {AuthService} from "../../../services/Auth.service";
 import {Biliomi} from "../classes/interfaces/Biliomi";
 import {IConfig} from "../../../classes/interfaces/IConfig.interface";
+import {BILIOMI_API} from "../classes/constants/BiliomiApiVariables";
 import ICommandRequest = Biliomi.ICommandRequest;
-import {BILIOMI_API} from "../constants/BiliomiApiVariables";
 
 @Injectable()
 export class BiliomiApiService {
@@ -132,13 +132,14 @@ export class BiliomiApiService {
   public async postCommand(command: string, ...args: any[]): Promise<boolean> {
     let req: ICommandRequest = {Command: command + " " + args.join(" ")};
     let uri: string = await this.getApiUriFor(BILIOMI_API.COMMAND_ENDPOINT);
-    let response: HttpResponse<void>;
+    let response: HttpResponse<string>;
 
     try {
       response = await this._httpClient
-        .post<void>(uri, req, {
+        .post(uri, req, {
           headers: this.buildHeaders(),
-          observe: "response"
+          observe: "response",
+          responseType: "text"
         })
         .toPromise();
     } catch (e) {
@@ -158,13 +159,14 @@ export class BiliomiApiService {
   public async postCliCommand(command: string, ...args: any[]): Promise<boolean> {
     let req: ICommandRequest = {Command: command + " " + args.join(" ")};
     let uri: string = await this.getApiUriFor(BILIOMI_API.CLI_COMMAND_ENDPOINT);
-    let response: HttpResponse<void>;
+    let response: HttpResponse<string>;
 
     try {
       response = await this._httpClient
-        .post<void>(uri, req, {
+        .post(uri, req, {
           headers: this.buildHeaders(),
-          observe: "response"
+          observe: "response",
+          responseType: "text"
         })
         .toPromise();
     } catch (e) {

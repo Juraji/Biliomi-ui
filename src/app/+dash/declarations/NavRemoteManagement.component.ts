@@ -2,7 +2,7 @@ import {Component, ElementRef, ViewChild} from "@angular/core";
 import {BiliomiApiService} from "../../shared/modules/biliomi/services/BiliomiApi.service";
 import {BiliomiEventsService} from "../../shared/modules/biliomi/services/BiliomiEvents.service";
 import {MatSnackBar} from "@angular/material";
-import {BILIOMI_CLI_COMMANDS} from "../../shared/modules/biliomi/constants/BiliomiApiVariables";
+import {BILIOMI_CLI_COMMANDS} from "../../shared/modules/biliomi/classes/constants/BiliomiApiVariables";
 
 @Component({
   selector: "nav-remote-management-component",

@@ -1,7 +1,7 @@
 import {Pipe, PipeTransform} from "@angular/core";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {StringUtils} from "../modules/ts-utilities/StringUtils";
-import {TWITCH_URIS} from "../constants/Uris";
+import {TWITCH_URIS} from "../classes/constants/Uris";
 
 @Pipe({name: "twitchUserLink"})
 export class TwitchUserLinkPipe implements PipeTransform {
