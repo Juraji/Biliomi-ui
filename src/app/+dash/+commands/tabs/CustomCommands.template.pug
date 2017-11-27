@@ -1,7 +1,11 @@
+button.pull-right(mat-mini-fab, color="primary", (click)="editCommand()")
+  mat-icon add
+p Custom commands are messages bound to chat commands.#[br]
+
 mat-progress-bar(*ngIf="!dataSource.isInitialized", mode="indeterminate")
 
-.mat-elevation-z8(*ngIf="dataSource.isInitialized")
-  mat-table(#table="", [dataSource]="dataSource")
+.mat-elevation-z8
+  mat-table(*ngIf="dataSource.isInitialized", #table="", [dataSource]="dataSource")
     ng-container(matColumnDef="Command")
       mat-header-cell(*matHeaderCellDef="") Command
       mat-cell(*matCellDef="let command")

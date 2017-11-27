@@ -12,15 +12,21 @@ import {TwitchUserLinkPipe} from "./pipes/TwitchUserLink.pipe";
 import {TimePipe} from "./pipes/Time.pipe";
 import {DatePipe} from "./pipes/Date.pipe";
 import {CommandFormComponent} from "./components/CommandForm.component";
+import {FlatSortPipe} from "./pipes/FlatSort.pipe";
+import {UserGroupSelectComponent} from "./components/UserGroupSelect.component";
+import {ConfirmDialogComponent} from "./components/ConfirmDialog.component";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
   DatePipe,
-  TimePipe
+  TimePipe,
+  FlatSortPipe,
 ];
 
 const SHARED_COMPONENTS: Type<any>[] = [
-  CommandFormComponent
+  CommandFormComponent,
+  UserGroupSelectComponent,
+  ConfirmDialogComponent
 ];
 
 const SHARED_DIRECTIVES: Type<any>[] = [];
@@ -35,7 +41,8 @@ const SHARED_DIRECTIVES: Type<any>[] = [];
   exports: [CommonModule, RouterModule, FormsModule, HttpClientModule, ReactiveFormsModule, NgMaterialModule, BiliomiModule]
     .concat(SHARED_PIPES)
     .concat(SHARED_COMPONENTS)
-    .concat(SHARED_DIRECTIVES)
+    .concat(SHARED_DIRECTIVES),
+  entryComponents: SHARED_COMPONENTS
 })
 export class SharedModule {
   public static forRoot(): ModuleWithProviders {

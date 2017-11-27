@@ -21,6 +21,9 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatToolbarModule,
   material.MatProgressSpinnerModule,
   material.MatProgressBarModule,
+  material.MatDialogModule,
+  material.MatSelectModule,
+  material.MatChipsModule
 ];
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [

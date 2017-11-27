@@ -9,7 +9,8 @@ import ICommand = Biliomi.ICommand;
 @Component({
   // Since "default" is a pug keyword I chose to name the selector differently
   selector: "system-commands-component",
-  templateUrl: require("./SystemCommands.template.pug")
+  templateUrl: require("./SystemCommands.template.pug"),
+  styleUrls: [require("./CustomCommands.less").toString()]
 })
 export class SystemCommandsComponent implements OnInit, AfterViewInit {
   private _api: BiliomiApiService;
@@ -28,7 +29,6 @@ export class SystemCommandsComponent implements OnInit, AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    console.log(this.paginator);
     this.dataSource.paginator = this.paginator;
   }
 

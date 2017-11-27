@@ -5,6 +5,7 @@ import {CommandsComponent} from "./Commands.component";
 import {CustomCommandsComponent} from "./tabs/CustomCommands.component";
 import {SystemCommandsComponent} from "./tabs/SystemCommands.component";
 import {CommandAttributesComponent} from "./declarations/CommandAttributesComponent";
+import {EditCustomCommandModalComponent} from "./declarations/EditCommandModal.component";
 
 const ROUTES: Routes = [
   {
@@ -23,8 +24,10 @@ const ROUTES: Routes = [
     CommandsComponent,
     CustomCommandsComponent,
     SystemCommandsComponent,
-    CommandAttributesComponent
-  ]
+    CommandAttributesComponent,
+    EditCustomCommandModalComponent
+  ],
+  entryComponents: [EditCustomCommandModalComponent]
 })
 export class CommandsModule {
 }

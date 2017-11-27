@@ -11,6 +11,7 @@ import {CustomCommandsClient} from "./clients/model/CustomCommands.client";
 import {PointsPipe} from "./pipes/Points.pipe";
 import {PointsSettingsClient} from "./clients/settings/PointsSettings.client";
 import {CommandsClient} from "./clients/model/Commands.client";
+import {UserGroupsClient} from "./clients/model/UserGroups.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -36,6 +37,7 @@ export class BiliomiModule extends ServicesLibrary {
       GamesClient,
       CustomCommandsClient,
       CommandsClient,
+      UserGroupsClient,
 
       // Settings clients
       ChannelInfoClient,

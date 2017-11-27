@@ -7,6 +7,7 @@ import {NavAuthBarComponent} from "./declarations/NavAuthBar.component";
 import {NavFollowerStatsComponent} from "./declarations/NavFollowerStats.component";
 import {NavRemoteManagementComponent} from "./declarations/NavRemoteManagement.component";
 import {ChatComponent} from "./declarations/Chat.component";
+import {PowerManagementDialogComponent} from "./declarations/PowerManagementDialog.component";
 
 const ROUTES: Routes = [
   {
@@ -36,8 +37,10 @@ const ROUTES: Routes = [
     NavAuthBarComponent,
     NavFollowerStatsComponent,
     NavRemoteManagementComponent,
+    PowerManagementDialogComponent,
     ChatComponent
-  ]
+  ],
+  entryComponents: [PowerManagementDialogComponent]
 })
 export class DashModule {
 }

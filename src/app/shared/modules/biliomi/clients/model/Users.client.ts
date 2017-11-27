@@ -1,26 +1,15 @@
 import {Injectable} from "@angular/core";
-import {ModelRestClient} from "../../classes/ModelRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../../services/BiliomiApi.service";
-import {ListCache} from "../../classes/ListCache";
 import {HttpParams} from "@angular/common/http";
+import {CachedModelRestClient} from "../../classes/CachedModelRestClient";
 import IUser = Biliomi.IUser;
 
 @Injectable()
-export class UsersClient extends ModelRestClient<IUser> {
-  private _cache: ListCache<IUser> = new ListCache<IUser>();
+export class UsersClient extends CachedModelRestClient<IUser> {
 
   constructor(api: BiliomiApiService) {
     super(api, "/core/users");
-  }
-
-  public async load(refresh?: boolean): Promise<IUser[]> {
-    if (!this._cache.hasData() || refresh) {
-      let data: IUser[] = await super.getList();
-      this._cache.set(data);
-    }
-
-    return this._cache.get();
   }
 
   public async getLatestFollower(): Promise<IUser> {

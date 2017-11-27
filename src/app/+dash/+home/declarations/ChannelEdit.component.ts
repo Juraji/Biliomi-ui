@@ -20,7 +20,7 @@ export class ChannelEditComponent implements OnInit {
 
   private steamIconLogo: NodeRequire = require("../../../../images/steam_icon_logo.svg");
 
-  constructor(channelInfoClient: ChannelInfoClient, gamesClient: GamesClient, api:BiliomiApiService) {
+  constructor(channelInfoClient: ChannelInfoClient, gamesClient: GamesClient, api: BiliomiApiService) {
     this.channelInfoClient = channelInfoClient;
     this.gamesClient = gamesClient;
     this._api = api;
@@ -45,7 +45,7 @@ export class ChannelEditComponent implements OnInit {
     if (this.isFormOk) {
 
       // Only update the game if it has actually changed
-      if (this.channelGameControl.value != this.channelInfoClient.CurrentGame.Name){
+      if (this.channelGameControl.value != this.channelInfoClient.CurrentGame.Name) {
         await this._api.postCommand("channel", "game", this.channelGameControl.value)
       }
 

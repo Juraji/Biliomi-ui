@@ -27,7 +27,7 @@ export abstract class ModelRestClient<T> {
   }
 
   // noinspection ReservedWordAsName
-  public delete(id: number, params: HttpParams): Promise<boolean> {
+  public delete(id: number, params?: HttpParams): Promise<boolean> {
     return this._api.delete(this._baseResourceUri + "/" + id, params);
   }
 }

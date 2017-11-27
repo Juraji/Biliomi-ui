@@ -1,0 +1,9 @@
+mat-form-field
+  mat-select(placeholder="Favorite food", required="true",
+  [formControl]="userGroupControl", [errorStateMatcher]="fieldMatcher")
+    mat-option(*ngFor="let group of userGroupsClient.getCache() | flatSort:'Weight'", [value]="group")
+      | {{ group.Name }}
+      small.text-muted(*ngIf="group.DefaultGroup") &nbsp;(Default)
+  mat-hint Select a user group
+    mat-error(*ngIf="userGroupControl.hasError('required')") Please select a valid group.
+
