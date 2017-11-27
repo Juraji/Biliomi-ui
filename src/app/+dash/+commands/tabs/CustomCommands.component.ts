@@ -5,7 +5,7 @@ import {CustomCommandsClient} from "../../../shared/modules/biliomi/clients/mode
 import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
 import {RestMatDataSource} from "../../../shared/modules/ng-material/classes/RestMatDataSource.class";
 import {ARG_COMMAND_REPLACEMENTS} from "../../../shared/modules/biliomi/classes/constants/CommandReplacements";
-import {EditCustomCommandModalComponent} from "../declarations/EditCommandModal.component";
+import {EditCustomCommandModalComponent} from "../declarations/EditCustomCommandModal.component";
 import ICustomCommand = Biliomi.ICustomCommand;
 
 @Component({
@@ -14,17 +14,15 @@ import ICustomCommand = Biliomi.ICustomCommand;
   styleUrls: [require("./CustomCommands.less").toString()]
 })
 export class CustomCommandsComponent implements OnInit, AfterViewInit {
-  private _api: BiliomiApiService;
-  private dataSource: RestMatDataSource<ICustomCommand> = new RestMatDataSource<ICustomCommand>();
   private _dialog: MatDialog;
+  private dataSource: RestMatDataSource<ICustomCommand> = new RestMatDataSource<ICustomCommand>();
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;
 
-  constructor(customCommandsClient: CustomCommandsClient, api: BiliomiApiService, dialog: MatDialog) {
+  constructor(customCommandsClient: CustomCommandsClient, dialog: MatDialog) {
     this._dialog = dialog;
     this.dataSource.bindClient(customCommandsClient);
-    this._api = api;
   }
 
   public ngOnInit() {

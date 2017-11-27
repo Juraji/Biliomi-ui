@@ -38,9 +38,15 @@ module.exports = {
         ]
       },
       {
-        test: /\.html$/,
-        loader: 'html-loader',
-        options: {name: "assets/html/[name].[hash].html"}
+        test: /\.pug$/,
+        include: helpers.root("src", "app"),
+        use: [
+          {
+            loader: "file-loader",
+            options: {name: "assets/html/[name].[hash].html"}
+          },
+          {loader: "pug-html-loader"}
+        ]
       },
       {
         test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9.]+)?$/,

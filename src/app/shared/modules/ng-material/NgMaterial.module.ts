@@ -23,7 +23,8 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatProgressBarModule,
   material.MatDialogModule,
   material.MatSelectModule,
-  material.MatChipsModule
+  material.MatChipsModule,
+  material.MatCheckboxModule
 ];
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [

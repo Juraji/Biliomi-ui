@@ -4,8 +4,9 @@ import {SharedModule} from "../../shared/Shared.module";
 import {CommandsComponent} from "./Commands.component";
 import {CustomCommandsComponent} from "./tabs/CustomCommands.component";
 import {SystemCommandsComponent} from "./tabs/SystemCommands.component";
-import {CommandAttributesComponent} from "./declarations/CommandAttributesComponent";
-import {EditCustomCommandModalComponent} from "./declarations/EditCommandModal.component";
+import {CommandAttributesComponent} from "./declarations/CommandAttributes.component";
+import {EditCustomCommandModalComponent} from "./declarations/EditCustomCommandModal.component";
+import {EditDefaultCommandModalComponent} from "./declarations/EditDefaultCommandModal.component";
 
 const ROUTES: Routes = [
   {
@@ -25,9 +26,13 @@ const ROUTES: Routes = [
     CustomCommandsComponent,
     SystemCommandsComponent,
     CommandAttributesComponent,
-    EditCustomCommandModalComponent
+    EditCustomCommandModalComponent,
+    EditDefaultCommandModalComponent
   ],
-  entryComponents: [EditCustomCommandModalComponent]
+  entryComponents: [
+    EditCustomCommandModalComponent,
+    EditDefaultCommandModalComponent
+  ]
 })
 export class CommandsModule {
 }
