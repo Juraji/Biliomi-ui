@@ -21,7 +21,7 @@ form(#defaultCommandEditForm="", (submit)="save()")
 
     user-group-select([hidden]="editedCommand?.SystemCommand", #userGroup="")
 
-    mat-checkbox([hidden]="!editedCommand?.SystemCommand").
+    mat-checkbox([hidden]="!editedCommand?.SystemCommand", [formControl]="moderatorCanAlwaysActivateControl").
       Moderators can always activate
 
 
@@ -38,4 +38,3 @@ form(#defaultCommandEditForm="", (submit)="save()")
     button(mat-raised-button, color="primary") Save
     button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()") Cancel
     button(mat-button, type="button", (click)="initFields()") Reset
-    button(mat-button, type="button", (click)="deleteCommand()", [disabled]="editedCommand?.Id == undefined") Delete

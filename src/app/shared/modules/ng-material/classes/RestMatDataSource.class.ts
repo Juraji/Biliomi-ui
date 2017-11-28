@@ -1,5 +1,6 @@
 import {MatTableDataSource} from "@angular/material";
 import {ModelRestClient} from "../../biliomi/classes/ModelRestClient";
+import {SortBuilder} from "../../biliomi/classes/SortBuilder";
 
 export class RestMatDataSource<T> extends MatTableDataSource<T> {
   private _restClient: ModelRestClient<T>;
@@ -21,8 +22,11 @@ export class RestMatDataSource<T> extends MatTableDataSource<T> {
     this._restClient = client;
   }
 
-  public async updateData(): Promise<void> {
-    this.data = await this._restClient.getList();
-    this._isInitialized = true;
+  public async updateData(sortBuilder?: SortBuilder): Promise<void> {
+    let data: T[] = await this._restClient.getList(sortBuilder);
+    if (data != null) {
+      this.data = data;
+      this._isInitialized = true;
+    }
   }
 }

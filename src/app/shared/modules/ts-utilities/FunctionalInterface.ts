@@ -13,3 +13,4 @@ export type Callable<R> = () => R;
 export type BinaryOperator<T> = (applicableA: T, applicableB: T) => T;
 export type Mapper<T, U> = (acceptable: T, index: number, parent: Array<T>) => U;
 export type Dictionary = { [p: string]: any };
+export type Dict<V> = { [p: string]: V };

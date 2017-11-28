@@ -18,6 +18,8 @@ export class NavRemoteManagementComponent {
   }
 
   private openMgmtDialog() {
-    this._dialog.open(PowerManagementDialogComponent);
+    if (this.eventsService.isConnected) {
+      this._dialog.open(PowerManagementDialogComponent);
+    }
   }
 }

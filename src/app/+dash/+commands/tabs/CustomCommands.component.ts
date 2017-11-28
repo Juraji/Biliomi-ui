@@ -2,10 +2,10 @@ import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
 import {MatDialog, MatPaginator} from "@angular/material";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CustomCommandsClient} from "../../../shared/modules/biliomi/clients/model/CustomCommands.client";
-import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
 import {RestMatDataSource} from "../../../shared/modules/ng-material/classes/RestMatDataSource.class";
 import {ARG_COMMAND_REPLACEMENTS} from "../../../shared/modules/biliomi/classes/constants/CommandReplacements";
 import {EditCustomCommandModalComponent} from "../declarations/EditCustomCommandModal.component";
+import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
 import ICustomCommand = Biliomi.ICustomCommand;
 
 @Component({
@@ -26,7 +26,8 @@ export class CustomCommandsComponent implements OnInit, AfterViewInit {
   }
 
   public ngOnInit() {
-    this.dataSource.updateData();
+    let sort = new SortBuilder().add("Command");
+    this.dataSource.updateData(sort);
   }
 
   public ngAfterViewInit() {

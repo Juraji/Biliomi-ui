@@ -1,5 +1,8 @@
-button.pull-right(mat-mini-fab, color="primary", (click)="editCommand()")
-  mat-icon add
+.mat-button-row.pull-right
+  button.pull-right(mat-mini-fab, color="primary", (click)="editCommand()")
+    mat-icon add
+  button.pull-right(mat-mini-fab, color="primary", (click)="ngOnInit()")
+    mat-icon refresh
 p Custom commands are messages bound to chat commands.#[br]
 
 mat-progress-bar(*ngIf="!dataSource.isInitialized", mode="indeterminate")

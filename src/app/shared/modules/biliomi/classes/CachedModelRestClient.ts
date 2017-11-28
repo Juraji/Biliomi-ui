@@ -2,6 +2,7 @@ import {ModelRestClient} from "./ModelRestClient";
 import {BiliomiApiService} from "../services/BiliomiApi.service";
 import {ListCache} from "./ListCache";
 import {HttpParams} from "@angular/common/http";
+import {SortBuilder} from "./SortBuilder";
 
 export abstract class CachedModelRestClient<T> extends ModelRestClient<T> {
   protected _cache: ListCache<T> = new ListCache<T>();
@@ -10,9 +11,9 @@ export abstract class CachedModelRestClient<T> extends ModelRestClient<T> {
     super(api, baseResourceUri);
   }
 
-  public async load(refresh?: boolean, params?: HttpParams): Promise<T[]> {
+  public async load(refresh?: boolean, sorting?: SortBuilder, params?: HttpParams): Promise<T[]> {
     if (!this._cache.hasData() || refresh) {
-      this._cache.set(await super.getList(params));
+      this._cache.set(await super.getList(sorting, params));
     }
 
     return this._cache.get();

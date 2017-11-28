@@ -3,8 +3,9 @@ import {RestMatDataSource} from "../../../shared/modules/ng-material/classes/Res
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {MatDialog, MatPaginator} from "@angular/material";
 import {CommandsClient} from "../../../shared/modules/biliomi/clients/model/Commands.client";
-import ICommand = Biliomi.ICommand;
 import {EditDefaultCommandModalComponent} from "../declarations/EditDefaultCommandModal.component";
+import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
+import ICommand = Biliomi.ICommand;
 
 @Component({
   // Since "default" is a pug keyword I chose to name the selector differently
@@ -25,7 +26,8 @@ export class SystemCommandsComponent implements OnInit, AfterViewInit {
   }
 
   public ngOnInit() {
-    this.dataSource.updateData();
+    let sort = new SortBuilder().add("Command");
+    this.dataSource.updateData(sort);
   }
 
   public ngAfterViewInit() {
