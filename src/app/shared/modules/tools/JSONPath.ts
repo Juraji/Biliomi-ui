@@ -69,12 +69,12 @@ export class JSONPath {
           // [start:end] slice operator
           let startEnd = match[2].split(":");
 
-          if (startEnd[0].length == 0) {
-            startEnd[0] = "0";
+          if (startEnd[0].length == 0 && startEnd[1].length == 0) {
+            throw new Error("Invalid [start:end] operator.");
           }
 
-          if (startEnd[1].length == 0) {
-            throw new Error("Invalid [start:end] operator.");
+          if (startEnd[0].length == 0) {
+            startEnd[0] = "0";
           }
 
           value = value[match[1]].slice(startEnd[0], startEnd[1]);
