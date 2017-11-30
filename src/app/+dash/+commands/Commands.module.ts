@@ -11,8 +11,7 @@ import {EditDefaultCommandModalComponent} from "./declarations/EditDefaultComman
 const ROUTES: Routes = [
   {
     path: "",
-    component: CommandsComponent,
-    data: {displayName: "Commands"}
+    component: CommandsComponent
   }
 ];
 

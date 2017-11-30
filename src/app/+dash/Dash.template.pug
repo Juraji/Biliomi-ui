@@ -11,6 +11,8 @@ mat-sidenav-container
       nav-remote-management-component
       nav-auth-bar-component
 
+  bread-crumbs-component
+
   .main-content-wrapper.columns
     #content-column.content-column
       router-outlet
@@ -23,3 +25,6 @@ mat-sidenav-container
       ul
         li: a(routerLink="/dash/home") Dash
         li: a(routerLink="/dash/commands") Commands
+      h3 System
+      ul
+        li: a(routerLink="/dash/system/users") Users

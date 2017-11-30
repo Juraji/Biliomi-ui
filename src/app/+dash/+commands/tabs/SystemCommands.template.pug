@@ -1,8 +1,9 @@
 .mat-button-row.pull-right
-  button.pull-right(mat-mini-fab, color="primary", (click)="exportCommands()")
+  button.pull-right(mat-mini-fab, color="primary", (click)="exportCommands()", title="Export to Excel")
     mat-icon cloud_download
-  button(mat-mini-fab, color="primary", (click)="ngOnInit()")
+  button(mat-mini-fab, color="primary", (click)="ngOnInit()", title="Refresh")
     mat-icon refresh
+
 p Default commands are pre-defined commands for interaction with Biliomi.
 
 mat-progress-bar(*ngIf="!dataSource.isInitialized", mode="indeterminate")

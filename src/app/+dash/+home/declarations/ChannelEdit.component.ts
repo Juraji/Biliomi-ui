@@ -19,8 +19,6 @@ export class ChannelEditComponent implements OnInit {
   private channelGameControl = new FormControl('', [Validators.required]);
   private channelStatusControl = new FormControl('', [Validators.required]);
 
-  private steamIconLogo: NodeRequire = require("../../../../images/steam_icon_logo.svg");
-
   constructor(channelInfoClient: ChannelInfoClient, gamesClient: GamesClient, api: BiliomiApiService) {
     this.channelInfoClient = channelInfoClient;
     this.gamesClient = gamesClient;

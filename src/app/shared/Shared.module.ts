@@ -30,8 +30,7 @@ const SHARED_COMPONENTS: Type<any>[] = [
 const SHARED_DIRECTIVES: Type<any>[] = [];
 
 @NgModule({
-  imports: [CommonModule, RouterModule, FormsModule, HttpClientModule, ReactiveFormsModule, NgMaterialModule, BiliomiModule.forRoot()
-  ],
+  imports: [CommonModule, RouterModule, FormsModule, HttpClientModule, ReactiveFormsModule, NgMaterialModule, BiliomiModule.forRoot()],
   declarations: []
     .concat(SHARED_PIPES)
     .concat(SHARED_COMPONENTS)

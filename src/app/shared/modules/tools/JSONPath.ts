@@ -59,7 +59,7 @@ export class JSONPath {
         let match = /^(.+)\[([0-9*:]+)]$/.exec(key);
 
         if (match == null) {
-          throw new Error("Invalid [] operator. Example: $.List[0].Property");
+          throw new Error("Invalid [] operator.");
         }
 
         if (match[2] == "*") {
@@ -69,11 +69,15 @@ export class JSONPath {
           // [start:end] slice operator
           let startEnd = match[2].split(":");
 
-          if (startEnd[0].length == 0 && startEnd[1].length == null) {
-            throw new Error("Invalid [start:end] operator. Example: $.List[1:3].Property orv$.List[:3].Property");
+          if (startEnd[0].length == 0) {
+            startEnd[0] = "0";
           }
 
-          value = value[match[1]].slice(startEnd[0] || 0, startEnd[1]);
+          if (startEnd[1].length == 0) {
+            throw new Error("Invalid [start:end] operator.");
+          }
+
+          value = value[match[1]].slice(startEnd[0], startEnd[1]);
         } else {
           // [0-9+] index operator
           value = value[match[1]][match[2]];

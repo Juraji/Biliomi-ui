@@ -51,7 +51,12 @@ export class DashComponent implements AfterViewInit {
     // The nav drawer should close after the router has ended navigation
     this._router.events
       .filter((e: RouterEvent) => e instanceof NavigationEnd)
-      .subscribe((e: NavigationEnd) => this.sideNav.opened = false);
+      .subscribe((e: NavigationEnd) => {
+        this.sideNav.opened = false;
+        if (e.urlAfterRedirects === "/dash") {
+          this._router.navigateByUrl(DASH_ROUTE)
+        }
+      });
 
     if (this._router.url === "/dash") {
       this._router.navigateByUrl(DASH_ROUTE)

@@ -1,9 +1,9 @@
 .mat-button-row.pull-right
-  button.pull-right(mat-mini-fab, color="primary", (click)="exportCommands()")
+  button.pull-right(mat-mini-fab, color="primary", (click)="exportCommands()", title="Export to Excel")
     mat-icon cloud_download
-  button.pull-right(mat-mini-fab, color="primary", (click)="editCommand()")
+  button.pull-right(mat-mini-fab, color="primary", (click)="editCommand()", title="Add new command")
     mat-icon add
-  button.pull-right(mat-mini-fab, color="primary", (click)="ngOnInit()")
+  button.pull-right(mat-mini-fab, color="primary", (click)="ngOnInit()", title="Refresh")
     mat-icon refresh
 p Custom commands are messages bound to chat commands.#[br]
 

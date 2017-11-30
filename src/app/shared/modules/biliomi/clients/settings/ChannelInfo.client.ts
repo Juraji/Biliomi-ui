@@ -36,9 +36,9 @@ export class ChannelInfoClient extends SettingsRestClient<IChannelInfo> implemen
     await super.load(refresh);
 
     // Sort viewers by Username for easthetics
-    this.Viewers = this.Viewers.sort((a: IUser, b: IUser) => a.Username.localeCompare(b.Username));
+    this.Viewers = (this.Viewers || []).sort((a: IUser, b: IUser) => a.Username.localeCompare(b.Username));
     // Sort hosters by Username for easthetics
-    this.Hosters = this.Hosters.sort((a: IUser, b: IUser) => a.Username.localeCompare(b.Username));
+    this.Hosters = (this.Hosters || []).sort((a: IUser, b: IUser) => a.Username.localeCompare(b.Username));
 
     // Append a timestamp to the preview uri, so angular will refresh it
     if (this.PreviewUri != null) {

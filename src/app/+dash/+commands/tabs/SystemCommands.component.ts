@@ -56,7 +56,6 @@ export class SystemCommandsComponent implements OnInit, AfterViewInit {
     let config: IXlsxExportConfig = {
       fileName: "Biliomi - Custom commands",
       sheetName: "Custom commands",
-      sortBy: "Command",
       columns: [
         {objectPath: "$.Command", headerName: "Command", prefix: "!"},
         {objectPath: "$.UserGroup.Name", headerName: "User group"},
@@ -66,7 +65,7 @@ export class SystemCommandsComponent implements OnInit, AfterViewInit {
         {objectPath: "$.Price", headerName: "Price (formatted)", suffix: " Bolts"},
         {objectPath: "$.Cooldown", headerName: "Cooldown"},
         {objectPath: "$.Cooldown", headerName: "Cooldown (formatted)", formatter: XLSX_FORMATTER_RELATIVE_TIME},
-        {objectPath: "$.Aliasses", headerName: "Aliasses", formatter: XLSX_FORMATTER_JOIN_LIST},
+        {objectPath: "$.Aliasses[]", headerName: "Aliasses", formatter: XLSX_FORMATTER_JOIN_LIST},
       ]
     };
     let exporter = new XlsxExporter(config);

@@ -12,8 +12,7 @@ import {ChannelInfoComponent} from "./declarations/ChannelInfo.component";
 const ROUTES: Routes = [
   {
     path: "",
-    component: HomeComponent,
-    data: {displayName: "Home"}
+    component: HomeComponent
   }
 ];
 

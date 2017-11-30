@@ -8,6 +8,7 @@ import {NavFollowerStatsComponent} from "./declarations/NavFollowerStats.compone
 import {NavRemoteManagementComponent} from "./declarations/NavRemoteManagement.component";
 import {ChatComponent} from "./declarations/Chat.component";
 import {PowerManagementDialogComponent} from "./declarations/PowerManagementDialog.component";
+import {BreadCrumbsComponent} from "./declarations/BreadCrumbs.component";
 
 const ROUTES: Routes = [
   {
@@ -16,11 +17,18 @@ const ROUTES: Routes = [
     children: [
       {
         path: "home",
-        loadChildren: "./+home/Home.module#HomeModule"
+        loadChildren: "./+home/Home.module#HomeModule",
+        data: {displayName: "Home"}
       },
       {
         path: "commands",
-        loadChildren: "./+commands/Commands.module#CommandsModule"
+        loadChildren: "./+commands/Commands.module#CommandsModule",
+        data: {displayName: "Commands"}
+      },
+      {
+        path: "system",
+        loadChildren: "./+system/System.module#SystemModule",
+        data: {displayName: "System"}
       }
     ]
   }
@@ -38,6 +46,7 @@ const ROUTES: Routes = [
     NavFollowerStatsComponent,
     NavRemoteManagementComponent,
     PowerManagementDialogComponent,
+    BreadCrumbsComponent,
     ChatComponent
   ],
   entryComponents: [PowerManagementDialogComponent]

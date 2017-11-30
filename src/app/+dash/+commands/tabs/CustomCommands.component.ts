@@ -62,7 +62,6 @@ export class CustomCommandsComponent implements OnInit, AfterViewInit {
     let config: IXlsxExportConfig = {
       fileName: "Biliomi - Custom commands",
       sheetName: "Custom commands",
-      sortBy: "Command",
       columns: [
         {objectPath: "$.Command", headerName: "Command", prefix: "!"},
         {objectPath: "$.UserGroup.Name", headerName: "User group"},

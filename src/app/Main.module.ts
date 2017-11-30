@@ -14,14 +14,13 @@ const ROOT_ROUTES: Routes = [
   {path: "", redirectTo: LOGIN_ROUTE, pathMatch: "full"},
   {
     path: "login",
-    loadChildren: './+login/Login.module#LoginModule',
-    data: {displayName: "Login"}
+    loadChildren: './+login/Login.module#LoginModule'
   },
   {
     path: "dash",
     loadChildren: './+dash/Dash.module#DashModule',
     canActivate: [AuthenticatedGuard],
-    data: {displayName: "Dash"}
+    data: {displayName: "Dash"},
   },
 
   // Default route for unknown paths

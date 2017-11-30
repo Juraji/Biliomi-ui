@@ -22,6 +22,8 @@ dash-page {
         text-transform: uppercase;
         font-weight: 400;
         padding: 0 16px;
+        margin: 0;
+        background-color: @tertiary-color;
       }
 
       ul {
@@ -66,13 +68,18 @@ dash-page {
       position: absolute;
       box-sizing: border-box;
       padding: 1em 1em 1em;
-      top: 64px;
+      top: 98px;
 
       &#content-column {
         left: 0;
         width: 70%;
         bottom: 0;
         overflow-y: auto;
+
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
 
       &#chat-column {

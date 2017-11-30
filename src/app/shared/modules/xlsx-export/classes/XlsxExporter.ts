@@ -81,7 +81,7 @@ export class XlsxExporter {
 
 
       if (value != null) {
-        if (colDef.formatter != null) {
+        if (colDef.formatter) {
           // Apply the definition formatter if value is not NULL and formatter is set
           value = colDef.formatter.apply(null, [value, object]);
         }
@@ -103,6 +103,8 @@ export class XlsxExporter {
 
         finalObject[colDef.headerName] = value;
       }
+
+      i++;
     }
 
     return finalObject;
@@ -136,7 +138,7 @@ export class XlsxExporter {
   }
 
   private _sortSheetRows(sheetRows: IXlsXRowObject[]) {
-    if (this._config.sortBy != null) {
+    if (this._config.sortBy) {
       sheetRows.sort((a: IXlsXRowObject, b: IXlsXRowObject) => {
         let aValue: any = a[this._config.sortBy];
         let bValue: any = b[this._config.sortBy];
