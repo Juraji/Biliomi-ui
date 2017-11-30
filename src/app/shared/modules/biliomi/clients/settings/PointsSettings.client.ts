@@ -3,7 +3,7 @@ import {SettingsRestClient} from "../../classes/SettingsRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import IPointsSettings = Biliomi.IPointsSettings;
 import {BiliomiApiService} from "../../services/BiliomiApi.service";
-import {NumberUtils} from "../../../ts-utilities/NumberUtils";
+import {NumberUtils} from "../../../tools/NumberUtils";
 
 @Injectable()
 export class PointsSettingsClient extends SettingsRestClient<IPointsSettings> implements IPointsSettings {

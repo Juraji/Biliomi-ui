@@ -7,18 +7,21 @@ import {ARG_COMMAND_REPLACEMENTS} from "../../../shared/modules/biliomi/classes/
 import {EditCustomCommandModalComponent} from "../declarations/EditCustomCommandModal.component";
 import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
 import {XlsxExporter} from "../../../shared/modules/xlsx-export/classes/XlsxExporter";
-import {CUSTOM_COMMANDS_EXPORT_DEFINITION} from "./CommandExportDefinitions";
+import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {
+  XLSX_FORMATTER_JOIN_LIST,
+  XLSX_FORMATTER_RELATIVE_TIME
+} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import ICustomCommand = Biliomi.ICustomCommand;
 
 @Component({
   selector: "custom-commands-component",
   templateUrl: require("./CustomCommands.template.pug"),
-  styleUrls: [require("./CustomCommands.less").toString()]
+  styleUrls: [require("./Commands.less").toString()]
 })
 export class CustomCommandsComponent implements OnInit, AfterViewInit {
   private _dialog: MatDialog;
   private dataSource: RestMatDataSource<ICustomCommand> = new RestMatDataSource<ICustomCommand>();
-  private xlsxExporter: XlsxExporter;
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;
@@ -26,7 +29,6 @@ export class CustomCommandsComponent implements OnInit, AfterViewInit {
   constructor(customCommandsClient: CustomCommandsClient, dialog: MatDialog) {
     this._dialog = dialog;
     this.dataSource.bindClient(customCommandsClient);
-    this.xlsxExporter = new XlsxExporter(CUSTOM_COMMANDS_EXPORT_DEFINITION);
   }
 
   public ngOnInit() {
@@ -54,5 +56,25 @@ export class CustomCommandsComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed()
       .filter((success: boolean) => success)
       .subscribe(() => this.dataSource.updateData());
+  }
+
+  private exportCommands() {
+    let config: IXlsxExportConfig = {
+      fileName: "Biliomi - Custom commands",
+      sheetName: "Custom commands",
+      sortBy: "Command",
+      columns: [
+        {objectPath: "$.Command", headerName: "Command", prefix: "!"},
+        {objectPath: "$.UserGroup.Name", headerName: "User group"},
+        {objectPath: "$.Price", headerName: "Price"},
+        {objectPath: "$.Price", headerName: "Price (formatted)", suffix: " Bolts"},
+        {objectPath: "$.Cooldown", headerName: "Cooldown"},
+        {objectPath: "$.Cooldown", headerName: "Cooldown (formatted)", formatter: XLSX_FORMATTER_RELATIVE_TIME},
+        {objectPath: "$.Aliasses", headerName: "Aliasses", formatter: XLSX_FORMATTER_JOIN_LIST},
+        {objectPath: "$.Message", headerName: "Message"}
+      ]
+    };
+    let exporter = new XlsxExporter(config);
+    exporter.exportData(this.dataSource.data);
   }
 }

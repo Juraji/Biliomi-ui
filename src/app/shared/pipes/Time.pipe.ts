@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from "@angular/core";
-import {TimeUtils} from "../modules/ts-utilities/TimeUtils";
+import {TimeUtils} from "../modules/tools/TimeUtils";
 
 @Pipe({name: "time"})
 export class TimePipe implements PipeTransform {

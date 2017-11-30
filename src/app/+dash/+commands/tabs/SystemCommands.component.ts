@@ -6,19 +6,23 @@ import {CommandsClient} from "../../../shared/modules/biliomi/clients/model/Comm
 import {EditDefaultCommandModalComponent} from "../declarations/EditDefaultCommandModal.component";
 import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
 import {XlsxExporter} from "../../../shared/modules/xlsx-export/classes/XlsxExporter";
-import {SYSTEM_COMMANDS_EXPORT_DEFINITION} from "./CommandExportDefinitions";
+import {
+  XLSX_FORMATTER_BOOLEAN_YES_NO,
+  XLSX_FORMATTER_JOIN_LIST,
+  XLSX_FORMATTER_RELATIVE_TIME
+} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
+import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import ICommand = Biliomi.ICommand;
 
 @Component({
   // Since "default" is a pug keyword I chose to name the selector differently
   selector: "system-commands-component",
   templateUrl: require("./SystemCommands.template.pug"),
-  styleUrls: [require("./CustomCommands.less").toString()]
+  styleUrls: [require("./Commands.less").toString()]
 })
 export class SystemCommandsComponent implements OnInit, AfterViewInit {
   private _dialog: MatDialog;
   private dataSource: RestMatDataSource<ICommand> = new RestMatDataSource<ICommand>();
-  private xlsxExporter: XlsxExporter;
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;
@@ -26,7 +30,6 @@ export class SystemCommandsComponent implements OnInit, AfterViewInit {
   constructor(commandsClient: CommandsClient, dialog: MatDialog) {
     this.dataSource.bindClient(commandsClient);
     this._dialog = dialog;
-    this.xlsxExporter = new XlsxExporter(SYSTEM_COMMANDS_EXPORT_DEFINITION);
   }
 
   public ngOnInit() {
@@ -47,5 +50,26 @@ export class SystemCommandsComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed()
       .filter((success: boolean) => success)
       .subscribe(() => this.dataSource.updateData());
+  }
+
+  private exportCommands() {
+    let config: IXlsxExportConfig = {
+      fileName: "Biliomi - Custom commands",
+      sheetName: "Custom commands",
+      sortBy: "Command",
+      columns: [
+        {objectPath: "$.Command", headerName: "Command", prefix: "!"},
+        {objectPath: "$.UserGroup.Name", headerName: "User group"},
+        {objectPath: "$.SystemCommand", headerName: "System Command", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
+        {objectPath: "$.ModeratorCanAlwaysActivate", headerName: "Moderator Can Always Activate", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
+        {objectPath: "$.Price", headerName: "Price"},
+        {objectPath: "$.Price", headerName: "Price (formatted)", suffix: " Bolts"},
+        {objectPath: "$.Cooldown", headerName: "Cooldown"},
+        {objectPath: "$.Cooldown", headerName: "Cooldown (formatted)", formatter: XLSX_FORMATTER_RELATIVE_TIME},
+        {objectPath: "$.Aliasses", headerName: "Aliasses", formatter: XLSX_FORMATTER_JOIN_LIST},
+      ]
+    };
+    let exporter = new XlsxExporter(config);
+    exporter.exportData(this.dataSource.data);
   }
 }

@@ -1,8 +1,9 @@
-import {IXlsxColumnDefinition, IXlsxExportConfig} from "./interfaces/Xlsx.interface";
-import {Dictionary} from "../../ts-utilities/FunctionalInterface";
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import {ColInfo, Sheet, WorkBook} from "xlsx";
+import {IXlsxColumnDefinition, IXlsxExportConfig, IXlsXRowObject, XlsxBookType} from "./interfaces/Xlsx.interface";
+import {JSONPath} from "../../tools/JSONPath";
+
 
 const AUTO_COLUMN_WIDTH_MARGIN: number = 5;
 
@@ -16,11 +17,15 @@ export class XlsxExporter {
   private _config: IXlsxExportConfig;
   private _sheetHeaders: string[];
   private _fileName: string;
+  private _bookType: XlsxBookType;
+  private _columnWidths: number[];
 
   constructor(config: IXlsxExportConfig) {
     this._config = config;
-    this._sheetHeaders = this._config.columns.map((cd: IXlsxColumnDefinition) => cd.headerName || cd.objectPath);
-    this._fileName = (this._config.fileName || this._config.sheetName) + ".xlsx";
+    this._sheetHeaders = this._config.columns.map((cd: IXlsxColumnDefinition) => cd.headerName);
+
+    this._bookType = (this._config.bookType || XlsxBookType.XLSX);
+    this._fileName = (this._config.fileName || this._config.sheetName) + "." + this._bookType;
   }
 
   /**
@@ -31,11 +36,17 @@ export class XlsxExporter {
     // Create new work book
     let book: WorkBook = XLSX.utils.book_new();
 
+    // Set initialColumnWidths
+    this._columnWidths = this._config.columns.map((colDef: IXlsxColumnDefinition) => colDef.headerName.length);
+
     // Convert data objects to sheet rows
-    let sheetRows: Dictionary[] = [];
+    let sheetRows: IXlsXRowObject[] = [];
     if (data != null) {
-      sheetRows = data.map((o: Dictionary) => this._objectToRow(o));
+      sheetRows = data.map((o: any) => this._objectToRow(o));
     }
+
+    // Sort rows according to config
+    this._sortSheetRows(sheetRows);
 
     // Generate a sheet from sheetRows
     let sheet: Sheet = XLSX.utils.json_to_sheet(sheetRows, {header: this._sheetHeaders});
@@ -47,68 +58,54 @@ export class XlsxExporter {
     this._processColumnWidths(sheet);
 
     // Present file as download to the browser
-    let fileStream: any = XLSX.write(book, {type: "binary"});
+    let fileStream: any = XLSX.write(book, {type: "binary", bookType: this._bookType});
     let fileBlob: any = new Blob([XlsxExporter._s2ab(fileStream)], {type: "application/octet-stream"});
     FileSaver.saveAs(fileBlob, this._fileName);
   }
 
-  private _objectToRow(object: Dictionary): Dictionary {
-    let finalObject: Dictionary = {};
+  private _objectToRow(object: any): IXlsXRowObject {
+    let finalObject: IXlsXRowObject = {};
+    let colDef: IXlsxColumnDefinition;
+    let i = 0;
 
-    this._config.columns.forEach((colDef: IXlsxColumnDefinition) => {
+    while (i < this._config.columns.length) {
+      colDef = this._config.columns[i];
+
       // Extract the value from the data object according to it's path
-      let value: any = XlsxExporter._extractField(colDef.objectPath, object);
+      let value: any = JSONPath.execute(colDef.objectPath, object);
 
-      // Infer the correct header name by definition or use the object path
-      let columnKey: string = colDef.headerName || colDef.objectPath;
-
-      // Set the default value if the value is NULL
-      if (colDef.defaultValue != null) {
+      // Set the default value if set and the value is NULL
+      if (value == null && colDef.defaultValue != null) {
         value = colDef.defaultValue;
       }
 
 
       if (value != null) {
-
         if (colDef.formatter != null) {
           // Apply the definition formatter if value is not NULL and formatter is set
-          finalObject[columnKey] = colDef.formatter.apply(null, [value, object]);
-        } else {
-          finalObject[columnKey] = value;
+          value = colDef.formatter.apply(null, [value, object]);
         }
 
         // Apply definition prefix
         if (colDef.prefix) {
-          finalObject[columnKey] = colDef.prefix + finalObject[columnKey];
+          value = colDef.prefix + value;
         }
 
         // Apply definition suffix
         if (colDef.suffix) {
-          finalObject[columnKey] += colDef.suffix;
+          value += colDef.suffix;
         }
-      }
-    });
 
-    return finalObject;
-  }
+        let valueLength = ("" + value).length;
+        if (valueLength > this._columnWidths[i]) {
+          this._columnWidths[i] = valueLength;
+        }
 
-  private static _extractField(objectPath: string, object: Dictionary) {
-    let pathArray: string[] = objectPath.split(".");
-    let c: number = 0;
-    let value: any = object;
-
-    while (c < pathArray.length) {
-      try {
-        value = value[pathArray[c]];
-        c++;
-      } catch (e) {
-        // Object does not contain a value at the given path, so return null
-        console.info("XlsxExporter: Could not find a value at " + objectPath + ", value wil be NULL", object, e);
-        return null;
+        finalObject[colDef.headerName] = value;
       }
     }
 
-    return value;
+    return finalObject;
   }
 
   private static _s2ab(s: any): ArrayBuffer {
@@ -122,15 +119,34 @@ export class XlsxExporter {
 
   private _processColumnWidths(sheet: Sheet) {
     let sheetCols: ColInfo[] = [];
+    let i = 0;
 
-    for (let i in this._sheetHeaders) {
+    while (i < this._sheetHeaders.length) {
       // Use the defined column width, else calculate it with margin
-      if (this._config.columns[i].colWidth != null) {
-        sheetCols[i] = {width: this._config.columns[i].colWidth};
+      if (this._config.columns[i].colWidth == null) {
+        sheetCols[i] = {width: ~~(this._columnWidths[i] * .8) + AUTO_COLUMN_WIDTH_MARGIN};
       } else {
-        sheetCols[i] = {width: this._sheetHeaders[i].length + AUTO_COLUMN_WIDTH_MARGIN};
+        sheetCols[i] = {width: this._config.columns[i].colWidth};
       }
+
+      i++;
     }
+
     sheet["!cols"] = sheetCols;
+  }
+
+  private _sortSheetRows(sheetRows: IXlsXRowObject[]) {
+    if (this._config.sortBy != null) {
+      sheetRows.sort((a: IXlsXRowObject, b: IXlsXRowObject) => {
+        let aValue: any = a[this._config.sortBy];
+        let bValue: any = b[this._config.sortBy];
+
+        if (aValue == null || bValue == null) {
+          return (aValue == null ? -1 : 1);
+        } else {
+          return aValue.localeCompare(bValue);
+        }
+      })
+    }
   }
 }

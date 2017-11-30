@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../../services/BiliomiApi.service";
-import {StringUtils} from "../../../ts-utilities/StringUtils";
+import {StringUtils} from "../../../tools/StringUtils";
 import {CachedModelRestClient} from "../../classes/CachedModelRestClient";
 import IGame = Biliomi.IGame;
 

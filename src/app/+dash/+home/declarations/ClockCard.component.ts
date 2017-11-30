@@ -1,5 +1,5 @@
 import {AfterViewInit, Component} from "@angular/core";
-import {Dictionary} from "../../../shared/modules/ts-utilities/FunctionalInterface";
+import {Dictionary} from "../../../shared/modules/tools/FunctionalInterface";
 import * as moment from "moment-timezone";
 import Moment = moment.Moment;
 

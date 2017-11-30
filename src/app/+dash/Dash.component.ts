@@ -6,7 +6,7 @@ import {BiliomiApiService} from "../shared/modules/biliomi/services/BiliomiApi.s
 import {HttpErrorResponse} from "@angular/common/http";
 import {BiliomiEventsService} from "../shared/modules/biliomi/services/BiliomiEvents.service";
 import {Biliomi} from "../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {StringUtils} from "../shared/modules/ts-utilities/StringUtils";
+import {StringUtils} from "../shared/modules/tools/StringUtils";
 import {AuthService} from "../shared/services/Auth.service";
 import {BILIOMI_EVENTS} from "../shared/modules/biliomi/classes/constants/BiliomiApiVariables";
 import ITwitchFollowEvent = Biliomi.ITwitchFollowEvent;

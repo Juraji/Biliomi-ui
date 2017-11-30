@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {AuthService} from "../../shared/services/Auth.service";
-import {StringUtils} from "../../shared/modules/ts-utilities/StringUtils";
+import {StringUtils} from "../../shared/modules/tools/StringUtils";
 import {TWITCH_URIS} from "../../shared/classes/constants/Uris";
 
 @Component({

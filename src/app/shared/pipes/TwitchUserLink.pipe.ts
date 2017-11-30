@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from "@angular/core";
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
-import {StringUtils} from "../modules/ts-utilities/StringUtils";
+import {StringUtils} from "../modules/tools/StringUtils";
 import {TWITCH_URIS} from "../classes/constants/Uris";
 
 @Pipe({name: "twitchUserLink"})

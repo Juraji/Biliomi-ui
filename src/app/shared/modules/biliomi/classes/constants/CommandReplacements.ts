@@ -1,4 +1,4 @@
-import {Dictionary} from "../../../ts-utilities/FunctionalInterface";
+import {Dictionary} from "../../../tools/FunctionalInterface";
 
 export const STATIC_COMMAND_REPLACEMENTS: Dictionary = {
   callername: "The display name of the calling user",
