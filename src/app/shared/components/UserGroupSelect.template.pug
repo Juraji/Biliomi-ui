@@ -1,9 +1,11 @@
 mat-form-field
-  mat-select(placeholder="Favorite food", required="true",
+  mat-select(placeholder="User group", required="true",
   [formControl]="userGroupControl", [errorStateMatcher]="fieldMatcher")
-    mat-option(*ngFor="let group of userGroupsClient.getCache() | flatSort:'Weight'", [value]="group")
+    mat-option(*ngFor="let group of userGroupsClient.getCache()", [value]="group")
       | {{ group.Name }}
-      small.text-muted(*ngIf="group.DefaultGroup") &nbsp;(Default)
-  mat-hint Select a user group
-    mat-error(*ngIf="userGroupControl.hasError('required')") Please select a valid group.
+      small.text-muted &nbsp;({{group.DefaultGroup ? 'Default' : group.Weight}})
+  mat-hint.
+    Select a user group. The number behind the groups are the group weight.#[br]
+    A lower weighted group denies access for users with higher weighted groups.
+  mat-error(*ngIf="userGroupControl.hasError('required')") Please select a valid group.
 

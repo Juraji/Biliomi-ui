@@ -22,8 +22,7 @@ export class ConfigService {
         throw new Error("Unable to load config.yaml");
       }
 
-      let config: IConfig = jsyaml.load(response);
-      this._cache = config;
+      this._cache = jsyaml.load(response);
     }
 
     return this._cache;

@@ -1,4 +1,6 @@
 .mat-button-row.pull-right
+  button.pull-right(mat-mini-fab, color="primary", (click)="xlsxExporter.exportData(dataSource.data)")
+    mat-icon cloud_download
   button.pull-right(mat-mini-fab, color="primary", (click)="editCommand()")
     mat-icon add
   button.pull-right(mat-mini-fab, color="primary", (click)="ngOnInit()")

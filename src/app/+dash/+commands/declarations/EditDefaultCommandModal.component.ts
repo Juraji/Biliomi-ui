@@ -63,6 +63,7 @@ export class EditDefaultCommandModalComponent implements AfterViewInit {
       let command: ICommand = Object.create(this.editedCommand);
       let persistedCommand: ICommand;
 
+      command.Command = this.editedCommand.Command;
       command.Cooldown = this.commandCooldownControl.value;
       command.Price = this.commandPriceControl.value;
       command.Aliasses = this.commandAliasses;

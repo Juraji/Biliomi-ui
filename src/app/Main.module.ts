@@ -5,7 +5,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SharedModule} from "./shared/Shared.module";
 import {MainComponent} from "./declarations/Main.component";
 import {PageNotFoundComponent} from "./declarations/PageNotFound.component";
-import {AuthGuard} from "./shared/router-guards/Auth.guard";
+import {AuthenticatedGuard} from "./shared/router-guards/Authenticated.guard";
 
 export const LOGIN_ROUTE: string = "/login";
 export const DASH_ROUTE: string = "/dash/home";
@@ -20,7 +20,7 @@ const ROOT_ROUTES: Routes = [
   {
     path: "dash",
     loadChildren: './+dash/Dash.module#DashModule',
-    canActivate: [AuthGuard],
+    canActivate: [AuthenticatedGuard],
     data: {displayName: "Dash"}
   },
 

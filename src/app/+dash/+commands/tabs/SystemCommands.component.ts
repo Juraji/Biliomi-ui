@@ -5,6 +5,8 @@ import {MatDialog, MatPaginator} from "@angular/material";
 import {CommandsClient} from "../../../shared/modules/biliomi/clients/model/Commands.client";
 import {EditDefaultCommandModalComponent} from "../declarations/EditDefaultCommandModal.component";
 import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
+import {XlsxExporter} from "../../../shared/modules/xlsx-export/classes/XlsxExporter";
+import {SYSTEM_COMMANDS_EXPORT_DEFINITION} from "./CommandExportDefinitions";
 import ICommand = Biliomi.ICommand;
 
 @Component({
@@ -16,6 +18,7 @@ import ICommand = Biliomi.ICommand;
 export class SystemCommandsComponent implements OnInit, AfterViewInit {
   private _dialog: MatDialog;
   private dataSource: RestMatDataSource<ICommand> = new RestMatDataSource<ICommand>();
+  private xlsxExporter: XlsxExporter;
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;
@@ -23,6 +26,7 @@ export class SystemCommandsComponent implements OnInit, AfterViewInit {
   constructor(commandsClient: CommandsClient, dialog: MatDialog) {
     this.dataSource.bindClient(commandsClient);
     this._dialog = dialog;
+    this.xlsxExporter = new XlsxExporter(SYSTEM_COMMANDS_EXPORT_DEFINITION);
   }
 
   public ngOnInit() {

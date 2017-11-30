@@ -4,7 +4,7 @@ import {AuthService} from "../services/Auth.service";
 import {LOGIN_ROUTE} from "../../Main.module";
 
 @Injectable()
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class AuthenticatedGuard implements CanActivate, CanActivateChild {
   private _router: Router;
   private _auth: AuthService;
 

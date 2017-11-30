@@ -4,6 +4,7 @@ import {FormControl, Validators} from "@angular/forms";
 import {DefaultFormFieldStateMatcher} from "../modules/ng-material/classes/DefaultFormFieldStateMatcher.class";
 import {Biliomi} from "../modules/biliomi/classes/interfaces/Biliomi";
 import IUserGroup = Biliomi.IUserGroup;
+import {SortBuilder} from "../modules/biliomi/classes/SortBuilder";
 
 @Component({
   selector: "user-group-select",
@@ -19,7 +20,11 @@ export class UserGroupSelectComponent implements OnInit {
   }
 
   public async ngOnInit() {
-    await this.userGroupsClient.load(true);
+    let groupSort = new SortBuilder()
+      .add("DefaultGroup", true)
+      .add("Name", false, true);
+
+    await this.userGroupsClient.load(true, groupSort);
     this.userGroupControl.setValue(this.userGroupsClient.getDefaultGroup());
   }
 

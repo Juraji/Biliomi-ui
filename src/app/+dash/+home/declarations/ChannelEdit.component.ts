@@ -4,6 +4,7 @@ import {GamesClient} from "../../../shared/modules/biliomi/clients/model/Games.c
 import {FormControl, Validators} from "@angular/forms";
 import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
 import {DefaultFormFieldStateMatcher} from "../../../shared/modules/ng-material/classes/DefaultFormFieldStateMatcher.class";
+import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
 
 @Component({
   selector: "channel-edit-component",
@@ -35,8 +36,11 @@ export class ChannelEditComponent implements OnInit {
   }
 
   private async refreshFields() {
+    let gamesSort: SortBuilder = new SortBuilder()
+      .add("Name", false, true);
+
     await this.channelInfoClient.load(true);
-    await this.gamesClient.load(true);
+    await this.gamesClient.load(true, gamesSort);
     this.channelGameControl.setValue(this.channelInfoClient.CurrentGame.Name);
     this.channelStatusControl.setValue(this.channelInfoClient.Status);
   }

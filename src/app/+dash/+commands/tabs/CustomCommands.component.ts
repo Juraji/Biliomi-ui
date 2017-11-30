@@ -6,6 +6,8 @@ import {RestMatDataSource} from "../../../shared/modules/ng-material/classes/Res
 import {ARG_COMMAND_REPLACEMENTS} from "../../../shared/modules/biliomi/classes/constants/CommandReplacements";
 import {EditCustomCommandModalComponent} from "../declarations/EditCustomCommandModal.component";
 import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
+import {XlsxExporter} from "../../../shared/modules/xlsx-export/classes/XlsxExporter";
+import {CUSTOM_COMMANDS_EXPORT_DEFINITION} from "./CommandExportDefinitions";
 import ICustomCommand = Biliomi.ICustomCommand;
 
 @Component({
@@ -16,6 +18,7 @@ import ICustomCommand = Biliomi.ICustomCommand;
 export class CustomCommandsComponent implements OnInit, AfterViewInit {
   private _dialog: MatDialog;
   private dataSource: RestMatDataSource<ICustomCommand> = new RestMatDataSource<ICustomCommand>();
+  private xlsxExporter: XlsxExporter;
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;
@@ -23,6 +26,7 @@ export class CustomCommandsComponent implements OnInit, AfterViewInit {
   constructor(customCommandsClient: CustomCommandsClient, dialog: MatDialog) {
     this._dialog = dialog;
     this.dataSource.bindClient(customCommandsClient);
+    this.xlsxExporter = new XlsxExporter(CUSTOM_COMMANDS_EXPORT_DEFINITION);
   }
 
   public ngOnInit() {

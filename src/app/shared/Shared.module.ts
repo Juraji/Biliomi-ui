@@ -6,13 +6,12 @@ import {BiliomiModule} from "./modules/biliomi/Biliomi.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ConfigService} from "./services/Config.service";
 import {AuthService} from "./services/Auth.service";
-import {AuthGuard} from "./router-guards/Auth.guard";
+import {AuthenticatedGuard} from "./router-guards/Authenticated.guard";
 import {HttpClientModule} from "@angular/common/http";
 import {TwitchUserLinkPipe} from "./pipes/TwitchUserLink.pipe";
 import {TimePipe} from "./pipes/Time.pipe";
 import {DatePipe} from "./pipes/Date.pipe";
 import {CommandFormComponent} from "./components/CommandForm.component";
-import {FlatSortPipe} from "./pipes/FlatSort.pipe";
 import {UserGroupSelectComponent} from "./components/UserGroupSelect.component";
 import {ConfirmDialogComponent} from "./components/ConfirmDialog.component";
 
@@ -20,7 +19,6 @@ const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
   DatePipe,
   TimePipe,
-  FlatSortPipe,
 ];
 
 const SHARED_COMPONENTS: Type<any>[] = [
@@ -54,7 +52,7 @@ export class SharedModule {
         AuthService,
 
         // Guards
-        AuthGuard
+        AuthenticatedGuard
       ]
     };
   }
