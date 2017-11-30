@@ -9,7 +9,7 @@ const AUTO_COLUMN_WIDTH_MARGIN: number = 5;
 /**
  * Enables Excel (XLSX) exports in Typescript/Angular
  * NPM dependencies:
- *  npm i --save file-saver xlsx xlsx-style
+ *  npm i --save file-saver xlsx
  *  npm i --save-dev @types/file-saver
  */
 export class XlsxExporter {
