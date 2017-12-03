@@ -1,0 +1,34 @@
+form(#customCommandEditForm="", (submit)="save()")
+  h2(matDialogTitle) Editing user: {{editedUser?.DisplayName}}
+
+  mat-dialog-content
+    mat-spinner(*ngIf="editedUser == undefined")
+
+    table
+      tr(*ngIf="editedUser?.Follower")
+        td: small Follower Since:
+        td {{editedUser.FollowDate | date}}
+      tr(*ngIf="editedUser?.Subscriber")
+        td: small Subscriber Since:
+        td {{editedUser.SubscribeDate | date}}
+
+    mat-form-field
+      input#user-title(matInput, name="user-title", placeholder="Title", [formControl]="userTitleControl")
+      mat-hint Some commands prepend this value to the user's username.
+
+    mat-form-field
+      input#user-points(matInput, type="number", name="user-points", [placeholder]="undefined | points | async", required="true",
+      [formControl]="userPointsControl", [errorStateMatcher]="fieldMatcher")
+      mat-hint User {{undefined | points | async}}
+      mat-error(*ngIf="userPointsControl.hasError('required')") Please enter a valid amount.
+
+
+    mat-checkbox([hidden]="editedUser?.Caster || editedUser?.Moderator", [formControl]="userIsBlacklistedControl").
+      Blacklist user
+
+    user-group-select(#userGroup="")
+
+  mat-dialog-actions
+    button(mat-raised-button, color="primary") Save
+    button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()") Cancel
+    button(mat-button, type="button", (click)="initFields()") Reset

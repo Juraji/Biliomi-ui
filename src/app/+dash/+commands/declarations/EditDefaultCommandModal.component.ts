@@ -26,7 +26,6 @@ export class EditDefaultCommandModalComponent implements AfterViewInit {
   @ViewChild("userGroup", {read: UserGroupSelectComponent})
   private userGroupSelect: UserGroupSelectComponent;
 
-
   constructor(@Inject(MAT_DIALOG_DATA) commandId: number,
               commandsClient: CommandsClient,
               dialogRef: MatDialogRef<EditDefaultCommandModalComponent>,
@@ -60,10 +59,10 @@ export class EditDefaultCommandModalComponent implements AfterViewInit {
 
   private async save() {
     if (this.isFormOk) {
-      let command: ICommand = Object.create(this.editedCommand);
+      let command: ICommand = {} as ICommand;
       let persistedCommand: ICommand;
 
-      command.Command = this.editedCommand.Command;
+      Object.assign(command, this.editedCommand);
       command.Cooldown = this.commandCooldownControl.value;
       command.Price = this.commandPriceControl.value;
       command.Aliasses = this.commandAliasses;

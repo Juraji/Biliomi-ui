@@ -76,9 +76,10 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
 
   private async save() {
     if (this.isFormOk) {
-      let command: ICustomCommand = Object.create(this.editedCommand);
+      let command: ICustomCommand = {} as ICustomCommand;
       let persistedCommand: ICustomCommand;
 
+      Object.assign(command, this.editedCommand);
       command.Command = this.commandCommandControl.value;
       command.Message = this.commandMessageControl.value;
       command.Cooldown = this.commandCooldownControl.value;

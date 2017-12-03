@@ -20,7 +20,7 @@ import ICommand = Biliomi.ICommand;
   templateUrl: require("./SystemCommands.template.pug"),
   styleUrls: [require("./Commands.less").toString()]
 })
-export class SystemCommandsComponent implements OnInit, AfterViewInit {
+export class SystemCommandsComponent implements AfterViewInit {
   private _dialog: MatDialog;
   private dataSource: RestMatDataSource<ICommand> = new RestMatDataSource<ICommand>();
 
@@ -28,17 +28,14 @@ export class SystemCommandsComponent implements OnInit, AfterViewInit {
   private paginator: MatPaginator;
 
   constructor(commandsClient: CommandsClient, dialog: MatDialog) {
-    this.dataSource.bindClient(commandsClient);
     this._dialog = dialog;
-  }
-
-  public ngOnInit() {
-    let sort = new SortBuilder().add("Command");
-    this.dataSource.updateData(sort);
+    this.dataSource.bindClient(commandsClient);
+    this.dataSource.sortBuilder.add("Command")
   }
 
   public ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.updateData();
   }
 
   private editCommand(command: ICommand) {

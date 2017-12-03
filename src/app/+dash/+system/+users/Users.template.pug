@@ -1,1 +1,53 @@
-| Hi
+.mat-button-row.pull-right
+  button.pull-right(mat-mini-fab, color="primary", (click)="exportUsers()", title="Export to Excel")
+    mat-icon cloud_download
+  button.pull-right(mat-mini-fab, color="primary", (click)="dataSource.updateData()", title="Refresh")
+    mat-icon refresh
+
+p Custom users are messages bound to chat users.#[br]
+
+mat-progress-bar(*ngIf="!dataSource.isInitialized", mode="indeterminate")
+
+mat-data-source-filter-field(#datasourceFilter="", [dataSource]="dataSource", queryParam="username", placeholder="Filter by username")
+
+mat-table(*ngIf="dataSource.isInitialized", [dataSource]="dataSource")
+  ng-container(matColumnDef="Username")
+    mat-header-cell(*matHeaderCellDef="") Username
+    mat-cell(*matCellDef="let user")
+      | {{user.DisplayName}}
+
+  ng-container(matColumnDef="UserGroup.Name")
+    mat-header-cell(*matHeaderCellDef="") Group
+    mat-cell(*matCellDef="let user")
+      | {{user.UserGroup.Name}}
+
+  ng-container(matColumnDef="RecordedTime")
+    mat-header-cell(*matHeaderCellDef="") Recorded time
+    mat-cell(*matCellDef="let user")
+      | {{user.RecordedTime | time:false:true}}
+
+  ng-container(matColumnDef="Points")
+    mat-header-cell(*matHeaderCellDef="") {{undefined | points | async}}
+    mat-cell(*matCellDef="let user")
+      | {{user.RecordedTime | time:false:true}}
+
+  ng-container(matColumnDef="Follower")
+    mat-header-cell(*matHeaderCellDef="") Follows
+    mat-cell(*matCellDef="let user")
+      mat-checkbox([checked]="user.Follower", [disabled]="true")
+
+  ng-container(matColumnDef="Subscriber")
+    mat-header-cell(*matHeaderCellDef="") Subscribed
+    mat-cell(*matCellDef="let user")
+      mat-checkbox([checked]="user.Subscriber", [disabled]="true")
+
+  ng-container(matColumnDef="Edit")
+    mat-header-cell(*matHeaderCellDef="")
+    mat-cell(*matCellDef="let user")
+      a.mat-icon-button.pull-right(mat-button, (click)="editUser(user)", title="Edit user")
+        mat-icon edit
+
+  mat-header-row(*matHeaderRowDef="['Username', 'UserGroup.Name', 'RecordedTime', 'Points', 'Follower', 'Subscriber', 'Edit']")
+  mat-row(*matRowDef="let row; columns: ['Username', 'UserGroup.Name', 'RecordedTime', 'Points', 'Follower', 'Subscriber', 'Edit']")
+
+mat-paginator(#paginator="", [pageSize]="10", [pageSizeOptions]="[5, 10, 20, 50]")

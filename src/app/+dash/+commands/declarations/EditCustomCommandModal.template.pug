@@ -1,8 +1,8 @@
 form(#customCommandEditForm="", (submit)="save()")
-  h2(matDialogTitle) Editing command &#33;{{commandCommandControl.value || 'newcommand'}}
+  h2(matDialogTitle) Editing command: &#33;{{commandCommandControl.value || 'newcommand'}}
 
   mat-dialog-content
-    mat-progress-spinner(*ngIf="editedCommand == undefined")
+    mat-spinner(*ngIf="editedCommand == undefined")
 
     mat-form-field
       input#command-command(matInput, name="command-command", placeholder="Commmand", required="true",

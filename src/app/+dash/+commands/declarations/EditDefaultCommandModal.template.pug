@@ -1,8 +1,8 @@
 form(#defaultCommandEditForm="", (submit)="save()")
-  h2(matDialogTitle) Editing command &#33;{{editedCommand?.Command}}
+  h2(matDialogTitle) Editing command: &#33;{{editedCommand?.Command}}
 
   mat-dialog-content
-    mat-progress-spinner(*ngIf="editedCommand == undefined")
+    mat-spinner(*ngIf="editedCommand == undefined")
 
     p.text-muted([hidden]="!editedCommand?.SystemCommand").
       This is a system command, non-caster users cannot call this command.

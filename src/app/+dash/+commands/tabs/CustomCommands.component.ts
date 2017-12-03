@@ -19,7 +19,7 @@ import ICustomCommand = Biliomi.ICustomCommand;
   templateUrl: require("./CustomCommands.template.pug"),
   styleUrls: [require("./Commands.less").toString()]
 })
-export class CustomCommandsComponent implements OnInit, AfterViewInit {
+export class CustomCommandsComponent implements AfterViewInit {
   private _dialog: MatDialog;
   private dataSource: RestMatDataSource<ICustomCommand> = new RestMatDataSource<ICustomCommand>();
 
@@ -29,15 +29,12 @@ export class CustomCommandsComponent implements OnInit, AfterViewInit {
   constructor(customCommandsClient: CustomCommandsClient, dialog: MatDialog) {
     this._dialog = dialog;
     this.dataSource.bindClient(customCommandsClient);
-  }
-
-  public ngOnInit() {
-    let sort = new SortBuilder().add("Command");
-    this.dataSource.updateData(sort);
+    this.dataSource.sortBuilder.add("Command");
   }
 
   public ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.updateData();
   }
 
   // noinspection JSMethodCanBeStatic

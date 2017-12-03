@@ -6,7 +6,7 @@ const ROUTES: Routes = [
   {
     path: "",
     redirectTo: "/dash/system/users",
-    // pathMatch: "full"
+    pathMatch: "full"
   },
   {
     path: "users",
@@ -21,7 +21,6 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES)
   ],
   declarations: [],
-  entryComponents: []
 })
 export class SystemModule {
 }
