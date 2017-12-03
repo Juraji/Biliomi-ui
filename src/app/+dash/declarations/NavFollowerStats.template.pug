@@ -1,12 +1,15 @@
 a.mat-button(mat-button, (click)="toggleFollowerStatsCard()")
-  mat-icon.text-ok(title="Viewers in chat") chat
-  | &nbsp;{{channelInfoClient.Viewers.length}}
-  span.spacer
-  mat-icon.text-not-ok(title="Followers") favorite
-  | &nbsp;{{channelInfoClient.FollowerCount}}
-  span.spacer
-  mat-icon.text-ok(title="Subscribers") attach_money
-  | &nbsp;{{channelInfoClient.SubscriberCount}}
+  .follower-stat(title="Viewers in chat")
+    mat-icon.text-ok chat
+    | &nbsp;{{channelInfoClient.Viewers.length}}
+  .follower-stat(title="Followers")
+    span.spacer
+    mat-icon.text-not-ok favorite
+    | &nbsp;{{channelInfoClient.FollowerCount}}
+  .follower-stat(*ngIf="channelInfoClient.Affiliate", title="Subscribers")
+    span.spacer
+    mat-icon.text-ok attach_money
+    | &nbsp;{{channelInfoClient.SubscriberCount}}
 
 mat-card.info-card.mat-elevation-z6(#followerStatsCard="", *ngIf="followerStatsCardVisible")
   mat-card-header
@@ -17,14 +20,16 @@ mat-card.info-card.mat-elevation-z6(#followerStatsCard="", *ngIf="followerStatsC
     ul.list-unstyled
       li #[span.text-muted Viewers in chat:] {{channelInfoClient.Viewers.length}}
       li #[span.text-muted Followers:] {{channelInfoClient.FollowerCount}}
-      li #[span.text-muted Subscribers:] {{channelInfoClient.SubscriberCount}}
+      li(*ngIf="channelInfoClient.Affiliate") #[span.text-muted Subscribers:] {{channelInfoClient.SubscriberCount}}
 
-    hr(*ngIf="latestFollower != undefined")
-    p(*ngIf="latestFollower != undefined").
-      Latest Follower: {{latestFollower.DisplayName}}#[br]
-      #[span.text-muted {{latestFollower.FollowDate | date}}]
+    .follower-stat(*ngIf="latestFollower != undefined")
+      hr
+      p.
+        Latest Follower: {{latestFollower.DisplayName}}#[br]
+        #[span.text-muted {{latestFollower.FollowDate | date}}]
 
-    hr(*ngIf="latestSubscriber != undefined")
-    p(*ngIf="latestSubscriber != undefined").
-      Latest Subscriber: {{latestSubscriber.DisplayName}}#[br]
-      #[span.text-muted {{latestSubscriber.FollowDate | date}}]
+    .follower-stat(*ngIf="channelInfoClient.Affiliate && latestSubscriber != undefined")
+      hr
+      p.
+        Latest Subscriber: {{latestSubscriber.DisplayName}}#[br]
+        #[span.text-muted {{latestSubscriber.FollowDate | date}}]

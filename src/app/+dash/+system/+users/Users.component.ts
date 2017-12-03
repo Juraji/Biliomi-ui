@@ -13,6 +13,7 @@ import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/int
 import {PointsSettingsClient} from "../../../shared/modules/biliomi/clients/settings/PointsSettings.client";
 import {EditUserModalComponent} from "./declarations/EditUserModal.component";
 import {DataSourceFilterComponent} from "../../../shared/modules/ng-material/components/DataSourceFilter.component";
+import {ChannelInfoClient} from "../../../shared/modules/biliomi/clients/settings/ChannelInfo.client";
 import IUser = Biliomi.IUser;
 
 @Component({
@@ -22,6 +23,7 @@ import IUser = Biliomi.IUser;
 export class UsersComponent implements AfterViewInit {
   private _dialog: MatDialog;
   private _pointsSettingsClient: PointsSettingsClient;
+  private channelInfoClient: ChannelInfoClient;
   private dataSource: RestMatDataSource<IUser> = new RestMatDataSource<IUser>();
 
   @ViewChild("paginator", {read: MatPaginator})
@@ -31,10 +33,14 @@ export class UsersComponent implements AfterViewInit {
   private datasourceFilter: DataSourceFilterComponent;
 
   constructor(usersClient: UsersClient,
+              channelInfoClient: ChannelInfoClient,
               pointsSettingsClient: PointsSettingsClient,
               dialog: MatDialog) {
     this._dialog = dialog;
     this._pointsSettingsClient = pointsSettingsClient;
+    this.channelInfoClient = channelInfoClient;
+
+    this.channelInfoClient.load();
     this.dataSource.bindClient(usersClient);
     this.dataSource.sortBuilder.add("Username", false, true);
   }
@@ -42,6 +48,16 @@ export class UsersComponent implements AfterViewInit {
   public ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.updateData();
+  }
+
+  private get tableColumns(): string[] {
+    let columns: string[] = ['Username', 'UserGroup.Name', 'RecordedTime', 'Points', 'Follower', 'Edit'];
+
+    if (this.channelInfoClient.Affiliate) {
+      columns.splice(5, 0, 'Subscriber');
+    }
+
+    return columns;
   }
 
   private applyFilter(value: string) {

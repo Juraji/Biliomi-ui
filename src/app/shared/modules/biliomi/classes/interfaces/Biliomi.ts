@@ -58,6 +58,7 @@ export namespace Biliomi {
   export interface IChannelInfo {
     LogoUri: string;
     PreviewUri: string;
+    Affiliate: boolean;
     Partner: boolean;
     ChannelName: string;
     IsOnline: boolean;

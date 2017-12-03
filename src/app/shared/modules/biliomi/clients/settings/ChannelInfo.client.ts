@@ -10,6 +10,7 @@ import IGame = Biliomi.IGame;
 export class ChannelInfoClient extends SettingsRestClient<IChannelInfo> implements IChannelInfo {
   public LogoUri: string;
   public PreviewUri: string;
+  public Affiliate: boolean;
   public Partner: boolean;
   public ChannelName: string;
   public IsOnline: boolean;
