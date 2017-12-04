@@ -1,10 +1,6 @@
 import {Pipe, PipeTransform} from "@angular/core";
 
 export type CaseType = "TITLE_CASE" | "CAMEL_CASE" | "SNAKE_CASE" | "SCREAMING_SNAKE_CASE";
-const CASE_CHANGE_SPLIT_REGEX: RegExp = /([a-zA-Z])(?=[A-Z][a-z])/g;
-const CASE_CHANGE_SPLIT_REPLACEMENT: string = "$1 ";
-const CASE_SNAKE_SPLIT_REGEX: RegExp = /_/g;
-const CASE_SNAKE_SPLIT_REPLACEMENT: string = " ";
 
 @Pipe({name: "caseToWord"})
 export class CaseToWordPipe implements PipeTransform {
@@ -13,44 +9,27 @@ export class CaseToWordPipe implements PipeTransform {
       throw new Error("Missing case type parameter");
     }
 
-    if (value == null) {
+    if (value == null && value.length > 1) {
       return value;
     }
 
     switch (caseType) {
       case "TITLE_CASE":
-        return CaseToWordPipe._splitTitleCase(value);
       case "CAMEL_CASE":
-        return CaseToWordPipe._splitCamelCase(value, upperCaseFirst);
+        return CaseToWordPipe._doTransform(value, upperCaseFirst, /([a-zA-Z])(?=[A-Z][a-z])/g, "$1 ");
       case "SNAKE_CASE":
       case "SCREAMING_SNAKE_CASE":
-        return CaseToWordPipe._splitSnakeCase(value, upperCaseFirst);
+        return CaseToWordPipe._doTransform(value, upperCaseFirst, /_/g, " ");
       default:
         throw new Error("Unknown case type")
     }
   }
 
-  private static _splitTitleCase(value: string): string {
-    return value.replace(CASE_CHANGE_SPLIT_REGEX, CASE_CHANGE_SPLIT_REPLACEMENT);
-  }
-
-  private static _splitCamelCase(value: string, upperCaseFirst: boolean): string {
-    let result: string = value.replace(CASE_CHANGE_SPLIT_REGEX, CASE_CHANGE_SPLIT_REPLACEMENT);
+  private static _doTransform(value: string, upperCaseFirst: boolean, regex:RegExp, replacement: string): string {
+    let result: string = value.replace(regex, replacement);
     if (upperCaseFirst) {
-      result = CaseToWordPipe._doUpperCaseFirst(value);
+      result = result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();
     }
     return result;
-  }
-
-  private static _splitSnakeCase(value: string, upperCaseFirst: boolean): string {
-    let result: string = value.replace(CASE_SNAKE_SPLIT_REGEX, CASE_SNAKE_SPLIT_REPLACEMENT);
-    if (upperCaseFirst) {
-      result = CaseToWordPipe._doUpperCaseFirst(value);
-    }
-    return result;
-  }
-
-  private static _doUpperCaseFirst(result: string): string {
-    return result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();
   }
 }
