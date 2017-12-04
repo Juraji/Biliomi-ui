@@ -1,10 +1,9 @@
-mat-card
-  mat-card-header
-    mat-card-title Time Tracking Settings
-    mat-card-subtitle
+form(#timeTrackingSettingsEditForm="", (submit)="save()")
+  mat-card
+    mat-card-header
+      mat-card-title Time Tracking Settings
 
-  mat-card-content
-    form(#timeTrackingSettingsEditForm="", (submit)="save()")
+    mat-card-content
       mat-checkbox([formControl]="trackOnlineTimeControl") Track Online Time
 
       mat-checkbox([formControl]="trackOfflineTimeControl") Track Offline Time

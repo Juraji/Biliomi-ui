@@ -14,13 +14,13 @@ form#channel-edit-form((submit)="submitChannelEdit()")
           | {{game.Name}}
           small
       mat-hint The autocomplete only knows games Biliomi knows. If a game is not in there simply type it's full name and hit enter. Biliomi will make sure it will be available next time.
-      mat-error(*ngIf="channelGameControl.hasError('required')") Please enter a valid game.
+      mat-error(*ngIf="channelGameControl.hasError('required')") This field is required!
 
     mat-form-field
       input#login-password(matInput, name="channel-edit-status", placeholder="Channel Status", required="true",
       [formControl]="channelStatusControl")
       mat-hint If you've set a template you can simply replace the contents of this field with the title you wish, Biliomi will handle the templating for you.
-      mat-error(*ngIf="channelStatusControl.hasError('required')") Please enter a valid status.
+      mat-error(*ngIf="channelStatusControl.hasError('required')") This field is required!
 
     .mat-button-row
       button(mat-raised-button, color="primary", [disabled]="!isFormOk", title="Save")

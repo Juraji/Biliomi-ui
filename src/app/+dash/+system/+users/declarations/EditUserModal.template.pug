@@ -20,7 +20,7 @@ form(#customCommandEditForm="", (submit)="save()")
       input#user-points(matInput, type="number", name="user-points", [placeholder]="undefined | points | async", required="true",
       [formControl]="userPointsControl", [errorStateMatcher]="fieldMatcher")
       mat-hint User {{undefined | points | async}}
-      mat-error(*ngIf="userPointsControl.hasError('required')") Please enter a valid amount.
+      mat-error(*ngIf="userPointsControl.hasError('required')") This field is required!
 
 
     mat-checkbox([hidden]="editedUser?.Caster || editedUser?.Moderator", [formControl]="userIsBlacklistedControl").

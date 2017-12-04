@@ -14,11 +14,13 @@ import {DatePipe} from "./pipes/Date.pipe";
 import {CommandFormComponent} from "./components/CommandForm.component";
 import {UserGroupSelectComponent} from "./components/UserGroupSelect.component";
 import {ConfirmDialogComponent} from "./components/ConfirmDialog.component";
+import {CaseToWordPipe} from "./pipes/CaseToWord.pipe";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
   DatePipe,
   TimePipe,
+  CaseToWordPipe,
 ];
 
 const SHARED_COMPONENTS: Type<any>[] = [

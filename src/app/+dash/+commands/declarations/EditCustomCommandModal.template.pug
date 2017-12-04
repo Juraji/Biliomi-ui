@@ -8,25 +8,25 @@ form(#customCommandEditForm="", (submit)="save()")
       input#command-command(matInput, name="command-command", placeholder="Commmand", required="true",
       [formControl]="commandCommandControl", [errorStateMatcher]="fieldMatcher")
       mat-hint The command to post in the chat to trigger this command.
-      mat-error(*ngIf="commandCommandControl.hasError('required')") Please enter a command.
+      mat-error(*ngIf="commandCommandControl.hasError('required')") This field is required!
 
     mat-form-field
       textarea#command-message(matInput, name="command-message", placeholder="Message", required="true",
       [formControl]="commandMessageControl", [errorStateMatcher]="fieldMatcher", rows="4")
       mat-hint The message this command should trigger.
-      mat-error(*ngIf="commandMessageControl.hasError('required')") Please enter a message.
+      mat-error(*ngIf="commandMessageControl.hasError('required')") This field is required!
 
     mat-form-field
       input#command-cooldown(matInput, type="number", name="command-cooldown", placeholder="Cooldown", required="true",
       [formControl]="commandCooldownControl", [errorStateMatcher]="fieldMatcher")
       mat-hint The cooldown for this command in milliseconds.
-      mat-error(*ngIf="commandCooldownControl.hasError('required')") Please enter a valid number.
+      mat-error(*ngIf="commandCooldownControl.hasError('required')") This field is required!
 
     mat-form-field
       input#command-price(matInput, type="number", name="command-price", placeholder="Price", required="true",
       [formControl]="commandPriceControl", [errorStateMatcher]="fieldMatcher")
       mat-hint The price for this command in {{undefined | points | async}}.
-      mat-error(*ngIf="commandPriceControl.hasError('required')") Please enter a valid number.
+      mat-error(*ngIf="commandPriceControl.hasError('required')") This field is required!
 
     user-group-select(#userGroup="")
 

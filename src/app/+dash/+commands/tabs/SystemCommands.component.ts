@@ -35,7 +35,7 @@ export class SystemCommandsComponent implements AfterViewInit {
 
   public ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.updateData();
+    this.dataSource.update();
   }
 
   private editCommand(command: ICommand) {
@@ -46,7 +46,7 @@ export class SystemCommandsComponent implements AfterViewInit {
 
     dialogRef.afterClosed()
       .filter((success: boolean) => success)
-      .subscribe(() => this.dataSource.updateData());
+      .subscribe(() => this.dataSource.update());
   }
 
   private exportCommands() {

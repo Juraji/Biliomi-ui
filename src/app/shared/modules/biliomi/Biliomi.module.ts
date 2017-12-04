@@ -13,6 +13,7 @@ import {PointsSettingsClient} from "./clients/settings/PointsSettings.client";
 import {CommandsClient} from "./clients/model/Commands.client";
 import {UserGroupsClient} from "./clients/model/UserGroups.client";
 import {TimeTrackingSettingsClient} from "./clients/settings/TimeTrackingSettings.client";
+import {TemplatesClient} from "./clients/model/Templates.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -39,6 +40,7 @@ export class BiliomiModule extends ServicesLibrary {
       CustomCommandsClient,
       CommandsClient,
       UserGroupsClient,
+      TemplatesClient,
 
       // Settings clients
       ChannelInfoClient,

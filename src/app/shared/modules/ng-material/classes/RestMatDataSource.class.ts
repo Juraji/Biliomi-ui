@@ -34,7 +34,7 @@ export class RestMatDataSource<T> extends MatTableDataSource<T> {
     return this._restClient;
   }
 
-  public async updateData(): Promise<void> {
+  public async update(): Promise<void> {
     let data: T[] = await this._restClient.getList(this._sortBuilder);
     if (data != null) {
       this.data = data;

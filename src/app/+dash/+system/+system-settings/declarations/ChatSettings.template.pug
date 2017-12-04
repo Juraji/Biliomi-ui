@@ -1,10 +1,9 @@
-mat-card
-  mat-card-header
-    mat-card-title Chat Settings
-    mat-card-subtitle
+form(#chatSettingsEditForm="", (submit)="save()")
+  mat-card
+    mat-card-header
+      mat-card-title Chat Settings
 
-  mat-card-content
-    form(#chatSettingsEditForm="", (submit)="save()")
+    mat-card-content
       mat-checkbox([formControl]="enableWhispersControl") Enable Whispers
 
       mat-checkbox([formControl]="muteBiliomiControl") Mute Biliomi
