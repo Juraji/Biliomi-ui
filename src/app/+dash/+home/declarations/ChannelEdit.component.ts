@@ -3,7 +3,6 @@ import {ChannelInfoClient} from "../../../shared/modules/biliomi/clients/setting
 import {GamesClient} from "../../../shared/modules/biliomi/clients/model/Games.client";
 import {FormControl, Validators} from "@angular/forms";
 import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
-import {DefaultFormFieldStateMatcher} from "../../../shared/modules/ng-material/classes/DefaultFormFieldStateMatcher.class";
 import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
 
 @Component({
@@ -15,7 +14,6 @@ export class ChannelEditComponent implements OnInit {
   private channelInfoClient: ChannelInfoClient;
   private gamesClient: GamesClient;
 
-  private fieldMatcher = new DefaultFormFieldStateMatcher();
   private channelGameControl = new FormControl('', [Validators.required]);
   private channelStatusControl = new FormControl('', [Validators.required]);
 

@@ -8,14 +8,14 @@ form#login-form((submit)="submitCredentials()")
     mat-card-content
       mat-form-field
         input#login-username(matInput, name="login-username", placeholder="Username", required="true",
-        [formControl]="usernameControl", [errorStateMatcher]="fieldMatcher")
+        [formControl]="usernameControl")
         mat-hint This should be your Twitch username.
         mat-error(*ngIf="usernameControl.hasError('required')") Please enter your username.
         mat-error(*ngIf="usernameControl.hasError('invalidEntry')") Username invalid, try again.
 
       mat-form-field
         input#login-password(matInput, name="login-password", placeholder="Password", type="password", required="true",
-        [formControl]="passwordControl", [errorStateMatcher]="fieldMatcher", [type]="show ? 'text' : 'password'")
+        [formControl]="passwordControl", [type]="show ? 'text' : 'password'")
         mat-icon(matSuffix (click)="show = !show") {{show ? 'visibility_off' : 'visibility'}}
         mat-hint You can set a password via Biliomi's console. Check Biliomi's wiki for more info.
         mat-error(*ngIf="passwordControl.hasError('required')") Please enter your password.

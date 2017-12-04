@@ -5,7 +5,6 @@ import {Biliomi} from "../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {AuthService} from "../shared/services/Auth.service";
 import {Router} from "@angular/router";
 import {DASH_ROUTE} from "../Main.module";
-import {DefaultFormFieldStateMatcher} from "../shared/modules/ng-material/classes/DefaultFormFieldStateMatcher.class";
 import IRestAuthorizationRequest = Biliomi.IRestAuthorizationRequest;
 import IRestAuthorizationResponse = Biliomi.IRestAuthorizationResponse;
 
@@ -19,7 +18,6 @@ export class LoginComponent implements OnInit {
   private _auth: AuthService;
   private _router: Router;
 
-  private fieldMatcher = new DefaultFormFieldStateMatcher();
   private usernameControl = new FormControl('', [Validators.required]);
   private passwordControl = new FormControl('', [Validators.required]);
 

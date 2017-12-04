@@ -2,6 +2,8 @@ import {Component, Input} from "@angular/core";
 import {Biliomi} from "../modules/biliomi/classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../modules/biliomi/services/BiliomiApi.service";
 import {FormControl, Validators} from "@angular/forms";
+import {AllowTouchedFieldMatcher} from "../modules/ng-material/classes/AllowTouchedFieldMatcher";
+import {ErrorStateMatcher} from "@angular/material";
 import ICommand = Biliomi.ICommand;
 
 @Component({
@@ -12,6 +14,7 @@ import ICommand = Biliomi.ICommand;
 export class CommandFormComponent {
   private _api: BiliomiApiService;
   private argFormControl = new FormControl('', [Validators.required]);
+  private argFieldMatcher: ErrorStateMatcher = new AllowTouchedFieldMatcher();
 
   @Input("command")
   private command: ICommand;

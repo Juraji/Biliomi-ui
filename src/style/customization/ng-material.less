@@ -3,6 +3,10 @@
 
 mat-card, mat-expansion-panel {
   margin-bottom: 1.2% !important;
+
+  mat-card-header {
+    min-height: 56px;
+  }
 }
 
 mat-form-field {
@@ -64,4 +68,18 @@ mat-cell, mat-header-cell {
 
 mat-spinner {
   margin: 0 auto;
+}
+
+mat-checkbox {
+  display: block;
+}
+
+mat-grid-list {
+  &[rowHeight=fit] mat-grid-tile {
+    overflow: visible !important;
+  }
+
+  mat-grid-tile figure {
+    display: unset !important;
+  }
 }

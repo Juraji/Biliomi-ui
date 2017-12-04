@@ -1,0 +1,14 @@
+mat-card
+  mat-card-header
+    mat-card-title Time Tracking Settings
+    mat-card-subtitle
+
+  mat-card-content
+    form(#timeTrackingSettingsEditForm="", (submit)="save()")
+      mat-checkbox([formControl]="trackOnlineTimeControl") Track Online Time
+
+      mat-checkbox([formControl]="trackOfflineTimeControl") Track Offline Time
+
+      .mat-button-row
+        button(mat-raised-button, color="primary") Save
+        button(mat-button, type="button", (click)="ngOnInit()") Reset

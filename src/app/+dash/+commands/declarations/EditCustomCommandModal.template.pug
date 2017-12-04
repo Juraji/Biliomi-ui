@@ -25,7 +25,7 @@ form(#customCommandEditForm="", (submit)="save()")
     mat-form-field
       input#command-price(matInput, type="number", name="command-price", placeholder="Price", required="true",
       [formControl]="commandPriceControl", [errorStateMatcher]="fieldMatcher")
-      mat-hint The price for this command in {{'' | points | async}}.
+      mat-hint The price for this command in {{undefined | points | async}}.
       mat-error(*ngIf="commandPriceControl.hasError('required')") Please enter a valid number.
 
     user-group-select(#userGroup="")

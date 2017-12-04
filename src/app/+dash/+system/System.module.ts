@@ -12,6 +12,11 @@ const ROUTES: Routes = [
     path: "users",
     loadChildren: './+users/Users.module#UsersModule',
     data: {displayName: "Users"}
+  },
+  {
+    path: "system-settings",
+    loadChildren: './+system-settings/SystemSettings.module#SystemSettingsModule',
+    data: {displayName: "System Settings"}
   }
 ];
 

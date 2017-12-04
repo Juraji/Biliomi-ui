@@ -12,7 +12,6 @@ import {XlsxExporter} from "../../../shared/modules/xlsx-export/classes/XlsxExpo
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {PointsSettingsClient} from "../../../shared/modules/biliomi/clients/settings/PointsSettings.client";
 import {EditUserModalComponent} from "./declarations/EditUserModal.component";
-import {DataSourceFilterComponent} from "../../../shared/modules/ng-material/components/DataSourceFilter.component";
 import {ChannelInfoClient} from "../../../shared/modules/biliomi/clients/settings/ChannelInfo.client";
 import IUser = Biliomi.IUser;
 
@@ -28,9 +27,6 @@ export class UsersComponent implements AfterViewInit {
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;
-
-  @ViewChild("datasourceFilter", {read: DataSourceFilterComponent})
-  private datasourceFilter: DataSourceFilterComponent;
 
   constructor(usersClient: UsersClient,
               channelInfoClient: ChannelInfoClient,

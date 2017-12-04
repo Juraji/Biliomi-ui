@@ -1,0 +1,14 @@
+mat-card
+  mat-card-header
+    mat-card-title Chat Settings
+    mat-card-subtitle
+
+  mat-card-content
+    form(#chatSettingsEditForm="", (submit)="save()")
+      mat-checkbox([formControl]="enableWhispersControl") Enable Whispers
+
+      mat-checkbox([formControl]="muteBiliomiControl") Mute Biliomi
+
+      .mat-button-row
+        button(mat-raised-button, color="primary") Save
+        button(mat-button, type="button", (click)="ngOnInit()") Reset

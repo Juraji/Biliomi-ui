@@ -13,14 +13,4 @@ export class SystemSettingsClient extends SettingsRestClient<ISystemSettings> im
   constructor(api: BiliomiApiService) {
     super(api, "/core/settings/system");
   }
-
-  public toggleMute() {
-    this.Muted = !this.Muted;
-    this.save();
-  }
-
-  public toggleWhispers() {
-    this.EnableWhispers = !this.EnableWhispers;
-    this.save();
-  }
 }
