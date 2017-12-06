@@ -10,11 +10,12 @@ export class SortBuilder {
     return this;
   }
 
-  public remove(property: string) {
+  public remove(property: string): SortBuilder {
     let index: number = this.directives.findIndex((d:IRestSortDirective) => d.Property == property);
     if (index > -1) {
       this.directives.splice(index, 1);
     }
+    return this;
   }
 
   public clear() {

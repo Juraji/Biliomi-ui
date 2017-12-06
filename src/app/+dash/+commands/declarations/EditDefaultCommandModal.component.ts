@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
-import {MAT_DIALOG_DATA, MatChipInputEvent, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
+import {MAT_DIALOG_DATA, MatChipInputEvent, MatDialogRef, MatSnackBar} from "@angular/material";
 import {CommandsClient} from "../../../shared/modules/biliomi/clients/model/Commands.client";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {FormControl, Validators} from "@angular/forms";
@@ -15,7 +15,6 @@ export class EditDefaultCommandModalComponent implements AfterViewInit {
   private _commandsClient: CommandsClient;
   private _commandId: number;
   private _matSnackBar: MatSnackBar;
-  private _dialog: MatDialog;
 
   private editedCommand: ICommand;
   private commandCooldownControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
@@ -29,13 +28,11 @@ export class EditDefaultCommandModalComponent implements AfterViewInit {
   constructor(@Inject(MAT_DIALOG_DATA) commandId: number,
               commandsClient: CommandsClient,
               dialogRef: MatDialogRef<EditDefaultCommandModalComponent>,
-              matSnackBar: MatSnackBar,
-              dialog: MatDialog) {
+              matSnackBar: MatSnackBar) {
     this._commandId = commandId;
     this._commandsClient = commandsClient;
     this._dialogRef = dialogRef;
     this._matSnackBar = matSnackBar;
-    this._dialog = dialog;
   }
 
   public async ngAfterViewInit() {

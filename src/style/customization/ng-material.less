@@ -13,6 +13,10 @@ mat-form-field {
   width: 100%;
   margin: 1em 0;
 
+  &:first-child {
+    margin-top: 0;
+  }
+
   mat-icon {
     cursor: pointer;
     user-select: none;
@@ -72,14 +76,4 @@ mat-spinner {
 
 mat-checkbox {
   display: block;
-}
-
-mat-grid-list {
-  &[rowHeight=fit] mat-grid-tile {
-    overflow: visible !important;
-  }
-
-  mat-grid-tile figure {
-    display: unset !important;
-  }
 }

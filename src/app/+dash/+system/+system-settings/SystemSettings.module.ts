@@ -6,6 +6,7 @@ import {ChatSettingsComponent} from "./declarations/ChatSettings.component";
 import {TimeTrackingSettingsComponent} from "./declarations/TimeTrackingSettings.component";
 import {PointsSettingsComponent} from "./declarations/PointsSettings.component";
 import {TemplateSettingsComponent} from "./declarations/TemplateSettings.component";
+import {EditTemplateModalComponent} from "./declarations/EditTemplateModal.component";
 
 const ROUTES: Routes = [
   {
@@ -24,9 +25,10 @@ const ROUTES: Routes = [
     ChatSettingsComponent,
     TimeTrackingSettingsComponent,
     PointsSettingsComponent,
-    TemplateSettingsComponent
+    TemplateSettingsComponent,
+    EditTemplateModalComponent
   ],
-  entryComponents: []
+  entryComponents: [EditTemplateModalComponent]
 })
 export class SystemSettingsModule {
 }

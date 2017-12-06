@@ -1,7 +1,10 @@
-mat-grid-list(cols="2", rowHeight="fit", gutterSize="1em")
-  mat-grid-tile([colspan]="1")
-    chat-settings-component
-    points-settings-component
-  mat-grid-tile([colspan]="1")
-    time-tracking-settings-component
+mat-tab-group
+  mat-tab(label="General Settings")
+    .columns
+      .col.span-6-of-12
+        chat-settings-component
+        time-tracking-settings-component
+      .col.span-6-of-12
+        points-settings-component
+  mat-tab(label="Templates")
     template-settings-component

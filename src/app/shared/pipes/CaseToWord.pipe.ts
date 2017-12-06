@@ -9,7 +9,7 @@ export class CaseToWordPipe implements PipeTransform {
       throw new Error("Missing case type parameter");
     }
 
-    if (value == null && value.length > 1) {
+    if (value == null || value.length == 0) {
       return value;
     }
 
@@ -25,7 +25,7 @@ export class CaseToWordPipe implements PipeTransform {
     }
   }
 
-  private static _doTransform(value: string, upperCaseFirst: boolean, regex:RegExp, replacement: string): string {
+  private static _doTransform(value: string, upperCaseFirst: boolean, regex: RegExp, replacement: string): string {
     let result: string = value.replace(regex, replacement);
     if (upperCaseFirst) {
       result = result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();

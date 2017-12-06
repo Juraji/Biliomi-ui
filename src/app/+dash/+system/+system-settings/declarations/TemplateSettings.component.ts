@@ -2,10 +2,11 @@ import {Component, OnInit, ViewChild} from "@angular/core";
 import {TemplatesClient} from "../../../../shared/modules/biliomi/clients/model/Templates.client";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {RestMatDataSource} from "../../../../shared/modules/ng-material/classes/RestMatDataSource.class";
-import {MatPaginator} from "@angular/material";
+import {MatDialog, MatPaginator} from "@angular/material";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";
 import {Dictionary} from "../../../../shared/modules/tools/FunctionalInterface";
+import {EditTemplateModalComponent} from "./EditTemplateModal.component";
 import ITemplate = Biliomi.ITemplate;
 
 @Component({
@@ -18,9 +19,11 @@ export class TemplateSettingsComponent implements OnInit {
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;
+  private _dialog: MatDialog;
 
-  constructor(templatesClient: TemplatesClient) {
+  constructor(templatesClient: TemplatesClient, dialog: MatDialog) {
     this._templatesClient = templatesClient;
+    this._dialog = dialog;
 
     this.dataSource.bindClient(this._templatesClient);
     this.dataSource.sortBuilder.add("TemplateKey")
@@ -32,7 +35,14 @@ export class TemplateSettingsComponent implements OnInit {
   }
 
   private editTemplate(template: ITemplate) {
+    let dialogRef = this._dialog.open(EditTemplateModalComponent, {
+      width: '600px',
+      data: (template ? template.Id : null)
+    });
 
+    dialogRef.afterClosed()
+      .filter((success: boolean) => success)
+      .subscribe(() => this.dataSource.update());
   }
 
   private exportTemplates() {

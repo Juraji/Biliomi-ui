@@ -13,7 +13,6 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatDialogModule,
   material.MatExpansionModule,
   material.MatFormFieldModule,
-  material.MatGridListModule,
   material.MatIconModule,
   material.MatInputModule,
   material.MatListModule,
