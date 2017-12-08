@@ -37,12 +37,8 @@ export class PointsSettingsComponent implements OnInit {
   private get isFormOk(): boolean {
     return this.pointsNameSingularControl.valid
       && this.pointsNamePluralControl.valid
-      && this.trackOnlineControl.valid
-      && this.trackOfflineControl.valid
-      && this.onlinePayoutIntervalControl.valid
-      && this.offlinePayoutIntervalControl.valid
-      && this.onlinePayoutAmountControl.valid
-      && this.offlinePayoutAmountControl.valid;
+      && (this.trackOnlineControl.value === false || (this.onlinePayoutIntervalControl.valid && this.onlinePayoutAmountControl.valid))
+      && (this.trackOfflineControl.value === false || (this.offlinePayoutIntervalControl.valid && this.offlinePayoutAmountControl.valid));
   }
 
   private save() {
