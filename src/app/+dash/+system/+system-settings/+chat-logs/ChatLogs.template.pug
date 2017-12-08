@@ -16,7 +16,8 @@ mat-sidenav-container
     mat-progress-bar(*ngIf="currentLog == undefined", mode="indeterminate")
     .log-view(*ngIf="currentLog != undefined")
       h4 Viewing log on {{currentLog.LogDate | date:"MMMM Do Y"}}
-        .log-content
-          .log-line(*ngFor="let line of currentLog.Lines; let row = index")
-            .row-number {{row + 1}}
-            .log-line-content {{line}}
+      .log-line-number-bg
+      .log-content
+        .log-line(*ngFor="let line of currentLog.Lines; let row = index")
+          .row-number {{row + 1}}
+          .log-line-content {{line}}

@@ -3,15 +3,35 @@ chat-logs-component {
     background-color: transparent !important;
   }
 
+  .mat-drawer-container {
+    height: 720px;
+  }
+
+  .mat-drawer-container,
+  .mat-drawer-content {
+    overflow: hidden;
+  }
+
+  .log-line-number-bg {
+    background-color: rgba(0, 0, 0, .2);
+    position: absolute;
+    top: 61px;
+    left: 0;
+    bottom: 0;
+    width: 3.5em;
+  }
+
   .log-content {
+    background-color: rgba(0, 0, 0, .1);
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow-y: auto;
     font-family: monospace;
     font-size: 14px;
     line-height: 1.5em;
-    position: absolute;
-    top: 65px;
-    bottom: 0;
-    width: 100%;
-    overflow-y: scroll;
 
     .log-line {
       &:hover {
@@ -24,7 +44,7 @@ chat-logs-component {
       }
 
       .row-number {
-        background-color: rgba(0, 0, 0, .2);
+
         padding: 0 .5em;
         width: 3em;
         text-align: right;
