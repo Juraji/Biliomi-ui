@@ -29,6 +29,11 @@ const ROUTES: Routes = [
         path: "system",
         loadChildren: "./+system/System.module#SystemModule",
         data: {displayName: "System"}
+      },
+      {
+        path: "chat",
+        loadChildren: "./+chat/Chat.module#ChatModule",
+        data: {displayName: "Chat"}
       }
     ]
   }

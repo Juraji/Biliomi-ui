@@ -7,7 +7,9 @@ import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/
 import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";
 import {Dictionary} from "../../../../shared/modules/tools/FunctionalInterface";
 import {EditTemplateModalComponent} from "./declarations/EditTemplateModal.component";
+import {ActivatedRoute, ParamMap} from "@angular/router";
 import ITemplate = Biliomi.ITemplate;
+import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
 
 @Component({
   selector: "template-settings-component",
@@ -15,15 +17,17 @@ import ITemplate = Biliomi.ITemplate;
 })
 export class TemplateSettingsComponent implements OnInit {
   private _templatesClient: TemplatesClient;
+  private _dialog: MatDialog;
+  private _activatedRoute: ActivatedRoute;
   private dataSource: RestMatDataSource<ITemplate> = new RestMatDataSource<ITemplate>();
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;
-  private _dialog: MatDialog;
 
-  constructor(templatesClient: TemplatesClient, dialog: MatDialog) {
+  constructor(templatesClient: TemplatesClient, dialog: MatDialog, activatedRoute: ActivatedRoute) {
     this._templatesClient = templatesClient;
     this._dialog = dialog;
+    this._activatedRoute = activatedRoute;
 
     this.dataSource.bindClient(this._templatesClient);
     this.dataSource.sortBuilder.add("TemplateKey")
@@ -31,7 +35,20 @@ export class TemplateSettingsComponent implements OnInit {
 
   public async ngOnInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.update();
+    await this.dataSource.update();
+
+    this._activatedRoute.paramMap.subscribe((map: ParamMap) => {
+      if (map.has("template")) {
+        let templateKey: string = map.get("template");
+        let template: ITemplate = this.dataSource.data
+          .filter((template: ITemplate) => StringUtils.equalsIgnoreCase(template.TemplateKey, templateKey))
+          .pop();
+
+        if (template != null) {
+          this.editTemplate(template);
+        }
+      }
+    });
   }
 
   private editTemplate(template: ITemplate) {

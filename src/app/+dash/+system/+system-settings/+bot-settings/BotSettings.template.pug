@@ -1,5 +1,22 @@
 .columns
   .col.span-6-of-12
+    mat-card
+      mat-card-header
+        mat-card-title Channel Edit Settings
+        mat-card-subtitle &nbsp;
+
+      mat-card-content
+        p.
+          Biliomi can format your channel title for you.#[br]
+          Click the button below to see how.
+        a(mat-raised-button, color="accent", [routerLink]="'ChannelTitle' | editTemplateLink") Edit Channel Title Template
+
+        p.
+          When a private message response is set Biliomi will automatically respond to users whispering to Biliomi.#[br]
+          If you do not want this, simply empty the template and save.
+        a(mat-raised-button, color="accent", [routerLink]="'PMResponse' | editTemplateLink") Edit Private Message Response
+
+
     chat-settings-component
     time-tracking-settings-component
   .col.span-6-of-12

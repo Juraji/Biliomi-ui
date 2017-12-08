@@ -8,6 +8,10 @@ const ROUTES: Routes = [
   {
     path: "",
     component: TemplateSettingsComponent
+  },
+  {
+    path: ":template",
+    component: TemplateSettingsComponent
   }
 ];
 

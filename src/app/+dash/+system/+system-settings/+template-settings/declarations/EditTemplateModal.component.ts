@@ -2,10 +2,10 @@ import {AfterViewInit, Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
 import {TemplatesClient} from "../../../../../shared/modules/biliomi/clients/model/Templates.client";
 import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {FormControl, Validators} from "@angular/forms";
+import {FormControl} from "@angular/forms";
 import {TemplateKeyDescriptions} from "../../../../../shared/modules/biliomi/classes/TemplateKeyDescriptions";
-import ITemplate = Biliomi.ITemplate;
 import {CaseToWordPipe} from "../../../../../shared/pipes/CaseToWord.pipe";
+import ITemplate = Biliomi.ITemplate;
 
 @Component({
   selector: "edit-template-modal-component",
@@ -19,7 +19,7 @@ export class EditTemplateModalComponent implements AfterViewInit {
 
   private editedTemplate: ITemplate;
   private templateKeys: TemplateKeyDescriptions;
-  private templateControl: FormControl = new FormControl("", [Validators.required]);
+  private templateControl: FormControl = new FormControl("");
 
   constructor(@Inject(MAT_DIALOG_DATA) templateId: number,
               templatesClient: TemplatesClient,
@@ -37,16 +37,12 @@ export class EditTemplateModalComponent implements AfterViewInit {
     this.initFields();
   }
 
-  private initFields() {
+  public initFields() {
     this.templateControl.setValue(this.editedTemplate.Template);
   }
 
-  private get isFormOk(): boolean {
-    return this.templateControl.valid;
-  }
-
   // When pressing ALT+[1-9] the corresponding replacement key for this template is inserted at the caret or selection
-  private templateFieldOnKeyUp(event: KeyboardEvent) {
+  public templateFieldOnKeyUp(event: KeyboardEvent) {
     const numRangeStart: number = 49;
     const numRangeEnd: number = 57;
 
@@ -67,25 +63,23 @@ export class EditTemplateModalComponent implements AfterViewInit {
     }
   }
 
-  private async save() {
-    if (this.isFormOk) {
-      let template: ITemplate = {} as ITemplate;
-      let persistedTemplate: ITemplate;
+  public async save() {
+    let template: ITemplate = {} as ITemplate;
+    let persistedTemplate: ITemplate;
 
-      Object.assign(template, this.editedTemplate);
-      template.Template = this.templateControl.value;
+    Object.assign(template, this.editedTemplate);
+    template.Template = this.templateControl.value;
 
-      persistedTemplate = await this._templatesClient.put(this._templateId, template);
-      if (persistedTemplate == null) {
-        let templateTitle = new CaseToWordPipe().transform(this.editedTemplate.TemplateKey, "TITLE_CASE");
-        this._matSnackBar.open("Could not save template " + templateTitle + ", check your input.", "Ok");
-      } else {
-        this._dialogRef.close(true);
-      }
+    persistedTemplate = await this._templatesClient.put(this._templateId, template);
+    if (persistedTemplate == null) {
+      let templateTitle = new CaseToWordPipe().transform(this.editedTemplate.TemplateKey, "TITLE_CASE");
+      this._matSnackBar.open("Could not save template " + templateTitle + ", check your input.", "Ok");
+    } else {
+      this._dialogRef.close(true);
     }
   }
 
-  private cancelEdit() {
+  public cancelEdit() {
     this._dialogRef.close(false);
   }
 }

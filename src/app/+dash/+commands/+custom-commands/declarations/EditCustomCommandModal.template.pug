@@ -40,7 +40,11 @@ form(#customCommandEditForm="", (submit)="save()")
       mat-hint An alias is like a different name for a command, like shorter syntax for instance.
 
   mat-dialog-actions
-    button(mat-raised-button, color="primary") Save
-    button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()") Cancel
-    button(mat-button, type="button", (click)="initFields()") Reset
-    button(mat-button, type="button", (click)="deleteCommand()", [disabled]="editedCommand?.Id == undefined") Delete
+    button(mat-raised-button, color="primary", [disabled]="!isFormOk", title="Save")
+      mat-icon done
+    button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()", title="Cancel edit")
+      mat-icon arrow_back
+    button(mat-button, type="button", (click)="initFields()", title="Refresh data")
+      mat-icon backspace
+    button(mat-button, type="button", (click)="deleteCommand()", [disabled]="editedCommand?.Id == undefined", title="Delete command")
+      mat-icon delete_forever

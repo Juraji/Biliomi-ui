@@ -29,6 +29,9 @@ form(#customCommandEditForm="", (submit)="save()")
     user-group-select(#userGroup="")
 
   mat-dialog-actions
-    button(mat-raised-button, color="primary") Save
-    button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()") Cancel
-    button(mat-button, type="button", (click)="initFields()") Reset
+    button(mat-raised-button, color="primary", [disabled]="!isFormOk", title="Save")
+      mat-icon done
+    button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()", title="Cancel edit")
+      mat-icon arrow_back
+    button(mat-button, type="button", (click)="initFields()", title="Refresh data")
+      mat-icon refresh

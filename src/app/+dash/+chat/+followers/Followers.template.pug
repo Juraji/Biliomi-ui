@@ -1,0 +1,50 @@
+p Check out the latest followers and change the behaviour of Biliomi when new followers are registered.
+
+.columns
+  .col.span-8-of-12
+    .mat-button-row.pull-right
+      button.pull-right(mat-mini-fab, color="primary", (click)="exportLatestFollowers()", title="Export to Excel")
+        mat-icon cloud_download
+      button(mat-mini-fab, color="primary", (click)="loadLatestFollowers()", title="Refresh")
+        mat-icon refresh
+
+    p Latest Followers
+
+    mat-table(*ngIf="latestFollowersDataSource.data != undefined", #table="", [dataSource]="latestFollowersDataSource")
+      ng-container(matColumnDef="DisplayName")
+        mat-header-cell(*matHeaderCellDef="") Username
+        mat-cell(*matCellDef="let user")
+          | {{user.DisplayName}}
+
+      ng-container(matColumnDef="FollowDate")
+        mat-header-cell(*matHeaderCellDef="") Follows Since
+        mat-cell(*matCellDef="let user")
+          | {{user.FollowDate | date}}
+
+      mat-header-row(*matHeaderRowDef="['DisplayName', 'FollowDate']")
+      mat-row(*matRowDef="let row; columns: ['DisplayName', 'FollowDate'];")
+
+  .col.span-4-of-12
+    p &nbsp;
+
+    form(#followerWatchSettingsForm="", (submit)="saveSettings()")
+      mat-card
+        mat-card-header
+          mat-card-title Follower Watch Settings
+          mat-card-subtitle &nbsp;
+
+        mat-card-content
+          mat-form-field(*ngIf="followerRewardControl.value")
+            input#points-settings-online-payout-interval(matInput, type="number", name="points-settings-online-payout-interval",
+            placeholder="Follow Reward", required="true", [formControl]="followerRewardControl")
+            mat-hint The amount of points to payout to new followers.
+            mat-error(*ngIf="followerRewardControl.hasError('required')") This field is required!
+            mat-error(*ngIf="followerRewardControl.hasError('min')") Please enter a valid amount (min 0).
+
+          a(mat-raised-button, color="accent", [routerLink]="'IncomingFollowNotice' | editTemplateLink") Edit Incoming Follow Notice
+
+        mat-card-actions
+          button(mat-raised-button, color="primary", [disabled]="!isSettingsFormOk", title="Save")
+            mat-icon done
+          button(mat-button, type="button", (click)="initSettingsFields()", title="Refresh data")
+            mat-icon refresh

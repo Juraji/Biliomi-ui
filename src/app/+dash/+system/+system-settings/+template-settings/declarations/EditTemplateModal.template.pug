@@ -3,10 +3,9 @@ form(#templateEditForm="", (submit)="save()")
 
   mat-dialog-content
     mat-form-field
-      textarea#template-template(matInput, name="template-template", placeholder="Template", required="true",
+      textarea#template-template(matInput, name="template-template", placeholder="Template",
       [formControl]="templateControl", rows="4", (keyup)="templateFieldOnKeyUp($event)")
       mat-hint The template contents
-      mat-error(*ngIf="templateControl.hasError('required')") This field is required!
 
     mat-card(*ngIf="templateKeys != undefined")
       mat-card-header
@@ -20,6 +19,9 @@ form(#templateEditForm="", (submit)="save()")
             small.text-muted {{templateKeys.getDescription(key)}}.
 
   mat-dialog-actions
-    button(mat-raised-button, color="primary") Save
-    button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()") Cancel
-    button(mat-button, type="button", (click)="initFields()") Reset
+    button(mat-raised-button, color="primary", title="Save")
+      mat-icon done
+    button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()", title="Cancel edit")
+      mat-icon arrow_back
+    button(mat-button, type="button", (click)="initFields()", title="Refresh data")
+      mat-icon refresh

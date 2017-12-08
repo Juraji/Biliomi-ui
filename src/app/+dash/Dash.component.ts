@@ -50,7 +50,8 @@ export class DashComponent implements OnInit, OnDestroy {
       .filter((e: RouterEvent) => e instanceof NavigationEnd)
       .subscribe(() => this.sideNav.opened = false));
 
-    this._redirector = new RouterRedirector(this._router, "/dash", DASH_ROUTE).start();
+    this._redirector = new RouterRedirector(this._router, "/dash", DASH_ROUTE);
+    this._redirector.start();
 
     // Connect to Biliomi's events service and hook the appropriate subscribers
     this._biliomiEventsService.connect();

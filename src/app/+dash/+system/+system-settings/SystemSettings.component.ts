@@ -1,29 +1,13 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute, Route, Router} from "@angular/router";
-import {RouterRedirector} from "../../../shared/classes/RouterRedirector";
+import {Component} from "@angular/core";
+import {ActivatedRoute, Router} from "@angular/router";
+import {RedirectToFirstChildComponent} from "../../../shared/classes/abstract/RedirectToFirstChildComponent";
 
 @Component({
   selector: "system-settings-page",
-  templateUrl: require("./SystemSettings.template.pug")
+  templateUrl: require("../../../shared/classes/abstract/RedirectToFirstChildComponentTemplate.pug")
 })
-export class SystemSettingsComponent implements OnInit, OnDestroy {
-  private _router: Router;
-  private _activatedRoute: ActivatedRoute;
-  private childRoutes: Route[] = [];
-  private _redirector: RouterRedirector;
-
+export class SystemSettingsComponent extends RedirectToFirstChildComponent {
   constructor(router: Router, activatedRoute: ActivatedRoute) {
-    this._router = router;
-    this._activatedRoute = activatedRoute;
-  }
-
-  public ngOnInit() {
-    const componentUrl = "/dash/system/system-settings";
-    this.childRoutes = this._activatedRoute.routeConfig.children;
-    this._redirector = new RouterRedirector(this._router, componentUrl, componentUrl + "/" + this.childRoutes[0].path).start();
-  }
-
-  public ngOnDestroy() {
-    this._redirector.stop();
+    super("/dash/system/system-settings", router, activatedRoute);
   }
 }

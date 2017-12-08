@@ -25,7 +25,6 @@ const ROUTES: Routes = [
     SharedModule,
     RouterModule.forChild(ROUTES)
   ],
-  declarations: [],
 })
 export class SystemModule {
 }

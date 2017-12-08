@@ -71,10 +71,19 @@ export class StringUtils {
   public static equalsIgnoreCase(source: string, comparison: string): boolean {
     if (source == null && comparison == null) return true;
     if (source == null || comparison == null) return false;
+    if (source.length !== comparison.length) return false;
     return source.toLowerCase() == comparison.toLowerCase();
   }
 
+  /**
+   * True if source contains comparison ignoring casing
+   *
+   * @param {string} source
+   * @param {string} comparison
+   * @returns {boolean}
+   */
   public static containsIgnoreCase(source: string, comparison: string): boolean {
+    if (source == null && comparison == null) return true;
     if (source == null || comparison == null) return false;
     return source.toLowerCase().indexOf(comparison.toLowerCase()) > -1;
   }

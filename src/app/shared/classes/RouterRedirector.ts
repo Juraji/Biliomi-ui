@@ -14,17 +14,15 @@ export class RouterRedirector {
     this._to = RouterRedirector.urlSegmentsToUrl(to);
   }
 
-  public start(): RouterRedirector {
+  public start() {
     this._navigationSubscription = this._router.events
       .filter((e: RouterEvent) => e instanceof NavigationEnd)
       .filter((e: NavigationEnd) => e.urlAfterRedirects === this._from)
-      .subscribe((e: NavigationEnd) => this.performRedirect());
+      .subscribe(() => this.performRedirect());
 
     if (this._router.url === this._from) {
       this.performRedirect();
     }
-
-    return this;
   }
 
   public stop() {
