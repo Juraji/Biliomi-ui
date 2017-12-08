@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {TimeTrackingSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/TimeTrackingSettings.client";
+import {TimeTrackingSettingsClient} from "../../../../../shared/modules/biliomi/clients/settings/TimeTrackingSettings.client";
 import {FormControl} from "@angular/forms";
 
 @Component({

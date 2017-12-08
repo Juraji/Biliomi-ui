@@ -1,0 +1,22 @@
+mat-sidenav-container
+  mat-sidenav(#sideNav="")
+    nav
+      h3 Logs Archive
+      ul
+        li: a((click)="loadLogFile(undefined)") Current
+        li: a(*ngFor="let logFilename of logsArchive", (click)="loadLogFile(logFilename)") {{logFilename}}
+
+  mat-sidenav-container
+    .mat-button-row
+      button.pull-right(mat-mini-fab, color="primary", (click)="sideNav.open()", title="Show archive drawer")
+        mat-icon insert_drive_file
+      button.pull-right(mat-mini-fab, color="primary", (click)="refreshCurrentLog()", title="Refresh file")
+        mat-icon refresh
+
+    mat-progress-bar(*ngIf="currentLog == undefined", mode="indeterminate")
+    .log-view(*ngIf="currentLog != undefined")
+      h4 Viewing log on {{currentLog.LogDate | date:"MMMM Do Y"}}
+        .log-content
+          .log-line(*ngFor="let line of currentLog.Lines; let row = index")
+            .row-number {{row + 1}}
+            .log-line-content {{line}}

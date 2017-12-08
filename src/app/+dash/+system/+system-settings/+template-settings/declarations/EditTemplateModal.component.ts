@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
-import {TemplatesClient} from "../../../../shared/modules/biliomi/clients/model/Templates.client";
-import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {TemplatesClient} from "../../../../../shared/modules/biliomi/clients/model/Templates.client";
+import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {FormControl, Validators} from "@angular/forms";
-import {TemplateKeyDescriptions} from "../../../../shared/modules/biliomi/classes/TemplateKeyDescriptions";
+import {TemplateKeyDescriptions} from "../../../../../shared/modules/biliomi/classes/TemplateKeyDescriptions";
 import ITemplate = Biliomi.ITemplate;
-import {CaseToWordPipe} from "../../../../shared/pipes/CaseToWord.pipe";
+import {CaseToWordPipe} from "../../../../../shared/pipes/CaseToWord.pipe";
 
 @Component({
   selector: "edit-template-modal-component",

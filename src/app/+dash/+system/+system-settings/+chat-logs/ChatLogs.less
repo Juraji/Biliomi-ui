@@ -1,0 +1,38 @@
+chat-logs-component {
+  .mat-drawer-backdrop.mat-drawer-shown {
+    background-color: transparent !important;
+  }
+
+  .log-content {
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5em;
+    position: absolute;
+    top: 65px;
+    bottom: 0;
+    width: 100%;
+    overflow-y: scroll;
+
+    .log-line {
+      &:hover {
+        background-color: rgba(255, 255, 255, .1);
+      }
+
+      > div {
+        display: inline-block;
+        vertical-align: top;
+      }
+
+      .row-number {
+        background-color: rgba(0, 0, 0, .2);
+        padding: 0 .5em;
+        width: 3em;
+        text-align: right;
+      }
+
+      .log-line-content {
+        margin-left: .5em;
+      }
+    }
+  }
+}

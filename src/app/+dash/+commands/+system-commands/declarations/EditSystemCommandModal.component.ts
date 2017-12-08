@@ -1,33 +1,33 @@
 import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
 import {MAT_DIALOG_DATA, MatChipInputEvent, MatDialogRef, MatSnackBar} from "@angular/material";
-import {CommandsClient} from "../../../shared/modules/biliomi/clients/model/Commands.client";
-import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {CommandsClient} from "../../../../shared/modules/biliomi/clients/model/Commands.client";
+import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {FormControl, Validators} from "@angular/forms";
-import {UserGroupSelectComponent} from "../../../shared/components/UserGroupSelect.component";
+import {UserGroupSelectComponent} from "../../../../shared/components/UserGroupSelect.component";
 import ICommand = Biliomi.ICommand;
 
 @Component({
   selector: "edit-default-command-modal-component",
-  templateUrl: require("./EditDefaultCommandModal.template.pug")
+  templateUrl: require("./EditSystemCommandModal.template.pug")
 })
-export class EditDefaultCommandModalComponent implements AfterViewInit {
-  private _dialogRef: MatDialogRef<EditDefaultCommandModalComponent>;
+export class EditSystemCommandModalComponent implements AfterViewInit {
+  private _dialogRef: MatDialogRef<EditSystemCommandModalComponent>;
   private _commandsClient: CommandsClient;
   private _commandId: number;
   private _matSnackBar: MatSnackBar;
 
-  private editedCommand: ICommand;
-  private commandCooldownControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
-  private commandPriceControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
-  private moderatorCanAlwaysActivateControl: FormControl = new FormControl(true);
-  private commandAliasses: string[] = [];
+  public editedCommand: ICommand;
+  public commandCooldownControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
+  public commandPriceControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
+  public moderatorCanAlwaysActivateControl: FormControl = new FormControl(true);
+  public commandAliasses: string[] = [];
 
   @ViewChild("userGroup", {read: UserGroupSelectComponent})
   private userGroupSelect: UserGroupSelectComponent;
 
   constructor(@Inject(MAT_DIALOG_DATA) commandId: number,
               commandsClient: CommandsClient,
-              dialogRef: MatDialogRef<EditDefaultCommandModalComponent>,
+              dialogRef: MatDialogRef<EditSystemCommandModalComponent>,
               matSnackBar: MatSnackBar) {
     this._commandId = commandId;
     this._commandsClient = commandsClient;
@@ -40,7 +40,7 @@ export class EditDefaultCommandModalComponent implements AfterViewInit {
     this.initFields();
   }
 
-  private initFields() {
+  public initFields() {
     this.commandCooldownControl.setValue(this.editedCommand.Cooldown);
     this.commandPriceControl.setValue(this.editedCommand.Price);
     this.moderatorCanAlwaysActivateControl.setValue(this.editedCommand.ModeratorCanAlwaysActivate);
@@ -49,12 +49,12 @@ export class EditDefaultCommandModalComponent implements AfterViewInit {
     this.commandAliasses.push(...this.editedCommand.Aliasses)
   }
 
-  private get isFormOk(): boolean {
+  public get isFormOk(): boolean {
     return this.commandCooldownControl.valid
       && this.commandPriceControl.valid;
   }
 
-  private async save() {
+  public async save() {
     if (this.isFormOk) {
       let command: ICommand = {} as ICommand;
       let persistedCommand: ICommand;
@@ -75,11 +75,11 @@ export class EditDefaultCommandModalComponent implements AfterViewInit {
     }
   }
 
-  private cancelEdit() {
+  public cancelEdit() {
     this._dialogRef.close(false);
   }
 
-  private addedAliasChip(event: MatChipInputEvent) {
+  public addedAliasChip(event: MatChipInputEvent) {
     let value: string = (event.value || "").trim();
     if (value) {
       this.commandAliasses.push(value);
@@ -90,7 +90,7 @@ export class EditDefaultCommandModalComponent implements AfterViewInit {
     }
   }
 
-  private removedAliasChip(alias: string) {
+  public removedAliasChip(alias: string) {
     let index: number = this.commandAliasses.indexOf(alias);
 
     if (index > -1) {

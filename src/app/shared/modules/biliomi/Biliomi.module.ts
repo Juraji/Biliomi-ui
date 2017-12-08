@@ -14,6 +14,7 @@ import {CommandsClient} from "./clients/model/Commands.client";
 import {UserGroupsClient} from "./clients/model/UserGroups.client";
 import {TimeTrackingSettingsClient} from "./clients/settings/TimeTrackingSettings.client";
 import {TemplatesClient} from "./clients/model/Templates.client";
+import {ChatLogsClient} from "./clients/model/ChatLogs.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -35,17 +36,18 @@ export class BiliomiModule extends ServicesLibrary {
       BiliomiEventsService,
 
       // Model clients
-      UsersClient,
-      GamesClient,
-      CustomCommandsClient,
+      ChatLogsClient,
       CommandsClient,
-      UserGroupsClient,
+      CustomCommandsClient,
+      GamesClient,
       TemplatesClient,
+      UserGroupsClient,
+      UsersClient,
 
       // Settings clients
       ChannelInfoClient,
-      SystemSettingsClient,
       PointsSettingsClient,
+      SystemSettingsClient,
       TimeTrackingSettingsClient
     ]);
   }

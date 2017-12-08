@@ -1,10 +1,9 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ViewChild} from "@angular/core";
 import {RestMatDataSource} from "../../../shared/modules/ng-material/classes/RestMatDataSource.class";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {MatDialog, MatPaginator} from "@angular/material";
 import {CommandsClient} from "../../../shared/modules/biliomi/clients/model/Commands.client";
-import {EditDefaultCommandModalComponent} from "../declarations/EditDefaultCommandModal.component";
-import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
+import {EditSystemCommandModalComponent} from "./declarations/EditSystemCommandModal.component";
 import {XlsxExporter} from "../../../shared/modules/xlsx-export/classes/XlsxExporter";
 import {
   XLSX_FORMATTER_BOOLEAN_YES_NO,
@@ -18,7 +17,7 @@ import ICommand = Biliomi.ICommand;
   // Since "default" is a pug keyword I chose to name the selector differently
   selector: "system-commands-component",
   templateUrl: require("./SystemCommands.template.pug"),
-  styleUrls: [require("./Commands.less").toString()]
+  styleUrls: [require("../declarations/Commands.less").toString()]
 })
 export class SystemCommandsComponent implements AfterViewInit {
   private _dialog: MatDialog;
@@ -39,7 +38,7 @@ export class SystemCommandsComponent implements AfterViewInit {
   }
 
   private editCommand(command: ICommand) {
-    let dialogRef = this._dialog.open(EditDefaultCommandModalComponent, {
+    let dialogRef = this._dialog.open(EditSystemCommandModalComponent, {
       width: '600px',
       data: (command ? command.Id : null)
     });

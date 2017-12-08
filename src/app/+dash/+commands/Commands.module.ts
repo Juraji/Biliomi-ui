@@ -2,16 +2,23 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../shared/Shared.module";
 import {CommandsComponent} from "./Commands.component";
-import {CustomCommandsComponent} from "./tabs/CustomCommands.component";
-import {SystemCommandsComponent} from "./tabs/SystemCommands.component";
-import {CommandAttributesComponent} from "./declarations/CommandAttributes.component";
-import {EditCustomCommandModalComponent} from "./declarations/EditCustomCommandModal.component";
-import {EditDefaultCommandModalComponent} from "./declarations/EditDefaultCommandModal.component";
 
 const ROUTES: Routes = [
   {
     path: "",
-    component: CommandsComponent
+    component: CommandsComponent,
+    children: [
+      {
+        path: "custom-commands",
+        loadChildren: "./+custom-commands/CustomCommands.module#CustomCommandsModule",
+        data: {displayName: "Custom Commands"}
+      },
+      {
+        path: "system-commands",
+        loadChildren: "./+system-commands/SystemCommands.module#SystemCommandsModule",
+        data: {displayName: "System Commands"}
+      }
+    ]
   }
 ];
 
@@ -22,16 +29,8 @@ const ROUTES: Routes = [
   ],
   declarations: [
     CommandsComponent,
-    CustomCommandsComponent,
-    SystemCommandsComponent,
-    CommandAttributesComponent,
-    EditCustomCommandModalComponent,
-    EditDefaultCommandModalComponent
   ],
-  entryComponents: [
-    EditCustomCommandModalComponent,
-    EditDefaultCommandModalComponent
-  ]
+  entryComponents: []
 })
 export class CommandsModule {
 }

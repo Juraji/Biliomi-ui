@@ -1,11 +1,10 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, ViewChild} from "@angular/core";
 import {MatDialog, MatPaginator} from "@angular/material";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CustomCommandsClient} from "../../../shared/modules/biliomi/clients/model/CustomCommands.client";
 import {RestMatDataSource} from "../../../shared/modules/ng-material/classes/RestMatDataSource.class";
 import {ARG_COMMAND_REPLACEMENTS} from "../../../shared/modules/biliomi/classes/constants/CommandReplacements";
-import {EditCustomCommandModalComponent} from "../declarations/EditCustomCommandModal.component";
-import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
+import {EditCustomCommandModalComponent} from "./declarations/EditCustomCommandModal.component";
 import {XlsxExporter} from "../../../shared/modules/xlsx-export/classes/XlsxExporter";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {
@@ -17,7 +16,7 @@ import ICustomCommand = Biliomi.ICustomCommand;
 @Component({
   selector: "custom-commands-component",
   templateUrl: require("./CustomCommands.template.pug"),
-  styleUrls: [require("./Commands.less").toString()]
+  styleUrls: [require("../declarations/Commands.less").toString()]
 })
 export class CustomCommandsComponent implements AfterViewInit {
   private _dialog: MatDialog;

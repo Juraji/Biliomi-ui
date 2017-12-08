@@ -6,7 +6,7 @@ import {MatDialog, MatPaginator} from "@angular/material";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";
 import {Dictionary} from "../../../../shared/modules/tools/FunctionalInterface";
-import {EditTemplateModalComponent} from "./EditTemplateModal.component";
+import {EditTemplateModalComponent} from "./declarations/EditTemplateModal.component";
 import ITemplate = Biliomi.ITemplate;
 
 @Component({

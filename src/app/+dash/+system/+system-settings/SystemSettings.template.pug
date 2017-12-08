@@ -1,10 +1,4 @@
-mat-tab-group
-  mat-tab(label="General Settings")
-    .columns
-      .col.span-6-of-12
-        chat-settings-component
-        time-tracking-settings-component
-      .col.span-6-of-12
-        points-settings-component
-  mat-tab(label="Templates")
-    template-settings-component
+nav(mat-tab-nav-bar)
+  a(mat-tab-link, *ngFor="let child of childRoutes", [routerLink]="child.path", routerLinkActive #rla="routerLinkActive", [active] = "rla.isActive") {{child.data.displayName}}
+
+router-outlet

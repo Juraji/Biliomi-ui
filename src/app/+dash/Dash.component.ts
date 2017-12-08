@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {MatSidenav, MatSnackBar} from "@angular/material";
 import {NavigationEnd, Router, RouterEvent} from "@angular/router";
 import {DASH_ROUTE} from "../Main.module";
@@ -9,19 +9,20 @@ import {Biliomi} from "../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {StringUtils} from "../shared/modules/tools/StringUtils";
 import {AuthService} from "../shared/services/Auth.service";
 import {SubscriptionBucket} from "../shared/classes/SubscriptionBucket";
+import {BILIOMI_EVENTS} from "../shared/modules/biliomi/classes/constants/BiliomiApiVariables";
+import {RouterRedirector} from "../shared/classes/RouterRedirector";
 import ITwitchFollowEvent = Biliomi.ITwitchFollowEvent;
 import ITwitchSubscriberEvent = Biliomi.ITwitchSubscriberEvent;
 import ITwitchHostInEvent = Biliomi.ITwitchHostInEvent;
 import IIrcChatMessageEvent = Biliomi.IIrcChatMessageEvent;
 import ITwitchBitsEvent = Biliomi.ITwitchBitsEvent;
-import {BILIOMI_EVENTS} from "../shared/modules/biliomi/classes/constants/BiliomiApiVariables";
 
 @Component({
   selector: "dash-page",
   templateUrl: require("./Dash.template.pug"),
   styleUrls: [require("./Dash.less").toString()]
 })
-export class DashComponent implements OnInit, OnDestroy, AfterViewInit {
+export class DashComponent implements OnInit, OnDestroy {
 
   @ViewChild("sideNav")
   private sideNav: MatSidenav;
@@ -30,7 +31,8 @@ export class DashComponent implements OnInit, OnDestroy, AfterViewInit {
   private _auth: AuthService;
   private _matSnackBar: MatSnackBar;
   private _biliomiEventsService: BiliomiEventsService;
-  private _globalBiliomiEventSubscriptions: SubscriptionBucket = new SubscriptionBucket();
+  private _subscriptionBucket: SubscriptionBucket = new SubscriptionBucket();
+  private _redirector: RouterRedirector;
 
   constructor(router: Router, api: BiliomiApiService, biliomiEventsService: BiliomiEventsService, auth: AuthService, matSnackBar: MatSnackBar) {
     this._router = router;
@@ -44,44 +46,26 @@ export class DashComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public ngOnInit() {
-// Connect to Biliomi's events service and hook the appropriate subscribers
+    this._subscriptionBucket.add(this._router.events
+      .filter((e: RouterEvent) => e instanceof NavigationEnd)
+      .subscribe(() => this.sideNav.opened = false));
+
+    this._redirector = new RouterRedirector(this._router, "/dash", DASH_ROUTE).start();
+
+    // Connect to Biliomi's events service and hook the appropriate subscribers
     this._biliomiEventsService.connect();
 
-    this._globalBiliomiEventSubscriptions.add(
-      this._biliomiEventsService.subscribe((e: ITwitchFollowEvent) => this._onBiliomiTwitchFollowEvent(e), [BILIOMI_EVENTS.TWITCH_FOLLOW_EVENT])
-    );
-    this._globalBiliomiEventSubscriptions.add(
-      this._biliomiEventsService.subscribe((e: ITwitchSubscriberEvent) => this._onBiliomiTwitchSubscriberEvent(e), [BILIOMI_EVENTS.TWITCH_SUBSCRIBER_EVENT])
-    );
-    this._globalBiliomiEventSubscriptions.add(
-      this._biliomiEventsService.subscribe((e: ITwitchBitsEvent) => this._onBiliomiTwitchBitsEvent(e), [BILIOMI_EVENTS.TWITCH_BITS_EVENT])
-    );
-    this._globalBiliomiEventSubscriptions.add(
-      this._biliomiEventsService.subscribe((e: ITwitchHostInEvent) => this._onBiliomiTwitchHostInEvent(e), [BILIOMI_EVENTS.TWITCH_HOST_IN_EVENT])
-    );
-    this._globalBiliomiEventSubscriptions.add(
-      this._biliomiEventsService.subscribe((e: IIrcChatMessageEvent) => this._onBiliomiMessageEvent(e), [BILIOMI_EVENTS.IRC_CHAT_MESSAGE_EVENT])
-    );
+    this._subscriptionBucket
+      .add(this._biliomiEventsService.subscribe((e: ITwitchFollowEvent) => this._onBiliomiTwitchFollowEvent(e), [BILIOMI_EVENTS.TWITCH_FOLLOW_EVENT]))
+      .add(this._biliomiEventsService.subscribe((e: ITwitchSubscriberEvent) => this._onBiliomiTwitchSubscriberEvent(e), [BILIOMI_EVENTS.TWITCH_SUBSCRIBER_EVENT]))
+      .add(this._biliomiEventsService.subscribe((e: ITwitchBitsEvent) => this._onBiliomiTwitchBitsEvent(e), [BILIOMI_EVENTS.TWITCH_BITS_EVENT]))
+      .add(this._biliomiEventsService.subscribe((e: ITwitchHostInEvent) => this._onBiliomiTwitchHostInEvent(e), [BILIOMI_EVENTS.TWITCH_HOST_IN_EVENT]))
+      .add(this._biliomiEventsService.subscribe((e: IIrcChatMessageEvent) => this._onBiliomiMessageEvent(e), [BILIOMI_EVENTS.IRC_CHAT_MESSAGE_EVENT]));
   }
 
   public ngOnDestroy() {
-    this._globalBiliomiEventSubscriptions.clear();
-  }
-
-  public ngAfterViewInit() {
-    // The nav drawer should close after the router has ended navigation
-    this._router.events
-      .filter((e: RouterEvent) => e instanceof NavigationEnd)
-      .subscribe((e: NavigationEnd) => {
-        this.sideNav.opened = false;
-        if (e.urlAfterRedirects === "/dash") {
-          this._router.navigateByUrl(DASH_ROUTE)
-        }
-      });
-
-    if (this._router.url === "/dash") {
-      this._router.navigateByUrl(DASH_ROUTE)
-    }
+    this._subscriptionBucket.clear();
+    this._redirector.stop();
   }
 
   // Global event subscriber methods

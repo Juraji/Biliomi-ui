@@ -1,5 +1,4 @@
-mat-tab-group
-  mat-tab(label="Custom Commands")
-    custom-commands-component
-  mat-tab(label="Default Commands")
-    system-commands-component
+nav(mat-tab-nav-bar)
+  a(mat-tab-link, *ngFor="let child of childRoutes", [routerLink]="child.path", routerLinkActive #rla="routerLinkActive", [active] = "rla.isActive") {{child.data.displayName}}
+
+router-outlet

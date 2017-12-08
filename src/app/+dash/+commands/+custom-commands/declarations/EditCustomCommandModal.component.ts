@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
 import {MAT_DIALOG_DATA, MatChipInputEvent, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
-import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {CustomCommandsClient} from "../../../shared/modules/biliomi/clients/model/CustomCommands.client";
+import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {CustomCommandsClient} from "../../../../shared/modules/biliomi/clients/model/CustomCommands.client";
 import {FormControl, Validators} from "@angular/forms";
-import {UserGroupSelectComponent} from "../../../shared/components/UserGroupSelect.component";
-import {ConfirmDialogComponent} from "../../../shared/components/ConfirmDialog.component";
+import {UserGroupSelectComponent} from "../../../../shared/components/UserGroupSelect.component";
+import {ConfirmDialogComponent} from "../../../../shared/components/ConfirmDialog.component";
 import ICustomCommand = Biliomi.ICustomCommand;
 
 @Component({

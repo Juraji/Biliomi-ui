@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {PointsSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/PointsSettings.client";
+import {PointsSettingsClient} from "../../../../../shared/modules/biliomi/clients/settings/PointsSettings.client";
 import {FormControl, Validators} from "@angular/forms";
 
 @Component({

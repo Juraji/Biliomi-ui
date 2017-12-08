@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {SystemSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/SystemSettings.client";
+import {SystemSettingsClient} from "../../../../../shared/modules/biliomi/clients/settings/SystemSettings.client";
 import {FormControl} from "@angular/forms";
 
 @Component({
