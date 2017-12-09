@@ -14,7 +14,7 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
       ng-container(matColumnDef="DisplayName")
         mat-header-cell(*matHeaderCellDef="") Username
         mat-cell(*matCellDef="let user")
-          | {{user.DisplayName}}
+          span.router-link([routerLink]="user.Username | editUserLink") {{user.DisplayName}}
 
       ng-container(matColumnDef="FollowDate")
         mat-header-cell(*matHeaderCellDef="") Follows Since

@@ -14,6 +14,9 @@ import {PointsSettingsClient} from "../../../shared/modules/biliomi/clients/sett
 import {EditUserModalComponent} from "./declarations/EditUserModal.component";
 import {ChannelInfoClient} from "../../../shared/modules/biliomi/clients/settings/ChannelInfo.client";
 import IUser = Biliomi.IUser;
+import {StringUtils} from "../../../shared/modules/tools/StringUtils";
+import {ActivatedRoute, ParamMap} from "@angular/router";
+import {DataSourceFilterComponent} from "../../../shared/modules/ng-material/components/DataSourceFilter.component";
 
 @Component({
   selector: "users-page",
@@ -22,28 +25,48 @@ import IUser = Biliomi.IUser;
 export class UsersComponent implements AfterViewInit {
   private _dialog: MatDialog;
   private _pointsSettingsClient: PointsSettingsClient;
+  private _activatedRoute: ActivatedRoute;
   private channelInfoClient: ChannelInfoClient;
   private dataSource: RestMatDataSource<IUser> = new RestMatDataSource<IUser>();
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;
 
+  @ViewChild("datasourceFilter", {read: DataSourceFilterComponent})
+  private filterField: DataSourceFilterComponent;
+
   constructor(usersClient: UsersClient,
               channelInfoClient: ChannelInfoClient,
               pointsSettingsClient: PointsSettingsClient,
-              dialog: MatDialog) {
+              dialog: MatDialog,
+              activatedRoute:ActivatedRoute) {
     this._dialog = dialog;
     this._pointsSettingsClient = pointsSettingsClient;
     this.channelInfoClient = channelInfoClient;
+    this._activatedRoute = activatedRoute;
 
     this.channelInfoClient.load();
     this.dataSource.bindClient(usersClient);
     this.dataSource.sortBuilder.add("Username", false, true);
   }
 
-  public ngAfterViewInit() {
+  public async ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.update();
+    await this.dataSource.update();
+
+    this._activatedRoute.paramMap.subscribe((map: ParamMap) => {
+      if (map.has("username")) {
+        let templateKey: string = map.get("username");
+        let user: IUser = this.dataSource.data
+          .filter((user: IUser) => StringUtils.equalsIgnoreCase(user.Username, templateKey))
+          .pop();
+
+        if (user != null) {
+          this.editUser(user);
+          this.filterField.value = user.DisplayName;
+        }
+      }
+    });
   }
 
   private get tableColumns(): string[] {

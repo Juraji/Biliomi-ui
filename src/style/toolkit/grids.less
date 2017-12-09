@@ -2,12 +2,14 @@
 
 // The point at which columns will stack to blocks and
 // hidden-on-break will activate
-@break-point: 1024px;
+@break-point: 786px;
 
 .columns {
   clear: both;
   padding: 0;
   margin: 0;
+  display: inline-block;
+  width: 100%;
 
   /*  GROUPING  */
   .column-group {
@@ -101,7 +103,18 @@
     margin: 1% 0 1% 0;
   }
 
-  .span-1-of-12, .span-2-of-12, .span-3-of-12, .span-4-of-12, .span-5-of-12, .span-6-of-12, .span-7-of-12, .span-8-of-12, .span-9-of-12, .span-10-of-12, .span-11-of-12, .span-12-of-12 {
+  .span-1-of-12,
+  .span-2-of-12,
+  .span-3-of-12,
+  .span-4-of-12,
+  .span-5-of-12,
+  .span-6-of-12,
+  .span-7-of-12,
+  .span-8-of-12,
+  .span-9-of-12,
+  .span-10-of-12,
+  .span-11-of-12,
+  .span-12-of-12 {
     width: 100%;
   }
 }

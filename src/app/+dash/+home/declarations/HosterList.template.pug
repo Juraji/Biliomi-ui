@@ -7,7 +7,7 @@ mat-card
   mat-card-content
     ul.list-unstyled
       li.text-muted(*ngIf="channelInfoClient.HosterCount == 0") No hosters
-      li(*ngFor="let viewer of channelInfoClient.Hosters | arrayPageSlice:matPageEvent")
+      li.router-link(*ngFor="let viewer of channelInfoClient.Hosters | arrayPageSlice:matPageEvent", [routerLink]="viewer.Username | editUserLink")
         span([ngClass]="{'text-primary':viewer.Caster, 'text-secondary':viewer.Moderator}") {{viewer.DisplayName}}
 
   mat-card-actions(*ngIf="channelInfoClient.HosterCount > 10")

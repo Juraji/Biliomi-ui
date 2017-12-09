@@ -16,6 +16,7 @@ import {UserGroupSelectComponent} from "./components/UserGroupSelect.component";
 import {ConfirmDialogComponent} from "./components/ConfirmDialog.component";
 import {CaseToWordPipe} from "./pipes/CaseToWord.pipe";
 import {EditTemplateLinkPipe} from "./pipes/EditTemplateLink.pipe";
+import {EditUserLinkPipe} from "./pipes/EditUserLink.pipe";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -23,6 +24,7 @@ const SHARED_PIPES: Type<PipeTransform>[] = [
   TimePipe,
   CaseToWordPipe,
   EditTemplateLinkPipe,
+  EditUserLinkPipe,
 ];
 
 const SHARED_COMPONENTS: Type<any>[] = [

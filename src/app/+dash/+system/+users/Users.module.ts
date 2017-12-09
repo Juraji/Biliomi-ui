@@ -8,6 +8,11 @@ const ROUTES: Routes = [
   {
     path: "",
     component: UsersComponent
+  },
+  {
+    path: ":username",
+    component: UsersComponent,
+    data: {displayName: "Edit User"}
   }
 ];
 
