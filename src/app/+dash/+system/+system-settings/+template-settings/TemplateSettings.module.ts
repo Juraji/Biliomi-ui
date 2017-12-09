@@ -11,7 +11,8 @@ const ROUTES: Routes = [
   },
   {
     path: ":template",
-    component: TemplateSettingsComponent
+    component: TemplateSettingsComponent,
+    data: {displayName: "Edit Template"}
   }
 ];
 
