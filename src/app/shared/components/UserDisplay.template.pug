@@ -1,0 +1,3 @@
+a(*ngIf="user != undefined", [routerLink]="user.Username | editUserLink", title="Click to view user details")
+  span([ngClass]="{'text-primary':user.Caster, 'text-secondary':user.Moderator}") {{user.DisplayName}}
+  small.text-muted &nbsp;{{user.UserGroup.Name}}

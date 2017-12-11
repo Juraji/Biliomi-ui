@@ -14,7 +14,7 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
       ng-container(matColumnDef="DisplayName")
         mat-header-cell(*matHeaderCellDef="") Username
         mat-cell(*matCellDef="let user")
-          span.router-link([routerLink]="user.Username | editUserLink") {{user.DisplayName}}
+          user-display([user]="user")
 
       ng-container(matColumnDef="FollowDate")
         mat-header-cell(*matHeaderCellDef="") Follows Since
@@ -41,7 +41,8 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
             mat-error(*ngIf="followerRewardControl.hasError('required')") This field is required!
             mat-error(*ngIf="followerRewardControl.hasError('min')") Please enter a valid amount (min 0).
 
-          a(mat-raised-button, color="accent", [routerLink]="'IncomingFollowNotice' | editTemplateLink") Edit Incoming Follow Notice
+          .mat-button-row.mat-button-row-blocks
+            edit-template-button(templateKey="IncomingFollowNotice") Edit Incoming Follow Notice
 
         mat-card-actions
           button(mat-raised-button, color="primary", [disabled]="!isSettingsFormOk", title="Save")

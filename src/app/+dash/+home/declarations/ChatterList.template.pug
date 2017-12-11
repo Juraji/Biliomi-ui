@@ -8,8 +8,7 @@ mat-card
     ul.list-unstyled
       li.text-muted(*ngIf="channelInfoClient.ViewerCount == 0") No viewers
       li.router-link(*ngFor="let viewer of channelInfoClient.Viewers | arrayPageSlice:matPageEvent", [routerLink]="viewer.Username | editUserLink")
-        span([ngClass]="{'text-primary':viewer.Caster, 'text-secondary':viewer.Moderator}") {{viewer.DisplayName}}
-        small.text-muted &nbsp;{{viewer.UserGroup.Name}}
+        user-display([user]="viewer")
 
   mat-card-actions(*ngIf="channelInfoClient.ViewerCount > 10")
     mat-paginator.hide-items-label([length]="channelInfoClient.ViewerCount", pageSize="10", (page)="matPageEvent = $event")

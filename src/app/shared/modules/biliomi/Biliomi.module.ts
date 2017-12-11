@@ -16,6 +16,7 @@ import {TimeTrackingSettingsClient} from "./clients/settings/TimeTrackingSetting
 import {TemplatesClient} from "./clients/model/Templates.client";
 import {ChatLogsClient} from "./clients/model/ChatLogs.client";
 import {FollowerWatchSettingsClient} from "./clients/settings/FollowerWatchSettings.client";
+import {SubscriberWatchSettingsClient} from "./clients/settings/SubscriberWatchSettings.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -49,6 +50,7 @@ export class BiliomiModule extends ServicesLibrary {
       ChannelInfoClient,
       FollowerWatchSettingsClient,
       PointsSettingsClient,
+      SubscriberWatchSettingsClient,
       SystemSettingsClient,
       TimeTrackingSettingsClient
     ]);

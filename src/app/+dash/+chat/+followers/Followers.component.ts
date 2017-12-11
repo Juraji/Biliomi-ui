@@ -51,7 +51,7 @@ export class FollowersComponent implements OnInit {
   }
 
   public async initSettingsFields() {
-    await this._followerWatchSettingsClient.load();
+    await this._followerWatchSettingsClient.load(true);
     this.followerRewardControl.setValue(this._followerWatchSettingsClient.Reward);
   }
 

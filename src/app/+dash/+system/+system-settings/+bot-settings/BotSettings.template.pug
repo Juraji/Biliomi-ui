@@ -9,12 +9,14 @@
         p.
           Biliomi can format your channel title for you.#[br]
           Click the button below to see how.
-        a(mat-raised-button, color="accent", [routerLink]="'ChannelTitle' | editTemplateLink") Edit Channel Title Template
+        .mat-button-row.mat-button-row-blocks
+          edit-template-button(templateKey="ChannelTitle") Edit Channel Title Template
 
         p.
           When a private message response is set Biliomi will automatically respond to users whispering to Biliomi.#[br]
           If you do not want this, simply empty the template and save.
-        a(mat-raised-button, color="accent", [routerLink]="'PMResponse' | editTemplateLink") Edit Private Message Response
+        .mat-button-row.mat-button-row-blocks
+          edit-template-button(templateKey="PMResponse") Edit Private Message Response
 
 
     chat-settings-component

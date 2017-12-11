@@ -15,22 +15,24 @@ import {CommandFormComponent} from "./components/CommandForm.component";
 import {UserGroupSelectComponent} from "./components/UserGroupSelect.component";
 import {ConfirmDialogComponent} from "./components/ConfirmDialog.component";
 import {CaseToWordPipe} from "./pipes/CaseToWord.pipe";
-import {EditTemplateLinkPipe} from "./pipes/EditTemplateLink.pipe";
 import {EditUserLinkPipe} from "./pipes/EditUserLink.pipe";
+import {EditTemplateButtonComponent} from "./components/EditTemplateButton.component";
+import {UserDisplayComponent} from "./components/UserDisplay.component";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
   DatePipe,
   TimePipe,
   CaseToWordPipe,
-  EditTemplateLinkPipe,
   EditUserLinkPipe,
 ];
 
 const SHARED_COMPONENTS: Type<any>[] = [
   CommandFormComponent,
   UserGroupSelectComponent,
-  ConfirmDialogComponent
+  ConfirmDialogComponent,
+  EditTemplateButtonComponent,
+  UserDisplayComponent,
 ];
 
 const SHARED_DIRECTIVES: Type<any>[] = [];

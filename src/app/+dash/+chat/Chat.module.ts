@@ -13,6 +13,11 @@ const ROUTES: Routes = [
     loadChildren: './+followers/Followers.module#FollowersModule',
     data: {displayName: "Followers"}
   },
+  {
+    path: "subscribers",
+    loadChildren: './+subscribers/Subscribers.module#SubscribersModule',
+    data: {displayName: "Subscribers"}
+  },
 ];
 
 @NgModule({
