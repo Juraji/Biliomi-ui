@@ -105,17 +105,19 @@ export class BiliomiApiService {
    */
   public async delete(resourceUri: string, params?: HttpParams): Promise<boolean> {
     let uri: string = await this.getApiUriFor(resourceUri);
-    let response: HttpResponse<void>;
+    let response: HttpResponse<any>;
 
     try {
       response = await this._httpClient
-        .delete<void>(uri, {
+        .delete(uri, {
           headers: this.buildHeaders(),
           params: params,
-          observe: "response"
+          observe: "response",
+          responseType: "text"
         })
         .toPromise();
     } catch (e) {
+      console.log(e);
       this._postRequestErrorInterceptor.emit(e);
     }
 
