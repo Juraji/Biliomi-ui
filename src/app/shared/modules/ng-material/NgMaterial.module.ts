@@ -2,6 +2,7 @@ import {NgModule, Type} from "@angular/core";
 import {ArrayPageSlicePipe} from "./pipes/ArrayPageSlice.pipe";
 import * as material from "@angular/material";
 import {DataSourceFilterComponent} from "./components/DataSourceFilter.component";
+import {DataSourceProgressBarComponent} from "./components/DataSourceProgressBar.component";
 
 const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatAutocompleteModule,
@@ -19,6 +20,7 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatPaginatorModule,
   material.MatProgressBarModule,
   material.MatProgressSpinnerModule,
+  material.MatRadioModule,
   material.MatSelectModule,
   material.MatSidenavModule,
   material.MatSnackBarModule,
@@ -29,7 +31,8 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [
   ArrayPageSlicePipe,
-  DataSourceFilterComponent
+  DataSourceFilterComponent,
+  DataSourceProgressBarComponent
 ];
 
 @NgModule({

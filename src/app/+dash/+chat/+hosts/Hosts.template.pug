@@ -1,0 +1,29 @@
+p Check out the latest followers and change the behaviour of Biliomi when new followers are registered.
+
+.columns
+  .col.span-8-of-12
+    mat-tab-group
+      mat-tab(label="Incoming Records")
+        .mat-button-row.pull-right
+          button.pull-right(mat-mini-fab, color="primary", (click)="exportRecords()", title="Export to Excel")
+            mat-icon cloud_download
+          button(mat-mini-fab, color="primary", (click)="incomingRecordsDataSource.update()", title="Refresh")
+            mat-icon refresh
+
+        p &nbsp;
+
+        host-records-table-component([dataSource]="incomingRecordsDataSource")
+
+      mat-tab(label="Outgoing Records")
+        .mat-button-row.pull-right
+          button.pull-right(mat-mini-fab, color="primary", (click)="exportRecords()", title="Export to Excel")
+            mat-icon cloud_download
+          button(mat-mini-fab, color="primary", (click)="outgoingRecordsDataSource.update()", title="Refresh")
+            mat-icon refresh
+
+        p &nbsp;
+
+        host-records-table-component([dataSource]="outgoingRecordsDataSource")
+
+  .col.span-4-of-12
+    host-form-component((onRecordCreated)="updateOnRecordCreated($event)")

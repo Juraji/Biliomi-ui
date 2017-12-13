@@ -6,9 +6,9 @@
 
 p Default commands are pre-defined commands for interaction with Biliomi.
 
-mat-progress-bar(*ngIf="!dataSource.isInitialized", mode="indeterminate")
+data-source-progress-bar([dataSource]="dataSource")
 
-mat-table(*ngIf="dataSource.isInitialized", #table="", [dataSource]="dataSource")
+mat-table(*ngIf="dataSource.hasData", #table="", [dataSource]="dataSource")
   ng-container(matColumnDef="Command")
     mat-header-cell(*matHeaderCellDef="") Command
     mat-cell(*matCellDef="let command")

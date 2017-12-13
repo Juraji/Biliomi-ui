@@ -12,6 +12,8 @@ form(#customCommandEditForm="", (submit)="save()")
         td: small Subscriber Since:
         td {{editedUser.SubscribeDate | date}}
 
+    hr
+
     mat-form-field
       input#user-title(matInput, name="user-title", placeholder="Title", [formControl]="userTitleControl")
       mat-hint Some commands prepend this value to the user's username.
@@ -23,8 +25,10 @@ form(#customCommandEditForm="", (submit)="save()")
       mat-error(*ngIf="userPointsControl.hasError('required')") This field is required!
 
 
-    mat-checkbox([hidden]="editedUser?.Caster || editedUser?.Moderator", [formControl]="userIsBlacklistedControl").
-      Blacklist user
+    mat-checkbox([hidden]="editedUser?.Caster || editedUser?.Moderator", [formControl]="userIsBlacklistedControl")
+      | Blacklist  User
+      small.text-not-ok(*ngIf="editedUser?.BlacklistedSince != undefined")
+        | #[br]{{editedUser?.DisplayName}} has been blacklisted since {{editedUser?.BlacklistedSince | date}}.
 
     user-group-select(#userGroup="")
 

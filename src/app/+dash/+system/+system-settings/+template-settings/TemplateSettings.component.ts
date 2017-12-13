@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {TemplatesClient} from "../../../../shared/modules/biliomi/clients/model/Templates.client";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {RestMatDataSource} from "../../../../shared/modules/ng-material/classes/RestMatDataSource.class";
+import {RestTableDataSource} from "../../../../shared/modules/ng-material/classes/RestTableDataSource";
 import {MatDialog, MatPaginator} from "@angular/material";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";
@@ -19,7 +19,7 @@ export class TemplateSettingsComponent implements OnInit {
   private _templatesClient: TemplatesClient;
   private _dialog: MatDialog;
   private _activatedRoute: ActivatedRoute;
-  private dataSource: RestMatDataSource<ITemplate> = new RestMatDataSource<ITemplate>();
+  private dataSource: RestTableDataSource<ITemplate> = new RestTableDataSource<ITemplate>();
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;

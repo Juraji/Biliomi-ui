@@ -9,7 +9,9 @@ mat-card, mat-expansion-panel {
   }
 }
 
-mat-form-field, mat-checkbox {
+mat-form-field, mat-checkbox, mat-radio-group {
+  user-select: none;
+  display: block;
   width: 100%;
   margin-bottom: 1em;
 
@@ -61,6 +63,12 @@ mat-paginator {
   }
 }
 
+mat-cell {
+  .mat-button-row {
+    margin-top: 0;
+  }
+}
+
 .mat-toolbar {
   // The mat-toolbar for some reason gets a lineheight of 32px, this propagates to all content, which breaks style.
   // This rule resets this behaviour
@@ -82,4 +90,9 @@ mat-spinner {
 
 mat-checkbox {
   display: block;
+}
+
+mat-radio-button {
+  display: block !important;
+  margin-bottom: .3em;
 }

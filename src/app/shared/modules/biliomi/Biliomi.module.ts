@@ -17,6 +17,7 @@ import {TemplatesClient} from "./clients/model/Templates.client";
 import {ChatLogsClient} from "./clients/model/ChatLogs.client";
 import {FollowerWatchSettingsClient} from "./clients/settings/FollowerWatchSettings.client";
 import {SubscriberWatchSettingsClient} from "./clients/settings/SubscriberWatchSettings.client";
+import {HostRecordsClient} from "./clients/model/HostRecords.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -42,6 +43,7 @@ export class BiliomiModule extends ServicesLibrary {
       CommandsClient,
       CustomCommandsClient,
       GamesClient,
+      HostRecordsClient,
       TemplatesClient,
       UserGroupsClient,
       UsersClient,

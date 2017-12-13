@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, ViewChild} from "@angular/core";
 import {UsersClient} from "../../../shared/modules/biliomi/clients/model/Users.client";
 import {MatDialog, MatPaginator} from "@angular/material";
-import {RestMatDataSource} from "../../../shared/modules/ng-material/classes/RestMatDataSource.class";
+import {RestTableDataSource} from "../../../shared/modules/ng-material/classes/RestTableDataSource";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {
   XLSX_FORMATTER_BOOLEAN_YES_NO,
@@ -27,7 +27,7 @@ export class UsersComponent implements AfterViewInit {
   private _pointsSettingsClient: PointsSettingsClient;
   private _activatedRoute: ActivatedRoute;
   private channelInfoClient: ChannelInfoClient;
-  private dataSource: RestMatDataSource<IUser> = new RestMatDataSource<IUser>();
+  private dataSource: RestTableDataSource<IUser> = new RestTableDataSource<IUser>();
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;

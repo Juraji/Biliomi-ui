@@ -6,16 +6,16 @@
 
 p Custom users are messages bound to chat users.#[br]
 
-mat-progress-bar(*ngIf="!dataSource.isInitialized || !channelInfoClient.isLoaded", mode="indeterminate")
+mat-progress-bar(*ngIf="!dataSource.hasData || !channelInfoClient.isLoaded", mode="indeterminate")
 
 .columns
   .col.span-4-of-12
-    mat-data-source-filter-field(#datasourceFilter="", [dataSource]="dataSource", routeParam="username", placeholder="Filter by username")
+    mat-data-source-filter-field(#datasourceFilter="", [dataSource]="dataSource", placeholder="Filter by username")
 
-mat-table(*ngIf="dataSource.isInitialized && channelInfoClient.isLoaded", [dataSource]="dataSource")
+mat-table(*ngIf="dataSource.hasData && channelInfoClient.isLoaded", [dataSource]="dataSource")
   ng-container(matColumnDef="Username")
     mat-header-cell(*matHeaderCellDef="") Username
-    mat-cell(*matCellDef="let user")
+    mat-cell(*matCellDef="let user", [ngClass]="{'text-not-ok': user.BlacklistedSince != undefined}")
       | {{user.DisplayName}}
 
   ng-container(matColumnDef="UserGroup.Name")

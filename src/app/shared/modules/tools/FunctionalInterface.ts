@@ -9,7 +9,7 @@ export type Predicate<T> = (testable: T) => boolean;
 export type BiPredicate<T, U> = (testableA: T, testableB: U) => boolean;
 export type Comparator<T> = (comparableA: T, comparableB: T) => number;
 export type Runnable = () => void;
-export type Callable<R> = () => R;
+export type Supplier<R> = () => R;
 export type BinaryOperator<T> = (applicableA: T, applicableB: T) => T;
 export type Mapper<T, U> = (acceptable: T, index: number, parent: Array<T>) => U;
 export type Dictionary = { [p: string]: any };

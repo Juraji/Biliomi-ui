@@ -6,9 +6,9 @@
 
 p Templates are used by Biliomi all over the place, from raid-messages to tweets.
 
-mat-progress-bar(*ngIf="!dataSource.isInitialized", mode="indeterminate")
+data-source-progress-bar([dataSource]="dataSource")
 
-mat-table(*ngIf="dataSource.isInitialized", #table="", [dataSource]="dataSource")
+mat-table(*ngIf="dataSource.hasData", #table="", [dataSource]="dataSource")
   ng-container(matColumnDef="TemplateKey")
     mat-header-cell(*matHeaderCellDef="") Key
     mat-cell(*matCellDef="let template")
@@ -22,7 +22,8 @@ mat-table(*ngIf="dataSource.isInitialized", #table="", [dataSource]="dataSource"
   ng-container(matColumnDef="Description")
     mat-header-cell(*matHeaderCellDef="") Description
     mat-cell(*matCellDef="let template")
-      | {{template.Description}}
+      | {{template.Description}}#[br]
+      small.text-muted {{template.Template | trim:50}}
 
   ng-container(matColumnDef="Edit")
     mat-header-cell(*matHeaderCellDef="")

@@ -1,0 +1,18 @@
+form(#hostRecordForm="", (submit)="submitHostRecord()")
+  mat-card
+    mat-card-header
+      mat-card-title Record hosts
+      mat-card-subtitle &nbsp;
+
+    mat-card-content
+      mat-radio-group#host-records-direction(name="host-records-direction", [formControl]="recordDirectionControl")
+        mat-radio-button(value="INCOMING") Incoming host
+        mat-radio-button(value="OUTGOING") Outgoing host
+
+      mat-checkbox([formControl]="recordAutoHostControl") Is Auto Host
+
+      user-autocomplete(#recordUserControl="", [required]="true")
+
+    mat-card-actions
+      button(mat-raised-button, color="primary", [disabled]="!isFormOk", title="Save")
+        mat-icon done

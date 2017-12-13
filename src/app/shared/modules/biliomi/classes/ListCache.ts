@@ -12,7 +12,15 @@ export class ListCache<T> {
   }
 
   public get(): T[] {
-    return this._list;
+    return this._list.slice();
+  }
+
+  public getAt(index: number): T {
+    if (index <= this._list.length) {
+      return this._list[index];
+    } else {
+      return null;
+    }
   }
 
   public clear() {

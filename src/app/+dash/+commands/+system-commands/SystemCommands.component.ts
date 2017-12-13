@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ViewChild} from "@angular/core";
-import {RestMatDataSource} from "../../../shared/modules/ng-material/classes/RestMatDataSource.class";
+import {RestTableDataSource} from "../../../shared/modules/ng-material/classes/RestTableDataSource";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {MatDialog, MatPaginator} from "@angular/material";
 import {CommandsClient} from "../../../shared/modules/biliomi/clients/model/Commands.client";
@@ -21,7 +21,7 @@ import ICommand = Biliomi.ICommand;
 })
 export class SystemCommandsComponent implements AfterViewInit {
   private _dialog: MatDialog;
-  private dataSource: RestMatDataSource<ICommand> = new RestMatDataSource<ICommand>();
+  private dataSource: RestTableDataSource<ICommand> = new RestTableDataSource<ICommand>();
 
   @ViewChild("paginator", {read: MatPaginator})
   private paginator: MatPaginator;

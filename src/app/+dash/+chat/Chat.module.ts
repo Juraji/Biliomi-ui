@@ -18,6 +18,11 @@ const ROUTES: Routes = [
     loadChildren: './+subscribers/Subscribers.module#SubscribersModule',
     data: {displayName: "Subscribers"}
   },
+  {
+    path: "hosts",
+    loadChildren: './+hosts/Hosts.module#HostsModule',
+    data: {displayName: "Hosts"}
+  },
 ];
 
 @NgModule({

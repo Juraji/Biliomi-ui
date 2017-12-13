@@ -9,7 +9,7 @@ form#channel-edit-form((submit)="submitChannelEdit()")
       input#login-username(matInput, name="channel-edit-game", placeholder="Current Game", required="true",
       [formControl]="channelGameControl", [matAutocomplete]="gameAutocomplete")
       mat-autocomplete(#gameAutocomplete="matAutocomplete")
-        mat-option(*ngFor="let game of gamesClient.getCacheSearch(channelGameControl.value)", [value]="game.Name")
+        mat-option(*ngFor="let game of gamesClient.searchCache(channelGameControl.value)", [value]="game.Name")
           .icon.small.pad-right.steam-icon-logo(*ngIf="game.SteamId != undefined", title="Imported from Steam")
           | {{game.Name}}
           small

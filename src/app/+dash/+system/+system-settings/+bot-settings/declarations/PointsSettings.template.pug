@@ -8,7 +8,7 @@ form(#pointsSettingsEditForm="", (submit)="save()")
       // Points names
       mat-form-field
         input#points-settings-points-name-singular(matInput, name="points-settings-points-name-singular",
-        placeholder="Singulare Pointsname", required="true", [formControl]="pointsNameSingularControl")
+        placeholder="Singular Pointsname", required="true", [formControl]="pointsNameSingularControl")
         mat-hint The points name for singular amounts.
         mat-error(*ngIf="pointsNameSingularControl.hasError('required')") This field is required!
 

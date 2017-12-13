@@ -3,6 +3,7 @@ import {BiliomiApiService} from "../services/BiliomiApi.service";
 import {ListCache} from "./ListCache";
 import {HttpParams} from "@angular/common/http";
 import {SortBuilder} from "./SortBuilder";
+import {Predicate} from "../../tools/FunctionalInterface";
 
 export abstract class CachedModelRestClient<T> extends ModelRestClient<T> {
   protected _cache: ListCache<T> = new ListCache<T>();
@@ -21,5 +22,13 @@ export abstract class CachedModelRestClient<T> extends ModelRestClient<T> {
 
   public getCache(): T[] {
     return this._cache.get();
+  }
+
+  public searchCacheByPredicate(predicate: Predicate<T>): T[] {
+    if (this._cache.hasData() && predicate != null) {
+      return this._cache.get().filter(predicate);
+    } else {
+      return this._cache.get();
+    }
   }
 }

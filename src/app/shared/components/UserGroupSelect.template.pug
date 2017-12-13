@@ -2,7 +2,7 @@ mat-form-field
   mat-select(placeholder="User group", required="true", [formControl]="userGroupControl")
     mat-option(*ngFor="let group of userGroupsClient.getCache()", [value]="group")
       | {{ group.Name }}
-      small.text-muted &nbsp;({{group.DefaultGroup ? 'Default' : group.Weight}})
+      small.text-muted &nbsp;({{group.DefaultGroup ? 'Default, Lowest group' : group.Weight}})
   mat-hint.
     Select a user group. The number behind the groups are the group weight.#[br]
     A lower weighted group denies access for users with higher weighted groups.

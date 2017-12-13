@@ -3,6 +3,7 @@ import {Biliomi} from "../../classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../../services/BiliomiApi.service";
 import {StringUtils} from "../../../tools/StringUtils";
 import {CachedModelRestClient} from "../../classes/CachedModelRestClient";
+import {Predicate} from "../../../tools/FunctionalInterface";
 import IGame = Biliomi.IGame;
 
 @Injectable()
@@ -11,11 +12,8 @@ export class GamesClient extends CachedModelRestClient<IGame> {
     super(api, "/core/games");
   }
 
-  public getCacheSearch(query: string): IGame[] {
-    if (StringUtils.isNotEmpty(query)) {
-      return this._cache.get()
-        .filter((game: IGame) => StringUtils.containsIgnoreCase(game.Name, query))
-    }
-    return this._cache.get();
+  public searchCache(query: string): IGame[] {
+    let predicate: Predicate<IGame> = (g: IGame) => StringUtils.containsIgnoreCase(g.Name, query);
+    return super.searchCacheByPredicate(predicate);
   }
 }
