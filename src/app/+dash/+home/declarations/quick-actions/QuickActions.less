@@ -1,19 +1,21 @@
-mat-card {
-  position: inherit !important;
-}
-
-.action-button-block {
-  display: inline-block;
-  margin-left: .3em;
-  line-height: 40px;
-
-  .delete-action-button {
-    display: none;
+quick-actions {
+  mat-card {
+    position: inherit !important;
   }
 
-  &:hover {
+  .action-button-block {
+    display: inline-block;
+    margin-left: .3em;
+    line-height: 40px;
+
     .delete-action-button {
-      display: unset;
+      display: none;
+    }
+
+    &:hover {
+      .delete-action-button {
+        display: unset;
+      }
     }
   }
 }
