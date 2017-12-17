@@ -1,0 +1,16 @@
+.mat-button-row.pull-right
+  button.pull-right(mat-mini-fab, color="primary", (click)="addQuickAction()", title="Add new command")
+    mat-icon add
+
+mat-card
+  mat-card-header
+    mat-card-title Quick Actions
+    mat-card-subtitle &nbsp;
+
+  mat-card-content
+    p(*ngIf="quickActions.length == 0") No quick actions defined
+    .action-button-block(*ngFor="let action of quickActions")
+      button.action-button(mat-raised-button, color="primary", (click)="executeAction(action)") {{action.name}}
+      button.delete-action-button.mat-icon-button(mat-button, color="warn", (click)="deleteQuickAction(action)", [title]="'Remove action ' + action.name")
+        mat-icon delete_forever
+

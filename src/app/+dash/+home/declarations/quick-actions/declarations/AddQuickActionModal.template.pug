@@ -1,0 +1,31 @@
+form(#addActionForm="", (submit)="saveAction()")
+  h2(matDialogTitle) New Quick Action
+
+  mat-dialog-content
+    mat-form-field
+      input#action-name(matInput, name="action-name", placeholder="Name", required="true",
+      [formControl]="nameControl")
+      mat-hint A unique name for this action.
+      mat-error(*ngIf="nameControl.hasError('required')") This field is required!
+
+    mat-form-field
+      mat-select(placeholder="Action Type", required="true", [formControl]="typeControl")
+        mat-option(value="COMMAND") Execute Command
+        mat-option(value="PAGE") Navigate to page
+        mat-option(value="URL") Navigate to url
+      mat-hint The type of action to perform when clicked
+
+    mat-form-field
+      input#action-execute(matInput, name="action-execute", placeholder="Executes", required="true",
+      [formControl]="executeControl")
+      mat-hint
+        span(*ngIf="typeControl.value == 'COMMAND'") The command to execute, without !.
+        span(*ngIf="typeControl.value == 'PAGE'") The relative page url to navigate to.
+        span(*ngIf="typeControl.value == 'URL'") The external url to navigate to.
+      mat-error(*ngIf="executeControl.hasError('required')") This field is required!
+
+  mat-dialog-actions
+    button(mat-raised-button, color="primary", [disabled]="!isFormOk", title="Save")
+      mat-icon done
+    button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()", title="Cancel edit")
+      mat-icon arrow_back

@@ -8,6 +8,7 @@ import {ChatterListComponent} from "./declarations/ChatterList.component";
 import {HosterListComponent} from "./declarations/HosterList.component";
 import {ChannelEditComponent} from "./declarations/ChannelEdit.component";
 import {ChannelInfoComponent} from "./declarations/ChannelInfo.component";
+import {QuickActionsModule} from "./declarations/quick-actions/QuickActions.module";
 
 const ROUTES: Routes = [
   {
@@ -19,7 +20,8 @@ const ROUTES: Routes = [
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule.forChild(ROUTES)
+    RouterModule.forChild(ROUTES),
+    QuickActionsModule
   ],
   declarations: [
     HomeComponent,

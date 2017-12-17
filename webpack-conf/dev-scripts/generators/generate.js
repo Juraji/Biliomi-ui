@@ -64,7 +64,7 @@ function generateModule(parentPath, moduleName, componentSelector) {
 function generateComponent(parentPath, componentName, componentSelector) {
   console.log("Generating component " + componentName + " in " + parentPath);
 
-  if (!parentPath.endsWith("declarations") && !parentPath.endsWith("components")) {
+  if (!parentPath.match(/declarations\/?$/) && !parentPath.match(/components\/?$/)) {
     parentPath += "declarations/";
   }
 
