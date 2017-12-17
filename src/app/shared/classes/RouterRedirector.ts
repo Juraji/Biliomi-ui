@@ -30,7 +30,7 @@ export class RouterRedirector {
   }
 
   private performRedirect() {
-    this._router.navigateByUrl(this._to);
+    this._router.navigateByUrl(this._to, {replaceUrl: true});
   }
 
   private static urlSegmentsToUrl(url: UrlSegment[] | string): string {

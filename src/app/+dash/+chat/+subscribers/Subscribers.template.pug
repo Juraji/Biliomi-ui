@@ -34,24 +34,24 @@ p Check out the latest subscribers and change the behaviour of Biliomi when new 
           mat-card-subtitle &nbsp;
 
         mat-card-content
-          mat-form-field(*ngIf="subscriberRewardTier1Control.value")
+          mat-form-field
             input#subscriber-watch-settings-tier1-payout(matInput, type="number", name="subscriber-watch-settings-tier1-payout",
-            placeholder="Follow Reward", required="true", [formControl]="subscriberRewardTier1Control")
-            mat-hint The amount of points to payout to new tier 1/prime subscribers.
+            placeholder="Tier 1 Reward", required="true", [formControl]="subscriberRewardTier1Control")
+            mat-hint The amount of points to payout to tier 1/prime subscribers.
             mat-error(*ngIf="subscriberRewardTier1Control.hasError('required')") This field is required!
             mat-error(*ngIf="subscriberRewardTier1Control.hasError('min')") Please enter a valid amount (min 0).
 
-          mat-form-field(*ngIf="subscriberRewardTier2Control.value")
+          mat-form-field
             input#subscriber-watch-settings-tier2-payout(matInput, type="number", name="subscriber-watch-settings-tier2-payout",
-            placeholder="Follow Reward", required="true", [formControl]="subscriberRewardTier2Control")
-            mat-hint The amount of points to payout to new tier 2 subscribers.
+            placeholder="Tier 2 Reward", required="true", [formControl]="subscriberRewardTier2Control")
+            mat-hint The amount of points to payout to tier 2 subscribers.
             mat-error(*ngIf="subscriberRewardTier2Control.hasError('required')") This field is required!
             mat-error(*ngIf="subscriberRewardTier2Control.hasError('min')") Please enter a valid amount (min 0).
 
-          mat-form-field(*ngIf="subscriberRewardTier3Control.value")
+          mat-form-field
             input#subscriber-watch-settings-tier3-payout(matInput, type="number", name="subscriber-watch-settings-tier3-payout",
-            placeholder="Follow Reward", required="true", [formControl]="subscriberRewardTier3Control")
-            mat-hint The amount of points to payout to new tier 3 subscribers.
+            placeholder="Tier 3 Reward", required="true", [formControl]="subscriberRewardTier3Control")
+            mat-hint The amount of points to payout to tier 3 subscribers.
             mat-error(*ngIf="subscriberRewardTier3Control.hasError('required')") This field is required!
             mat-error(*ngIf="subscriberRewardTier3Control.hasError('min')") Please enter a valid amount (min 0).
 

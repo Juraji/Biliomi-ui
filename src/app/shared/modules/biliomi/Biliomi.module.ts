@@ -20,6 +20,7 @@ import {HostRecordsClient} from "./clients/model/HostRecords.client";
 import {Provider} from "@angular/core/src/di";
 import {ChatModeratorSettingsClient} from "./clients/settings/ChatModeratorSettings.client";
 import {ModerationRecordsClient} from "./clients/model/ModerationRecords.client";
+import {HostWatchSettingsClient} from "./clients/settings/HostWatchSettings.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -52,6 +53,7 @@ export class BiliomiModule implements ModuleWithProviders {
     ChannelInfoClient,
     ChatModeratorSettingsClient,
     FollowerWatchSettingsClient,
+    HostWatchSettingsClient,
     PointsSettingsClient,
     SubscriberWatchSettingsClient,
     SystemSettingsClient,

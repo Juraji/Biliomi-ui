@@ -20,6 +20,7 @@ import {EditTemplateButtonComponent} from "./components/EditTemplateButton.compo
 import {UserDisplayComponent} from "./components/UserDisplay.component";
 import {UserAutoCompleteComponent} from "./components/UserAutoComplete.component";
 import {TrimPipe} from "./modules/biliomi/pipes/Trim.pipe";
+import {NumberArrayPipe} from "./pipes/NumberArray.pipe";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -28,6 +29,7 @@ const SHARED_PIPES: Type<PipeTransform>[] = [
   CaseToWordPipe,
   EditUserLinkPipe,
   TrimPipe,
+  NumberArrayPipe,
 ];
 
 const SHARED_COMPONENTS: Type<any>[] = [

@@ -4,13 +4,11 @@
   button.pull-right(mat-mini-fab, color="primary", (click)="dataSource.update()", title="Refresh")
     mat-icon refresh
 
-p Custom users are messages bound to chat users.#[br]
-
-mat-progress-bar(*ngIf="!dataSource.hasData || !channelInfoClient.isLoaded", mode="indeterminate")
-
 .columns
   .col.span-4-of-12
     mat-data-source-filter-field(#datasourceFilter="", [dataSource]="dataSource", placeholder="Filter by username")
+
+mat-progress-bar(*ngIf="!dataSource.hasData || !channelInfoClient.isLoaded", mode="indeterminate")
 
 mat-table(*ngIf="dataSource.hasData && channelInfoClient.isLoaded", [dataSource]="dataSource")
   ng-container(matColumnDef="Username")

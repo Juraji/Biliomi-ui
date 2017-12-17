@@ -4,7 +4,7 @@ import {TemplatesClient} from "../../../../../shared/modules/biliomi/clients/mod
 import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {FormControl} from "@angular/forms";
 import {TemplateKeyDescriptions} from "../../../../../shared/modules/biliomi/classes/TemplateKeyDescriptions";
-import {CaseToWordPipe} from "../../../../../shared/pipes/CaseToWord.pipe";
+import {CaseToWordPipe, CaseType} from "../../../../../shared/pipes/CaseToWord.pipe";
 import ITemplate = Biliomi.ITemplate;
 
 @Component({
@@ -72,7 +72,7 @@ export class EditTemplateModalComponent implements AfterViewInit {
 
     persistedTemplate = await this._templatesClient.put(this._templateId, template);
     if (persistedTemplate == null) {
-      let templateTitle = new CaseToWordPipe().transform(this.editedTemplate.TemplateKey, "TITLE_CASE");
+      let templateTitle = new CaseToWordPipe().transform(this.editedTemplate.TemplateKey, CaseType.TITLE_CASE);
       this._matSnackBar.open("Could not save template " + templateTitle + ", check your input.", "Ok");
     } else {
       this._dialogRef.close(true);

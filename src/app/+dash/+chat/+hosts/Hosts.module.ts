@@ -4,6 +4,7 @@ import {SharedModule} from "../../../shared/Shared.module";
 import {HostsComponent} from "./Hosts.component";
 import {HostFormComponent} from "./declarations/HostForm.component";
 import {HostRecordsTableComponent} from "./declarations/HostRecordsTable.component";
+import {HostWatchSettingsComponent} from "./declarations/HostWatchSettings.component";
 
 const ROUTES: Routes = [
   {
@@ -21,6 +22,7 @@ const ROUTES: Routes = [
     HostsComponent,
     HostFormComponent,
     HostRecordsTableComponent,
+    HostWatchSettingsComponent
   ],
   entryComponents: []
 })

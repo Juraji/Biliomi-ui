@@ -21,4 +21,4 @@ mat-table(#table="", [dataSource]="dataSource")
           mat-icon queue_play_next
 
   mat-header-row(*matHeaderRowDef="['User', 'Date', 'Actions']")
-  mat-row(*matRowDef="let row; columns: ['User.DisplayName', 'Date', 'Actions'];")
+  mat-row(*matRowDef="let row; columns: ['User', 'Date', 'Actions'];")

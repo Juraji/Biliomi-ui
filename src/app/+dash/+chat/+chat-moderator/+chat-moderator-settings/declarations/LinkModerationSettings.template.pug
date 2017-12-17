@@ -20,5 +20,5 @@ form(#linkModerationSettingsForm="", (submit)="saveSettings()")
     mat-card-actions
       button(mat-raised-button, color="primary", [disabled]="!isFormOk", title="Save")
         mat-icon done
-      button(mat-button, type="button", (click)="ngOnInit()", title="Refresh data")
+      button(mat-button, type="button", (click)="ngAfterViewInit()", title="Refresh data")
         mat-icon refresh

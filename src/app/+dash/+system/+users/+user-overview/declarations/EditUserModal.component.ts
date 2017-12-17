@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
-import {UsersClient} from "../../../../shared/modules/biliomi/clients/model/Users.client";
-import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {UsersClient} from "../../../../../shared/modules/biliomi/clients/model/Users.client";
+import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {FormControl, Validators} from "@angular/forms";
-import {UserGroupSelectComponent} from "../../../../shared/components/UserGroupSelect.component";
+import {UserGroupSelectComponent} from "../../../../../shared/components/UserGroupSelect.component";
 import * as moment from "moment";
 import IUser = Biliomi.IUser;
 
@@ -40,18 +40,18 @@ export class EditUserModalComponent implements AfterViewInit {
     this.initFields();
   }
 
-  private initFields() {
+  public initFields() {
     this.userTitleControl.setValue(this.editedUser.Title);
     this.userPointsControl.setValue(this.editedUser.Points);
     this.userIsBlacklistedControl.setValue(this.editedUser.BlacklistedSince != null);
     this.userGroupSelect.selectedGroup = this.editedUser.UserGroup;
   }
 
-  private get isFormOk(): boolean {
+  public get isFormOk(): boolean {
     return this.userPointsControl.valid;
   }
 
-  private async save() {
+  public async save() {
     if (this.isFormOk) {
       let user: IUser = {} as IUser;
       let persistedUser: IUser;
@@ -78,7 +78,7 @@ export class EditUserModalComponent implements AfterViewInit {
     }
   }
 
-  private cancelEdit() {
+  public cancelEdit() {
     this._dialogRef.close(false);
   }
 }

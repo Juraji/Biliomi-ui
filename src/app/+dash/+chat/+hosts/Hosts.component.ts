@@ -43,8 +43,8 @@ export class HostsComponent {
 
   public async exportRecords() {
     let config: IXlsxExportConfig = {
-      fileName: "Biliomi - HostRecords",
-      sheetName: "HostRecords",
+      fileName: "Biliomi - Host Records",
+      sheetName: "Host Records",
       columns: [
         {objectPath: "$.Direction", headerName: "Direction"},
         {objectPath: "$.User.DisplayName", headerName: "Username"},

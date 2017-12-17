@@ -34,10 +34,10 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
           mat-card-subtitle &nbsp;
 
         mat-card-content
-          mat-form-field(*ngIf="followerRewardControl.value")
+          mat-form-field
             input#points-settings-online-payout-interval(matInput, type="number", name="points-settings-online-payout-interval",
             placeholder="Follow Reward", required="true", [formControl]="followerRewardControl")
-            mat-hint The amount of points to payout to new followers.
+            mat-hint The amount of points to payout to new followers. Set to 0 for no payouts.
             mat-error(*ngIf="followerRewardControl.hasError('required')") This field is required!
             mat-error(*ngIf="followerRewardControl.hasError('min')") Please enter a valid amount (min 0).
 

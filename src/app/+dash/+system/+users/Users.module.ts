@@ -2,17 +2,23 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {UsersComponent} from "./Users.component";
 import {SharedModule} from "../../../shared/Shared.module";
-import {EditUserModalComponent} from "./declarations/EditUserModal.component";
 
 const ROUTES: Routes = [
   {
     path: "",
-    component: UsersComponent
-  },
-  {
-    path: ":username",
     component: UsersComponent,
-    data: {breadCrumbName: "Edit User"}
+    children: [
+      {
+        path: "overview",
+        loadChildren: "./+user-overview/UserOverview.module#UserOverviewModule",
+        data: {breadCrumbName: "Overview"}
+      },
+      {
+        path: "user-groups",
+        loadChildren: "./+user-groups/UserGroups.module#UserGroupsModule",
+        data: {breadCrumbName: "Groups"}
+      },
+    ]
   }
 ];
 
@@ -23,9 +29,7 @@ const ROUTES: Routes = [
   ],
   declarations: [
     UsersComponent,
-    EditUserModalComponent
-  ],
-  entryComponents: [EditUserModalComponent]
+  ]
 })
 export class UsersModule {
 }
