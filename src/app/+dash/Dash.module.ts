@@ -18,22 +18,22 @@ const ROUTES: Routes = [
       {
         path: "home",
         loadChildren: "./+home/Home.module#HomeModule",
-        data: {displayName: "Home"}
+        data: {breadCrumbName: "Home"}
       },
       {
         path: "commands",
         loadChildren: "./+commands/Commands.module#CommandsModule",
-        data: {displayName: "Commands"}
+        data: {breadCrumbName: "Commands"}
       },
       {
         path: "system",
         loadChildren: "./+system/System.module#SystemModule",
-        data: {displayName: "System"}
+        data: {breadCrumbName: "System"}
       },
       {
         path: "chat",
         loadChildren: "./+chat/Chat.module#ChatModule",
-        data: {displayName: "Chat"}
+        data: {breadCrumbName: "Chat"}
       }
     ]
   }

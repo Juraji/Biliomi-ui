@@ -1,7 +1,7 @@
 data-source-progress-bar([dataSource]="dataSource")
 
 mat-table(#table="", [dataSource]="dataSource")
-  ng-container(matColumnDef="User.DisplayName")
+  ng-container(matColumnDef="User")
     mat-header-cell(*matHeaderCellDef="") Username
     mat-cell(*matCellDef="let record")
       user-display([user]="record.User")
@@ -20,5 +20,5 @@ mat-table(#table="", [dataSource]="dataSource")
         a.mat-icon-button.pull-right(mat-button, (click)="hostNow(record)", title="Host Now")
           mat-icon queue_play_next
 
-  mat-header-row(*matHeaderRowDef="['User.DisplayName', 'Date', 'Actions']")
+  mat-header-row(*matHeaderRowDef="['User', 'Date', 'Actions']")
   mat-row(*matRowDef="let row; columns: ['User.DisplayName', 'Date', 'Actions'];")

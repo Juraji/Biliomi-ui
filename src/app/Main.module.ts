@@ -20,14 +20,14 @@ const ROOT_ROUTES: Routes = [
     path: "dash",
     loadChildren: './+dash/Dash.module#DashModule',
     canActivate: [AuthenticatedGuard],
-    data: {displayName: "Dash"},
+    data: {breadCrumbName: "Dash"},
   },
 
   // Default route for unknown paths
   {
     path: "**",
     component: PageNotFoundComponent,
-    data: {displayName: "Not Found"}
+    data: {breadCrumbName: "Not Found"}
   }
 ];
 

@@ -6,8 +6,8 @@ export class RestTableDataSource<T> extends TableDataSource<T> {
   private _restClient: ModelRestClient<T>;
   private _sortBuilder: SortBuilder;
 
-  constructor(initialData: T[] = []) {
-    super(() => this._restClient.getList(this._sortBuilder), initialData);
+  constructor() {
+    super(() => this._restClient.getList(this._sortBuilder));
   }
 
   public get sortBuilder(): SortBuilder {

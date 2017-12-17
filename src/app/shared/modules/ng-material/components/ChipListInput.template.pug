@@ -1,0 +1,8 @@
+mat-form-field
+  mat-chip-list(#chipListInput="")
+    mat-chip(*ngFor="let item of inputItems", (remove)="removeChip(item)")
+      | {{item}}
+      mat-icon(matChipRemove) cancel
+    input([placeholder]="inputPlaceholder", [matChipInputFor]="chipListInput",
+    [matChipInputSeparatorKeyCodes]="[188, 32, 13]", (matChipInputTokenEnd)="addChipItem($event)")
+  mat-hint: ng-content

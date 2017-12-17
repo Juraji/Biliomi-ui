@@ -3,8 +3,9 @@ import {Biliomi} from "../modules/biliomi/classes/interfaces/Biliomi";
 import {IJwtBody} from "../modules/biliomi/classes/interfaces/JWT";
 import moment = require("moment");
 import ITokenUserType = Biliomi.ITokenUserType;
+import {Storage} from "../classes/Storage";
 
-const STORAGE_KEY_API_TOKEN: string = "biliomi-ui:api-token";
+const STORAGE_KEY_API_TOKEN: string = "apiToken";
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
   private _userType: ITokenUserType;
 
   constructor() {
-    this.apiToken = localStorage.getItem(STORAGE_KEY_API_TOKEN);
+    this.apiToken = Storage.get(STORAGE_KEY_API_TOKEN);
   }
 
   public get username(): string {
@@ -46,7 +47,7 @@ export class AuthService {
     if (token != null) {
       let tokenBody: IJwtBody = AuthService.decodeJwt(token);
       if (tokenBody != null) {
-        localStorage.setItem(STORAGE_KEY_API_TOKEN, token);
+        Storage.store(STORAGE_KEY_API_TOKEN, token);
         this._token = token;
         this._username = tokenBody.sub;
         this._channelName = tokenBody.chn;
@@ -60,7 +61,7 @@ export class AuthService {
     this._username = null;
     this._channelName = null;
     this._tokenExpiryTime = null;
-    localStorage.removeItem(STORAGE_KEY_API_TOKEN);
+    Storage.unset(STORAGE_KEY_API_TOKEN);
     location.reload(true);
   }
 

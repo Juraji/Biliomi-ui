@@ -5,6 +5,7 @@ import {CustomCommandsClient} from "../../../../shared/modules/biliomi/clients/m
 import {FormControl, Validators} from "@angular/forms";
 import {UserGroupSelectComponent} from "../../../../shared/components/UserGroupSelect.component";
 import {ConfirmDialogComponent} from "../../../../shared/components/ConfirmDialog.component";
+import {ChipListInputComponent} from "../../../../shared/modules/ng-material/components/ChipListInput.component";
 import ICustomCommand = Biliomi.ICustomCommand;
 
 @Component({
@@ -23,10 +24,12 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
   private commandMessageControl: FormControl = new FormControl('', [Validators.required]);
   private commandCooldownControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   private commandPriceControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
-  private commandAliasses: string[] = [];
 
   @ViewChild("userGroup", {read: UserGroupSelectComponent})
   private userGroupSelect: UserGroupSelectComponent;
+
+  @ViewChild("commandAliases", {read: ChipListInputComponent})
+  private commandAliases: ChipListInputComponent;
 
   constructor(@Inject(MAT_DIALOG_DATA) commandId: number,
               customCommandsClient: CustomCommandsClient,
@@ -63,8 +66,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
     this.commandCooldownControl.setValue(this.editedCommand.Cooldown);
     this.commandPriceControl.setValue(this.editedCommand.Price);
     this.userGroupSelect.selectedGroup = this.editedCommand.UserGroup;
-    this.commandAliasses.length = 0;
-    this.commandAliasses.push(...this.editedCommand.Aliasses)
+    this.commandAliases.inputItems = this.editedCommand.Aliasses;
   }
 
   private get isFormOk(): boolean {
@@ -74,7 +76,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
       && this.commandPriceControl.valid;
   }
 
-  private async save() {
+  public async save() {
     if (this.isFormOk) {
       let command: ICustomCommand = {} as ICustomCommand;
       let persistedCommand: ICustomCommand;
@@ -84,7 +86,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
       command.Message = this.commandMessageControl.value;
       command.Cooldown = this.commandCooldownControl.value;
       command.Price = this.commandPriceControl.value;
-      command.Aliasses = this.commandAliasses;
+      command.Aliasses = this.commandAliases.inputItems;
       command.UserGroup = this.userGroupSelect.selectedGroup;
 
       if (this._commandId == null) {
@@ -101,7 +103,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
     }
   }
 
-  private deleteCommand() {
+  public deleteCommand() {
     if (this._commandId != null) {
       this._dialog.open(ConfirmDialogComponent, {
         data: "Are you sure you want to delete !" + this.editedCommand.Command + "?"
@@ -118,26 +120,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
     }
   }
 
-  private cancelEdit() {
+  public cancelEdit() {
     this._dialogRef.close(false);
-  }
-
-  private addedAliasChip(event: MatChipInputEvent) {
-    let value: string = (event.value || "").trim();
-    if (value) {
-      this.commandAliasses.push(value);
-    }
-
-    if (event.input) {
-      event.input.value = '';
-    }
-  }
-
-  private removedAliasChip(alias: string) {
-    let index: number = this.commandAliasses.indexOf(alias);
-
-    if (index > -1) {
-      this.commandAliasses.splice(index, 1);
-    }
   }
 }

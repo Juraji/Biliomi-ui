@@ -12,7 +12,7 @@ const ROUTES: Routes = [
   {
     path: ":username",
     component: UsersComponent,
-    data: {displayName: "Edit User"}
+    data: {breadCrumbName: "Edit User"}
   }
 ];
 

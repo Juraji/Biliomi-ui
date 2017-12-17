@@ -4,7 +4,8 @@ import {RedirectToFirstChildComponent} from "../../shared/classes/abstract/Redir
 
 @Component({
   selector: "commands-page",
-  templateUrl: require("../../shared/classes/abstract/RedirectToFirstChildComponentTemplate.pug")
+  templateUrl: require("../../shared/classes/abstract/RedirectToFirstChildComponentTemplate.pug"),
+  styleUrls: [require("./Commands.less").toString()]
 })
 export class CommandsComponent extends RedirectToFirstChildComponent {
 

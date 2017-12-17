@@ -2,8 +2,8 @@ import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {CustomCommandsComponent} from "./CustomCommands.component";
 import {SharedModule} from "../../../shared/Shared.module";
-import {CommandAttributesComponent} from "../declarations/CommandAttributes.component";
 import {EditCustomCommandModalComponent} from "./declarations/EditCustomCommandModal.component";
+import {CustomCommandAttributesComponent} from "./declarations/CustomCommandAttributes.component";
 
 const ROUTES: Routes = [
   {
@@ -19,7 +19,7 @@ const ROUTES: Routes = [
   ],
   declarations: [
     CustomCommandsComponent,
-    CommandAttributesComponent,
+    CustomCommandAttributesComponent,
     EditCustomCommandModalComponent,
   ],
   entryComponents: [

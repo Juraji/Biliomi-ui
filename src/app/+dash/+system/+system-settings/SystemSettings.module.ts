@@ -11,17 +11,17 @@ const ROUTES: Routes = [
       {
         path: "bot",
         loadChildren: "./+bot-settings/BotSettings.module#BotSettingsModule",
-        data: {displayName: "Bot Settings"}
+        data: {breadCrumbName: "Bot Settings"}
       },
       {
         path: "templates",
         loadChildren: "./+template-settings/TemplateSettings.module#TemplateSettingsModule",
-        data: {displayName: "Templates"}
+        data: {breadCrumbName: "Templates"}
       },
       {
         path: "chat-logs",
         loadChildren: "./+chat-logs/ChatLogs.module#ChatLogsModule",
-        data: {displayName: "Chat Logs"}
+        data: {breadCrumbName: "Chat Logs"}
       }
     ]
   }

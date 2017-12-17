@@ -41,7 +41,13 @@ export abstract class SettingsRestClient<T> {
     return this._loadPromise;
   }
 
-  public save(): Promise<T> {
-    return this._api.put(this._baseResourceUri, this);
+  public async save(): Promise<T> {
+    let data: T = await this._api.put<T>(this._baseResourceUri, this);
+
+    if (data != null) {
+      Object.assign(this, data);
+    }
+
+    return data;
   }
 }

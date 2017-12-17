@@ -8,16 +8,19 @@ mat-sidenav-container
       nav-channel-info-component
       nav-follower-stats-component
       .flex-spacer
+      a.mat-icon-button(mat-button, (click)="toggleDisplayTwitchChat()", title="Toggle Chat")
+        mat-icon(*ngIf="displayTwitchChat") chat
+        mat-icon(*ngIf="!displayTwitchChat") chat_bubble_outline
       nav-remote-management-component
       nav-auth-bar-component
 
   bread-crumbs-component
 
   .main-content-wrapper.columns
-    #content-column.content-column
+    #content-column.content-column([ngClass]="{'full-width': !displayTwitchChat}")
       router-outlet
-    #chat-column.content-column
-      //chat-component
+    #chat-column.content-column(*ngIf="displayTwitchChat")
+      chat-component
 
   mat-sidenav(#sideNav="")
     nav
@@ -36,3 +39,4 @@ mat-sidenav-container
         li: a(routerLink="/dash/chat/followers") Followers
         li: a(routerLink="/dash/chat/subscribers") Subscribers
         li: a(routerLink="/dash/chat/hosts") Hosts
+        li: a(routerLink="/dash/chat/chat-moderator") Chat Moderator

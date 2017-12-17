@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const commonConfig = require("./webpack.common.conf");
-const helpers = require("./webpack.helpers");
+const helpers = require("./dev-scripts/paths.helpers");
 
 const uglifyJsPluginOptions = {
     sourceMap: true,

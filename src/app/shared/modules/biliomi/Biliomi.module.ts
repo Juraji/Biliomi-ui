@@ -1,6 +1,5 @@
-import {NgModule, Type} from "@angular/core";
+import {ModuleWithProviders, NgModule, Type} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
-import {ServicesLibrary} from "../../classes/abstract/ServicesLibrary";
 import {BiliomiApiService} from "./services/BiliomiApi.service";
 import {ChannelInfoClient} from "./clients/settings/ChannelInfo.client";
 import {UsersClient} from "./clients/model/Users.client";
@@ -18,6 +17,9 @@ import {ChatLogsClient} from "./clients/model/ChatLogs.client";
 import {FollowerWatchSettingsClient} from "./clients/settings/FollowerWatchSettings.client";
 import {SubscriberWatchSettingsClient} from "./clients/settings/SubscriberWatchSettings.client";
 import {HostRecordsClient} from "./clients/model/HostRecords.client";
+import {Provider} from "@angular/core/src/di";
+import {ChatModeratorSettingsClient} from "./clients/settings/ChatModeratorSettings.client";
+import {ModerationRecordsClient} from "./clients/model/ModerationRecords.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -29,34 +31,32 @@ const BILIOMI_EXPORTS: Type<any>[] = [
   declarations: BILIOMI_EXPORTS,
   exports: BILIOMI_EXPORTS
 })
-export class BiliomiModule extends ServicesLibrary {
+export class BiliomiModule implements ModuleWithProviders {
+  public ngModule: Type<any> = BiliomiModule;
+  public providers: Provider[] = [
+    BiliomiApiService,
+    BiliomiEventsService,
 
-  constructor() {
-    super(BiliomiModule);
+    // Model clients
+    ChatLogsClient,
+    CommandsClient,
+    CustomCommandsClient,
+    GamesClient,
+    HostRecordsClient,
+    ModerationRecordsClient,
+    TemplatesClient,
+    UserGroupsClient,
+    UsersClient,
 
-    this.providers.push([
-      BiliomiApiService,
-      BiliomiEventsService,
-
-      // Model clients
-      ChatLogsClient,
-      CommandsClient,
-      CustomCommandsClient,
-      GamesClient,
-      HostRecordsClient,
-      TemplatesClient,
-      UserGroupsClient,
-      UsersClient,
-
-      // Settings clients
-      ChannelInfoClient,
-      FollowerWatchSettingsClient,
-      PointsSettingsClient,
-      SubscriberWatchSettingsClient,
-      SystemSettingsClient,
-      TimeTrackingSettingsClient
-    ]);
-  }
+    // Settings clients
+    ChannelInfoClient,
+    ChatModeratorSettingsClient,
+    FollowerWatchSettingsClient,
+    PointsSettingsClient,
+    SubscriberWatchSettingsClient,
+    SystemSettingsClient,
+    TimeTrackingSettingsClient
+  ];
 
   public static forRoot(): BiliomiModule {
     return new BiliomiModule;

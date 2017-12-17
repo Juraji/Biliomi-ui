@@ -2,7 +2,7 @@ var webpack = require("webpack");
 var webpackMerge = require("webpack-merge");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var commonConfig = require("./webpack.common.conf");
-var helpers = require("./webpack.helpers");
+var helpers = require("./dev-scripts/paths.helpers");
 
 module.exports = webpackMerge(commonConfig, {
     devtool: "cheap-module-eval-source-map",

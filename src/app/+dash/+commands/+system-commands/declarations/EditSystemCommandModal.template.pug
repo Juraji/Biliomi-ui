@@ -26,11 +26,11 @@ form(#defaultCommandEditForm="", (submit)="save()")
 
     mat-form-field
       mat-chip-list(#aliassesChipList="")
-        mat-chip(*ngFor="let alias of commandAliasses", (remove)="removedAliasChip(alias)")
+        mat-chip(*ngFor="let alias of commandAliasses", (remove)="removeChip(alias)")
           | &#33;{{alias}}
           mat-icon(matChipRemove) cancel
       input(placeholder="Aliasses", [matChipInputFor]="aliassesChipList",
-      [matChipInputSeparatorKeyCodes]="[188, 32, 13]", (matChipInputTokenEnd)="addedAliasChip($event)")
+      [matChipInputSeparatorKeyCodes]="[188, 32, 13]", (matChipInputTokenEnd)="addChipItem($event)")
       mat-hint An alias is like a different name for a command, like shorter syntax for instance.
 
   mat-dialog-actions

@@ -11,6 +11,7 @@ import {AuthService} from "../shared/services/Auth.service";
 import {SubscriptionBucket} from "../shared/classes/SubscriptionBucket";
 import {BILIOMI_EVENTS} from "../shared/modules/biliomi/classes/constants/BiliomiApiVariables";
 import {RouterRedirector} from "../shared/classes/RouterRedirector";
+import {Storage} from "../shared/classes/Storage";
 import ITwitchFollowEvent = Biliomi.ITwitchFollowEvent;
 import ITwitchSubscriberEvent = Biliomi.ITwitchSubscriberEvent;
 import ITwitchHostInEvent = Biliomi.ITwitchHostInEvent;
@@ -67,6 +68,15 @@ export class DashComponent implements OnInit, OnDestroy {
   public ngOnDestroy() {
     this._subscriptionBucket.clear();
     this._redirector.stop();
+  }
+
+  // noinspection JSMethodCanBeStatic
+  public get displayTwitchChat(): boolean {
+    return Storage.get("displayTwitchChat", false);
+  }
+
+  public toggleDisplayTwitchChat() {
+    Storage.store("displayTwitchChat", !this.displayTwitchChat);
   }
 
   // Global event subscriber methods

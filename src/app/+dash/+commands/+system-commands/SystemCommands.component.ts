@@ -16,8 +16,7 @@ import ICommand = Biliomi.ICommand;
 @Component({
   // Since "default" is a pug keyword I chose to name the selector differently
   selector: "system-commands-component",
-  templateUrl: require("./SystemCommands.template.pug"),
-  styleUrls: [require("../declarations/Commands.less").toString()]
+  templateUrl: require("./SystemCommands.template.pug")
 })
 export class SystemCommandsComponent implements AfterViewInit {
   private _dialog: MatDialog;

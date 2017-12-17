@@ -70,16 +70,20 @@ dash-page {
       box-sizing: border-box;
       padding: 1em 1em 1em;
       top: 98px;
+      bottom: 0;
 
       &#content-column {
         left: 0;
         width: 70%;
-        bottom: 0;
         overflow-y: auto;
-
         -ms-overflow-style: none;
+
         &::-webkit-scrollbar {
           display: none;
+        }
+
+        &.full-width {
+          width: 100%;
         }
       }
 

@@ -1,4 +1,4 @@
-import {ModuleWithProviders, NgModule, PipeTransform, Type} from "@angular/core";
+import {ModuleWithProviders, NgModule, PipeTransform, Provider, Type} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {NgMaterialModule} from "./modules/ng-material/NgMaterial.module";
@@ -53,18 +53,18 @@ const SHARED_DIRECTIVES: Type<any>[] = [];
     .concat(SHARED_DIRECTIVES),
   entryComponents: SHARED_COMPONENTS
 })
-export class SharedModule {
-  public static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: [
-        // Services
-        ConfigService,
-        AuthService,
+export class SharedModule implements ModuleWithProviders {
+  public ngModule: Type<any> = SharedModule;
+  public providers: Provider[] = [
+    // Services
+    ConfigService,
+    AuthService,
 
-        // Guards
-        AuthenticatedGuard
-      ]
-    };
+    // Guards
+    AuthenticatedGuard
+  ];
+
+  public static forRoot(): SharedModule {
+    return new SharedModule();
   }
 }

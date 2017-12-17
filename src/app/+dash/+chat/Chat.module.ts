@@ -11,17 +11,22 @@ const ROUTES: Routes = [
   {
     path: "followers",
     loadChildren: './+followers/Followers.module#FollowersModule',
-    data: {displayName: "Followers"}
+    data: {breadCrumbName: "Followers"}
   },
   {
     path: "subscribers",
     loadChildren: './+subscribers/Subscribers.module#SubscribersModule',
-    data: {displayName: "Subscribers"}
+    data: {breadCrumbName: "Subscribers"}
   },
   {
     path: "hosts",
     loadChildren: './+hosts/Hosts.module#HostsModule',
-    data: {displayName: "Hosts"}
+    data: {breadCrumbName: "Hosts"}
+  },
+  {
+    path: "chat-moderator",
+    loadChildren: './+chat-moderator/ChatModerator.module#ChatModeratorModule',
+    data: {breadCrumbName: "Chat Moderator"}
   },
 ];
 

@@ -1,0 +1,9 @@
+mat-form-field
+  mat-select([placeholder]="placeholderName", required="true", [formControl]="selectedStrikeControl")
+    mat-option(value="WARN") Warning
+    mat-option(value="PURGE") Purge
+    mat-option(value="TIMEOUT") Time out
+    mat-option(value="BAN") Ban
+  mat-hint Select a moderation action
+  mat-error(*ngIf="selectedStrikeControl.hasError('required')") This field is required!
+

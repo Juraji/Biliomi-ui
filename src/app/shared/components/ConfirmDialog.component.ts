@@ -14,11 +14,11 @@ export class ConfirmDialogComponent {
     this._dialogRef = dialogRef;
   }
 
-  private onYes() {
+  public onYes() {
     this._dialogRef.close(true);
   }
 
-  private onNo() {
+  public onNo() {
     this._dialogRef.close(false);
   }
 }

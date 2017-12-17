@@ -16,7 +16,7 @@ interface IBreadCrumb {
 export class BreadCrumbsComponent implements OnInit {
   private _activatedRoute: ActivatedRoute;
   private _router: Router;
-  private currentBreadCrumbs: IBreadCrumb[] = [];
+  public currentBreadCrumbs: IBreadCrumb[] = [];
 
   constructor(activatedRoute: ActivatedRoute, router: Router) {
     this._activatedRoute = activatedRoute;
@@ -37,7 +37,7 @@ export class BreadCrumbsComponent implements OnInit {
   }
 
   private _renderBreadCrumbs(route: ActivatedRoute, url: string = "", breadCrumbs: IBreadCrumb[] = []): IBreadCrumb[] {
-    const ROUTE_DATA_DISPLAY_NAME: string = "displayName";
+    const ROUTE_DATA_DISPLAY_NAME: string = "breadCrumbName";
 
     //get the child routes
     let children: ActivatedRoute[] = route.children;

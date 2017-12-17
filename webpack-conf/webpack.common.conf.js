@@ -1,6 +1,6 @@
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const helpers = require("./webpack.helpers");
+const helpers = require("./dev-scripts/paths.helpers");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const LessPluginCleanCSS = require("less-plugin-clean-css");
 const Webpack = require("webpack");

@@ -6,8 +6,8 @@ export class TableDataSource<T> extends MatTableDataSource<T> {
   private dataSupplier: Supplier<Promise<T[]>>;
   private _progressBarMode: ProgressBarMode = ProgressBarMode.NONE;
 
-  constructor(dataSupplier: Supplier<Promise<T[]>>, initialData?: T[]) {
-    super(initialData);
+  constructor(dataSupplier: Supplier<Promise<T[]>>) {
+    super([]);
     this.dataSupplier = dataSupplier;
   }
 
@@ -17,7 +17,7 @@ export class TableDataSource<T> extends MatTableDataSource<T> {
 
   public async update(): Promise<void> {
     this._progressBarMode = ProgressBarMode.INDETERMINATE;
-    this.data = await this.dataSupplier();
+    this.data = await this.dataSupplier() || [];
     this._progressBarMode = ProgressBarMode.NONE;
   }
 

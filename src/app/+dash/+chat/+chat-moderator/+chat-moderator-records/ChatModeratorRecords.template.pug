@@ -1,0 +1,40 @@
+.mat-button-row.pull-right
+  button.pull-right(mat-mini-fab, color="primary", (click)="exportRecords()", title="Export to Excel")
+    mat-icon cloud_download
+  button(mat-mini-fab, color="primary", (click)="recordsDataSource.update()", title="Refresh")
+    mat-icon refresh
+
+p Biliomi keeps a record of moderation actions performed by the chat moderator.
+
+data-source-progress-bar([dataSource]="recordsDataSource")
+
+mat-table(#table="", [dataSource]="recordsDataSource")
+  ng-container(matColumnDef="User")
+    mat-header-cell(*matHeaderCellDef="") Username
+    mat-cell(*matCellDef="let record")
+      user-display([user]="record.User")
+
+  ng-container(matColumnDef="Date")
+    mat-header-cell(*matHeaderCellDef="") Date
+    mat-cell(*matCellDef="let record")
+      | {{record.Date | date}}
+
+  ng-container(matColumnDef="Action")
+    mat-header-cell(*matHeaderCellDef="") Action
+    mat-cell(*matCellDef="let record")
+      | {{record.Action | caseToWord:"SCREAMING_SNAKE_CASE"}}
+
+  ng-container(matColumnDef="Reason")
+    mat-header-cell(*matHeaderCellDef="") Reason
+    mat-cell(*matCellDef="let record")
+      | {{record.Reason| caseToWord:"SCREAMING_SNAKE_CASE"}}
+
+  ng-container(matColumnDef="Message")
+    mat-header-cell(*matHeaderCellDef="") Message
+    mat-cell(*matCellDef="let record")
+      | {{record.Message | trim:50}}
+
+  mat-header-row(*matHeaderRowDef="['User', 'Date', 'Action', 'Reason', 'Message']")
+  mat-row(*matRowDef="let row; columns: ['User', 'Date', 'Action', 'Reason', 'Message'];")
+
+mat-paginator(#paginator="", [pageSize]="10", [pageSizeOptions]="[5, 10, 20, 50]")

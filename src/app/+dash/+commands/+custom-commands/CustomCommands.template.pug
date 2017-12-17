@@ -19,7 +19,7 @@ mat-table(*ngIf="dataSource.hasData", #table="", [dataSource]="dataSource")
   ng-container(matColumnDef="Attributes")
     mat-header-cell(*matHeaderCellDef="") Attributes
     mat-cell(*matCellDef="let command")
-      command-attributes([command]="command")
+      custom-command-attributes([command]="command")
 
   ng-container(matColumnDef="Aliasses")
     mat-header-cell(*matHeaderCellDef="") Aliasses

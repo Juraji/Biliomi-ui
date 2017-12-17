@@ -1,7 +1,7 @@
 ul.list-unstyled
-  li(*ngIf="command.SystemCommand")
+  li
     span.text-muted System Command:&nbsp;
-    span Yes
+    span {{command.SystemCommand ? 'yes': 'no'}}
   li(*ngIf="command.SystemCommand")
     span.text-muted Moderator Can Activate:&nbsp;
     span {{(command.ModeratorCanAlwaysActivate ? "yes" : "No")}}

@@ -12,7 +12,7 @@ const ROUTES: Routes = [
   {
     path: ":template",
     component: TemplateSettingsComponent,
-    data: {displayName: "Edit Template"}
+    data: {breadCrumbName: "Edit Template"}
   }
 ];
 

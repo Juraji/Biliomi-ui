@@ -15,8 +15,7 @@ import ICustomCommand = Biliomi.ICustomCommand;
 
 @Component({
   selector: "custom-commands-component",
-  templateUrl: require("./CustomCommands.template.pug"),
-  styleUrls: [require("../declarations/Commands.less").toString()]
+  templateUrl: require("./CustomCommands.template.pug")
 })
 export class CustomCommandsComponent implements AfterViewInit {
   private _dialog: MatDialog;
