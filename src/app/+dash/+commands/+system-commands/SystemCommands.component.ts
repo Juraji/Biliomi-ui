@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ViewChild} from "@angular/core";
-import {RestTableDataSource} from "../../../shared/modules/ng-material/classes/RestTableDataSource";
+import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {MatDialog, MatPaginator} from "@angular/material";
 import {CommandsClient} from "../../../shared/modules/biliomi/clients/model/Commands.client";

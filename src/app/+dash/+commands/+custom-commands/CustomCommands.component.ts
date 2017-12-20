@@ -2,7 +2,7 @@ import {AfterViewInit, Component, ViewChild} from "@angular/core";
 import {MatDialog, MatPaginator} from "@angular/material";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CustomCommandsClient} from "../../../shared/modules/biliomi/clients/model/CustomCommands.client";
-import {RestTableDataSource} from "../../../shared/modules/ng-material/classes/RestTableDataSource";
+import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
 import {ARG_COMMAND_REPLACEMENTS} from "../../../shared/modules/biliomi/classes/constants/CommandReplacements";
 import {EditCustomCommandModalComponent} from "./declarations/EditCustomCommandModal.component";
 import {XlsxExporter} from "../../../shared/modules/xlsx-export/classes/XlsxExporter";

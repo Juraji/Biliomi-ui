@@ -1,0 +1,22 @@
+data-source-progress-bar([dataSource]="tableDataSource")
+
+p(*ngIf="tableDataSource.isInitialized && !tableDataSource.hasData").
+  No data to display.
+
+.mat-actions-row
+  button(mat-icon-button, [matMenuTriggerFor]="tableMenu")
+    mat-icon more_vert
+  mat-menu(#tableMenu="matMenu")
+    button(mat-menu-item, (click)="exportData()", title="Export to Excel")
+      mat-icon cloud_download
+      span Export
+
+  button(mat-icon-button, (click)="tableDataSource.update()", title="Refresh")
+    mat-icon refresh
+
+ext-cdk-table(#table="", [dataSource]="tableDataSource", matSort="")
+  mat-header-row(*matHeaderRowDef="table.columnIds")
+  mat-row(*matRowDef="let row; columns: table.columnIds;")
+
+mat-paginator(#paginator="", [pageSize]="10", [pageSizeOptions]="[5, 10, 20, 50]")
+  

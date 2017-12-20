@@ -2,27 +2,18 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
 
 .columns
   .col.span-8-of-12
-    .mat-button-row.pull-right
-      button.pull-right(mat-mini-fab, color="primary", (click)="exportLatestFollowers()", title="Export to Excel")
-        mat-icon cloud_download
-      button(mat-mini-fab, color="primary", (click)="loadLatestFollowers()", title="Refresh")
-        mat-icon refresh
-
     p Latest Followers
 
-    mat-table(*ngIf="latestFollowersDataSource.data != undefined", #table="", [dataSource]="latestFollowersDataSource")
-      ng-container(matColumnDef="DisplayName")
+    data-table([tableDataSource]="latestFollowersDataSource", [exportConfig]="exportConfig")
+      ng-container(matColumnDef="DisplayName", mat-sort-header="")
         mat-header-cell(*matHeaderCellDef="") Username
         mat-cell(*matCellDef="let user")
           user-display([user]="user")
 
       ng-container(matColumnDef="FollowDate")
-        mat-header-cell(*matHeaderCellDef="") Follows Since
+        mat-header-cell(*matHeaderCellDef="", mat-sort-header="") Follows Since
         mat-cell(*matCellDef="let user")
           | {{user.FollowDate | date}}
-
-      mat-header-row(*matHeaderRowDef="['DisplayName', 'FollowDate']")
-      mat-row(*matRowDef="let row; columns: ['DisplayName', 'FollowDate'];")
 
   .col.span-4-of-12
     p &nbsp;

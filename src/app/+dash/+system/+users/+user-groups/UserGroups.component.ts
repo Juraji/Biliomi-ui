@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {RestTableDataSource} from "../../../../shared/modules/ng-material/classes/RestTableDataSource";
+import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {UserGroupsClient} from "../../../../shared/modules/biliomi/clients/model/UserGroups.client";
 import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";

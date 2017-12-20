@@ -7,7 +7,7 @@ import {
   XLSX_FORMATTER_DATE
 } from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
-import {TableDataSource} from "../../../shared/modules/ng-material/classes/TableDataSource";
+import {TableDataSource} from "../../../shared/modules/data-table/classes/TableDataSource";
 import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
 import IHostRecord = Biliomi.IHostRecord;
 import IDirection = Biliomi.IDirection;

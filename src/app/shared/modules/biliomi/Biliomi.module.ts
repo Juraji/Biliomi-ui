@@ -1,4 +1,4 @@
-import {ModuleWithProviders, NgModule, Type} from "@angular/core";
+import {NgModule, Type} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
 import {BiliomiApiService} from "./services/BiliomiApi.service";
 import {ChannelInfoClient} from "./clients/settings/ChannelInfo.client";
@@ -17,7 +17,6 @@ import {ChatLogsClient} from "./clients/model/ChatLogs.client";
 import {FollowerWatchSettingsClient} from "./clients/settings/FollowerWatchSettings.client";
 import {SubscriberWatchSettingsClient} from "./clients/settings/SubscriberWatchSettings.client";
 import {HostRecordsClient} from "./clients/model/HostRecords.client";
-import {Provider} from "@angular/core/src/di";
 import {ChatModeratorSettingsClient} from "./clients/settings/ChatModeratorSettings.client";
 import {ModerationRecordsClient} from "./clients/model/ModerationRecords.client";
 import {HostWatchSettingsClient} from "./clients/settings/HostWatchSettings.client";
@@ -27,40 +26,37 @@ const BILIOMI_EXPORTS: Type<any>[] = [
   PointsPipe
 ];
 
+const BILIOMI_PROVIDERS: Type<any>[] = [
+  BiliomiApiService,
+  BiliomiEventsService,
+
+  // Model clients
+  ChatLogsClient,
+  CommandsClient,
+  CustomCommandsClient,
+  GamesClient,
+  HostRecordsClient,
+  ModerationRecordsClient,
+  TemplatesClient,
+  UserGroupsClient,
+  UsersClient,
+
+  // Settings clients
+  ChannelInfoClient,
+  ChatModeratorSettingsClient,
+  FollowerWatchSettingsClient,
+  HostWatchSettingsClient,
+  PointsSettingsClient,
+  SubscriberWatchSettingsClient,
+  SystemSettingsClient,
+  TimeTrackingSettingsClient
+];
+
 @NgModule({
   imports: [HttpClientModule],
   declarations: BILIOMI_EXPORTS,
-  exports: BILIOMI_EXPORTS
+  exports: BILIOMI_EXPORTS,
+  providers: BILIOMI_PROVIDERS
 })
-export class BiliomiModule implements ModuleWithProviders {
-  public ngModule: Type<any> = BiliomiModule;
-  public providers: Provider[] = [
-    BiliomiApiService,
-    BiliomiEventsService,
-
-    // Model clients
-    ChatLogsClient,
-    CommandsClient,
-    CustomCommandsClient,
-    GamesClient,
-    HostRecordsClient,
-    ModerationRecordsClient,
-    TemplatesClient,
-    UserGroupsClient,
-    UsersClient,
-
-    // Settings clients
-    ChannelInfoClient,
-    ChatModeratorSettingsClient,
-    FollowerWatchSettingsClient,
-    HostWatchSettingsClient,
-    PointsSettingsClient,
-    SubscriberWatchSettingsClient,
-    SystemSettingsClient,
-    TimeTrackingSettingsClient
-  ];
-
-  public static forRoot(): BiliomiModule {
-    return new BiliomiModule;
-  }
+export class BiliomiModule {
 }

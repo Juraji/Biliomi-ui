@@ -40,9 +40,7 @@ const ROOT_ROUTES: Routes = [
     BrowserModule,
     RouterModule.forRoot(ROOT_ROUTES),
     BrowserAnimationsModule,
-
-    // Shared
-    SharedModule.forRoot(),
+    SharedModule,
   ],
   bootstrap: [MainComponent]
 })

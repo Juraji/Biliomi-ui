@@ -21,6 +21,7 @@ import {UserDisplayComponent} from "./components/UserDisplay.component";
 import {UserAutoCompleteComponent} from "./components/UserAutoComplete.component";
 import {TrimPipe} from "./modules/biliomi/pipes/Trim.pipe";
 import {NumberArrayPipe} from "./pipes/NumberArray.pipe";
+import {DataTableModule} from "./modules/data-table/DataTable.module";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -43,30 +44,38 @@ const SHARED_COMPONENTS: Type<any>[] = [
 
 const SHARED_DIRECTIVES: Type<any>[] = [];
 
+const SHARED_PROVIDERS: Type<any>[] = [
+  // Services
+  ConfigService,
+  AuthService,
+
+  // Guards
+  AuthenticatedGuard
+];
+
+const SHARED_MODULES: Type<any>[] = [
+  CommonModule,
+  RouterModule,
+  FormsModule,
+  HttpClientModule,
+  ReactiveFormsModule,
+  NgMaterialModule,
+  BiliomiModule,
+  DataTableModule
+];
+
 @NgModule({
-  imports: [CommonModule, RouterModule, FormsModule, HttpClientModule, ReactiveFormsModule, NgMaterialModule, BiliomiModule.forRoot()],
+  imports: SHARED_MODULES,
   declarations: []
     .concat(SHARED_PIPES)
     .concat(SHARED_COMPONENTS)
     .concat(SHARED_DIRECTIVES),
-  exports: [CommonModule, RouterModule, FormsModule, HttpClientModule, ReactiveFormsModule, NgMaterialModule, BiliomiModule]
+  exports: SHARED_MODULES
     .concat(SHARED_PIPES)
     .concat(SHARED_COMPONENTS)
     .concat(SHARED_DIRECTIVES),
-  entryComponents: SHARED_COMPONENTS
+  entryComponents: SHARED_COMPONENTS,
+  providers: SHARED_PROVIDERS
 })
-export class SharedModule implements ModuleWithProviders {
-  public ngModule: Type<any> = SharedModule;
-  public providers: Provider[] = [
-    // Services
-    ConfigService,
-    AuthService,
-
-    // Guards
-    AuthenticatedGuard
-  ];
-
-  public static forRoot(): SharedModule {
-    return new SharedModule();
-  }
+export class SharedModule {
 }

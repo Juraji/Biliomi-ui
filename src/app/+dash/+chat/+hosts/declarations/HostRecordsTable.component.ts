@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {TableDataSource} from "../../../../shared/modules/ng-material/classes/TableDataSource";
+import {TableDataSource} from "../../../../shared/modules/data-table/classes/TableDataSource";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {HostRecordsClient} from "../../../../shared/modules/biliomi/clients/model/HostRecords.client";
 import {MatDialog} from "@angular/material";

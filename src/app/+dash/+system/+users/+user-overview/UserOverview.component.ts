@@ -10,7 +10,7 @@ import {DataSourceFilterComponent} from "../../../../shared/modules/ng-material/
 import {UsersClient} from "../../../../shared/modules/biliomi/clients/model/Users.client";
 import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
 import {ActivatedRoute, ParamMap} from "@angular/router";
-import {RestTableDataSource} from "../../../../shared/modules/ng-material/classes/RestTableDataSource";
+import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {PointsSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/PointsSettings.client";
 import {ChannelInfoClient} from "../../../../shared/modules/biliomi/clients/settings/ChannelInfo.client";

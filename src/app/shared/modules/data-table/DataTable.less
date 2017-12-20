@@ -1,0 +1,34 @@
+@mat-row-height: 48px;
+@mat-row-horizontal-padding: 24px;
+
+.mat-table {
+  display: block;
+}
+
+.mat-actions-row {
+  background-color: #424242;
+  min-height: @mat-row-height;
+  padding-top: .5em;
+  padding-right: .5em;
+
+  > button {
+    float: right;
+  }
+}
+
+.mat-row, .mat-header-row {
+  display: flex;
+  //noinspection CssOptimizeSimilarProperties
+  border-bottom-width: 1px;
+  //noinspection CssOptimizeSimilarProperties
+  border-bottom-style: solid;
+  align-items: center;
+  min-height: @mat-row-height;
+  padding: 0 @mat-row-horizontal-padding;
+}
+
+.mat-cell, .mat-header-cell {
+  flex: 1;
+  overflow: hidden;
+  word-wrap: break-word;
+}

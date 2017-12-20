@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {TemplatesClient} from "../../../../shared/modules/biliomi/clients/model/Templates.client";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {RestTableDataSource} from "../../../../shared/modules/ng-material/classes/RestTableDataSource";
+import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {MatDialog, MatPaginator} from "@angular/material";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";

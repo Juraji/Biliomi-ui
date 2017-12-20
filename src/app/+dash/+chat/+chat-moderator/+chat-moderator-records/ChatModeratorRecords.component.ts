@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ViewChild} from "@angular/core";
 import {ModerationRecordsClient} from "../../../../shared/modules/biliomi/clients/model/ModerationRecords.client";
-import {RestTableDataSource} from "../../../../shared/modules/ng-material/classes/RestTableDataSource";
+import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {MatPaginator} from "@angular/material";
 import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";
