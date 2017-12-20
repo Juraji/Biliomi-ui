@@ -1,7 +1,7 @@
 import {
-  AfterContentChecked, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren,
-  ElementRef, EmbeddedViewRef, Input, IterableChangeRecord, IterableDiffer, IterableDiffers, NgIterable, OnDestroy, OnInit,
-  QueryList, TrackByFunction, ViewChild, ViewEncapsulation,
+  AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren,
+  EmbeddedViewRef, Input, IterableChangeRecord, IterableDiffer, IterableDiffers, NgIterable, OnDestroy, OnInit, QueryList,
+  TrackByFunction, ViewChild, ViewEncapsulation,
 } from '@angular/core';
 import {takeUntil} from 'rxjs/operators/takeUntil';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
@@ -23,7 +23,7 @@ abstract class RowViewRef<T> extends EmbeddedViewRef<CdkCellOutletRowContext<T>>
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {"class": "mat-table"},
+  host: {"class": "mat-table", "role": "grid"},
 })
 export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentChecked {
   private _onDestroy = new Subject<void>();
@@ -36,6 +36,8 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
   private _customColumnDefs = new Set<CdkColumnDef>();
   private _dataSource: TableDataSource<T>;
   private _headerRowDefChanged = false;
+  private _differs: IterableDiffers;
+  private _changeDetectorRef: ChangeDetectorRef;
 
   public viewChange = new BehaviorSubject<{ start: number, end: number }>({start: 0, end: Number.MAX_VALUE});
 
@@ -65,13 +67,9 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
   @ContentChild(CdkHeaderRowDef)
   public _headerRowDef: CdkHeaderRowDef;
 
-  constructor(private readonly _differs: IterableDiffers,
-              private readonly _changeDetectorRef: ChangeDetectorRef,
-              elementRef: ElementRef,
-              @Attribute('role') role: string) {
-    if (!role) {
-      elementRef.nativeElement.setAttribute('role', 'grid');
-    }
+  constructor(differs: IterableDiffers, changeDetectorRef: ChangeDetectorRef) {
+    this._differs = differs;
+    this._changeDetectorRef = changeDetectorRef;
   }
 
   public ngOnInit() {
@@ -115,11 +113,6 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
 
   public get columnIds(): string[] {
     return Array.from(this._columnDefsByName.keys());
-  }
-
-  public get columnHeaders(): string[] {
-    return Array.from(this._columnDefsByName.values())
-      .map((d: CdkColumnDef) => d.headerCell.template.elementRef.nativeElement.text)
   }
 
   public addColumnDef(columnDef: CdkColumnDef) {
