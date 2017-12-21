@@ -6,6 +6,7 @@ import {NgMaterialModule} from "../ng-material/NgMaterial.module";
 import {DataSourceProgressBarComponent} from "./components/DataSourceProgressBar.component";
 import {ExtCdkTableComponent} from "./components/ExtCdkTable.component";
 import {ExtCdkTablePlaceHolderDirective} from "./components/ExtCdkTablePlaceHolder.directive";
+import {TableSetupModalComponent} from "./components/TableSetupModal.component";
 
 @NgModule({
   imports: [
@@ -19,10 +20,10 @@ import {ExtCdkTablePlaceHolderDirective} from "./components/ExtCdkTablePlaceHold
     ExtCdkTableComponent,
     DataSourceProgressBarComponent,
     ExtCdkTablePlaceHolderDirective,
+    TableSetupModalComponent
   ],
-  exports: [
-    DataTableComponent,
-  ]
+  exports: [DataTableComponent],
+  entryComponents: [TableSetupModalComponent]
 })
 export class DataTableModule {
 }

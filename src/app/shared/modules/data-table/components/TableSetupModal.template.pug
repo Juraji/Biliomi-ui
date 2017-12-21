@@ -1,0 +1,10 @@
+form(#tableSetupForm="", (submit)="saveTableSetup()")
+
+  p Select which columns to display:
+
+  mat-checkbox(*ngFor="let column of _columnsSetup", [(ngModel)]="column.visible", [ngModelOptions]="{standalone: true}")
+    span(extCdkTablePlaceHolder, [template]="column.headerCellDef.template")
+
+  mat-dialog-actions
+    button(mat-raised-button, color="primary", title="Save")
+      mat-icon done

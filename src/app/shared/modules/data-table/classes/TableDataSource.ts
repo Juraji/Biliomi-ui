@@ -1,4 +1,4 @@
-import {MatSort, MatTableDataSource} from "@angular/material";
+import {MatTableDataSource} from "@angular/material";
 import {Supplier} from "../../tools/FunctionalInterface";
 import {ProgressBarMode} from "../components/DataSourceProgressBar.component";
 
