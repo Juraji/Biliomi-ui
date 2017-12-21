@@ -15,7 +15,7 @@ export class HostFormComponent {
   private _hostRecordsClient: HostRecordsClient;
 
   public recordAutoHostControl: FormControl = new FormControl(false);
-  public recordDirectionControl: FormControl = new FormControl(IDirection.INCOMING);
+  public recordDirectionControl: FormControl = new FormControl(IDirection.OUTGOING);
 
   @ViewChild("recordUserControl", {read: UserAutoCompleteComponent})
   public recordUserControl: UserAutoCompleteComponent;

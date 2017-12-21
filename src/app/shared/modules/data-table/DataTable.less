@@ -1,3 +1,5 @@
+@import "../../../../style/toolkit/swatches";
+
 @mat-row-height: 48px;
 @mat-row-horizontal-padding: 24px;
 
@@ -5,13 +7,14 @@
   display: block;
 }
 
-.mat-actions-row {
+.table-header {
   background-color: #424242;
   min-height: @mat-row-height;
   padding-top: .5em;
   padding-right: .5em;
+  padding-left: .5em;
 
-  > button {
+  .table-actions > button {
     float: right;
   }
 }

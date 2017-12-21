@@ -6,10 +6,10 @@ form(#hostRecordForm="", (submit)="submitHostRecord()")
 
     mat-card-content
       mat-radio-group#host-records-direction(name="host-records-direction", [formControl]="recordDirectionControl")
-        mat-radio-button(value="INCOMING") Incoming host
         mat-radio-button(value="OUTGOING") Outgoing host
+        mat-radio-button(value="INCOMING") Incoming host
 
-      mat-checkbox([formControl]="recordAutoHostControl") Is Auto Host
+      mat-checkbox(*ngIf="recordDirectionControl.value == 'INCOMING'", [formControl]="recordAutoHostControl") Is Auto Host
 
       user-autocomplete(#recordUserControl="", [required]="true")
 

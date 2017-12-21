@@ -1,4 +1,7 @@
-import {AfterViewInit, Component, ContentChildren, Input, QueryList, ViewChild} from "@angular/core";
+import {
+  AfterViewInit, Component, ContentChild, ContentChildren, Input, QueryList, TemplateRef, ViewChild,
+  ViewContainerRef
+} from "@angular/core";
 import {TableDataSource} from "./classes/TableDataSource";
 import {MatDialog, MatPaginator, MatSort} from "@angular/material";
 import {CdkColumnDef} from "@angular/cdk/table";
@@ -8,6 +11,7 @@ import {XlsxExporter} from "../xlsx-export/classes/XlsxExporter";
 import {TableSetupModalComponent} from "./components/TableSetupModal.component";
 import {Storage} from "../../classes/Storage";
 import {ColumnSetup, TableColumnsSetup} from "./classes/interfaces/TableColumnSetup.interface";
+import {TableButtonsDirective} from "./components/TableButtons.directive";
 
 const DISPLAYED_COLUMNS_STORAGE_KEY_PREFIX: string = "tableColumns.";
 
@@ -26,17 +30,20 @@ export class DataTableComponent<T> implements AfterViewInit {
   @Input("tableId")
   public tableId: string;
 
-  @ViewChild("paginator", {read: MatPaginator})
-  public paginator: MatPaginator;
-
   @Input("exportConfig")
   public exportConfig: IXlsxExportConfig = null;
 
-  @ViewChild(MatSort)
-  public sort: MatSort;
+  @ViewChild("paginator", {read: MatPaginator})
+  public paginator: MatPaginator;
 
   @ViewChild("table", {read: ExtCdkTableComponent})
   public table: ExtCdkTableComponent<T>;
+
+  @ViewChild("tableButtonsPlaceHolder", {read: ViewContainerRef})
+  public tableButtonsPlaceHolder: ViewContainerRef;
+
+  @ContentChild(TableButtonsDirective, {read: TemplateRef})
+  public tableButtonsRef: TemplateRef<any>;
 
   @ContentChildren(CdkColumnDef)
   public columnDefs: QueryList<CdkColumnDef>;
@@ -52,16 +59,23 @@ export class DataTableComponent<T> implements AfterViewInit {
   }
 
   public ngAfterViewInit() {
+    if (this.tableButtonsRef != null) {
+      this.tableButtonsPlaceHolder.createEmbeddedView(this.tableButtonsRef);
+    }
+
     this.tableDataSource.paginator = this.paginator;
-    this.tableDataSource.sort = this.sort;
     this.columnDefs.forEach((def: CdkColumnDef) => this.table.addColumnDef(def));
 
-    let storageDisplayedIds: string[] = Storage.get(DISPLAYED_COLUMNS_STORAGE_KEY_PREFIX + this.tableId, this.table.columnIds);
+    let columnIds = this.table.columnIds;
+    if (this.tableId!=null) {
+      columnIds = Storage.get(DISPLAYED_COLUMNS_STORAGE_KEY_PREFIX + this.tableId, columnIds);
+    }
+
     this._columnSetup = this.columnDefs.map((def: CdkColumnDef) => {
       return {
         id: def.name,
         headerCellDef: def.headerCell,
-        visible: (storageDisplayedIds.indexOf(def.name) > -1)
+        visible: (columnIds.indexOf(def.name) > -1)
       };
     });
   }

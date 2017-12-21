@@ -3,21 +3,29 @@ data-source-progress-bar([dataSource]="tableDataSource")
 p(*ngIf="tableDataSource.isInitialized && !tableDataSource.hasData").
   No data to display.
 
-.mat-actions-row
-  button(mat-icon-button, [matMenuTriggerFor]="tableMenu")
-    mat-icon more_vert
-  mat-menu(#tableMenu="matMenu")
-    button(*ngIf="exportConfig != undefined", mat-menu-item, (click)="exportData()")
-      mat-icon cloud_download
-      span Export
-    button(mat-menu-item, (click)="tableSetup()")
-      mat-icon settings
-      span Table Setup
+.table-header
+  .columns
+    .col.span-6-of-12
+      .table-notice
+        span.text-not-ok(*ngIf="!tableDataSource.hasData") No data to display!
+    .col.span-6-of-12
+      .table-actions
+        button(mat-icon-button, [matMenuTriggerFor]="tableMenu")
+          mat-icon more_vert
+        mat-menu(#tableMenu="matMenu")
+          button(*ngIf="exportConfig != undefined", mat-menu-item, (click)="exportData()")
+            mat-icon cloud_download
+            span Export
+          button(*ngIf="tableId != undefined", mat-menu-item, (click)="tableSetup()")
+            mat-icon settings
+            span Table Setup
 
-  button(mat-icon-button, (click)="tableDataSource.update()", title="Refresh")
-    mat-icon refresh
+        button(mat-icon-button, (click)="tableDataSource.update()", title="Refresh")
+          mat-icon refresh
 
-ext-cdk-table(#table="", [dataSource]="tableDataSource", matSort="")
+        ng-container(#tableButtonsPlaceHolder="")
+
+ext-cdk-table(#table="", [dataSource]="tableDataSource")
   mat-header-row(*matHeaderRowDef="displayedColumnIds")
   mat-row(*matRowDef="let row; columns: displayedColumnIds;")
 

@@ -2,15 +2,9 @@ p Check out the latest subscribers and change the behaviour of Biliomi when new 
 
 .columns
   .col.span-8-of-12
-    .mat-button-row.pull-right
-      button.pull-right(mat-mini-fab, color="primary", (click)="exportLatestSubscribers()", title="Export to Excel")
-        mat-icon cloud_download
-      button(mat-mini-fab, color="primary", (click)="loadLatestSubscribers()", title="Refresh")
-        mat-icon refresh
-
     p Latest Subscribers
 
-    mat-table(*ngIf="latestSubscribersDataSource.data != undefined", #table="", [dataSource]="latestSubscribersDataSource")
+    data-table(tableId="latest-subscribers", [tableDataSource]="latestSubscribersDataSource", [exportConfig]="exportConfig")
       ng-container(matColumnDef="DisplayName")
         mat-header-cell(*matHeaderCellDef="") Username
         mat-cell(*matCellDef="let user")
@@ -20,9 +14,6 @@ p Check out the latest subscribers and change the behaviour of Biliomi when new 
         mat-header-cell(*matHeaderCellDef="") Follows Since
         mat-cell(*matCellDef="let user")
           | {{user.SubscribeDate | date}}
-
-      mat-header-row(*matHeaderRowDef="['DisplayName', 'SubscribeDate']")
-      mat-row(*matRowDef="let row; columns: ['DisplayName', 'SubscribeDate'];")
 
   .col.span-4-of-12
     p &nbsp;

@@ -1,7 +1,6 @@
 import {NgModule, Type} from "@angular/core";
 import {ArrayPageSlicePipe} from "./pipes/ArrayPageSlice.pipe";
 import * as material from "@angular/material";
-import {DataSourceFilterComponent} from "./components/DataSourceFilter.component";
 import {ChipListInputComponent} from "./components/ChipListInput.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
@@ -38,7 +37,6 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [
   ArrayPageSlicePipe,
-  DataSourceFilterComponent,
   ChipListInputComponent
 ];
 

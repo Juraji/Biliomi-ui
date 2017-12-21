@@ -3,6 +3,7 @@ import * as XLSX from "xlsx";
 import {ColInfo, Sheet, WorkBook} from "xlsx";
 import {IXlsxColumnDefinition, IXlsxExportConfig, IXlsXRowObject, XlsxBookType} from "./interfaces/Xlsx.interface";
 import {JSONPath} from "../../tools/JSONPath";
+import {Supplier} from "../../tools/FunctionalInterface";
 
 
 const AUTO_COLUMN_WIDTH_MARGIN: number = 5;
@@ -22,7 +23,8 @@ export class XlsxExporter {
 
   constructor(config: IXlsxExportConfig) {
     this._config = config;
-    this._sheetHeaders = this._config.columns.map((cd: IXlsxColumnDefinition) => cd.headerName);
+    this._sheetHeaders = this._config.columns
+      .map((cd: IXlsxColumnDefinition) => XlsxExporter._mapSheetHeaderName(cd.headerName));
 
     this._bookType = (this._config.bookType || XlsxBookType.XLSX);
     this._fileName = (this._config.fileName || this._config.sheetName) + "." + this._bookType;
@@ -101,7 +103,7 @@ export class XlsxExporter {
           this._columnWidths[i] = valueLength;
         }
 
-        finalObject[colDef.headerName] = value;
+        finalObject[XlsxExporter._mapSheetHeaderName(colDef.headerName)] = value;
       }
 
       i++;
@@ -150,5 +152,9 @@ export class XlsxExporter {
         }
       })
     }
+  }
+
+  private static _mapSheetHeaderName(headerName: string | Supplier<string>) {
+    return (typeof headerName === "function" ? headerName() : headerName);
   }
 }

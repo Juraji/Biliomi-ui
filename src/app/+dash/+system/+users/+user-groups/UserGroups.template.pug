@@ -1,19 +1,13 @@
-.mat-button-row.pull-right
-  button(mat-mini-fab, color="primary", (click)="groupsDataSource.update()", title="Refresh")
-    mat-icon refresh
-  button(mat-mini-fab, color="primary", (click)="editGroup()", title="Add new group")
-    mat-icon add
-  button(mat-mini-fab, color="primary", (click)="exportRecords()", title="Export to Excel")
-    mat-icon cloud_download
-
 p Biliomi uses user groups in order to apply execution rights on commands.#[br]
   small.text-muted.
     It does so by group weights, if the users's group weight is lower than a command's weight
     the user will be authorized to execute the command.
 
-data-source-progress-bar([dataSource]="groupsDataSource")
+data-table(tableId="user-groups", [tableDataSource]="groupsDataSource", [exportConfig]="exportConfig")
+  ng-template(tableButtons)
+    button(mat-icon-button, (click)="editGroup()", title="Add new group")
+      mat-icon add
 
-mat-table(#table="", [dataSource]="groupsDataSource")
   ng-container(matColumnDef="Name")
     mat-header-cell(*matHeaderCellDef="") Name
     mat-cell(*matCellDef="let group")
@@ -31,13 +25,8 @@ mat-table(#table="", [dataSource]="groupsDataSource")
       span(*ngIf="group.LevelUpHours == null") n.a.
       span(*ngIf="group.LevelUpHours > 0") {{group.LevelUpHours | time:false:true:true}}
 
-  ng-container(matColumnDef="Edit")
+  ng-container(matColumnDef="#Edit")
     mat-header-cell(*matHeaderCellDef="")
     mat-cell(*matCellDef="let group")
       a.mat-icon-button.pull-right(mat-button, (click)="editGroup(group)", title="Edit group", [disabled]="group.DefaultGroup")
         mat-icon edit
-
-  mat-header-row(*matHeaderRowDef="['Name', 'Weight', 'LevelUpHours', 'Edit']")
-  mat-row(*matRowDef="let row; columns: ['Name', 'Weight', 'LevelUpHours', 'Edit'];")
-
-mat-paginator(#paginator="", [pageSize]="10", [pageSizeOptions]="[5, 10, 20, 50]")

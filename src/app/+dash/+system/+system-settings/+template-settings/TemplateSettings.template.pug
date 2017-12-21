@@ -1,14 +1,6 @@
-.mat-button-row.pull-right
-  button.pull-right(mat-mini-fab, color="primary", (click)="exportTemplates()", title="Export to Excel")
-    mat-icon cloud_download
-  button(mat-mini-fab, color="primary", (click)="dataSource.update()", title="Refresh")
-    mat-icon refresh
-
 p Templates are used by Biliomi all over the place, from raid-messages to tweets.
 
-data-source-progress-bar([dataSource]="dataSource")
-
-mat-table(*ngIf="dataSource.hasData", #table="", [dataSource]="dataSource")
+data-table(tableId="templates", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
   ng-container(matColumnDef="TemplateKey")
     mat-header-cell(*matHeaderCellDef="") Key
     mat-cell(*matCellDef="let template")
@@ -22,17 +14,11 @@ mat-table(*ngIf="dataSource.hasData", #table="", [dataSource]="dataSource")
   ng-container(matColumnDef="Description")
     mat-header-cell(*matHeaderCellDef="") Description
     mat-cell(*matCellDef="let template")
-      | {{template.Description}}#[br]
-      small.text-muted {{template.Template | trim:50}}
+      | {{template.Description}}
 
-  ng-container(matColumnDef="Edit")
+  ng-container(matColumnDef="#Edit")
     mat-header-cell(*matHeaderCellDef="")
     mat-cell(*matCellDef="let template")
       a.mat-icon-button.pull-right(mat-button, (click)="editTemplate(template)", title="Edit template")
         mat-icon edit
-
-  mat-header-row(*matHeaderRowDef="['TemplateKey', 'Description', 'Edit']")
-  mat-row(*matRowDef="let row; columns: ['TemplateKey', 'Description', 'Edit'];")
-
-mat-paginator(#paginator="", [pageSize]="10", [pageSizeOptions]="[5, 10, 20, 50]")
 

@@ -4,26 +4,46 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
   .col.span-8-of-12
     mat-tab-group
       mat-tab(label="Incoming Records")
-        .mat-button-row.pull-right
-          button.pull-right(mat-mini-fab, color="primary", (click)="exportRecords()", title="Export to Excel")
-            mat-icon cloud_download
-          button(mat-mini-fab, color="primary", (click)="incomingRecordsDataSource.update()", title="Refresh")
-            mat-icon refresh
+        data-table(tableId="recent-hosts", [tableDataSource]="incomingRecordsDataSource")
+          ng-container(matColumnDef="User")
+            mat-header-cell(*matHeaderCellDef="") Username
+            mat-cell(*matCellDef="let record")
+              user-display([user]="record.User")
 
-        p &nbsp;
+          ng-container(matColumnDef="Date")
+            mat-header-cell(*matHeaderCellDef="") Date
+            mat-cell(*matCellDef="let record")
+              | {{record.Date | date}}
 
-        host-records-table-component([dataSource]="incomingRecordsDataSource")
+          ng-container(matColumnDef="#Actions")
+            mat-header-cell(*matHeaderCellDef="") &nbsp;
+            mat-cell(*matCellDef="let record")
+              .mat-button-row
+                a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", title="Delete Record")
+                  mat-icon delete_forever
+                a.mat-icon-button.pull-right(mat-button, (click)="hostNow(record)", title="Host Now")
+                  mat-icon queue_play_next
 
       mat-tab(label="Outgoing Records")
-        .mat-button-row.pull-right
-          button.pull-right(mat-mini-fab, color="primary", (click)="exportRecords()", title="Export to Excel")
-            mat-icon cloud_download
-          button(mat-mini-fab, color="primary", (click)="outgoingRecordsDataSource.update()", title="Refresh")
-            mat-icon refresh
+        data-table(tableId="recent-hosts", [tableDataSource]="outgoingRecordsDataSource")
+          ng-container(matColumnDef="User")
+            mat-header-cell(*matHeaderCellDef="") Username
+            mat-cell(*matCellDef="let record")
+              user-display([user]="record.User")
 
-        p &nbsp;
+          ng-container(matColumnDef="Date")
+            mat-header-cell(*matHeaderCellDef="") Date
+            mat-cell(*matCellDef="let record")
+              | {{record.Date | date}}
 
-        host-records-table-component([dataSource]="outgoingRecordsDataSource")
+          ng-container(matColumnDef="#Actions")
+            mat-header-cell(*matHeaderCellDef="") &nbsp;
+            mat-cell(*matCellDef="let record")
+              .mat-button-row
+                a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", title="Delete Record")
+                  mat-icon delete_forever
+                a.mat-icon-button.pull-right(mat-button, (click)="hostNow(record)", title="Host Now")
+                  mat-icon queue_play_next
 
   .col.span-4-of-12
     host-form-component((onRecordCreated)="updateOnRecordCreated($event)")

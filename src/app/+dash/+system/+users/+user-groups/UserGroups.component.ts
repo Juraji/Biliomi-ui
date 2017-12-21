@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {UserGroupsClient} from "../../../../shared/modules/biliomi/clients/model/UserGroups.client";
-import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {XLSX_FORMATTER_BOOLEAN_YES_NO} from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {MatDialog} from "@angular/material";
@@ -16,6 +15,17 @@ import IUserGroup = Biliomi.IUserGroup;
 export class UserGroupsComponent implements OnInit {
   private _dialog: MatDialog;
   private groupsDataSource: RestTableDataSource<IUserGroup> = new RestTableDataSource<IUserGroup>();
+
+  public exportConfig: IXlsxExportConfig = {
+    fileName: "Biliomi - User Groups",
+    sheetName: "User Groups",
+    columns: [
+      {objectPath: "$.Name", headerName: "Name"},
+      {objectPath: "$.Weight", headerName: "Weight"},
+      {objectPath: "$.DefaultGroup", headerName: "Is default group", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
+      {objectPath: "$.LevelUpHours", headerName: "Hours for auto group assign"},
+    ]
+  };
 
   constructor(userGroupsClient: UserGroupsClient, dialog: MatDialog) {
     this._dialog = dialog;
@@ -40,21 +50,5 @@ export class UserGroupsComponent implements OnInit {
         .filter((success: boolean) => success)
         .subscribe(() => this.groupsDataSource.update());
     }
-  }
-
-  public exportRecords() {
-    let config: IXlsxExportConfig = {
-      fileName: "Biliomi - User Groups",
-      sheetName: "User Groups",
-      columns: [
-        {objectPath: "$.Name", headerName: "Name"},
-        {objectPath: "$.Weight", headerName: "Weight"},
-        {objectPath: "$.DefaultGroup", headerName: "Is default group", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
-        {objectPath: "$.LevelUpHours", headerName: "Hours for auto group assign"},
-      ]
-    };
-
-    let exporter = new XlsxExporter(config);
-    exporter.exportData(this.groupsDataSource.data);
   }
 }

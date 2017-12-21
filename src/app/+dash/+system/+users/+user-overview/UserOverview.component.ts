@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
 import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";
 import {EditUserModalComponent} from "./declarations/EditUserModal.component";
 import {MatDialog, MatPaginator} from "@angular/material";
@@ -6,7 +6,6 @@ import {
   XLSX_FORMATTER_BOOLEAN_YES_NO, XLSX_FORMATTER_DATE,
   XLSX_FORMATTER_RELATIVE_TIME
 } from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {DataSourceFilterComponent} from "../../../../shared/modules/ng-material/components/DataSourceFilter.component";
 import {UsersClient} from "../../../../shared/modules/biliomi/clients/model/Users.client";
 import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
 import {ActivatedRoute, ParamMap} from "@angular/router";
@@ -21,18 +20,36 @@ import IUser = Biliomi.IUser;
   selector: "user-overview",
   templateUrl: require("./UserOverview.template.pug")
 })
-export class UserOverviewComponent implements AfterViewInit {
+export class UserOverviewComponent implements OnInit {
   private _dialog: MatDialog;
   private _pointsSettingsClient: PointsSettingsClient;
   private _activatedRoute: ActivatedRoute;
   private channelInfoClient: ChannelInfoClient;
   private dataSource: RestTableDataSource<IUser> = new RestTableDataSource<IUser>();
 
-  @ViewChild("paginator", {read: MatPaginator})
-  private paginator: MatPaginator;
-
-  @ViewChild("datasourceFilter", {read: DataSourceFilterComponent})
-  private filterField: DataSourceFilterComponent;
+  public exportConfig: IXlsxExportConfig = {
+    fileName: "Biliomi - Users",
+    sheetName: "Users",
+    columns: [
+      {objectPath: "$.Username", headerName: "Username"},
+      {objectPath: "$.DisplayName", headerName: "Display Name"},
+      {objectPath: "$.UserGroup.Name", headerName: "User Group"},
+      {objectPath: "$.Title", headerName: "Title"},
+      {objectPath: "$.RecordedTime", headerName: "Recorded Time", formatter: XLSX_FORMATTER_RELATIVE_TIME},
+      {
+        objectPath: "$.Points",
+        headerName: () => this._pointsSettingsClient.PointsNamePlural,
+        formatter: (points: number) => this._pointsSettingsClient.appendPointsName(points)
+      },
+      {objectPath: "$.Caster", headerName: "Caster", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
+      {objectPath: "$.Moderator", headerName: "Moderator", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
+      {objectPath: "$.Follower", headerName: "Follower", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
+      {objectPath: "$.FollowDate", headerName: "FollowDate", formatter: XLSX_FORMATTER_DATE},
+      {objectPath: "$.Subscriber", headerName: "Subscriber", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
+      {objectPath: "$.SubscribeDate", headerName: "SubscribeDate", formatter: XLSX_FORMATTER_DATE},
+      {objectPath: "$.BlacklistedSince", headerName: "BlacklistedSince", formatter: XLSX_FORMATTER_DATE},
+    ]
+  };
 
   constructor(usersClient: UsersClient,
               channelInfoClient: ChannelInfoClient,
@@ -49,8 +66,8 @@ export class UserOverviewComponent implements AfterViewInit {
     this.dataSource.sortBuilder.add("Username", false, true);
   }
 
-  public async ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+  public async ngOnInit() {
+    this._pointsSettingsClient.load();
     await this.dataSource.update();
 
     this._activatedRoute.paramMap.subscribe((map: ParamMap) => {
@@ -62,7 +79,6 @@ export class UserOverviewComponent implements AfterViewInit {
 
         if (user != null) {
           this.editUser(user);
-          this.filterField.value = user.DisplayName;
         }
       }
     });
@@ -87,34 +103,5 @@ export class UserOverviewComponent implements AfterViewInit {
     dialogRef.afterClosed()
       .filter((success: boolean) => success)
       .subscribe(() => this.dataSource.update());
-  }
-
-  public exportUsers() {
-    this._pointsSettingsClient.load();
-    let config: IXlsxExportConfig = {
-      fileName: "Biliomi - Users",
-      sheetName: "Users",
-      columns: [
-        {objectPath: "$.Username", headerName: "Username"},
-        {objectPath: "$.DisplayName", headerName: "DisplayName"},
-        {objectPath: "$.UserGroup.Name", headerName: "UserGroup"},
-        {objectPath: "$.Title", headerName: "Title"},
-        {objectPath: "$.RecordedTime", headerName: "RecordedTime", formatter: XLSX_FORMATTER_RELATIVE_TIME},
-        {
-          objectPath: "$.Points",
-          headerName: this._pointsSettingsClient.PointsNamePlural,
-          formatter: (points: number) => this._pointsSettingsClient.appendPointsName(points)
-        },
-        {objectPath: "$.Caster", headerName: "Caster", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
-        {objectPath: "$.Moderator", headerName: "Moderator", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
-        {objectPath: "$.Follower", headerName: "Follower", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
-        {objectPath: "$.FollowDate", headerName: "FollowDate", formatter: XLSX_FORMATTER_DATE},
-        {objectPath: "$.Subscriber", headerName: "Subscriber", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
-        {objectPath: "$.SubscribeDate", headerName: "SubscribeDate", formatter: XLSX_FORMATTER_DATE},
-        {objectPath: "$.BlacklistedSince", headerName: "BlacklistedSince", formatter: XLSX_FORMATTER_DATE},
-      ]
-    };
-    let exporter = new XlsxExporter(config);
-    exporter.exportData(this.dataSource.data);
   }
 }

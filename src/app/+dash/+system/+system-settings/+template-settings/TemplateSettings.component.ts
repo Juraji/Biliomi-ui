@@ -21,8 +21,23 @@ export class TemplateSettingsComponent implements OnInit {
   private _activatedRoute: ActivatedRoute;
   private dataSource: RestTableDataSource<ITemplate> = new RestTableDataSource<ITemplate>();
 
-  @ViewChild("paginator", {read: MatPaginator})
-  private paginator: MatPaginator;
+  public exportConfig: IXlsxExportConfig = {
+    fileName: "Biliomi - Users",
+    sheetName: "Users",
+    columns: [
+      {objectPath: "$.TemplateKey", headerName: "Key"},
+      {objectPath: "$.Template", headerName: "Template"},
+      {objectPath: "$.Description", headerName: "Description"},
+      {
+        objectPath: "$.KeyDescriptions",
+        headerName: "Replacements",
+        formatter: (descriptions: Dictionary) => Object
+          .keys(descriptions)
+          .map((key: string) => key + ": " + descriptions[key])
+          .join(", ")
+      },
+    ]
+  };
 
   constructor(templatesClient: TemplatesClient, dialog: MatDialog, activatedRoute: ActivatedRoute) {
     this._templatesClient = templatesClient;
@@ -34,7 +49,6 @@ export class TemplateSettingsComponent implements OnInit {
   }
 
   public async ngOnInit() {
-    this.dataSource.paginator = this.paginator;
     await this.dataSource.update();
 
     this._activatedRoute.paramMap.subscribe((map: ParamMap) => {
@@ -60,27 +74,5 @@ export class TemplateSettingsComponent implements OnInit {
     dialogRef.afterClosed()
       .filter((success: boolean) => success)
       .subscribe(() => this.dataSource.update());
-  }
-
-  private exportTemplates() {
-    let config: IXlsxExportConfig = {
-      fileName: "Biliomi - Users",
-      sheetName: "Users",
-      columns: [
-        {objectPath: "$.TemplateKey", headerName: "Key"},
-        {objectPath: "$.Template", headerName: "Template"},
-        {objectPath: "$.Description", headerName: "Description"},
-        {
-          objectPath: "$.KeyDescriptions",
-          headerName: "Replacements",
-          formatter: (descriptions: Dictionary) => Object
-            .keys(descriptions)
-            .map((key: string) => key + ": " + descriptions[key])
-            .join(", ")
-        },
-      ]
-    };
-    let exporter = new XlsxExporter(config);
-    exporter.exportData(this.dataSource.data);
   }
 }

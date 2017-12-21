@@ -1,5 +1,7 @@
 form(#customCommandEditForm="", (submit)="save()")
-  h2(matDialogTitle) Editing command: &#33;{{commandCommandControl.value || 'newcommand'}}
+  h2(matDialogTitle)
+    span(*ngIf="!editedCommand?.Command") New command
+    span(*ngIf="editedCommand?.Command") Editing command: {{'!' + editedCommand.Command}}
 
   mat-dialog-content
     mat-spinner(*ngIf="editedCommand == undefined")

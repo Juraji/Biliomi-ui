@@ -1,15 +1,10 @@
-.mat-button-row.pull-right
-  button.pull-right(mat-mini-fab, color="primary", (click)="exportCommands()", title="Export to Excel")
-    mat-icon cloud_download
-  button.pull-right(mat-mini-fab, color="primary", (click)="editCommand()", title="Add new command")
-    mat-icon add
-  button.pull-right(mat-mini-fab, color="primary", (click)="dataSource.update()", title="Refresh")
-    mat-icon refresh
 p Custom commands are messages bound to chat commands.#[br]
 
-data-source-progress-bar([dataSource]="dataSource")
+data-table(tableId="custom-commands", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
+  ng-template(tableButtons)
+    button(mat-icon-button, (click)="editCommand()", title="Add new command")
+      mat-icon add
 
-mat-table(*ngIf="dataSource.hasData", #table="", [dataSource]="dataSource")
   ng-container(matColumnDef="Command")
     mat-header-cell(*matHeaderCellDef="") Command
     mat-cell(*matCellDef="let command")
@@ -27,13 +22,8 @@ mat-table(*ngIf="dataSource.hasData", #table="", [dataSource]="dataSource")
       ul.list-unstyled
         li(*ngFor="let alias of command.Aliasses") &#33;{{alias}}
 
-  ng-container(matColumnDef="Edit")
+  ng-container(matColumnDef="#Edit")
     mat-header-cell(*matHeaderCellDef="")
     mat-cell(*matCellDef="let command")
       a.mat-icon-button.pull-right(mat-button, (click)="editCommand(command)", title="Edit command")
         mat-icon edit
-
-  mat-header-row(*matHeaderRowDef="['Command', 'Attributes', 'Aliasses', 'Edit']")
-  mat-row(*matRowDef="let row; columns: ['Command', 'Attributes', 'Aliasses', 'Edit'];")
-
-mat-paginator(#paginator="", [pageSize]="10", [pageSizeOptions]="[5, 10, 20, 50]")

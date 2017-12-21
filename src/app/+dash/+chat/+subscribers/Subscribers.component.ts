@@ -22,6 +22,15 @@ export class SubscribersComponent implements OnInit {
   private subscriberRewardTier2Control: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   private subscriberRewardTier3Control: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
 
+  public exportConfig: IXlsxExportConfig = {
+    fileName: "Biliomi - Latest Subscribers",
+    sheetName: "Latest Subscribers",
+    columns: [
+      {objectPath: "$.DisplayName", headerName: "Username"},
+      {objectPath: "$.SubscribeDate", headerName: "Subscribe date", formatter: XLSX_FORMATTER_DATE},
+    ]
+  };
+
   constructor(subscriberWatchSettingsClient: SubscriberWatchSettingsClient, usersClient: UsersClient) {
     this._subscriberWatchSettingsClient = subscriberWatchSettingsClient;
     this._usersClient = usersClient;
@@ -37,19 +46,6 @@ export class SubscribersComponent implements OnInit {
     if (latestSubscribers != null) {
       this.latestSubscribersDataSource.data = latestSubscribers;
     }
-  }
-
-  public exportLatestSubscribers() {
-    let config: IXlsxExportConfig = {
-      fileName: "Biliomi - Latest Subscribers",
-      sheetName: "Latest Subscribers",
-      columns: [
-        {objectPath: "$.DisplayName", headerName: "Username"},
-        {objectPath: "$.SubscribeDate", headerName: "Subscribe date", formatter: XLSX_FORMATTER_DATE},
-      ]
-    };
-    let exporter = new XlsxExporter(config);
-    exporter.exportData(this.latestSubscribersDataSource.data);
   }
 
   public async initSettingsFields() {

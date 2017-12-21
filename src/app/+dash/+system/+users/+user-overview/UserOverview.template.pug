@@ -1,22 +1,10 @@
-.mat-button-row.pull-right
-  button.pull-right(mat-mini-fab, color="primary", (click)="exportUsers()", title="Export to Excel")
-    mat-icon cloud_download
-  button.pull-right(mat-mini-fab, color="primary", (click)="dataSource.update()", title="Refresh")
-    mat-icon refresh
-
-.columns
-  .col.span-4-of-12
-    mat-data-source-filter-field(#datasourceFilter="", [dataSource]="dataSource", placeholder="Filter by username")
-
-mat-progress-bar(*ngIf="!dataSource.hasData || !channelInfoClient.isLoaded", mode="indeterminate")
-
-mat-table(*ngIf="dataSource.hasData && channelInfoClient.isLoaded", [dataSource]="dataSource")
+data-table(tableId="users-overview", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
   ng-container(matColumnDef="Username")
     mat-header-cell(*matHeaderCellDef="") Username
     mat-cell(*matCellDef="let user", [ngClass]="{'text-not-ok': user.BlacklistedSince != undefined}")
       | {{user.DisplayName}}
 
-  ng-container(matColumnDef="UserGroup.Name")
+  ng-container(matColumnDef="UserGroup")
     mat-header-cell(*matHeaderCellDef="") Group
     mat-cell(*matCellDef="let user")
       | {{user.UserGroup.Name}}
@@ -34,20 +22,15 @@ mat-table(*ngIf="dataSource.hasData && channelInfoClient.isLoaded", [dataSource]
   ng-container(matColumnDef="Follower")
     mat-header-cell(*matHeaderCellDef="") Follows
     mat-cell(*matCellDef="let user")
-      mat-checkbox([checked]="user.Follower", [disabled]="true")
+      mat-icon(*ngIf="user.Follower", color="primary") check
 
   ng-container(matColumnDef="Subscriber")
     mat-header-cell(*matHeaderCellDef="") Subscribed
     mat-cell(*matCellDef="let user")
-      mat-checkbox([checked]="user.Subscriber", [disabled]="true")
+      mat-icon(*ngIf="user.Subscriber", color="primary") check
 
-  ng-container(matColumnDef="Edit")
+  ng-container(matColumnDef="#Edit")
     mat-header-cell(*matHeaderCellDef="")
     mat-cell(*matCellDef="let user")
       a.mat-icon-button.pull-right(mat-button, (click)="editUser(user)", title="Edit user")
         mat-icon edit
-
-  mat-header-row(*matHeaderRowDef="tableColumns")
-  mat-row(*matRowDef="let row; columns: tableColumns")
-
-mat-paginator(#paginator="", [pageSize]="10", [pageSizeOptions]="[5, 10, 20, 50]")

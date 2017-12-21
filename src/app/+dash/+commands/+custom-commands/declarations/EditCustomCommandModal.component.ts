@@ -20,8 +20,8 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
   private _dialog: MatDialog;
 
   private editedCommand: ICustomCommand;
-  private commandCommandControl: FormControl = new FormControl('', [Validators.required]);
-  private commandMessageControl: FormControl = new FormControl('', [Validators.required]);
+  private commandCommandControl: FormControl = new FormControl("", [Validators.required]);
+  private commandMessageControl: FormControl = new FormControl("", [Validators.required]);
   private commandCooldownControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   private commandPriceControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
 
@@ -60,6 +60,8 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
       this.editedCommand.UserGroup = this.userGroupSelect.selectedGroup;
       this.editedCommand.Aliasses = [];
     }
+
+    console.log(this.editedCommand.UserGroup);
 
     this.commandCommandControl.setValue(this.editedCommand.Command);
     this.commandMessageControl.setValue(this.editedCommand.Message);

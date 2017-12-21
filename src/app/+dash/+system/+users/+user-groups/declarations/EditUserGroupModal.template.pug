@@ -1,5 +1,7 @@
 form(#userGroupEditForm="", (submit)="save()")
-  h2(matDialogTitle) Editing group: {{editedGroup?.Name}}
+  h2(matDialogTitle)
+    span(*ngIf="!editedGroup?.Name") New group
+    span(*ngIf="editedGroup?.Name") Editing group: {{editedGroup?.Name}}
 
   mat-dialog-content
     mat-spinner(*ngIf="editedGroup == undefined")
