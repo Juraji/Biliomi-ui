@@ -4,9 +4,9 @@ form(#timeTrackingSettingsEditForm="", (submit)="save()")
       mat-card-title Time Tracking Settings
 
     mat-card-content
-      mat-checkbox([formControl]="trackOnlineTimeControl") Track Online Time
+      mat-slide-toggle([formControl]="trackOnlineTimeControl") Track Online Time
 
-      mat-checkbox([formControl]="trackOfflineTimeControl") Track Offline Time
+      mat-slide-toggle([formControl]="trackOfflineTimeControl") Track Offline Time
 
     mat-card-actions
       button(mat-raised-button, color="primary", title="Save")

@@ -20,6 +20,8 @@ export class EditUserModalComponent implements AfterViewInit {
   private editedUser: IUser;
   private userTitleControl: FormControl = new FormControl('');
   private userPointsControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
+  private userFollowDateControl: FormControl = new FormControl();
+  private userSubscribeDateControl: FormControl = new FormControl();
   private userIsBlacklistedControl: FormControl = new FormControl(false);
 
   @ViewChild("userGroup", {read: UserGroupSelectComponent})
@@ -33,6 +35,9 @@ export class EditUserModalComponent implements AfterViewInit {
     this._usersClient = usersClient;
     this._dialogRef = dialogRef;
     this._matSnackBar = matSnackBar;
+
+    this.userFollowDateControl.disable();
+    this.userSubscribeDateControl.disable();
   }
 
   public async ngAfterViewInit() {
@@ -45,6 +50,14 @@ export class EditUserModalComponent implements AfterViewInit {
     this.userPointsControl.setValue(this.editedUser.Points);
     this.userIsBlacklistedControl.setValue(this.editedUser.BlacklistedSince != null);
     this.userGroupSelect.selectedGroup = this.editedUser.UserGroup;
+
+    if (this.editedUser.Follower) {
+      this.userFollowDateControl.setValue(this.editedUser.FollowDate)
+    }
+
+    if (this.editedUser.Subscriber) {
+      this.userSubscribeDateControl.setValue(this.editedUser.SubscribeDate)
+    }
   }
 
   public get isFormOk(): boolean {
@@ -62,12 +75,18 @@ export class EditUserModalComponent implements AfterViewInit {
       user.UserGroup = this.userGroupSelect.selectedGroup;
 
       if (this.userIsBlacklistedControl.value === true && this.editedUser.BlacklistedSince == null) {
-        this.editedUser.BlacklistedSince = moment().format();
+        user.BlacklistedSince = moment().format();
       } else if (this.userIsBlacklistedControl.value === false) {
-        this.editedUser.BlacklistedSince = null;
+        user.BlacklistedSince = null;
       }
 
-      user.BlacklistedSince =  this.editedUser.BlacklistedSince;
+      if (this.editedUser.Follower && this.editedUser.FollowDate !== this.userFollowDateControl.value.toString()) {
+        user.FollowDate = this.userFollowDateControl.value;
+      }
+
+      if (this.editedUser.Subscriber && this.editedUser.SubscribeDate !== this.userSubscribeDateControl.value.toString()) {
+        user.SubscribeDate = this.userSubscribeDateControl.value;
+      }
 
       persistedUser = await this._usersClient.put(this._userId, user);
       if (persistedUser == null) {

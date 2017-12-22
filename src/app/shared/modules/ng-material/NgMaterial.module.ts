@@ -30,7 +30,6 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatButtonModule,
   material.MatButtonToggleModule,
   material.MatCardModule,
-  material.MatCheckboxModule,
   material.MatChipsModule,
   material.MatDatepickerModule,
   material.MatDialogModule,
@@ -46,6 +45,7 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatRadioModule,
   material.MatSelectModule,
   material.MatSidenavModule,
+  material.MatSlideToggleModule,
   material.MatSnackBarModule,
   material.MatSortModule,
   material.MatTableModule,
@@ -55,7 +55,7 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [
   ArrayPageSlicePipe,
-  ChipListInputComponent
+  ChipListInputComponent,
 ];
 
 @NgModule({

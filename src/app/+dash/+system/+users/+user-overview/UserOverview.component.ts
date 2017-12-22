@@ -89,7 +89,6 @@ export class UserOverviewComponent implements OnInit {
 
   // noinspection JSMethodCanBeStatic
   public getUsernameColorClass(user: IUser): string {
-    console.log(user);
     if (user != null) {
       if (user.BlacklistedSince != null) {
         return "text-not-ok";

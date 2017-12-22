@@ -21,7 +21,7 @@ form(#defaultCommandEditForm="", (submit)="save()")
 
     user-group-select([hidden]="editedCommand?.SystemCommand", #userGroup="")
 
-    mat-checkbox([hidden]="!editedCommand?.SystemCommand", [formControl]="moderatorCanAlwaysActivateControl").
+    mat-slide-toggle([hidden]="!editedCommand?.SystemCommand", [formControl]="moderatorCanAlwaysActivateControl").
       Moderators can always activate
 
 

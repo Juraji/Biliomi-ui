@@ -35,7 +35,7 @@ p Manage Twitch communities known by Biliomi
             You can set communities per game #[a.text-primary(routerLink="/dash/system/game-register") here], or set default communities below. The latter will be applied to
             games without set communites.
 
-          mat-checkbox([formControl]="autoUpdateCommunitiesControl")
+          mat-slide-toggle([formControl]="autoUpdateCommunitiesControl")
             | Automatically update communities
 
           community-chip-list(#communitiesControl="", placeholder="Default Communities")

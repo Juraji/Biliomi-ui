@@ -20,7 +20,7 @@ form(#pointsSettingsEditForm="", (submit)="save()")
 
       hr
       // Online payouts
-      mat-checkbox([formControl]="trackOnlineControl") Payout when stream is online
+      mat-slide-toggle([formControl]="trackOnlineControl") Payout when stream is online
 
       mat-form-field(*ngIf="trackOnlineControl.value")
         input#points-settings-online-payout-interval(matInput, type="number", name="points-settings-online-payout-interval",
@@ -38,7 +38,7 @@ form(#pointsSettingsEditForm="", (submit)="save()")
 
       hr
       // Offline payouts
-      mat-checkbox([formControl]="trackOfflineControl") Payout when stream is offline
+      mat-slide-toggle([formControl]="trackOfflineControl") Payout when stream is offline
 
       mat-form-field(*ngIf="trackOfflineControl.value")
         input#points-settings-offline-payout-interval(matInput, type="number", name="points-settings-offline-payout-interval",

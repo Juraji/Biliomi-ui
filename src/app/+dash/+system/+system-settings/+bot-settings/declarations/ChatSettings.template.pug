@@ -4,9 +4,9 @@ form(#chatSettingsEditForm="", (submit)="save()")
       mat-card-title Chat Settings
 
     mat-card-content
-      mat-checkbox([formControl]="enableWhispersControl") Enable Whispers
+      mat-slide-toggle([formControl]="enableWhispersControl") Enable Whispers
 
-      mat-checkbox([formControl]="muteBiliomiControl") Mute Biliomi
+      mat-slide-toggle([formControl]="muteBiliomiControl") Mute Biliomi
 
     mat-card-actions
       button(mat-raised-button, color="primary", title="Save")

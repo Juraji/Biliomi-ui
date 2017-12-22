@@ -14,7 +14,7 @@ form(#editGameForm="", (submit)="save()")
 
     mat-form-field
       input#game-first-played-on(matInput, name="game-first-played-on", placeholder="First Played On", required="true",
-      [formControl]="firstPlayedOnControl", [matDatepicker]="picker", disabled)
+      [formControl]="firstPlayedOnControl", [matDatepicker]="picker")
       mat-datepicker-toggle(matSuffix, [for]="picker")
       mat-datepicker(#picker="", [disabled]="false")
       mat-hint The first time you played this game.

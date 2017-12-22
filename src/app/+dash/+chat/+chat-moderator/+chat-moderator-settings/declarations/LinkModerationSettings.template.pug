@@ -4,7 +4,7 @@ form(#linkModerationSettingsForm="", (submit)="saveSettings()")
       mat-card-title Link Moderation
 
     mat-card-content
-      mat-checkbox([formControl]="linksAllowedControl") Allow Link Posting
+      mat-slide-toggle([formControl]="linksAllowedControl") Allow Link Posting
 
       mat-form-field
         input#chat-moderator-link-permit-expire-time(matInput, type="number", name="chat-moderator-link-permit-expire-time",

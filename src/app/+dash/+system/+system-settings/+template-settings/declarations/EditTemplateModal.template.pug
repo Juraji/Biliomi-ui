@@ -2,6 +2,8 @@ form(#templateEditForm="", (submit)="save()")
   h2(matDialogTitle) Editing template: {{editedTemplate?.TemplateKey | caseToWord:"TITLE_CASE"}}
 
   mat-dialog-content
+    p {{editedTemplate?.Description}}
+
     mat-form-field
       textarea#template-template(matInput, name="template-template", placeholder="Template",
       [formControl]="templateControl", rows="4", (keyup)="templateFieldOnKeyUp($event)")

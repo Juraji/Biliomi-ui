@@ -6,7 +6,7 @@ form(#capsANDRepeatedCharactersSettingsForm="", (submit)="saveSettings()")
     mat-card-content
 
       // Caps
-      mat-checkbox([formControl]="excessiveCapsAllowedControl") Allow Excessive Caps
+      mat-slide-toggle([formControl]="excessiveCapsAllowedControl") Allow Excessive Caps
 
       mat-form-field
         input#caps-trigger-input(matInput, type="number", name="caps-trigger-input",
@@ -27,7 +27,7 @@ form(#capsANDRepeatedCharactersSettingsForm="", (submit)="saveSettings()")
       hr
 
       // Repeated Characters
-      mat-checkbox([formControl]="repeatedCharactersAllowedControl") Allow Repeated Characters
+      mat-slide-toggle([formControl]="repeatedCharactersAllowedControl") Allow Repeated Characters
 
       mat-form-field
         input#repeated-character-trigger-input(matInput, type="number", name="repeated-character-trigger-input",

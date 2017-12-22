@@ -1,5 +1,6 @@
 // Angular Material Theme
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "../toolkit/swatches";
 
 mat-card, mat-expansion-panel {
   margin-bottom: 1.2% !important;
@@ -9,7 +10,7 @@ mat-card, mat-expansion-panel {
   }
 }
 
-mat-form-field, mat-checkbox, mat-radio-group {
+mat-form-field, mat-slide-toggle, mat-radio-group {
   user-select: none;
   display: block;
   width: 100%;
@@ -88,7 +89,7 @@ mat-spinner {
   margin: 0 auto;
 }
 
-mat-checkbox {
+mat-slide-toggle {
   display: block;
 }
 
@@ -100,4 +101,21 @@ mat-radio-button {
 .mat-simple-snackbar {
   line-height: 28pt !important;
   font-size: 20pt;
+}
+
+.checkbox-subscript {
+  margin-bottom: 1em;
+
+  .checkbox-hint,
+  .checkbox-error {
+    font-size: 75%;
+  }
+
+  .checkbox-hint {
+    color: rgba(255, 255, 255, .7);
+  }
+
+  .checkbox-error {
+    color: @not-ok-color;
+  }
 }

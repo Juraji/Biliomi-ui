@@ -29,6 +29,11 @@ data-table(tableId="users-overview", [tableDataSource]="dataSource", [exportConf
     mat-cell(*matCellDef="let user")
       mat-icon(*ngIf="user.Subscriber", color="primary") check
 
+  ng-container(matColumnDef="Title")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Title") Title
+    mat-cell(*matCellDef="let user")
+      | {{user.Title}}
+
   ng-container(matColumnDef="#Edit")
     mat-header-cell(*matHeaderCellDef="", buttonsColumn="1")
     mat-cell(*matCellDef="let user", buttonsColumn="1")
