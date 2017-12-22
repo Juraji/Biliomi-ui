@@ -6,7 +6,9 @@ import {NgMaterialModule} from "../ng-material/NgMaterial.module";
 import {DataSourceProgressBarComponent} from "./components/DataSourceProgressBar.component";
 import {ExtCdkTableComponent} from "./components/ExtCdkTable.component";
 import {TableSetupModalComponent} from "./components/TableSetupModal.component";
-import {TableButtonsDirective} from "./components/TableButtons.directive";
+import {TableButtonsDirective} from "./directives/TableButtons.directive";
+import {SortHeaderDirective} from "./directives/SortHeader.directive";
+import {ButtonsColumnDirective} from "./directives/ButtonsColumnDirective";
 
 @NgModule({
   imports: [
@@ -20,11 +22,15 @@ import {TableButtonsDirective} from "./components/TableButtons.directive";
     ExtCdkTableComponent,
     DataSourceProgressBarComponent,
     TableSetupModalComponent,
-    TableButtonsDirective
+    TableButtonsDirective,
+    SortHeaderDirective,
+    ButtonsColumnDirective
   ],
   exports: [
     DataTableComponent,
-    TableButtonsDirective
+    TableButtonsDirective,
+    SortHeaderDirective,
+    ButtonsColumnDirective
   ],
   entryComponents: [TableSetupModalComponent]
 })

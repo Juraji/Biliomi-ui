@@ -1,12 +1,11 @@
 import {Component, OnInit} from "@angular/core";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
-import {UsersClient} from "../../../shared/modules/biliomi/clients/model/Users.client";
 import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {MatTableDataSource} from "@angular/material";
 import {FormControl, Validators} from "@angular/forms";
-import {XlsxExporter} from "../../../shared/modules/xlsx-export/classes/XlsxExporter";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {SubscriberWatchSettingsClient} from "../../../shared/modules/biliomi/clients/settings/SubscriberWatchSettings.client";
+import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
+import {LatestSubscribersClient} from "../../../shared/modules/biliomi/clients/model/LatestSubscribers.client";
 import IUser = Biliomi.IUser;
 
 @Component({
@@ -15,9 +14,8 @@ import IUser = Biliomi.IUser;
 })
 export class SubscribersComponent implements OnInit {
   private _subscriberWatchSettingsClient: SubscriberWatchSettingsClient;
-  private _usersClient: UsersClient;
 
-  private latestSubscribersDataSource: MatTableDataSource<IUser> = new MatTableDataSource<IUser>();
+  private latestSubscribersDataSource: RestTableDataSource<IUser> = new RestTableDataSource<IUser>();
   private subscriberRewardTier1Control: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   private subscriberRewardTier2Control: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   private subscriberRewardTier3Control: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
@@ -31,21 +29,13 @@ export class SubscribersComponent implements OnInit {
     ]
   };
 
-  constructor(subscriberWatchSettingsClient: SubscriberWatchSettingsClient, usersClient: UsersClient) {
+  constructor(subscriberWatchSettingsClient: SubscriberWatchSettingsClient, latestSubscribersClient:LatestSubscribersClient) {
     this._subscriberWatchSettingsClient = subscriberWatchSettingsClient;
-    this._usersClient = usersClient;
+    this.latestSubscribersDataSource.client = latestSubscribersClient;
   }
 
   public ngOnInit() {
     this.initSettingsFields();
-    this.loadLatestSubscribers()
-  }
-
-  public async loadLatestSubscribers() {
-    let latestSubscribers: IUser[] = await this._usersClient.getLatestSubscribers(20);
-    if (latestSubscribers != null) {
-      this.latestSubscribersDataSource.data = latestSubscribers;
-    }
   }
 
   public async initSettingsFields() {

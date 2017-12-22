@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
-import {MAT_DIALOG_DATA, MatChipInputEvent, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CustomCommandsClient} from "../../../../shared/modules/biliomi/clients/model/CustomCommands.client";
 import {FormControl, Validators} from "@angular/forms";
@@ -60,8 +60,6 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
       this.editedCommand.UserGroup = this.userGroupSelect.selectedGroup;
       this.editedCommand.Aliasses = [];
     }
-
-    console.log(this.editedCommand.UserGroup);
 
     this.commandCommandControl.setValue(this.editedCommand.Command);
     this.commandMessageControl.setValue(this.editedCommand.Message);

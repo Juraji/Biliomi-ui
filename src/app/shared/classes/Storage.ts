@@ -19,4 +19,8 @@ export class Storage {
   public static unset(name: string) {
     localStorage.removeItem(STORAGE_PREFIX + name);
   }
+
+  static nameExists(name: string) {
+    return localStorage.getItem(name) != null;
+  }
 }

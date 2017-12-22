@@ -5,6 +5,12 @@ form(#userEditForm="", (submit)="save()")
     mat-spinner(*ngIf="editedUser == undefined")
 
     table
+      tr(*ngIf="editedUser?.Caster")
+        td: small Special user:
+        td.text-primary Channel owner
+      tr(*ngIf="editedUser?.Moderator")
+        td: small Special user:
+        td.text-secondary Channel moderator
       tr(*ngIf="editedUser?.Follower")
         td: small Follower Since:
         td {{editedUser.FollowDate | date}}

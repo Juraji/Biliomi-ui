@@ -4,9 +4,9 @@ import IRestSortDirective = Biliomi.IRestSortDirective;
 export class SortBuilder {
   private directives: IRestSortDirective[] = [];
 
-  public add(property: string, descending?: boolean, caseInsensitive?: boolean): SortBuilder {
+  public add(property: string, descending?: boolean): SortBuilder {
     this.remove(property);
-    this.directives.push({Property: property, Descending: descending, CaseInsensitive: caseInsensitive});
+    this.directives.push({Property: property, Descending: descending});
     return this;
   }
 

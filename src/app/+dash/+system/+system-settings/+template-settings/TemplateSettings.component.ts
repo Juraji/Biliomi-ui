@@ -1,15 +1,14 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {TemplatesClient} from "../../../../shared/modules/biliomi/clients/model/Templates.client";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
-import {MatDialog, MatPaginator} from "@angular/material";
+import {MatDialog} from "@angular/material";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
-import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";
-import {Dictionary} from "../../../../shared/modules/tools/FunctionalInterface";
 import {EditTemplateModalComponent} from "./declarations/EditTemplateModal.component";
 import {ActivatedRoute, ParamMap} from "@angular/router";
-import ITemplate = Biliomi.ITemplate;
 import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
+import {XLSX_FORMATTER_DICTIONARY_KEY_VALUE_PAIR} from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
+import ITemplate = Biliomi.ITemplate;
 
 @Component({
   selector: "template-settings-component",
@@ -31,10 +30,7 @@ export class TemplateSettingsComponent implements OnInit {
       {
         objectPath: "$.KeyDescriptions",
         headerName: "Replacements",
-        formatter: (descriptions: Dictionary) => Object
-          .keys(descriptions)
-          .map((key: string) => key + ": " + descriptions[key])
-          .join(", ")
+        formatter: XLSX_FORMATTER_DICTIONARY_KEY_VALUE_PAIR
       },
     ]
   };
@@ -44,7 +40,7 @@ export class TemplateSettingsComponent implements OnInit {
     this._dialog = dialog;
     this._activatedRoute = activatedRoute;
 
-    this.dataSource.bindClient(this._templatesClient);
+    this.dataSource.client = this._templatesClient;
     this.dataSource.sortBuilder.add("TemplateKey")
   }
 

@@ -19,6 +19,11 @@ const ROUTES: Routes = [
         data: {breadCrumbName: "Templates"}
       },
       {
+        path: "communites",
+        loadChildren: "./+communities/Communities.module#CommunitiesModule",
+        data: {breadCrumbName: "Communities"}
+      },
+      {
         path: "chat-logs",
         loadChildren: "./+chat-logs/ChatLogs.module#ChatLogsModule",
         data: {breadCrumbName: "Chat Logs"}

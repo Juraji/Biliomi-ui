@@ -1,13 +1,11 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from "@angular/core";
-import {XlsxExporter} from "../../../../shared/modules/xlsx-export/classes/XlsxExporter";
+import {Component, OnInit} from "@angular/core";
 import {EditUserModalComponent} from "./declarations/EditUserModal.component";
-import {MatDialog, MatPaginator} from "@angular/material";
+import {MatDialog} from "@angular/material";
 import {
   XLSX_FORMATTER_BOOLEAN_YES_NO, XLSX_FORMATTER_DATE,
   XLSX_FORMATTER_RELATIVE_TIME
 } from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {UsersClient} from "../../../../shared/modules/biliomi/clients/model/Users.client";
-import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
 import {ActivatedRoute, ParamMap} from "@angular/router";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
@@ -62,36 +60,20 @@ export class UserOverviewComponent implements OnInit {
     this._activatedRoute = activatedRoute;
 
     this.channelInfoClient.load();
-    this.dataSource.bindClient(usersClient);
-    this.dataSource.sortBuilder.add("Username", false, true);
+    this.dataSource.client = usersClient;
   }
 
-  public async ngOnInit() {
+  public ngOnInit() {
     this._pointsSettingsClient.load();
-    await this.dataSource.update();
 
-    this._activatedRoute.paramMap.subscribe((map: ParamMap) => {
+    this._activatedRoute.paramMap.subscribe(async (map: ParamMap) => {
       if (map.has("username")) {
-        let templateKey: string = map.get("username");
-        let user: IUser = this.dataSource.data
-          .filter((user: IUser) => StringUtils.equalsIgnoreCase(user.Username, templateKey))
-          .pop();
-
+        let user: IUser = await (this.dataSource.client as UsersClient).getUserByUsername(map.get("username"), false);
         if (user != null) {
           this.editUser(user);
         }
       }
     });
-  }
-
-  public get tableColumns(): string[] {
-    let columns: string[] = ['Username', 'UserGroup.Name', 'RecordedTime', 'Points', 'Follower', 'Edit'];
-
-    if (this.channelInfoClient.Affiliate) {
-      columns.splice(5, 0, 'Subscriber');
-    }
-
-    return columns;
   }
 
   public editUser(user: IUser) {
@@ -103,5 +85,21 @@ export class UserOverviewComponent implements OnInit {
     dialogRef.afterClosed()
       .filter((success: boolean) => success)
       .subscribe(() => this.dataSource.update());
+  }
+
+  // noinspection JSMethodCanBeStatic
+  public getUsernameColorClass(user: IUser): string {
+    console.log(user);
+    if (user != null) {
+      if (user.BlacklistedSince != null) {
+        return "text-not-ok";
+      } else if (user.Caster) {
+        return "text-primary";
+      } else if (user.Moderator) {
+        return "text-secondary";
+      }
+    }
+
+    return "";
   }
 }

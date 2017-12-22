@@ -20,6 +20,10 @@ import {HostRecordsClient} from "./clients/model/HostRecords.client";
 import {ChatModeratorSettingsClient} from "./clients/settings/ChatModeratorSettings.client";
 import {ModerationRecordsClient} from "./clients/model/ModerationRecords.client";
 import {HostWatchSettingsClient} from "./clients/settings/HostWatchSettings.client";
+import {LatestFollowersClient} from "./clients/model/LatestFollowers.client";
+import {LatestSubscribersClient} from "./clients/model/LatestSubscribers.client";
+import {CommunitiesClient} from "./clients/model/Communities.client";
+import {CommunitesSettingsClient} from "./clients/settings/CommunitesSettings.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -33,9 +37,12 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   // Model clients
   ChatLogsClient,
   CommandsClient,
+  CommunitiesClient,
   CustomCommandsClient,
   GamesClient,
   HostRecordsClient,
+  LatestFollowersClient,
+  LatestSubscribersClient,
   ModerationRecordsClient,
   TemplatesClient,
   UserGroupsClient,
@@ -44,6 +51,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   // Settings clients
   ChannelInfoClient,
   ChatModeratorSettingsClient,
+  CommunitesSettingsClient,
   FollowerWatchSettingsClient,
   HostWatchSettingsClient,
   PointsSettingsClient,

@@ -2,26 +2,26 @@ p Biliomi keeps a record of moderation actions performed by the chat moderator.
 
 data-table(tableId="chatmoderator-records", [tableDataSource]="recordsDataSource", [exportConfig]="exportConfig")
   ng-container(matColumnDef="User")
-    mat-header-cell(*matHeaderCellDef="") Username
+    mat-header-cell(*matHeaderCellDef="", sortHeader="User.Username") Username
     mat-cell(*matCellDef="let record")
       user-display([user]="record.User")
 
   ng-container(matColumnDef="Date")
-    mat-header-cell(*matHeaderCellDef="") Date
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Date", [sortByDefault]="'DESC'") Date
     mat-cell(*matCellDef="let record")
       | {{record.Date | date}}
 
   ng-container(matColumnDef="Action")
-    mat-header-cell(*matHeaderCellDef="") Action
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Action") Action
     mat-cell(*matCellDef="let record")
       | {{record.Action | caseToWord:"SCREAMING_SNAKE_CASE"}}
 
   ng-container(matColumnDef="Reason")
-    mat-header-cell(*matHeaderCellDef="") Reason
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Reason") Reason
     mat-cell(*matCellDef="let record")
       | {{record.Reason| caseToWord:"SCREAMING_SNAKE_CASE"}}
 
   ng-container(matColumnDef="Message")
-    mat-header-cell(*matHeaderCellDef="") Message
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Message") Message
     mat-cell(*matCellDef="let record")
       | {{record.Message | trim:50}}

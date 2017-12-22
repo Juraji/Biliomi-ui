@@ -33,7 +33,7 @@ export class ChannelEditComponent implements OnInit {
 
   private async refreshFields() {
     let gamesSort: SortBuilder = new SortBuilder()
-      .add("Name", false, true);
+      .add("Name", false);
 
     await this.channelInfoClient.load(true);
     await this.gamesClient.load(true, gamesSort);

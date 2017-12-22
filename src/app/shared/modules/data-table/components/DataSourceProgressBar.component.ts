@@ -1,13 +1,6 @@
 import {Component, HostBinding, Input} from "@angular/core";
-import {TableDataSource} from "../classes/TableDataSource";
-
-export enum ProgressBarMode {
-  NONE = "none",
-  DETERMINATE = "determinate",
-  INDETERMINATE = "indeterminate",
-  BUFFER = "buffer",
-  QUERY = "determinate"
-}
+import {RestTableDataSource} from "../classes/RestTableDataSource";
+import {ProgressBarMode} from "../classes/interfaces/ProgressBarMode.interface";
 
 @Component({
   selector: "data-source-progress-bar",
@@ -16,7 +9,7 @@ export enum ProgressBarMode {
 export class DataSourceProgressBarComponent {
 
   @Input("dataSource")
-  public dataSource: TableDataSource<any>;
+  public dataSource: RestTableDataSource<any>;
 
   @HostBinding("hidden")
   public get hideProgressBar(): boolean {

@@ -17,8 +17,8 @@ data-table(tableId="templates", [tableDataSource]="dataSource", [exportConfig]="
       | {{template.Description}}
 
   ng-container(matColumnDef="#Edit")
-    mat-header-cell(*matHeaderCellDef="")
-    mat-cell(*matCellDef="let template")
+    mat-header-cell(*matHeaderCellDef="", buttonsColumn="1")
+    mat-cell(*matCellDef="let template", buttonsColumn="1")
       a.mat-icon-button.pull-right(mat-button, (click)="editTemplate(template)", title="Edit template")
         mat-icon edit
 

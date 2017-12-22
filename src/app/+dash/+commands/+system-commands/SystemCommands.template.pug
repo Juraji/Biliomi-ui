@@ -2,14 +2,30 @@ p Default commands are pre-defined commands for interaction with Biliomi.
 
 data-table(tableId="system-commands", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
   ng-container(matColumnDef="Command")
-    mat-header-cell(*matHeaderCellDef="") Command
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Command", [sortByDefault]="'ASC'") Command
     mat-cell(*matCellDef="let command")
       | &#33;{{command.Command}}
 
-  ng-container(matColumnDef="Attributes")
-    mat-header-cell(*matHeaderCellDef="") Attributes
+  ng-container(matColumnDef="System Command")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="SystemCommand") System Command
     mat-cell(*matCellDef="let command")
-      system-command-attributes([command]="command")
+      | {{command.SystemCommand | boolean}}
+      small.text-muted(*ngIf="command.ModeratorCanAlwaysActivate") #[br]Moderators can use this command as well.
+
+  ng-container(matColumnDef="User Group")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="UserGroup.Name") User Group
+    mat-cell(*matCellDef="let command")
+      span(*ngIf="!command.SystemCommand") {{command.UserGroup.Name}}
+
+  ng-container(matColumnDef="Cooldown")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Cooldown") Cooldown
+    mat-cell(*matCellDef="let command")
+      | {{command.Cooldown | time}}
+
+  ng-container(matColumnDef="Price")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Price") Price
+    mat-cell(*matCellDef="let command")
+      | {{command.Price | points | async}}
 
   ng-container(matColumnDef="Aliasses")
     mat-header-cell(*matHeaderCellDef="") Aliasses
@@ -18,7 +34,7 @@ data-table(tableId="system-commands", [tableDataSource]="dataSource", [exportCon
         li(*ngFor="let alias of command.Aliasses") &#33;{{alias}}
 
   ng-container(matColumnDef="#Edit")
-    mat-header-cell(*matHeaderCellDef="")
-    mat-cell(*matCellDef="let command")
+    mat-header-cell(*matHeaderCellDef="", buttonsColumn="1")
+    mat-cell(*matCellDef="let command", buttonsColumn="1")
       a.mat-icon-button.pull-right(mat-button, (click)="editCommand(command)", title="Edit command")
         mat-icon edit

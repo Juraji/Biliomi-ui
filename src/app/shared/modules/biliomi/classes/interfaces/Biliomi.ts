@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.29.366 on 2017-11-12 13:45:13.
+// Generated using typescript-generator version 1.29.366 on 2017-12-22 00:12:41.
 
 export namespace Biliomi {
 
@@ -110,6 +110,18 @@ export namespace Biliomi {
     Command: string;
   }
 
+  export interface ICommunitiesSettings extends ISettings {
+    AutoUpdateCommunities: boolean;
+    DefaultCommunities: ICommunity[];
+  }
+
+  export interface ICommunity {
+    Id: number;
+    TwitchId: string;
+    Name: string;
+    Owner: IUser;
+  }
+
   export interface IConsoleInputEvent extends IEvent {
     Input: string;
     LegacyMode: boolean;
@@ -141,6 +153,7 @@ export namespace Biliomi {
     Name: string;
     FirstPlayedOn: string;
     SteamId: number;
+    Communities: ICommunity[];
   }
 
   export interface IHostRecord {
@@ -287,7 +300,6 @@ export namespace Biliomi {
   export interface IRestSortDirective {
     Property: string;
     Descending: boolean;
-    CaseInsensitive: boolean;
   }
 
   export interface IRouletteRecord {

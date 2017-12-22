@@ -22,6 +22,9 @@ import {UserAutoCompleteComponent} from "./components/UserAutoComplete.component
 import {TrimPipe} from "./modules/biliomi/pipes/Trim.pipe";
 import {NumberArrayPipe} from "./pipes/NumberArray.pipe";
 import {DataTableModule} from "./modules/data-table/DataTable.module";
+import {BooleanPipe} from "./pipes/Boolean.pipe";
+import {CommunityChipListComponent} from "./components/CommunityChipList.component";
+import {ObjectSortPipe} from "./pipes/ObjectSort.pipe";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -31,6 +34,8 @@ const SHARED_PIPES: Type<PipeTransform>[] = [
   EditUserLinkPipe,
   TrimPipe,
   NumberArrayPipe,
+  BooleanPipe,
+  ObjectSortPipe
 ];
 
 const SHARED_COMPONENTS: Type<any>[] = [
@@ -40,6 +45,7 @@ const SHARED_COMPONENTS: Type<any>[] = [
   EditTemplateButtonComponent,
   UserDisplayComponent,
   UserAutoCompleteComponent,
+  CommunityChipListComponent
 ];
 
 const SHARED_DIRECTIVES: Type<any>[] = [];

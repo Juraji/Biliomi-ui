@@ -1,0 +1,38 @@
+p Manage games known by Biliomi
+
+data-table(tableId="game-register", [tableDataSource]="gamesDataSource", [exportConfig]="exportConfig")
+  ng-template(tableButtons)
+    button(mat-icon-button, (click)="editGame()", title="Add new game")
+      mat-icon add
+
+  ng-container(matColumnDef="Title")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Name", [sortByDefault]="'ASC'") Title
+    mat-cell(*matCellDef="let game")
+      | {{game.Name}}
+
+  ng-container(matColumnDef="First Played")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="FirstPlayedOn") First Played
+    mat-cell(*matCellDef="let game")
+      | {{game.FirstPlayedOn | date}}
+
+  ng-container(matColumnDef="Steam Id")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="SteamId") Steam Id
+    mat-cell(*matCellDef="let game")
+      | {{game.SteamId}}
+
+  ng-container(matColumnDef="Communities")
+    mat-header-cell(*matHeaderCellDef="") Communities
+    mat-cell(*matCellDef="let game")
+      ul.list-unstyled
+        li(*ngFor="let community of game.Communities | objectSort:'Name'")
+          | {{community.Name}}
+          small.text-muted &nbsp;by&nbsp;
+          user-display([user]="community.Owner")
+
+  ng-container(matColumnDef="#Actions")
+    mat-header-cell(*matHeaderCellDef="", buttonsColumn="2")
+    mat-cell(*matCellDef="let game", buttonsColumn="2")
+      a.mat-icon-button.pull-right(mat-button, (click)="editGame(game)", title="Edit game")
+        mat-icon edit
+      a.mat-icon-button.pull-right(mat-button, (click)="setAsCurrentGame(game)", title="Set as current game")
+        mat-icon videogame_asset

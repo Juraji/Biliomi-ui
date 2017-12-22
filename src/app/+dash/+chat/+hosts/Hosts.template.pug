@@ -4,14 +4,14 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
   .col.span-8-of-12
     mat-tab-group
       mat-tab(label="Incoming Records")
-        data-table(tableId="recent-hosts", [tableDataSource]="incomingRecordsDataSource")
+        data-table(tableId="incoming-hosts", [tableDataSource]="incomingRecordsDataSource")
           ng-container(matColumnDef="User")
-            mat-header-cell(*matHeaderCellDef="") Username
+            mat-header-cell(*matHeaderCellDef="", sortHeader="User.Username") Username
             mat-cell(*matCellDef="let record")
               user-display([user]="record.User")
 
           ng-container(matColumnDef="Date")
-            mat-header-cell(*matHeaderCellDef="") Date
+            mat-header-cell(*matHeaderCellDef="", sortHeader="Date", [sortByDefault]="'DESC'") Date
             mat-cell(*matCellDef="let record")
               | {{record.Date | date}}
 
@@ -25,14 +25,14 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
                   mat-icon queue_play_next
 
       mat-tab(label="Outgoing Records")
-        data-table(tableId="recent-hosts", [tableDataSource]="outgoingRecordsDataSource")
+        data-table(tableId="outgoing-hosts", [tableDataSource]="outgoingRecordsDataSource")
           ng-container(matColumnDef="User")
-            mat-header-cell(*matHeaderCellDef="") Username
+            mat-header-cell(*matHeaderCellDef="", sortHeader="User.Username") Username
             mat-cell(*matCellDef="let record")
               user-display([user]="record.User")
 
           ng-container(matColumnDef="Date")
-            mat-header-cell(*matHeaderCellDef="") Date
+            mat-header-cell(*matHeaderCellDef="", sortHeader="Date", [sortByDefault]="'DESC'") Date
             mat-cell(*matCellDef="let record")
               | {{record.Date | date}}
 

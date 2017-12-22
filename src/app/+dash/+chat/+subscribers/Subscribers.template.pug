@@ -5,13 +5,13 @@ p Check out the latest subscribers and change the behaviour of Biliomi when new 
     p Latest Subscribers
 
     data-table(tableId="latest-subscribers", [tableDataSource]="latestSubscribersDataSource", [exportConfig]="exportConfig")
-      ng-container(matColumnDef="DisplayName")
-        mat-header-cell(*matHeaderCellDef="") Username
+      ng-container(matColumnDef="Username")
+        mat-header-cell(*matHeaderCellDef="", sortHeader="Username") Username
         mat-cell(*matCellDef="let user")
           user-display([user]="user")
 
-      ng-container(matColumnDef="SubscribeDate")
-        mat-header-cell(*matHeaderCellDef="") Follows Since
+      ng-container(matColumnDef="Subscriber Since")
+        mat-header-cell(*matHeaderCellDef="", sortHeader="SubscribeDate", [sortByDefault]="'DESC'") Subscriber Since
         mat-cell(*matCellDef="let user")
           | {{user.SubscribeDate | date}}
 

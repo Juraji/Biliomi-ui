@@ -12,7 +12,7 @@ import IUserGroup = Biliomi.IUserGroup;
   selector: "user-groups",
   templateUrl: require("./UserGroups.template.pug")
 })
-export class UserGroupsComponent implements OnInit {
+export class UserGroupsComponent {
   private _dialog: MatDialog;
   private groupsDataSource: RestTableDataSource<IUserGroup> = new RestTableDataSource<IUserGroup>();
 
@@ -29,14 +29,7 @@ export class UserGroupsComponent implements OnInit {
 
   constructor(userGroupsClient: UserGroupsClient, dialog: MatDialog) {
     this._dialog = dialog;
-    this.groupsDataSource.bindClient(userGroupsClient);
-    this.groupsDataSource.sortBuilder
-      .add("DefaultGroup", true)
-      .add("Weight", false);
-  }
-
-  public ngOnInit() {
-    this.groupsDataSource.update();
+    this.groupsDataSource.client = userGroupsClient;
   }
 
   public editGroup(group: IUserGroup) {

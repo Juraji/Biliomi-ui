@@ -11,7 +11,7 @@ import {
   CdkCellDef, CdkCellOutlet, CdkCellOutletRowContext, CdkColumnDef, CdkHeaderRowDef,
   CdkRowDef
 } from "@angular/cdk/table";
-import {TableDataSource} from "../classes/TableDataSource";
+import {RestTableDataSource} from "../classes/RestTableDataSource";
 
 abstract class RowViewRef<T> extends EmbeddedViewRef<CdkCellOutletRowContext<T>> {
 }
@@ -33,7 +33,7 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
   private _dataDiffer: IterableDiffer<T>;
   private _defaultRowDef: CdkRowDef<T> | null;
   private _customColumnDefs = new Set<CdkColumnDef>();
-  private _dataSource: TableDataSource<T>;
+  private _dataSource: RestTableDataSource<T>;
   private _headerRowDefChanged = false;
   private _differs: IterableDiffers;
   private _changeDetectorRef: ChangeDetectorRef;
@@ -44,27 +44,27 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
   public trackBy: TrackByFunction<T>;
 
   @Input()
-  public get dataSource(): TableDataSource<T> {
+  public get dataSource(): RestTableDataSource<T> {
     return this._dataSource;
   }
 
-  public set dataSource(dataSource: TableDataSource<T>) {
+  public set dataSource(dataSource: RestTableDataSource<T>) {
     if (this._dataSource !== dataSource) {
       this._switchDataSource(dataSource);
     }
   }
 
   @ViewChild("contentRows", {read: ViewContainerRef})
-  public _rowPlaceholder: ViewContainerRef;
+  public rowPlaceholder: ViewContainerRef;
 
   @ViewChild("headerRow", {read: ViewContainerRef})
-  public _headerRowPlaceholder: ViewContainerRef;
-
-  @ContentChildren(CdkRowDef)
-  public _contentRowDefs: QueryList<CdkRowDef<T>>;
+  public headerRowPlaceholder: ViewContainerRef;
 
   @ContentChild(CdkHeaderRowDef)
-  public _headerRowDef: CdkHeaderRowDef;
+  public headerRowDef: CdkHeaderRowDef;
+
+  @ContentChildren(CdkRowDef)
+  public contentRowDefs: QueryList<CdkRowDef<T>>;
 
   constructor(differs: IterableDiffers, changeDetectorRef: ChangeDetectorRef) {
     this._differs = differs;
@@ -74,14 +74,14 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
   public ngOnInit() {
     this._dataDiffer = this._differs.find([]).create(this.trackBy);
 
-    if (this._headerRowDef) {
+    if (this.headerRowDef) {
       this._headerRowDefChanged = true;
     }
   }
 
   public ngOnDestroy() {
-    this._rowPlaceholder.clear();
-    this._headerRowPlaceholder.clear();
+    this.rowPlaceholder.clear();
+    this.headerRowPlaceholder.clear();
     this._onDestroy.next();
     this._onDestroy.complete();
 
@@ -94,7 +94,7 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
     this._cacheRowDefs();
     this._cacheColumnDefs();
 
-    if (!this._headerRowDef && !this._rowDefs.length) {
+    if (!this.headerRowDef && !this._rowDefs.length) {
       throw new Error("Missing definitions for header and row, cannot determine which columns should be rendered.");
     }
 
@@ -133,7 +133,7 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
   }
 
   private _cacheRowDefs() {
-    this._rowDefs = this._contentRowDefs ? this._contentRowDefs.toArray() : [];
+    this._rowDefs = this.contentRowDefs ? this.contentRowDefs.toArray() : [];
 
     const defaultRowDefs = this._rowDefs.filter(def => !def.when);
 
@@ -148,17 +148,17 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
       if (!!def.getColumnsDiff()) {
         this._dataDiffer.diff([]);
 
-        this._rowPlaceholder.clear();
+        this.rowPlaceholder.clear();
         this._renderRowChanges();
       }
     });
 
-    if (this._headerRowDef && this._headerRowDef.getColumnsDiff()) {
+    if (this.headerRowDef && this.headerRowDef.getColumnsDiff()) {
       this._renderHeaderRow();
     }
   }
 
-  private _switchDataSource(dataSource: TableDataSource<T>) {
+  private _switchDataSource(dataSource: RestTableDataSource<T>) {
     this._data = [];
 
     if (this.dataSource) {
@@ -171,7 +171,7 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
     }
 
     if (!dataSource) {
-      this._rowPlaceholder.clear();
+      this.rowPlaceholder.clear();
     }
 
     this._dataSource = dataSource;
@@ -186,17 +186,16 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
   }
 
   private _renderHeaderRow() {
-    if (this._headerRowPlaceholder.length > 0) {
-      this._headerRowPlaceholder.clear();
+    if (this.headerRowPlaceholder.length > 0) {
+      this.headerRowPlaceholder.clear();
     }
 
-    const cells = this._getHeaderCellTemplatesForRow(this._headerRowDef);
+    const cells = this._getHeaderCellTemplatesForRow(this.headerRowDef);
     if (!cells.length) {
       return;
     }
 
-    this._headerRowPlaceholder.createEmbeddedView(this._headerRowDef.template, {cells});
-
+    this.headerRowPlaceholder.createEmbeddedView(this.headerRowDef.template, {cells});
     cells.forEach((cell: CdkCellDef) => {
       if (CdkCellOutlet.mostRecentCellOutlet) {
         CdkCellOutlet.mostRecentCellOutlet._viewContainer.createEmbeddedView(cell.template, {});
@@ -217,17 +216,17 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
         if (record.previousIndex == null) {
           this._insertRow(record.item, currentIndex);
         } else if (currentIndex == null) {
-          this._rowPlaceholder.remove(adjustedPreviousIndex);
+          this.rowPlaceholder.remove(adjustedPreviousIndex);
         } else {
-          const view = <RowViewRef<T>>this._rowPlaceholder.get(adjustedPreviousIndex);
-          this._rowPlaceholder.move(view!, currentIndex);
+          const view = <RowViewRef<T>>this.rowPlaceholder.get(adjustedPreviousIndex);
+          this.rowPlaceholder.move(view!, currentIndex);
         }
       });
 
     this._updateRowIndexContext();
 
     changes.forEachIdentityChange((record: IterableChangeRecord<T>) => {
-      const rowView = <RowViewRef<T>>this._rowPlaceholder.get(record.currentIndex!);
+      const rowView = <RowViewRef<T>>this.rowPlaceholder.get(record.currentIndex!);
       rowView.context.$implicit = record.item;
     });
   }
@@ -250,7 +249,7 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
 
     const context: CdkCellOutletRowContext<T> = {$implicit: rowData};
 
-    this._rowPlaceholder.createEmbeddedView(row.template, context, index);
+    this.rowPlaceholder.createEmbeddedView(row.template, context, index);
 
     this._getCellTemplatesForRow(row).forEach(cell => {
       if (CdkCellOutlet.mostRecentCellOutlet) {
@@ -263,8 +262,8 @@ export class ExtCdkTableComponent<T> implements OnInit, OnDestroy, AfterContentC
   }
 
   private _updateRowIndexContext() {
-    for (let index = 0, count = this._rowPlaceholder.length; index < count; index++) {
-      const viewRef = this._rowPlaceholder.get(index) as RowViewRef<T>;
+    for (let index = 0, count = this.rowPlaceholder.length; index < count; index++) {
+      const viewRef = this.rowPlaceholder.get(index) as RowViewRef<T>;
       viewRef.context.index = index;
       viewRef.context.count = count;
       viewRef.context.first = index === 0;

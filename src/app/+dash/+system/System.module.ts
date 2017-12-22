@@ -17,6 +17,11 @@ const ROUTES: Routes = [
     path: "system-settings",
     loadChildren: './+system-settings/SystemSettings.module#SystemSettingsModule',
     data: {breadCrumbName: "System Settings"}
+  },
+  {
+    path: "game-register",
+    loadChildren: './+game-register/GameRegister.module#GameRegisterModule',
+    data: {breadCrumbName: "Games"}
   }
 ];
 

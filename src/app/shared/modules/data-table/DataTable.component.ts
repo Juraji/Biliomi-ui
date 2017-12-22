@@ -1,9 +1,8 @@
 import {
-  AfterViewInit, Component, ContentChild, ContentChildren, Input, QueryList, TemplateRef, ViewChild,
-  ViewContainerRef
+  AfterViewInit, Component, ContentChild, ContentChildren, Input, QueryList, TemplateRef,
+  ViewChild
 } from "@angular/core";
-import {TableDataSource} from "./classes/TableDataSource";
-import {MatDialog, MatPaginator, MatSort} from "@angular/material";
+import {MatDialog, MatPaginator} from "@angular/material";
 import {CdkColumnDef} from "@angular/cdk/table";
 import {ExtCdkTableComponent} from "./components/ExtCdkTable.component";
 import {IXlsxExportConfig} from "../xlsx-export/classes/interfaces/Xlsx.interface";
@@ -11,9 +10,10 @@ import {XlsxExporter} from "../xlsx-export/classes/XlsxExporter";
 import {TableSetupModalComponent} from "./components/TableSetupModal.component";
 import {Storage} from "../../classes/Storage";
 import {ColumnSetup, TableColumnsSetup} from "./classes/interfaces/TableColumnSetup.interface";
-import {TableButtonsDirective} from "./components/TableButtons.directive";
+import {TableButtonsDirective} from "./directives/TableButtons.directive";
+import {RestTableDataSource} from "./classes/RestTableDataSource";
 
-const DISPLAYED_COLUMNS_STORAGE_KEY_PREFIX: string = "tableColumns.";
+const TABLE_INDEX_PREFIX: string = "tableColumns";
 
 @Component({
   selector: "data-table",
@@ -23,12 +23,15 @@ const DISPLAYED_COLUMNS_STORAGE_KEY_PREFIX: string = "tableColumns.";
 export class DataTableComponent<T> implements AfterViewInit {
   private _dialog: MatDialog;
   private _columnSetup: TableColumnsSetup = [];
-
-  @Input("tableDataSource")
-  public tableDataSource: TableDataSource<T>;
+  private _tableIndex: string;
 
   @Input("tableId")
-  public tableId: string;
+  public set tableId(tableId: string) {
+    this._tableIndex = `${TABLE_INDEX_PREFIX}[${tableId}]`
+  }
+
+  @Input("tableDataSource")
+  public tableDataSource: RestTableDataSource<T>;
 
   @Input("exportConfig")
   public exportConfig: IXlsxExportConfig = null;
@@ -38,9 +41,6 @@ export class DataTableComponent<T> implements AfterViewInit {
 
   @ViewChild("table", {read: ExtCdkTableComponent})
   public table: ExtCdkTableComponent<T>;
-
-  @ViewChild("tableButtonsPlaceHolder", {read: ViewContainerRef})
-  public tableButtonsPlaceHolder: ViewContainerRef;
 
   @ContentChild(TableButtonsDirective, {read: TemplateRef})
   public tableButtonsRef: TemplateRef<any>;
@@ -59,22 +59,17 @@ export class DataTableComponent<T> implements AfterViewInit {
   }
 
   public ngAfterViewInit() {
-    if (this.tableButtonsRef != null) {
-      this.tableButtonsPlaceHolder.createEmbeddedView(this.tableButtonsRef);
-    }
-
     this.tableDataSource.paginator = this.paginator;
     this.columnDefs.forEach((def: CdkColumnDef) => this.table.addColumnDef(def));
 
     let columnIds = this.table.columnIds;
-    if (this.tableId!=null) {
-      columnIds = Storage.get(DISPLAYED_COLUMNS_STORAGE_KEY_PREFIX + this.tableId, columnIds);
+    if (this.tableId != null) {
+      columnIds = Storage.get(this._tableIndex, columnIds);
     }
 
     this._columnSetup = this.columnDefs.map((def: CdkColumnDef) => {
       return {
         id: def.name,
-        headerCellDef: def.headerCell,
         visible: (columnIds.indexOf(def.name) > -1)
       };
     });
@@ -88,6 +83,6 @@ export class DataTableComponent<T> implements AfterViewInit {
   public tableSetup() {
     this._dialog.open(TableSetupModalComponent, {data: this._columnSetup})
       .afterClosed()
-      .subscribe(() => Storage.store(DISPLAYED_COLUMNS_STORAGE_KEY_PREFIX + this.tableId, this.displayedColumnIds));
+      .subscribe(() => Storage.store(this._tableIndex, this.displayedColumnIds));
   }
 }

@@ -13,7 +13,7 @@ import IModerationRecord = Biliomi.IModerationRecord;
   selector: "chat-moderator-records",
   templateUrl: require("./ChatModeratorRecords.template.pug")
 })
-export class ChatModeratorRecordsComponent implements AfterViewInit {
+export class ChatModeratorRecordsComponent {
   private recordsDataSource: RestTableDataSource<IModerationRecord> = new RestTableDataSource<IModerationRecord>();
 
   public exportConfig: IXlsxExportConfig = {
@@ -29,11 +29,6 @@ export class ChatModeratorRecordsComponent implements AfterViewInit {
   };
 
   constructor(moderationRecordsClient: ModerationRecordsClient) {
-    this.recordsDataSource.bindClient(moderationRecordsClient);
-    this.recordsDataSource.sortBuilder.add("Date", true)
-  }
-
-  public ngAfterViewInit() {
-    this.recordsDataSource.update();
+    this.recordsDataSource.client = moderationRecordsClient;
   }
 }

@@ -1,36 +1,36 @@
 data-table(tableId="users-overview", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
   ng-container(matColumnDef="Username")
-    mat-header-cell(*matHeaderCellDef="") Username
-    mat-cell(*matCellDef="let user", [ngClass]="{'text-not-ok': user.BlacklistedSince != undefined}")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Username", [sortByDefault]="'ASC'") Username
+    mat-cell(*matCellDef="let user", [ngClass]="getUsernameColorClass(user)")
       | {{user.DisplayName}}
 
-  ng-container(matColumnDef="UserGroup")
-    mat-header-cell(*matHeaderCellDef="") Group
+  ng-container(matColumnDef="Group")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="UserGroup.Name") Group
     mat-cell(*matCellDef="let user")
       | {{user.UserGroup.Name}}
 
-  ng-container(matColumnDef="RecordedTime")
-    mat-header-cell(*matHeaderCellDef="") Recorded time
+  ng-container(matColumnDef="Recorded Time")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="RecordedTime") Recorded time
     mat-cell(*matCellDef="let user")
       | {{user.RecordedTime | time:false:true}}
 
   ng-container(matColumnDef="Points")
-    mat-header-cell(*matHeaderCellDef="") {{undefined | points | async}}
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Points") {{undefined | points | async}}
     mat-cell(*matCellDef="let user")
       | {{user.Points | points | async}}
 
   ng-container(matColumnDef="Follower")
-    mat-header-cell(*matHeaderCellDef="") Follows
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Follower") Follows
     mat-cell(*matCellDef="let user")
       mat-icon(*ngIf="user.Follower", color="primary") check
 
   ng-container(matColumnDef="Subscriber")
-    mat-header-cell(*matHeaderCellDef="") Subscribed
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Subscriber") Subscribed
     mat-cell(*matCellDef="let user")
       mat-icon(*ngIf="user.Subscriber", color="primary") check
 
   ng-container(matColumnDef="#Edit")
-    mat-header-cell(*matHeaderCellDef="")
-    mat-cell(*matCellDef="let user")
+    mat-header-cell(*matHeaderCellDef="", buttonsColumn="1")
+    mat-cell(*matCellDef="let user", buttonsColumn="1")
       a.mat-icon-button.pull-right(mat-button, (click)="editUser(user)", title="Edit user")
         mat-icon edit

@@ -1,8 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from "@angular/core";
 import {ChannelInfoClient} from "../../shared/modules/biliomi/clients/settings/ChannelInfo.client";
-import {UsersClient} from "../../shared/modules/biliomi/clients/model/Users.client";
 import {Biliomi} from "../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {LatestFollowersClient} from "../../shared/modules/biliomi/clients/model/LatestFollowers.client";
 import IUser = Biliomi.IUser;
+import {LatestSubscribersClient} from "../../shared/modules/biliomi/clients/model/LatestSubscribers.client";
 
 @Component({
   selector: "nav-follower-stats-component",
@@ -11,10 +12,11 @@ import IUser = Biliomi.IUser;
 })
 export class NavFollowerStatsComponent implements OnInit {
   private _parentElement: ElementRef;
+  private _latestFollowersClient: LatestFollowersClient;
+  private _latestSubscribersClient: LatestSubscribersClient;
+
   private followerStatsCardVisible: boolean = false;
   private channelInfoClient: ChannelInfoClient;
-  private usersClient: UsersClient;
-
   private latestFollower: IUser;
   private latestSubscriber: IUser;
 
@@ -27,19 +29,23 @@ export class NavFollowerStatsComponent implements OnInit {
     }
   }
 
-  constructor(channelInfoClient: ChannelInfoClient, usersClient: UsersClient, parentElement: ElementRef) {
+  constructor(channelInfoClient: ChannelInfoClient,
+              latestFollowersClient: LatestFollowersClient,
+              latestSubscribersClient:LatestSubscribersClient,
+              parentElement: ElementRef) {
     this.channelInfoClient = channelInfoClient;
-    this.usersClient = usersClient;
     this._parentElement = parentElement;
+    this._latestFollowersClient = latestFollowersClient;
+    this._latestSubscribersClient = latestSubscribersClient;
   }
 
   public async ngOnInit() {
     this.channelInfoClient.load();
-    this.latestFollower = await this.usersClient.getLatestFollower();
-    this.latestSubscriber = await this.usersClient.getLatestSubscriber();
+    this.latestFollower = await this._latestFollowersClient.getLatestFollower();
+    this.latestSubscriber = await this._latestSubscribersClient.getLatestSubscriber();
   }
 
-  private toggleFollowerStatsCard() {
+  public toggleFollowerStatsCard() {
     this.followerStatsCardVisible = !this.followerStatsCardVisible;
   }
 }

@@ -3,7 +3,6 @@ import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../../shared/Shared.module";
 import {SystemCommandsComponent} from "./SystemCommands.component";
 import {EditSystemCommandModalComponent} from "./declarations/EditSystemCommandModal.component";
-import {SystemCommandAttributesComponent} from "./declarations/SystemCommandAttributes.component";
 
 const ROUTES: Routes = [
   {
@@ -19,7 +18,6 @@ const ROUTES: Routes = [
   ],
   declarations: [
     SystemCommandsComponent,
-    SystemCommandAttributesComponent,
     EditSystemCommandModalComponent
   ],
   entryComponents: [

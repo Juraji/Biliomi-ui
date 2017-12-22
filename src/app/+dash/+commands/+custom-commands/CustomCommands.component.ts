@@ -7,7 +7,7 @@ import {ARG_COMMAND_REPLACEMENTS} from "../../../shared/modules/biliomi/classes/
 import {EditCustomCommandModalComponent} from "./declarations/EditCustomCommandModal.component";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {
-  XLSX_FORMATTER_JOIN_LIST,
+  XLSX_FORMATTER_LIST_JOIN,
   XLSX_FORMATTER_RELATIVE_TIME
 } from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import ICustomCommand = Biliomi.ICustomCommand;
@@ -30,15 +30,14 @@ export class CustomCommandsComponent implements OnInit {
       {objectPath: "$.Price", headerName: "Price (formatted)", suffix: " Bolts"},
       {objectPath: "$.Cooldown", headerName: "Cooldown"},
       {objectPath: "$.Cooldown", headerName: "Cooldown (formatted)", formatter: XLSX_FORMATTER_RELATIVE_TIME},
-      {objectPath: "$.Aliasses", headerName: "Aliasses", formatter: XLSX_FORMATTER_JOIN_LIST},
+      {objectPath: "$.Aliasses", headerName: "Aliasses", formatter: XLSX_FORMATTER_LIST_JOIN},
       {objectPath: "$.Message", headerName: "Message"}
     ]
   };
 
   constructor(customCommandsClient: CustomCommandsClient, dialog: MatDialog) {
     this._dialog = dialog;
-    this.dataSource.bindClient(customCommandsClient);
-    this.dataSource.sortBuilder.add("Command");
+    this.dataSource.client = customCommandsClient;
   }
 
   public ngOnInit() {

@@ -17,6 +17,20 @@ export class UserDisplayComponent implements OnInit {
   @HostBinding("hidden")
   public isHidden: boolean = true;
 
+  public get usernameColorClass(): string {
+    if (this.user != null) {
+      if (this.user.BlacklistedSince != null) {
+        return "text-not-ok";
+      } else if (this.user.Caster) {
+        return "text-primary";
+      } else if (this.user.Moderator) {
+        return "text-secondary";
+      }
+    }
+
+    return "";
+  }
+
   public ngOnInit() {
     if (this.user != null) {
       this.isHidden = false;

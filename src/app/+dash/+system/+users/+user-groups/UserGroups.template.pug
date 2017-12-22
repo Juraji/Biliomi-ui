@@ -9,18 +9,23 @@ data-table(tableId="user-groups", [tableDataSource]="groupsDataSource", [exportC
       mat-icon add
 
   ng-container(matColumnDef="Name")
-    mat-header-cell(*matHeaderCellDef="") Name
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Name") Name
     mat-cell(*matCellDef="let group")
       | {{group.Name}}
       small.text-muted(*ngIf="group.DefaultGroup") &nbsp;(Default group)
 
+  ng-container(matColumnDef="Default")
+    mat-header-cell(*matHeaderCellDef="", sortHeader="DefaultGroup", [sortByDefault]="'DESC'", [doInitialUpdate]="false") Default
+    mat-cell(*matCellDef="let group")
+      | {{group.DefaultGroup | boolean}}
+
   ng-container(matColumnDef="Weight")
-    mat-header-cell(*matHeaderCellDef="") Weight
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Weight", [sortByDefault]="'ASC'") Weight
     mat-cell(*matCellDef="let group")
       | {{group.Weight}}
 
   ng-container(matColumnDef="LevelUpHours")
-    mat-header-cell(*matHeaderCellDef="") Level Up Hours
+    mat-header-cell(*matHeaderCellDef="", sortHeader="LevelUpHours") Level Up Hours
     mat-cell(*matCellDef="let group")
       span(*ngIf="group.LevelUpHours == null") n.a.
       span(*ngIf="group.LevelUpHours > 0") {{group.LevelUpHours | time:false:true:true}}

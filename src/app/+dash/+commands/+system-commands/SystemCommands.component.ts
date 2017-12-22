@@ -5,7 +5,7 @@ import {MatDialog} from "@angular/material";
 import {CommandsClient} from "../../../shared/modules/biliomi/clients/model/Commands.client";
 import {EditSystemCommandModalComponent} from "./declarations/EditSystemCommandModal.component";
 import {
-  XLSX_FORMATTER_BOOLEAN_YES_NO, XLSX_FORMATTER_JOIN_LIST,
+  XLSX_FORMATTER_BOOLEAN_YES_NO, XLSX_FORMATTER_LIST_JOIN,
   XLSX_FORMATTER_RELATIVE_TIME
 } from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
@@ -36,14 +36,13 @@ export class SystemCommandsComponent implements OnInit {
       {objectPath: "$.Price", headerName: "Price (formatted)", suffix: " Bolts"},
       {objectPath: "$.Cooldown", headerName: "Cooldown"},
       {objectPath: "$.Cooldown", headerName: "Cooldown (formatted)", formatter: XLSX_FORMATTER_RELATIVE_TIME},
-      {objectPath: "$.Aliasses[]", headerName: "Aliasses", formatter: XLSX_FORMATTER_JOIN_LIST},
+      {objectPath: "$.Aliasses[]", headerName: "Aliasses", formatter: XLSX_FORMATTER_LIST_JOIN},
     ]
   };
 
   constructor(commandsClient: CommandsClient, dialog: MatDialog) {
     this._dialog = dialog;
-    this.dataSource.bindClient(commandsClient);
-    this.dataSource.sortBuilder.add("Command")
+    this.dataSource.client = commandsClient;
   }
 
   public ngOnInit() {

@@ -16,4 +16,10 @@ export class GamesClient extends CachedModelRestClient<IGame> {
     let predicate: Predicate<IGame> = (g: IGame) => StringUtils.containsIgnoreCase(g.Name, query);
     return super.searchCacheByPredicate(predicate);
   }
+
+  public setAsCurrentGame(game: IGame) {
+    if (game != null) {
+      this._api.postCommand("channel", "game", game.Name);
+    }
+  }
 }

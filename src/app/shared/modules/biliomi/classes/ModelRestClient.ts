@@ -11,6 +11,10 @@ export abstract class ModelRestClient<T> {
     this._baseResourceUri = baseResourceUri;
   }
 
+  public get baseResourceUri(): string {
+    return this._baseResourceUri;
+  }
+
   public get(id: number, params?: HttpParams): Promise<T> {
     return this._api.get<T>(this._baseResourceUri + "/" + id, params);
   }

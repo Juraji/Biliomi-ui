@@ -1,4 +1,4 @@
-import {Dictionary, Mapper} from "./FunctionalInterface";
+import {Dictionary, ArrayMapper} from "./FunctionalInterface";
 
 export class ArrayUtils {
 
@@ -52,10 +52,10 @@ export class ArrayUtils {
    * Filter an array to result with a new arry with unique objects, mapped by mapper
    *
    * @param {Array} array
-   * @param {Mapper} mapper
+   * @param {ArrayMapper} mapper
    * @returns {Array}
    */
-  public static uniqueObject<T>(array: Array<T>, mapper: Mapper<T, any>): Array<T> {
+  public static uniqueObject<T>(array: Array<T>, mapper: ArrayMapper<T, any>): Array<T> {
     let unique: Dictionary = {};
     let distinct: Array<T> = [];
 

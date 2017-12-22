@@ -1,13 +1,31 @@
 import {ModelRestClient} from "../../biliomi/classes/ModelRestClient";
 import {SortBuilder} from "../../biliomi/classes/SortBuilder";
-import {TableDataSource} from "./TableDataSource";
+import {MatTableDataSource} from "@angular/material";
+import {HttpParams} from "@angular/common/http";
+import {ProgressBarMode} from "./interfaces/ProgressBarMode.interface";
 
-export class RestTableDataSource<T> extends TableDataSource<T> {
+export class RestTableDataSource<T> extends MatTableDataSource<T> {
   private _restClient: ModelRestClient<T>;
+  private _progressBarMode: ProgressBarMode = ProgressBarMode.NONE;
+  private _isInitialized: boolean = false;
   private _sortBuilder: SortBuilder;
+  private _clientParams: HttpParams;
+
 
   constructor() {
-    super(() => this._restClient.getList(this._sortBuilder));
+    super([]);
+  }
+
+  public get client(): ModelRestClient<T> {
+    return this._restClient;
+  }
+
+  public get isInitialized(): boolean {
+    return this._isInitialized;
+  }
+
+  public get hasData(): boolean {
+    return this.data != null && this.data.length > 0;
   }
 
   public get sortBuilder(): SortBuilder {
@@ -17,11 +35,22 @@ export class RestTableDataSource<T> extends TableDataSource<T> {
     return this._sortBuilder;
   }
 
-  public bindClient(client: ModelRestClient<T>) {
+  public get progressBarMode(): ProgressBarMode {
+    return this._progressBarMode;
+  }
+
+  public set clientParams(params: HttpParams) {
+    this._clientParams = params;
+  }
+
+  public set client(client: ModelRestClient<T>) {
     this._restClient = client;
   }
 
-  public get client(): ModelRestClient<T> {
-    return this._restClient;
+  public async update() {
+    this._progressBarMode = ProgressBarMode.INDETERMINATE;
+    this.data = await this._restClient.getList(this._sortBuilder, this._clientParams) || [];
+    this._progressBarMode = ProgressBarMode.NONE;
+    this._isInitialized = true;
   }
 }

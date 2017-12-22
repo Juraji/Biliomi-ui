@@ -1,0 +1,48 @@
+p Manage Twitch communities known by Biliomi
+
+.columns
+  .col.span-8-of-12
+    p Known Communities
+
+    data-table(tableId="known-communites", [tableDataSource]="communitiesDataSource", [exportConfig]="exportConfig")
+      ng-container(matColumnDef="Name")
+        mat-header-cell(*matHeaderCellDef="", sortHeader="Name", [sortByDefault]="'ASC'") Name
+        mat-cell(*matCellDef="let community")
+          | {{community.Name}}
+
+      ng-container(matColumnDef="Owner")
+        mat-header-cell(*matHeaderCellDef="", sortHeader="Owner.Username") Owner
+        mat-cell(*matCellDef="let community")
+          user-display([user]="community.Owner")
+
+      ng-container(matColumnDef="Twitch Id")
+        mat-header-cell(*matHeaderCellDef="", sortHeader="TwitchId") Twitch Id
+        mat-cell(*matCellDef="let community")
+          | {{community.TwitchId}}
+
+  .col.span-4-of-12
+    p &nbsp;
+
+    form(#communitiesSettingsForm="", (submit)="saveSettings()")
+      mat-card
+        mat-card-header
+          mat-card-title Communities Settings
+          mat-card-subtitle &nbsp;
+
+        mat-card-content
+          p.
+            Biliomi will automatically update your communities when you change the current game via Biliomi.#[br]
+            You can set communities per game #[a.text-primary(routerLink="/dash/system/game-register") here], or set default communities below. The latter will be applied to
+            games without set communites.
+
+          mat-checkbox([formControl]="autoUpdateCommunitiesControl")
+            | Automatically update communities
+
+          community-chip-list(#communitiesControl="", placeholder="Default Communities")
+            | Select up to 3 communities.
+
+        mat-card-actions
+          button(mat-raised-button, color="primary", title="Save")
+            mat-icon done
+          button(mat-button, type="button", (click)="ngAfterViewInit()", title="Refresh data")
+            mat-icon refresh
