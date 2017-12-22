@@ -25,3 +25,9 @@ data-table(tableId="chatmoderator-records", [tableDataSource]="recordsDataSource
     mat-header-cell(*matHeaderCellDef="", sortHeader="Message") Message
     mat-cell(*matCellDef="let record")
       | {{record.Message | trim:50}}
+
+  ng-container(matColumnDef="#Actions")
+    mat-header-cell(*matHeaderCellDef="")
+    mat-cell(*matCellDef="let record")
+      a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", title="Delete Record")
+        mat-icon delete_forever
