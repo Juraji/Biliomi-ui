@@ -10,7 +10,6 @@ import {TableButtonsDirective} from "./directives/TableButtons.directive";
 import {SortHeaderDirective} from "./directives/SortHeader.directive";
 import {ButtonsColumnDirective} from "./directives/ButtonsColumnDirective";
 import {TableFilterQueryComponent} from "./components/TableFilterQuery.component";
-import {TableFilterQueryHelpModalComponent} from "./components/TableFilterQueryHelpModal.component";
 
 @NgModule({
   imports: [
@@ -28,7 +27,6 @@ import {TableFilterQueryHelpModalComponent} from "./components/TableFilterQueryH
     SortHeaderDirective,
     ButtonsColumnDirective,
     TableFilterQueryComponent,
-    TableFilterQueryHelpModalComponent
   ],
   exports: [
     DataTableComponent,
@@ -39,7 +37,6 @@ import {TableFilterQueryHelpModalComponent} from "./components/TableFilterQueryH
   ],
   entryComponents: [
     TableSetupModalComponent,
-    TableFilterQueryHelpModalComponent
   ]
 })
 export class DataTableModule {

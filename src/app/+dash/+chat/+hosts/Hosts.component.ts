@@ -10,7 +10,6 @@ import {ConfirmDialogComponent} from "../../../shared/components/ConfirmDialog.c
 import {MatDialog} from "@angular/material";
 import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
-import {HttpParams} from "@angular/common/http";
 import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 import IHostRecord = Biliomi.IHostRecord;
 import IDirection = Biliomi.IDirection;
@@ -48,11 +47,11 @@ export class HostsComponent {
     this._dialog = dialog;
 
     this.incomingRecordsDataSource.client = hostRecordsClient;
-    this.incomingRecordsDataSource.clientParams = new HttpParams()
+    this.incomingRecordsDataSource.clientParams
       .set("direction", IDirection.INCOMING);
 
     this.outgoingRecordsDataSource.client = hostRecordsClient;
-    this.outgoingRecordsDataSource.clientParams = new HttpParams()
+    this.outgoingRecordsDataSource.clientParams
       .set("direction", IDirection.OUTGOING);
   }
 

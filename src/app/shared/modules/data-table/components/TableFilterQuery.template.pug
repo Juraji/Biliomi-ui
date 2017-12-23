@@ -4,3 +4,5 @@ form(#filterQueryForm="", (submit)="applyQuery($event)")
     (focus)="fieldFocus = true", (blur)="fieldFocus = false", autocomplete="off")
     mat-icon(matSuffix, (click)="showHelp()", title="Help") help
     mat-icon(*ngIf="filterQueryControl.value != ''", matSuffix, (click)="clearInput()", title="Clear input") backspace
+    mat-error(*ngIf="filterQueryControl.getError('pattern')") Invalid query
+    mat-error(*ngIf="filterQueryControl.getError('emptyResult')") Query yielded empty result

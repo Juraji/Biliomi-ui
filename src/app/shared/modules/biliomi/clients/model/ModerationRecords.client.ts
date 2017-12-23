@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {HttpParams} from "@angular/common/http";
 import {ModelRestClient} from "../../classes/ModelRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../../services/BiliomiApi.service";
@@ -12,15 +11,15 @@ export class ModerationRecordsClient extends ModelRestClient<IModerationRecord> 
     super(api, "/chat/moderationrecords");
   }
 
-  public get(id: number, params?: HttpParams): Promise<IModerationRecord> {
+  public get(id: number, params?: Map<string, any>): Promise<IModerationRecord> {
     return null;
   }
 
-  public post(obj: Biliomi.IModerationRecord, params?: HttpParams): Promise<IModerationRecord> {
+  public post(obj: Biliomi.IModerationRecord, params?: Map<string, any>): Promise<IModerationRecord> {
     return null;
   }
 
-  public put(id: number, obj: Biliomi.IModerationRecord, params?: HttpParams): Promise<IModerationRecord> {
+  public put(id: number, obj: Biliomi.IModerationRecord, params?: Map<string, any>): Promise<IModerationRecord> {
     return null;
   }
 }

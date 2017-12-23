@@ -1,7 +1,6 @@
 import {ModelRestClient} from "../../biliomi/classes/ModelRestClient";
 import {SortBuilder} from "../../biliomi/classes/SortBuilder";
 import {MatTableDataSource} from "@angular/material";
-import {HttpParams} from "@angular/common/http";
 import {ProgressBarMode} from "./interfaces/ProgressBarMode.interface";
 import {FilterBuilder} from "../../biliomi/classes/FilterBuilder";
 
@@ -11,7 +10,7 @@ export class RestTableDataSource<T> extends MatTableDataSource<T> {
   private _isInitialized: boolean = false;
   private _sortBuilder: SortBuilder;
   private _filterBuilder: FilterBuilder;
-  private _clientParams: HttpParams;
+  private _clientParams: Map<string, any>;
 
 
   constructor() {
@@ -44,22 +43,30 @@ export class RestTableDataSource<T> extends MatTableDataSource<T> {
     return this._filterBuilder;
   }
 
-  public get progressBarMode(): ProgressBarMode {
-    return this._progressBarMode;
+  public get clientParams() {
+    if (this._clientParams == null) {
+      this._clientParams = new Map<string, any>();
+    }
+    return this._clientParams;
   }
 
-  public set clientParams(params: HttpParams) {
-    this._clientParams = params;
+  public get progressBarMode(): ProgressBarMode {
+    return this._progressBarMode;
   }
 
   public set client(client: ModelRestClient<T>) {
     this._restClient = client;
   }
 
-  public async update() {
+  public async update(): Promise<boolean> {
     this._progressBarMode = ProgressBarMode.INDETERMINATE;
-    this.data = await this._restClient.getList(this._sortBuilder, this._filterBuilder, this._clientParams) || [];
+
+    let data: T[] = await this._restClient.getList(this._sortBuilder, this._filterBuilder, this._clientParams);
+    this.data = data || [];
+
     this._progressBarMode = ProgressBarMode.NONE;
     this._isInitialized = true;
+
+    return data != null;
   }
 }

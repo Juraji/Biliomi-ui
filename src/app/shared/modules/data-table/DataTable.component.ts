@@ -73,6 +73,8 @@ export class DataTableComponent<T> implements AfterViewInit {
         visible: (columnIds.indexOf(def.name) > -1)
       };
     });
+
+    this.table.viewChange.subscribe(()=> this.tableDataSource.update());
   }
 
   public exportData() {

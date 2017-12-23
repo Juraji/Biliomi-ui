@@ -1,13 +1,9 @@
 import {Component, HostBinding, Input, OnInit, Optional} from "@angular/core";
 import {DataTableComponent} from "../DataTable.component";
-import {FormControl} from "@angular/forms";
-import {RestQueryParser} from "../classes/RestQueryParser";
-import {Biliomi} from "../../biliomi/classes/interfaces/Biliomi";
+import {FormControl, Validators} from "@angular/forms";
 import {StringUtils} from "../../tools/StringUtils";
 import {TableFilterNameMapping} from "../classes/interfaces/TableFilterMapping.interface";
-import IRestFilterDirective = Biliomi.IRestFilterDirective;
 import {MatDialog} from "@angular/material";
-import {TableFilterQueryHelpModalComponent} from "./TableFilterQueryHelpModal.component";
 
 @Component({
   selector: "table-filter-query",
@@ -31,7 +27,7 @@ export class TableFilterQueryComponent<T> implements OnInit {
     this._fieldFocus = fieldFocus;
   }
 
-  public filterQueryControl: FormControl = new FormControl("");
+  public filterQueryControl: FormControl = new FormControl("", [Validators.pattern(/^([a-z. ]+\s+[!]?[=~<>]\s["]?[a-z0-9.\- ]+["]?(\s(and|or)\s)?)+$/i)]);
 
   constructor(@Optional() table: DataTableComponent<T>, dialog: MatDialog) {
     this._table = table;
@@ -41,28 +37,27 @@ export class TableFilterQueryComponent<T> implements OnInit {
   public ngOnInit() {
   }
 
-  public applyQuery(e: Event) {
-    e.preventDefault();
-    let query = this.filterQueryControl.value.trim();
-    let ds = this._table.tableDataSource;
+  public async applyQuery(e: Event) {
+    if (this.filterQueryControl.valid) {
+      e.preventDefault();
+      let query = this.filterQueryControl.value.trim();
+      let ds = this._table.tableDataSource;
 
-    if (StringUtils.isEmpty(query)) {
-      ds.filterBuilder.clear();
-      ds.update();
-    } else {
-      if (this.filterMapping != null) {
-        Object.keys(this.filterMapping).forEach((key:string) => {
-          query = query.replace(new RegExp(`(\\s?)${key}(\\s)`, "gi"), `$1${this.filterMapping[key]}$2`);
-        });
-      }
-
-      let parser = new RestQueryParser(query);
-      if (parser.isValid) {
-        ds.filterBuilder.clear();
-        parser.restFilters.forEach((d: IRestFilterDirective) => ds.filterBuilder.addDirective(d, true));
+      if (StringUtils.isEmpty(query)) {
+        ds.clientParams.delete("filter");
         ds.update();
       } else {
-        this.filterQueryControl.setErrors({invalid: true});
+        if (this.filterMapping != null) {
+          Object.keys(this.filterMapping).forEach((key:string) => {
+            query = query.replace(new RegExp(`(\\s?)${key}(\\s)`, "gi"), `$1${this.filterMapping[key]}$2`);
+          });
+        }
+
+        ds.clientParams.set("filter", query);
+        let success: boolean = await ds.update();
+        if (!success) {
+          this.filterQueryControl.setErrors({emptyResult: true});
+        }
       }
     }
   }
@@ -73,7 +68,8 @@ export class TableFilterQueryComponent<T> implements OnInit {
     this._table.tableDataSource.update();
   }
 
+  // noinspection JSMethodCanBeStatic
   public showHelp() {
-    this._dialog.open(TableFilterQueryHelpModalComponent);
+    window.open("https://github.com/Juraji/Biliomi/wiki/API-Queries");
   }
 }

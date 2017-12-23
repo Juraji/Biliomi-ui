@@ -1,7 +1,6 @@
 import {ModelRestClient} from "./ModelRestClient";
 import {BiliomiApiService} from "../services/BiliomiApi.service";
 import {ListCache} from "./ListCache";
-import {HttpParams} from "@angular/common/http";
 import {SortBuilder} from "./SortBuilder";
 import {Predicate} from "../../tools/FunctionalInterface";
 import {FilterBuilder} from "./FilterBuilder";
@@ -14,7 +13,7 @@ export abstract class CachedModelRestClient<T> extends ModelRestClient<T> {
     super(api, baseResourceUri);
   }
 
-  public load(refresh?: boolean, sorting?: SortBuilder, filters?: FilterBuilder, params?: HttpParams): Promise<T[]> {
+  public load(refresh?: boolean, sorting?: SortBuilder, filters?: FilterBuilder, params?: Map<string, any>): Promise<T[]> {
     // Cache the actual load promise in a local variable to return to subsequent callers,
     // so the API doesn't get flooded with requests by concurrent calls
     if ((!this._cache.hasData() || refresh) && this._loadPromise == null) {

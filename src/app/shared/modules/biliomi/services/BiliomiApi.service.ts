@@ -1,10 +1,10 @@
 import {EventEmitter, Injectable} from "@angular/core";
 import {ConfigService} from "../../../services/Config.service";
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {AuthService} from "../../../services/Auth.service";
 import {Biliomi} from "../classes/interfaces/Biliomi";
 import {IConfig} from "../../../classes/interfaces/IConfig.interface";
 import {BILIOMI_API} from "../classes/constants/BiliomiApiVariables";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import ICommandRequest = Biliomi.ICommandRequest;
 
 @Injectable()
@@ -25,18 +25,18 @@ export class BiliomiApiService {
   /**
    * Perform a GET request on Biliomi's Api to retrieve (lists of) entities.
    * @param {string} resourceUri The entity resource uri, without api prefix. E.g. "/core/games" or "/core/games/1".
-   * @param {HttpParams} params Any query parameters to send with the request.
+   * @param {Map<string, Object>} params Any query parameters to send with the request.
    * @return {Promise<T>} A promise to the result.
    * The promise could resolve with NULL of there was no content or an error occurred.
    */
-  public async get<T>(resourceUri: string, params?: HttpParams): Promise<T> {
+  public async get<T>(resourceUri: string, params?: Map<string, any>): Promise<T> {
     let uri: string = await this.getApiUriFor(resourceUri);
 
     try {
       return await this._httpClient
         .get<T>(uri, {
           headers: this.buildHeaders(),
-          params: params
+          params: BiliomiApiService.mapToHttpParams(params)
         })
         .toPromise();
     } catch (e) {
@@ -50,18 +50,18 @@ export class BiliomiApiService {
    * Perform a POST request on Biliomi's Api in order to create new entities or perform actions.
    * @param {string} resourceUri The resource uri, without api prefix. E.g. "/auth/login".
    * @param {T} body The object representing the body of the request.
-   * @param {HttpParams} params Any query parameters to send with the request.
+   * @param {Map<string, Object>} params Any query parameters to send with the request.
    * @return {Promise<R>} A promise to the result.
    * The promise could resolve with NULL of there was no content or an error occurred.
    */
-  public async post<T, R>(resourceUri: string, body: T, params?: HttpParams): Promise<R> {
+  public async post<T, R>(resourceUri: string, body: T, params?: Map<string, any>): Promise<R> {
     let uri: string = await this.getApiUriFor(resourceUri);
 
     try {
       return await this._httpClient
         .post<R>(uri, BiliomiApiService.cleanBody(body), {
           headers: this.buildHeaders(),
-          params: params
+          params: BiliomiApiService.mapToHttpParams(params)
         })
         .toPromise();
     } catch (e) {
@@ -75,18 +75,18 @@ export class BiliomiApiService {
    * Perform a PUT request on Biliomi's Api in order to update entities.
    * @param {string} resourceUri The resource uri of the target entity, without api prefix. E.g. "/core/games/1".
    * @param body The object representing the updated entity
-   * @param {HttpParams} params Any query parameters to send with the request.
+   * @param {Map<string, Object>} params Any query parameters to send with the request.
    * @return {Promise<T>} A promise to the persisted entity.
    * The promise could resolve with NULL of there was no change comitted or an error occurred.
    */
-  public async put<T>(resourceUri: string, body: any, params?: HttpParams): Promise<T> {
+  public async put<T>(resourceUri: string, body: any, params?: Map<string, any>): Promise<T> {
     let uri: string = await this.getApiUriFor(resourceUri);
 
     try {
       return await this._httpClient
         .put<T>(uri, BiliomiApiService.cleanBody(body), {
           headers: this.buildHeaders(),
-          params: params
+          params: BiliomiApiService.mapToHttpParams(params)
         })
         .toPromise();
     } catch (e) {
@@ -100,10 +100,10 @@ export class BiliomiApiService {
   /**
    * Perform a DELETE request on Biliomi's Api in order to delete entities.
    * @param {string} resourceUri The resource uri of the target entity, without api prefix. E.g. "/core/games/1".
-   * @param {HttpParams} params params Any query parameters to send with the request.
+   * @param {Map<string, Object>} params params Any query parameters to send with the request.
    * @return {Promise<boolean>} A promise to the success state, being True when successful and False when failed.
    */
-  public async delete(resourceUri: string, params?: HttpParams): Promise<boolean> {
+  public async delete(resourceUri: string, params?: Map<string, any>): Promise<boolean> {
     let uri: string = await this.getApiUriFor(resourceUri);
     let response: HttpResponse<any>;
 
@@ -111,7 +111,7 @@ export class BiliomiApiService {
       response = await this._httpClient
         .delete(uri, {
           headers: this.buildHeaders(),
-          params: params,
+          params: BiliomiApiService.mapToHttpParams(params),
           observe: "response",
           responseType: "text"
         })
@@ -208,5 +208,22 @@ export class BiliomiApiService {
     }
 
     return JSON.stringify(cleanBody);
+  }
+
+  private static mapToHttpParams(map: Map<string, any>): HttpParams {
+    let params: HttpParams;
+
+    if (map != null) {
+      let entries = map.keys();
+      params = new HttpParams();
+      let e: IteratorResult<string>;
+
+      while (!(e = entries.next()).done) {
+        params = params.set(e.value, map.get(e.value));
+      }
+
+    }
+
+    return params;
   }
 }

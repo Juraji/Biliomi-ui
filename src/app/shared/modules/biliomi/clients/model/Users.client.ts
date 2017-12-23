@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../../services/BiliomiApi.service";
-import {HttpParams} from "@angular/common/http";
 import {CachedModelRestClient} from "../../classes/CachedModelRestClient";
 import {StringUtils} from "../../../tools/StringUtils";
 import IUser = Biliomi.IUser;
@@ -18,7 +17,7 @@ export class UsersClient extends CachedModelRestClient<IUser> {
   }
 
   public getUserByUsername(username: string, createIfNotExists: boolean): Promise<IUser> {
-    let params: HttpParams = new HttpParams()
+    let params: Map<string, any> = new Map<string, any>()
       .set("createifnotexists", createIfNotExists.toString());
     return this._api.get("/core/users/byusername/" + username, params);
   }
