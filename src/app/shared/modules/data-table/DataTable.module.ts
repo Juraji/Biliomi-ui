@@ -9,6 +9,8 @@ import {TableSetupModalComponent} from "./components/TableSetupModal.component";
 import {TableButtonsDirective} from "./directives/TableButtons.directive";
 import {SortHeaderDirective} from "./directives/SortHeader.directive";
 import {ButtonsColumnDirective} from "./directives/ButtonsColumnDirective";
+import {TableFilterQueryComponent} from "./components/TableFilterQuery.component";
+import {TableFilterQueryHelpModalComponent} from "./components/TableFilterQueryHelpModal.component";
 
 @NgModule({
   imports: [
@@ -24,15 +26,21 @@ import {ButtonsColumnDirective} from "./directives/ButtonsColumnDirective";
     TableSetupModalComponent,
     TableButtonsDirective,
     SortHeaderDirective,
-    ButtonsColumnDirective
+    ButtonsColumnDirective,
+    TableFilterQueryComponent,
+    TableFilterQueryHelpModalComponent
   ],
   exports: [
     DataTableComponent,
     TableButtonsDirective,
     SortHeaderDirective,
-    ButtonsColumnDirective
+    ButtonsColumnDirective,
+    TableFilterQueryComponent,
   ],
-  entryComponents: [TableSetupModalComponent]
+  entryComponents: [
+    TableSetupModalComponent,
+    TableFilterQueryHelpModalComponent
+  ]
 })
 export class DataTableModule {
 }

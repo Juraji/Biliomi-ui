@@ -1,0 +1,38 @@
+table-filter-query{
+  width: 188px;
+  transition: width .3s ease-in-out;
+
+  &.filter-field-focus {
+    width: 30%;
+  }
+
+  mat-form-field {
+    margin-bottom: 0;
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+      margin-top: 5px;
+
+      .mat-form-field-infix {
+        border-top: none;
+      }
+
+      .mat-form-field-underline {
+        bottom: .25em;
+      }
+    }
+
+    .mat-input-suffix > mat-icon {
+      cursor: pointer;
+      user-select: none;
+      position: absolute;
+      right: 0;
+      top: 6px;
+      font-size: 100% !important;
+
+      &:nth-child(2) {
+        right: 1.2em;
+      }
+    }
+  }
+}

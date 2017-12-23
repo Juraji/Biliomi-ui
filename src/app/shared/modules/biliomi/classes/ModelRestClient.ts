@@ -1,6 +1,7 @@
 import {BiliomiApiService} from "../services/BiliomiApi.service";
 import {HttpParams} from "@angular/common/http";
 import {SortBuilder} from "./SortBuilder";
+import {FilterBuilder} from "./FilterBuilder";
 
 export abstract class ModelRestClient<T> {
   protected _api: BiliomiApiService;
@@ -19,9 +20,19 @@ export abstract class ModelRestClient<T> {
     return this._api.get<T>(this._baseResourceUri + "/" + id, params);
   }
 
-  public getList(sorting?: SortBuilder, params: HttpParams = new HttpParams()): Promise<T[]> {
+  public getList(sorting?: SortBuilder, filters?: FilterBuilder, params: HttpParams = new HttpParams()): Promise<T[]> {
     if (sorting) {
-      params = params.set("sort", sorting.toString());
+      let sortQuery: string = sorting.toString();
+      if (sortQuery != null) {
+        params = params.set("sort", sortQuery);
+      }
+    }
+
+    if (filters) {
+      let filterQuery: string = filters.toString();
+      if (filterQuery != null) {
+        params = params.set("filter", filterQuery)
+      }
     }
 
     return this._api.get<T[]>(this._baseResourceUri, params);

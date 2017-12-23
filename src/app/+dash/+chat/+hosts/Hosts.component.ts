@@ -10,9 +10,10 @@ import {ConfirmDialogComponent} from "../../../shared/components/ConfirmDialog.c
 import {MatDialog} from "@angular/material";
 import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
+import {HttpParams} from "@angular/common/http";
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 import IHostRecord = Biliomi.IHostRecord;
 import IDirection = Biliomi.IDirection;
-import {HttpParams} from "@angular/common/http";
 
 @Component({
   selector: "hosts-page",
@@ -35,6 +36,10 @@ export class HostsComponent {
       {objectPath: "$.Date", headerName: "Follow date", formatter: XLSX_FORMATTER_DATE},
       {objectPath: "$.AutoHost", headerName: "Was auto host", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
     ]
+  };
+
+  public tableFilterMapping: TableFilterNameMapping = {
+    "username": "User.Username"
   };
 
   constructor(api: BiliomiApiService, hostRecordsClient: HostRecordsClient, dialog: MatDialog) {

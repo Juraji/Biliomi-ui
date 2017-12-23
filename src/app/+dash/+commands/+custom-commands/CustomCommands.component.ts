@@ -11,6 +11,7 @@ import {
   XLSX_FORMATTER_RELATIVE_TIME
 } from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import ICustomCommand = Biliomi.ICustomCommand;
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "custom-commands-component",
@@ -33,6 +34,10 @@ export class CustomCommandsComponent implements OnInit {
       {objectPath: "$.Aliasses", headerName: "Aliasses", formatter: XLSX_FORMATTER_LIST_JOIN},
       {objectPath: "$.Message", headerName: "Message"}
     ]
+  };
+
+  public tableFilterMapping: TableFilterNameMapping = {
+    "group": "Usergroup.Name",
   };
 
   constructor(customCommandsClient: CustomCommandsClient, dialog: MatDialog) {

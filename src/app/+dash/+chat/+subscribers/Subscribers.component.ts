@@ -7,6 +7,7 @@ import {SubscriberWatchSettingsClient} from "../../../shared/modules/biliomi/cli
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
 import {LatestSubscribersClient} from "../../../shared/modules/biliomi/clients/model/LatestSubscribers.client";
 import IUser = Biliomi.IUser;
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "subscribers-page",
@@ -27,6 +28,10 @@ export class SubscribersComponent implements OnInit {
       {objectPath: "$.DisplayName", headerName: "Username"},
       {objectPath: "$.SubscribeDate", headerName: "Subscribe date", formatter: XLSX_FORMATTER_DATE},
     ]
+  };
+
+  public tableFilterMapping: TableFilterNameMapping = {
+    "Subscriber Since": "SubscribeDate"
   };
 
   constructor(subscriberWatchSettingsClient: SubscriberWatchSettingsClient, latestSubscribersClient:LatestSubscribersClient) {

@@ -10,6 +10,7 @@ import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/
 import {MatDialog} from "@angular/material";
 import {ConfirmDialogComponent} from "../../../../shared/components/ConfirmDialog.component";
 import IModerationRecord = Biliomi.IModerationRecord;
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "chat-moderator-records",
@@ -30,6 +31,10 @@ export class ChatModeratorRecordsComponent {
       {objectPath: "$.Message", headerName: "Message"},
       {objectPath: "$.Date", headerName: "Date", formatter: XLSX_FORMATTER_DATE},
     ]
+  };
+
+  public tableFilterMapping: TableFilterNameMapping = {
+    "Username": "User.Username",
   };
 
   constructor(moderationRecordsClient: ModerationRecordsClient, dialog: MatDialog) {

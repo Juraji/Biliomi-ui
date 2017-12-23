@@ -12,6 +12,7 @@ import {
 import IGame = Biliomi.IGame;
 import ICommunity = Biliomi.ICommunity;
 import {ConfirmDialogComponent} from "../../../shared/components/ConfirmDialog.component";
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "game-register",
@@ -35,6 +36,12 @@ export class GameRegisterComponent {
         formatter: XLSX_FORMATTER_LIST_REDUCTION((l: ICommunity, r: ICommunity) => l.Name + ", " + r.Name)
       },
     ]
+  };
+
+  public tableFilterMapping: TableFilterNameMapping = {
+    "title": "Name",
+    "first played": "FirstPlayedOn",
+    "steam id": "SteamId",
   };
 
   constructor(gamesClient: GamesClient, dialog: MatDialog) {

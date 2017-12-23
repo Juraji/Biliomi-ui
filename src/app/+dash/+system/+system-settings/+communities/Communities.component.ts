@@ -7,6 +7,7 @@ import {CommunitesSettingsClient} from "../../../../shared/modules/biliomi/clien
 import {FormControl} from "@angular/forms";
 import {CommunityChipListComponent} from "../../../../shared/components/CommunityChipList.component";
 import ICommunity = Biliomi.ICommunity;
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "communities",
@@ -28,6 +29,10 @@ export class CommunitiesComponent implements AfterViewInit {
       {objectPath: "$.Owner.DisplayName", headerName: "Owner"},
       {objectPath: "$.TwitchId", headerName: "Twitch Id"},
     ]
+  };
+
+  public tableFilterMapping: TableFilterNameMapping = {
+    "owner": "Owner.Username",
   };
 
   constructor(communitiesClient: CommunitiesClient, communitesSettingsClient: CommunitesSettingsClient) {

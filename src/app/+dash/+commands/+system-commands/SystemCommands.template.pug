@@ -1,6 +1,9 @@
 p Default commands are pre-defined commands for interaction with Biliomi.
 
 data-table(tableId="system-commands", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
+  ng-template(tableButtons)
+    table-filter-query([filterMapping]="tableFilterMapping")
+
   ng-container(matColumnDef="Command")
     mat-header-cell(*matHeaderCellDef="", sortHeader="Command", [sortByDefault]="'ASC'") Command
     mat-cell(*matCellDef="let command")
@@ -13,7 +16,7 @@ data-table(tableId="system-commands", [tableDataSource]="dataSource", [exportCon
       small.text-muted(*ngIf="command.ModeratorCanAlwaysActivate") #[br]Moderators can use this command as well.
 
   ng-container(matColumnDef="User Group")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="UserGroup.Name") User Group
+    mat-header-cell(*matHeaderCellDef="", sortHeader="UserGroup.Name") Group
     mat-cell(*matCellDef="let command")
       span(*ngIf="!command.SystemCommand") {{command.UserGroup.Name}}
 

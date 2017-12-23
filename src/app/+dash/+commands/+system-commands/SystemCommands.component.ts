@@ -10,6 +10,7 @@ import {
 } from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import ICommand = Biliomi.ICommand;
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   // Since "default" is a pug keyword I chose to name the selector differently
@@ -38,6 +39,11 @@ export class SystemCommandsComponent implements OnInit {
       {objectPath: "$.Cooldown", headerName: "Cooldown (formatted)", formatter: XLSX_FORMATTER_RELATIVE_TIME},
       {objectPath: "$.Aliasses[]", headerName: "Aliasses", formatter: XLSX_FORMATTER_LIST_JOIN},
     ]
+  };
+
+  public tableFilterMapping: TableFilterNameMapping = {
+    "System Command": "SystemCommand",
+    "Group": "Usergroup.Name"
   };
 
   constructor(commandsClient: CommandsClient, dialog: MatDialog) {

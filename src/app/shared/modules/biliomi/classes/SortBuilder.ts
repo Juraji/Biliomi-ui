@@ -6,12 +6,17 @@ export class SortBuilder {
 
   public add(property: string, descending?: boolean): SortBuilder {
     this.remove(property);
-    this.directives.push({Property: property, Descending: descending});
+
+    this.directives.push({
+      Property: property,
+      Descending: descending
+    });
+
     return this;
   }
 
   public remove(property: string): SortBuilder {
-    let index: number = this.directives.findIndex((d:IRestSortDirective) => d.Property == property);
+    let index: number = this.directives.findIndex((d: IRestSortDirective) => d.Property == property);
     if (index > -1) {
       this.directives.splice(index, 1);
     }
@@ -23,6 +28,9 @@ export class SortBuilder {
   }
 
   public toString() {
+    if (this.directives.length == 0) {
+      return null;
+    }
     return JSON.stringify(this.directives);
   }
 }

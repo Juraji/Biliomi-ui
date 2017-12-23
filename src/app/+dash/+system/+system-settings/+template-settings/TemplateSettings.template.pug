@@ -1,6 +1,9 @@
 p Templates are used by Biliomi all over the place, from raid-messages to tweets.
 
 data-table(tableId="templates", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
+  ng-template(tableButtons)
+    table-filter-query([filterMapping]="tableFilterMapping")
+
   ng-container(matColumnDef="TemplateKey")
     mat-header-cell(*matHeaderCellDef="") Key
     mat-cell(*matCellDef="let template")

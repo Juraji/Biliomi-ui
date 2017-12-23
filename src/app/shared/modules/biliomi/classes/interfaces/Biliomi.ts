@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.29.366 on 2017-12-22 00:12:41.
+// Generated using typescript-generator version 1.29.366 on 2017-12-22 17:59:50.
 
 export namespace Biliomi {
 
@@ -297,6 +297,14 @@ export namespace Biliomi {
     Message: string;
   }
 
+  export interface IRestFilterDirective {
+    Property: string;
+    Operator: IRestFilterOperator;
+    Value: any;
+    Negative: boolean;
+    OrPrevious: boolean;
+  }
+
   export interface IRestSortDirective {
     Property: string;
     Descending: boolean;
@@ -520,6 +528,13 @@ export namespace Biliomi {
     EXCESSIVE_CAPS = "EXCESSIVE_CAPS",
     REPEATED_CHARACTERS = "REPEATED_CHARACTERS",
     UNKNOWN = "UNKNOWN",
+  }
+
+  export enum IRestFilterOperator {
+    EQUALS = "EQUALS",
+    CONTAINS = "CONTAINS",
+    LESSER_THAN = "LESSER_THAN",
+    GREATER_THAN = "GREATER_THAN",
   }
 
   export enum ISubscriberPlanType {

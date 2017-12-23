@@ -12,6 +12,7 @@ import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/
 import {PointsSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/PointsSettings.client";
 import {ChannelInfoClient} from "../../../../shared/modules/biliomi/clients/settings/ChannelInfo.client";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 import IUser = Biliomi.IUser;
 
 @Component({
@@ -47,6 +48,13 @@ export class UserOverviewComponent implements OnInit {
       {objectPath: "$.SubscribeDate", headerName: "SubscribeDate", formatter: XLSX_FORMATTER_DATE},
       {objectPath: "$.BlacklistedSince", headerName: "BlacklistedSince", formatter: XLSX_FORMATTER_DATE},
     ]
+  };
+
+  public tableFilterMapping: TableFilterNameMapping = {
+    "group": "UserGroup.Name",
+    "recorded time": "RecordedTime",
+    "follows": "Follower",
+    "subscribed": "Subscriber",
   };
 
   constructor(usersClient: UsersClient,

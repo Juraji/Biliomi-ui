@@ -1,4 +1,7 @@
 data-table(tableId="users-overview", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
+  ng-template(tableButtons)
+    table-filter-query([filterMapping]="tableFilterMapping")
+
   ng-container(matColumnDef="Username")
     mat-header-cell(*matHeaderCellDef="", sortHeader="Username", [sortByDefault]="'ASC'") Username
     mat-cell(*matCellDef="let user", [ngClass]="getUsernameColorClass(user)")
@@ -15,7 +18,7 @@ data-table(tableId="users-overview", [tableDataSource]="dataSource", [exportConf
       | {{user.RecordedTime | time:false:true}}
 
   ng-container(matColumnDef="Points")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="Points") {{undefined | points | async}}
+    mat-header-cell(*matHeaderCellDef="", sortHeader="Points") Points
     mat-cell(*matCellDef="let user")
       | {{user.Points | points | async}}
 

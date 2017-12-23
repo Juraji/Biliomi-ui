@@ -5,6 +5,9 @@ p Biliomi uses user groups in order to apply execution rights on commands.#[br]
 
 data-table(tableId="user-groups", [tableDataSource]="groupsDataSource", [exportConfig]="exportConfig")
   ng-template(tableButtons)
+    table-filter-query([filterMapping]="tableFilterMapping")
+
+  ng-template(tableButtons)
     button(mat-icon-button, (click)="editGroup()", title="Add new group")
       mat-icon add
 

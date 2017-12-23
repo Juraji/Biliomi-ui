@@ -1,6 +1,9 @@
 p Biliomi keeps a record of moderation actions performed by the chat moderator.
 
 data-table(tableId="chatmoderator-records", [tableDataSource]="recordsDataSource", [exportConfig]="exportConfig")
+  ng-template(tableButtons)
+    table-filter-query([filterMapping]="tableFilterMapping")
+
   ng-container(matColumnDef="User")
     mat-header-cell(*matHeaderCellDef="", sortHeader="User.Username") Username
     mat-cell(*matCellDef="let record")

@@ -4,6 +4,7 @@ data-table(tableId="custom-commands", [tableDataSource]="dataSource", [exportCon
   ng-template(tableButtons)
     button(mat-icon-button, (click)="editCommand()", title="Add new command")
       mat-icon add
+    table-filter-query([filterMapping]="tableFilterMapping")
 
   ng-container(matColumnDef="Command")
     mat-header-cell(*matHeaderCellDef="", sortHeader="Command", [sortByDefault]="'ASC'") Command
@@ -12,7 +13,7 @@ data-table(tableId="custom-commands", [tableDataSource]="dataSource", [exportCon
       small.command-message.text-muted {{command.Message}}
 
   ng-container(matColumnDef="User Group")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="UserGroup.Name") User Group
+    mat-header-cell(*matHeaderCellDef="", sortHeader="UserGroup.Name") Group
     mat-cell(*matCellDef="let command")
       | {{command.UserGroup.Name}}
 

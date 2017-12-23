@@ -5,6 +5,9 @@ p Manage Twitch communities known by Biliomi
     p Known Communities
 
     data-table(tableId="known-communites", [tableDataSource]="communitiesDataSource", [exportConfig]="exportConfig")
+      ng-template(tableButtons)
+        table-filter-query([filterMapping]="tableFilterMapping")
+
       ng-container(matColumnDef="Name")
         mat-header-cell(*matHeaderCellDef="", sortHeader="Name", [sortByDefault]="'ASC'") Name
         mat-cell(*matCellDef="let community")

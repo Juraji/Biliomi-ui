@@ -7,6 +7,7 @@ import {XLSX_FORMATTER_BOOLEAN_YES_NO} from "../../../../shared/modules/xlsx-exp
 import {MatDialog} from "@angular/material";
 import {EditUserGroupModalComponent} from "./declarations/EditUserGroupModal.component";
 import IUserGroup = Biliomi.IUserGroup;
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "user-groups",
@@ -25,6 +26,10 @@ export class UserGroupsComponent {
       {objectPath: "$.DefaultGroup", headerName: "Is default group", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
       {objectPath: "$.LevelUpHours", headerName: "Hours for auto group assign"},
     ]
+  };
+
+  public tableFilterMapping: TableFilterNameMapping = {
+    "Level Up Hours": "LevelUpHours"
   };
 
   constructor(userGroupsClient: UserGroupsClient, dialog: MatDialog) {

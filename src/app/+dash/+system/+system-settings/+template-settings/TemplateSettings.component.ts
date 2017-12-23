@@ -9,6 +9,7 @@ import {ActivatedRoute, ParamMap} from "@angular/router";
 import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
 import {XLSX_FORMATTER_DICTIONARY_KEY_VALUE_PAIR} from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import ITemplate = Biliomi.ITemplate;
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "template-settings-component",
@@ -33,6 +34,10 @@ export class TemplateSettingsComponent implements OnInit {
         formatter: XLSX_FORMATTER_DICTIONARY_KEY_VALUE_PAIR
       },
     ]
+  };
+
+  public tableFilterMapping: TableFilterNameMapping = {
+    "Key": "TemplateKey"
   };
 
   constructor(templatesClient: TemplatesClient, dialog: MatDialog, activatedRoute: ActivatedRoute) {

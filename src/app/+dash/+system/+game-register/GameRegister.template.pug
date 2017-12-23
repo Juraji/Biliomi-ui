@@ -4,6 +4,7 @@ data-table(tableId="game-register", [tableDataSource]="gamesDataSource", [export
   ng-template(tableButtons)
     button(mat-icon-button, (click)="editGame()", title="Add new game")
       mat-icon add
+    table-filter-query([filterMapping]="tableFilterMapping")
 
   ng-container(matColumnDef="Title")
     mat-header-cell(*matHeaderCellDef="", sortHeader="Name", [sortByDefault]="'ASC'") Title

@@ -5,6 +5,9 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
     mat-tab-group
       mat-tab(label="Incoming Records")
         data-table(tableId="incoming-hosts", [tableDataSource]="incomingRecordsDataSource")
+          ng-template(tableButtons)
+            table-filter-query([filterMapping]="tableFilterMapping")
+
           ng-container(matColumnDef="User")
             mat-header-cell(*matHeaderCellDef="", sortHeader="User.Username") Username
             mat-cell(*matCellDef="let record")
@@ -26,6 +29,9 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
 
       mat-tab(label="Outgoing Records")
         data-table(tableId="outgoing-hosts", [tableDataSource]="outgoingRecordsDataSource")
+          ng-template(tableButtons)
+            table-filter-query([filterMapping]="tableFilterMapping")
+
           ng-container(matColumnDef="User")
             mat-header-cell(*matHeaderCellDef="", sortHeader="User.Username") Username
             mat-cell(*matCellDef="let record")
