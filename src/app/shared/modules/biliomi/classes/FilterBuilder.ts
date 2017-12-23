@@ -19,15 +19,17 @@ export class FilterBuilder {
     return this;
   }
 
-  public addDirective(directive: IRestFilterDirective): FilterBuilder {
-    this.remove(directive.Property);
+  public addDirective(directive: IRestFilterDirective, keepExisting?: boolean): FilterBuilder {
+    if (!keepExisting) {
+      this.remove(directive.Property);
+    }
     this.directives.push(directive);
     return this;
   }
 
   public remove(property: string): FilterBuilder {
-    let index: number = this.directives.findIndex((d: IRestFilterDirective) => d.Property == property);
-    if (index > -1) {
+    let index: number;
+    while ((index = this.directives.findIndex((d: IRestFilterDirective) => d.Property == property)) > -1) {
       this.directives.splice(index, 1);
     }
     return this;

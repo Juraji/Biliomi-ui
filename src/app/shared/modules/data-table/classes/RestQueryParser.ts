@@ -2,6 +2,7 @@ import {Biliomi} from "../../biliomi/classes/interfaces/Biliomi";
 import {StringUtils} from "../../tools/StringUtils";
 import IRestFilterDirective = Biliomi.IRestFilterDirective;
 import IRestFilterOperator = Biliomi.IRestFilterOperator;
+import * as moment from "moment";
 
 const PREDICATE_DELIMITER_PATTERN: RegExp = /\s+(and|or)\s+/i;
 const PREDICATE_AND_OR_PATTERN: RegExp = /^and|or$/i;
@@ -93,7 +94,15 @@ export class RestQueryParser {
     value = value.replace(QUOTE_STRING_PATTERN, "$1");
 
     // Numbers
-    let floatValue = parseFloat(value);
-    return (isNaN(floatValue) ? value : floatValue);
+    if (!value.match(/[^\d]/)) {
+      return parseFloat(value);
+    }
+
+    let m = moment(value);
+    if (m.isValid()) {
+      return m.toISOString();
+    }
+
+    return value;
   }
 }

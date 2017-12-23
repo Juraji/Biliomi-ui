@@ -3,4 +3,4 @@ form(#filterQueryForm="", (submit)="applyQuery($event)")
     input(matInput, name="filter-query", [formControl]="filterQueryControl", placeholder="Query",
     (focus)="fieldFocus = true", (blur)="fieldFocus = false", autocomplete="off")
     mat-icon(matSuffix, (click)="showHelp()", title="Help") help
-    mat-icon(matSuffix, (click)="clearInput()", title="Clear input") backspace
+    mat-icon(*ngIf="filterQueryControl.value != ''", matSuffix, (click)="clearInput()", title="Clear input") backspace

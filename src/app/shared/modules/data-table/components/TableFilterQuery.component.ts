@@ -59,7 +59,7 @@ export class TableFilterQueryComponent<T> implements OnInit {
       let parser = new RestQueryParser(query);
       if (parser.isValid) {
         ds.filterBuilder.clear();
-        parser.restFilters.forEach((d: IRestFilterDirective) => ds.filterBuilder.addDirective(d));
+        parser.restFilters.forEach((d: IRestFilterDirective) => ds.filterBuilder.addDirective(d, true));
         ds.update();
       } else {
         this.filterQueryControl.setErrors({invalid: true});
