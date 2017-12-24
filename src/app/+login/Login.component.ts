@@ -30,9 +30,6 @@ export class LoginComponent implements OnInit {
   public ngOnInit() {
     if (this._auth.isTokenViable) {
       this._router.navigateByUrl(DASH_ROUTE);
-    } else {
-      // clear any expired tokens
-      this._auth.clearTokens();
     }
   }
 
