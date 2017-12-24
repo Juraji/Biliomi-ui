@@ -1,5 +1,5 @@
 mat-sidenav-container
-  mat-sidenav(#sideNav="")
+  mat-sidenav(#sideNav="", mode="side")
     nav
       h3 Logs Archive
       ul
@@ -8,8 +8,8 @@ mat-sidenav-container
 
   mat-sidenav-container
     .mat-button-row
-      button.pull-right(mat-mini-fab, color="primary", (click)="sideNav.open()", title="Show archive drawer")
-        mat-icon insert_drive_file
+      button.pull-right(mat-mini-fab, color="primary", (click)="sideNav.toggle()", title="Show archive drawer")
+        mat-icon menu
       button.pull-right(mat-mini-fab, color="primary", (click)="refreshCurrentLog()", title="Refresh file")
         mat-icon refresh
 

@@ -5,8 +5,8 @@ import {Biliomi} from "../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {AuthService} from "../shared/services/Auth.service";
 import {Router} from "@angular/router";
 import {DASH_ROUTE} from "../Main.module";
-import IRestAuthorizationRequest = Biliomi.IRestAuthorizationRequest;
-import IRestAuthorizationResponse = Biliomi.IRestAuthorizationResponse;
+import IAuthRequest = Biliomi.IRestAuthorizationRequest;
+import IAuthResponse = Biliomi.IRestAuthorizationResponse;
 
 @Component({
   selector: "login-page",
@@ -28,32 +28,35 @@ export class LoginComponent implements OnInit {
   }
 
   public ngOnInit() {
-    if (this._auth.isTokenValid) {
+    if (this._auth.isTokenViable) {
       this._router.navigateByUrl(DASH_ROUTE);
+    } else {
+      // clear any expired tokens
+      this._auth.clearTokens();
     }
   }
 
-  private get isFormOk(): boolean {
+  public get isFormOk(): boolean {
     return this.usernameControl.valid && this.passwordControl.valid;
   }
 
-  private async submitCredentials() {
+  public async submitCredentials() {
     if (this.isFormOk) {
-      let authRequest: IRestAuthorizationRequest = {
+      let authRequest: IAuthRequest = {
         Username: this.usernameControl.value,
         Password: this.passwordControl.value,
       };
 
-      let response: IRestAuthorizationResponse = await this._api
-        .post<IRestAuthorizationRequest, IRestAuthorizationResponse>("/auth/login", authRequest);
-      if (response.Token == null) {
+      let response: IAuthResponse = await this._api.postUnauthorized<IAuthRequest, IAuthResponse>("/auth/login", authRequest);
+      if (response.AuthorizationToken == null) {
         if (response.Message.indexOf("username") > 0) {
           this.usernameControl.setErrors({invalidEntry: true});
         } else {
           this.passwordControl.setErrors({invalidEntry: true});
         }
       } else {
-        this._auth.apiToken = response.Token;
+        this._auth.authorizationToken = response.AuthorizationToken;
+        this._auth.refreshToken = response.RefreshToken;
         location.reload(true);
       }
     }

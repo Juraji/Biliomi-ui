@@ -1,29 +1,25 @@
 ///<reference path="../../../classes/interfaces/EventSource.d.ts"/>
 
 import {EventEmitter, Injectable} from "@angular/core";
-import {ConfigService} from "../../../services/Config.service";
-import {AuthService} from "../../../services/Auth.service";
 import {Biliomi} from "../classes/interfaces/Biliomi";
-import {IConfig} from "../../../classes/interfaces/IConfig.interface";
 import {UriUtils} from "../../tools/UriUtils";
 import {StringUtils} from "../../tools/StringUtils";
 import {Consumer, Runnable} from "../../tools/FunctionalInterface";
 import {Subscription} from "rxjs/Subscription";
 import {BILIOMI_API} from "../classes/constants/BiliomiApiVariables";
+import {BiliomiApiService} from "./BiliomiApi.service";
 import IEventSource = sse.IEventSource;
 import IEvent = Biliomi.IEvent;
 import IOnMessageEvent = sse.IOnMessageEvent;
 
 @Injectable()
 export class BiliomiEventsService {
-  private _configService: ConfigService;
-  private _auth: AuthService;
+  private _api: BiliomiApiService;
   private _eventSource: IEventSource;
   private _outboundEvents: EventEmitter<IEvent>;
 
-  constructor(configService: ConfigService, auth: AuthService) {
-    this._configService = configService;
-    this._auth = auth;
+  constructor(api: BiliomiApiService) {
+    this._api = api;
     this._outboundEvents = new EventEmitter<IEvent>();
   }
 
@@ -36,23 +32,20 @@ export class BiliomiEventsService {
   }
 
   public async connect() {
-    if (this.isConnected || this.isConnecting || !this._auth.isTokenValid) {
-      // Do nothing when already connected or auth is invalid
+    if (this.isConnected || this.isConnecting) {
+      // Do nothing when already connected
       return;
     }
 
-    let config: IConfig = await this._configService.getConfig();
-    let apiBase: string = config.apiBase;
-    let qm: Map<string, any> = new Map<string, any>();
-    qm.set("token", this._auth.apiToken);
 
-    let eventsUri: string = UriUtils.appendQueryString(apiBase + BILIOMI_API.API_URI_PREFIX + BILIOMI_API.EVENTS_ENDPOINT, qm);
-    this._eventSource = new EventSource(eventsUri);
+    this._eventSource = new EventSource(await this.getEventsUri());
     this._eventSource.addEventListener("message", (e: IOnMessageEvent) => {
       if (StringUtils.isNotEmpty(e.data)) {
         this._outboundEvents.emit(JSON.parse(e.data));
       }
     });
+    this._eventSource.addEventListener("error", async () =>
+      this._eventSource.url = await this.getEventsUri());
   }
 
   public disconnect() {
@@ -68,5 +61,14 @@ export class BiliomiEventsService {
     } else {
       return this._outboundEvents.subscribe(onEvent, onError, onComplete);
     }
+  }
+
+  private async getEventsUri(): Promise<string> {
+    let token: string = await this._api.getAuthorizationToken();
+    let url: string = await this._api.getApiUriFor(BILIOMI_API.EVENTS_ENDPOINT);
+    let qm: Map<string, any> = new Map<string, any>()
+      .set("token", token);
+
+    return UriUtils.appendQueryString(url, qm);
   }
 }

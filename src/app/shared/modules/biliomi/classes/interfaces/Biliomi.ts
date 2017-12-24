@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.29.366 on 2017-12-22 17:59:50.
+// Generated using typescript-generator version 1.29.366 on 2017-12-24 02:27:53.
 
 export namespace Biliomi {
 
@@ -293,7 +293,8 @@ export namespace Biliomi {
   }
 
   export interface IRestAuthorizationResponse {
-    Token: string;
+    AuthorizationToken: string;
+    RefreshToken: string;
     Message: string;
   }
 
@@ -303,6 +304,10 @@ export namespace Biliomi {
     Value: any;
     Negative: boolean;
     OrPrevious: boolean;
+  }
+
+  export interface IRestRefreshTokenRequest {
+    RefreshToken: string;
   }
 
   export interface IRestSortDirective {
@@ -542,6 +547,11 @@ export namespace Biliomi {
     TIER1 = "TIER1",
     TIER2 = "TIER2",
     TIER3 = "TIER3",
+  }
+
+  export enum ITokenType {
+    AUTH = "AUTH",
+    REFRESH = "REFRESH",
   }
 
   export enum ITokenUserType {

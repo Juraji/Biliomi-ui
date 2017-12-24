@@ -6,6 +6,8 @@ import {IConfig} from "../../../classes/interfaces/IConfig.interface";
 import {BILIOMI_API} from "../classes/constants/BiliomiApiVariables";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import ICommandRequest = Biliomi.ICommandRequest;
+import ITokenRequest = Biliomi.IRestRefreshTokenRequest;
+import ITokenResponse = Biliomi.IRestAuthorizationResponse;
 
 @Injectable()
 export class BiliomiApiService {
@@ -35,7 +37,10 @@ export class BiliomiApiService {
     try {
       return await this._httpClient
         .get<T>(uri, {
-          headers: this.buildHeaders(),
+          headers: new HttpHeaders({
+            "Content-Type": "application/json",
+            "Authorization": await this.getAuthorizationToken()
+          }),
           params: BiliomiApiService.mapToHttpParams(params)
         })
         .toPromise();
@@ -60,7 +65,35 @@ export class BiliomiApiService {
     try {
       return await this._httpClient
         .post<R>(uri, BiliomiApiService.cleanBody(body), {
-          headers: this.buildHeaders(),
+          headers: new HttpHeaders({
+            "Content-Type": "application/json",
+            "Authorization": await this.getAuthorizationToken()
+          }),
+          params: BiliomiApiService.mapToHttpParams(params)
+        })
+        .toPromise();
+    } catch (e) {
+      this._postRequestErrorInterceptor.emit(e);
+    }
+
+    return null;
+  }
+
+  /**
+   * Perform a POST request on Biliomi's Api in order to create new entities or perform actions.
+   * @param {string} resourceUri The resource uri, without api prefix. E.g. "/auth/login".
+   * @param {T} body The object representing the body of the request.
+   * @param {Map<string, Object>} params Any query parameters to send with the request.
+   * @return {Promise<R>} A promise to the result.
+   * The promise could resolve with NULL of there was no content or an error occurred.
+   */
+  public async postUnauthorized<T, R>(resourceUri: string, body: T, params?: Map<string, any>): Promise<R> {
+    let uri: string = await this.getApiUriFor(resourceUri);
+
+    try {
+      return await this._httpClient
+        .post<R>(uri, BiliomiApiService.cleanBody(body), {
+          headers: new HttpHeaders({"Content-Type": "application/json"}),
           params: BiliomiApiService.mapToHttpParams(params)
         })
         .toPromise();
@@ -85,7 +118,10 @@ export class BiliomiApiService {
     try {
       return await this._httpClient
         .put<T>(uri, BiliomiApiService.cleanBody(body), {
-          headers: this.buildHeaders(),
+          headers: new HttpHeaders({
+            "Content-Type": "application/json",
+            "Authorization": await this.getAuthorizationToken()
+          }),
           params: BiliomiApiService.mapToHttpParams(params)
         })
         .toPromise();
@@ -110,14 +146,16 @@ export class BiliomiApiService {
     try {
       response = await this._httpClient
         .delete(uri, {
-          headers: this.buildHeaders(),
+          headers: new HttpHeaders({
+            "Content-Type": "application/json",
+            "Authorization": await this.getAuthorizationToken()
+          }),
           params: BiliomiApiService.mapToHttpParams(params),
           observe: "response",
           responseType: "text"
         })
         .toPromise();
     } catch (e) {
-      console.log(e);
       this._postRequestErrorInterceptor.emit(e);
     }
 
@@ -132,14 +170,17 @@ export class BiliomiApiService {
    * The promise resulting in true does NOT guarantee a successful command execution!
    */
   public async postCommand(command: string, ...args: any[]): Promise<boolean> {
-    let req: ICommandRequest = {Command: command + " " + args.join(" ")};
+    let req: ICommandRequest = {Command: `${command} ${args.join(" ")}`};
     let uri: string = await this.getApiUriFor(BILIOMI_API.COMMAND_ENDPOINT);
     let response: HttpResponse<string>;
 
     try {
       response = await this._httpClient
         .post(uri, req, {
-          headers: this.buildHeaders(),
+          headers: new HttpHeaders({
+            "Content-Type": "application/json",
+            "Authorization": await this.getAuthorizationToken()
+          }),
           observe: "response",
           responseType: "text"
         })
@@ -159,14 +200,17 @@ export class BiliomiApiService {
    * The promise resulting in true does NOT guarantee a successful command execution!
    */
   public async postCliCommand(command: string, ...args: any[]): Promise<boolean> {
-    let req: ICommandRequest = {Command: command + " " + args.join(" ")};
+    let req: ICommandRequest = {Command: `${command} ${args.join(" ")}`};
     let uri: string = await this.getApiUriFor(BILIOMI_API.CLI_COMMAND_ENDPOINT);
     let response: HttpResponse<string>;
 
     try {
       response = await this._httpClient
         .post(uri, req, {
-          headers: this.buildHeaders(),
+          headers: new HttpHeaders({
+            "Content-Type": "application/json",
+            "Authorization": await this.getAuthorizationToken()
+          }),
           observe: "response",
           responseType: "text"
         })
@@ -187,15 +231,38 @@ export class BiliomiApiService {
     return this._postRequestErrorInterceptor;
   }
 
-  private async getApiUriFor(resourceUri: string): Promise<string> {
-    let settings: IConfig = await this._configService.getConfig();
-    return settings.apiBase + BILIOMI_API.API_URI_PREFIX + resourceUri;
+  /**
+   * Get a valid authorization token.
+   * Note: Logs out when authorization token can not be refreshed!!!
+   * @returns {Promise<string>}
+   */
+  public async getAuthorizationToken(): Promise<string> {
+    if (this._auth.isTokenExpired) {
+      let refreshRequest: ITokenRequest = {RefreshToken: this._auth.refreshToken};
+      let response: ITokenResponse = await this.postUnauthorized<ITokenRequest, ITokenResponse>("/auth/refresh", refreshRequest);
+
+      if (response != null && response.Message === "Login OK") {
+        this._auth.authorizationToken = response.AuthorizationToken;
+        this._auth.refreshToken = response.RefreshToken;
+
+        return response.AuthorizationToken;
+      } else {
+        this._auth.logout();
+        throw new Error("Unable to refresh authorization");
+      }
+    } else {
+      return this._auth.authorizationToken;
+    }
   }
 
-  private buildHeaders(): HttpHeaders {
-    return new HttpHeaders()
-      .set("Content-Type", "application/json")
-      .set("Authorization", this._auth.apiToken || "");
+  /**
+   * Get the api base uri for Biliomi
+   * @param {string} resourceUri
+   * @returns {Promise<string>}
+   */
+  public async getApiUriFor(resourceUri: string): Promise<string> {
+    let settings: IConfig = await this._configService.getConfig();
+    return settings.apiBase + BILIOMI_API.API_URI_PREFIX + resourceUri;
   }
 
   private static cleanBody(body: any): any {

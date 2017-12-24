@@ -67,6 +67,7 @@ export class DashComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy() {
     this._subscriptionBucket.clear();
+    this._biliomiEventsService.disconnect();
     this._redirector.stop();
   }
 

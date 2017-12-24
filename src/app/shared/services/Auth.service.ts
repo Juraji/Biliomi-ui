@@ -1,22 +1,25 @@
 import {Injectable} from "@angular/core";
 import {Biliomi} from "../modules/biliomi/classes/interfaces/Biliomi";
 import {IJwtBody} from "../modules/biliomi/classes/interfaces/JWT";
+import {Storage} from "../classes/Storage";
 import moment = require("moment");
 import ITokenUserType = Biliomi.ITokenUserType;
-import {Storage} from "../classes/Storage";
 
-const STORAGE_KEY_API_TOKEN: string = "apiToken";
+const STORAGE_KEY_AUTH_TOKEN: string = "api.authorizationToken";
+const STORAGE_KEY_REFRESH_TOKEN: string = "api.refreshToken";
 
 @Injectable()
 export class AuthService {
-  private _token: string;
+  private _authorizationToken: string;
   private _username: string;
   private _channelName: string;
-  private _tokenExpiryTime: moment.Moment;
+  private _authTokenExpiryTime: moment.Moment;
+  private _refreshTokenExpiryTime: moment.Moment;
   private _userType: ITokenUserType;
 
   constructor() {
-    this.apiToken = Storage.get(STORAGE_KEY_API_TOKEN);
+    this.authorizationToken = Storage.get(STORAGE_KEY_AUTH_TOKEN);
+    this.refreshToken = this.refreshToken;
   }
 
   public get username(): string {
@@ -27,32 +30,50 @@ export class AuthService {
     return this._channelName;
   }
 
-  public get tokenExpiryTime(): moment.Moment {
-    return this._tokenExpiryTime;
-  }
-
   public get userType(): Biliomi.ITokenUserType {
     return this._userType;
   }
 
-  public get isTokenValid(): boolean {
-    return this._tokenExpiryTime != null && moment().isBefore(this._tokenExpiryTime);
+  public get authorizationToken(): string {
+    return this._authorizationToken;
   }
 
-  public get apiToken(): string {
-    return this._token;
-  }
-
-  public set apiToken(token: string) {
+  public set authorizationToken(token: string) {
     if (token != null) {
       let tokenBody: IJwtBody = AuthService.decodeJwt(token);
       if (tokenBody != null) {
-        Storage.store(STORAGE_KEY_API_TOKEN, token);
-        this._token = token;
-        this._username = tokenBody.sub;
+        Storage.store(STORAGE_KEY_AUTH_TOKEN, token);
+        this._authorizationToken = token;
+        this._username = tokenBody.usr;
         this._channelName = tokenBody.chn;
-        this._tokenExpiryTime = moment.unix(tokenBody.exp);
+        this._authTokenExpiryTime = moment.unix(tokenBody.exp);
         this._userType = tokenBody.utp;
+      }
+    }
+  }
+
+  public get isTokenViable(): boolean {
+    return this.authorizationToken != null
+      && this.refreshToken != null
+      && moment().isBefore(this._refreshTokenExpiryTime);
+  }
+
+  public get isTokenExpired(): boolean {
+    return this._authTokenExpiryTime == null || moment().isAfter(this._authTokenExpiryTime);
+  }
+
+  // noinspection JSMethodCanBeStatic
+  public get refreshToken(): string {
+    return Storage.get(STORAGE_KEY_REFRESH_TOKEN);
+  }
+
+  // noinspection JSMethodCanBeStatic
+  public set refreshToken(token: string) {
+    if (token != null) {
+      let tokenBody: IJwtBody = AuthService.decodeJwt(token);
+      if (tokenBody != null) {
+        this._refreshTokenExpiryTime = moment.unix(tokenBody.exp);
+        Storage.store(STORAGE_KEY_REFRESH_TOKEN, token);
       }
     }
   }
@@ -60,8 +81,10 @@ export class AuthService {
   public logout() {
     this._username = null;
     this._channelName = null;
-    this._tokenExpiryTime = null;
-    Storage.unset(STORAGE_KEY_API_TOKEN);
+    this._authTokenExpiryTime = null;
+    this._refreshTokenExpiryTime = null;
+    Storage.unset(STORAGE_KEY_AUTH_TOKEN);
+    Storage.unset(STORAGE_KEY_REFRESH_TOKEN);
     location.reload(true);
   }
 

@@ -64,7 +64,7 @@ export class TableFilterQueryComponent<T> implements OnInit {
 
   public clearInput(){
     this.filterQueryControl.setValue("");
-    this._table.tableDataSource.filterBuilder.clear();
+    this._table.tableDataSource.clientParams.delete("filter");
     this._table.tableDataSource.update();
   }
 

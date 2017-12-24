@@ -29,6 +29,7 @@ export class UserGroupsComponent {
   };
 
   public tableFilterMapping: TableFilterNameMapping = {
+    "default": "DefaultGroup",
     "Level Up Hours": "LevelUpHours"
   };
 
