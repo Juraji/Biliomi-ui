@@ -3,12 +3,10 @@ import {ChannelInfoClient} from "../../shared/modules/biliomi/clients/settings/C
 
 @Component({
   selector: "nav-channel-info-component",
-  templateUrl: require("./NavChannelInfo.template.pug"),
-  styleUrls: [require("./NavChannelInfo.less").toString()]
+  templateUrl: require("./NavChannelInfo.template.pug")
 })
 export class NavChannelInfoComponent implements OnInit {
   private channelInfoClient: ChannelInfoClient;
-  private infoCardVisible: boolean = false;
 
   constructor(channelInfoClient: ChannelInfoClient) {
     this.channelInfoClient = channelInfoClient;
@@ -16,9 +14,5 @@ export class NavChannelInfoComponent implements OnInit {
 
   public ngOnInit() {
     this.channelInfoClient.load();
-  }
-
-  private toggleInfoCard() {
-    this.infoCardVisible = !this.infoCardVisible;
   }
 }

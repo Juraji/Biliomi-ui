@@ -1,35 +1,12 @@
-a.mat-button(mat-button, (click)="toggleFollowerStatsCard()")
-  .follower-stat(title="Viewers in chat")
+a.mat-button(mat-button, (click)="viewFollowerStats()")
+  span(title="Viewers in chat")
     mat-icon.text-ok chat
-    | &nbsp;{{channelInfoClient.Viewers.length}}
-  .follower-stat(title="Followers")
-    span.spacer
+    .badge {{channelInfoClient.Viewers.length}}
+  span.spacer
+  span(title="Followers")
     mat-icon.text-not-ok favorite
-    | &nbsp;{{channelInfoClient.FollowerCount}}
-  .follower-stat(*ngIf="channelInfoClient.Affiliate", title="Subscribers")
-    span.spacer
+    .badge {{channelInfoClient.FollowerCount}}
+  span.spacer
+  span(*ngIf="channelInfoClient.Affiliate", title="Subscribers")
     mat-icon.text-ok attach_money
-    | &nbsp;{{channelInfoClient.SubscriberCount}}
-
-mat-card.info-card.mat-elevation-z6(#followerStatsCard="", *ngIf="followerStatsCardVisible")
-  mat-card-header
-    mat-icon(matCardAvatar) person_pin
-    mat-card-title Follower Stats
-
-  mat-card-content
-    ul.list-unstyled
-      li #[span.text-muted Viewers in chat:] {{channelInfoClient.Viewers.length}}
-      li #[span.text-muted Followers:] {{channelInfoClient.FollowerCount}}
-      li(*ngIf="channelInfoClient.Affiliate") #[span.text-muted Subscribers:] {{channelInfoClient.SubscriberCount}}
-
-    .follower-stat(*ngIf="latestFollower != undefined")
-      hr
-      p.
-        Latest Follower: {{latestFollower.DisplayName}}#[br]
-        #[span.text-muted {{latestFollower.FollowDate | date}}]
-
-    .follower-stat(*ngIf="channelInfoClient.Affiliate && latestSubscriber != undefined")
-      hr
-      p.
-        Latest Subscriber: {{latestSubscriber.DisplayName}}#[br]
-        #[span.text-muted {{latestSubscriber.FollowDate | date}}]
+    .badge {{channelInfoClient.SubscriberCount}}

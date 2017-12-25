@@ -1,0 +1,25 @@
+h2(matDialogTitle)
+  mat-icon person_pin
+  | &nbsp;Follower Stats
+
+mat-dialog-content
+  ul.list-unstyled
+    li #[span.text-muted Viewers in chat:] {{channelInfoClient.Viewers.length}}
+    li #[span.text-muted Followers:] {{channelInfoClient.FollowerCount}}
+    li(*ngIf="channelInfoClient.Affiliate") #[span.text-muted Subscribers:] {{channelInfoClient.SubscriberCount}}
+
+  .follower-stat(*ngIf="latestFollower != undefined")
+    hr
+    p.
+      Latest Follower: {{latestFollower.DisplayName}}#[br]
+      #[span.text-muted {{latestFollower.FollowDate | date}}]
+
+  .follower-stat(*ngIf="channelInfoClient.Affiliate && latestSubscriber != undefined")
+    hr
+    p.
+      Latest Subscriber: {{latestSubscriber.DisplayName}}#[br]
+      #[span.text-muted {{latestSubscriber.FollowDate | date}}]
+
+mat-dialog-actions
+  button(mat-raised-button, color="primary", (click)="close()")
+    mat-icon done

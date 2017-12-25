@@ -19,7 +19,7 @@ export class PowerManagementDialogComponent {
     this._dialogRef = dialogRef;
   }
 
-  private restartBiliomi() {
+  public restartBiliomi() {
     this._dialog.open(ConfirmDialogComponent, {
       data: "Are you sure you want to restart Biliomi?"
     })
@@ -31,7 +31,7 @@ export class PowerManagementDialogComponent {
     });
   }
 
-  private shutdownBiliomi() {
+  public shutdownBiliomi() {
     this._dialog.open(ConfirmDialogComponent, {
       data: "Are you sure you want to shutdown Biliomi?"
     })
@@ -41,5 +41,9 @@ export class PowerManagementDialogComponent {
       }
       this._dialogRef.close();
     });
+  }
+
+  public close() {
+    this._dialogRef.close();
   }
 }

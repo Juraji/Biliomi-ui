@@ -1,4 +1,4 @@
-mat-toolbar
+mat-toolbar.mat-elevation-z4
   ul.crumb-list
     li(*ngFor="let crumb of currentBreadCrumbs")
       a([routerLink]="[crumb.url, crumb.params]", [queryParams]="crumb.queryParams") {{crumb.displayName}}

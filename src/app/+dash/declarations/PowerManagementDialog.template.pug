@@ -1,6 +1,12 @@
-p Restart or shutdown Biliomi.
+h2(matDialogTitle) Manage
+
+mat-dialog-content
+  p Restart or shutdown Biliomi.
+
 mat-dialog-actions
-  button(mat-raised-button, (click)="restartBiliomi()")
+  button(mat-raised-button, (click)="restartBiliomi()", title="Restart Biliomi")
     mat-icon refresh
-  button(mat-raised-button, (click)="shutdownBiliomi()")
+  button(mat-raised-button, (click)="shutdownBiliomi()", title="Shut down Biliomi")
     mat-icon power_settings_new
+  button(mat-raised-button, color="warn", (click)="close()", title="Cancel")
+    mat-icon arrow_back

@@ -1,11 +1,13 @@
-nav-follower-stats-component {
-  > .mat-button .follower-stat {
-    display: inline-block;
-  }
+@import "../../../style/toolkit/swatches";
 
-  .info-card {
-    position: absolute;
-    z-index: 99999;
-    width: 320px;
+nav-follower-stats-component {
+  .badge {
+    display: inline-block;
+    margin-left: -0.6em;
+    background-color: #666666;
+    line-height: 1.2em;
+    width: 1.2em;
+    border-radius: 50%;
+    border: 3px solid @primary-color;
   }
 }
