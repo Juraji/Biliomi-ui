@@ -1,4 +1,3 @@
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const helpers = require("./dev-scripts/paths.helpers");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -92,7 +91,6 @@ module.exports = {
       chunks: Object.keys(webpackEntry),
       chunksSortMode: "dependency"
     }),
-    new CopyWebpackPlugin([{from: "resources", to: ""}]),
     new Webpack.optimize.CommonsChunkPlugin({name: ['Vendor']}),
     new Webpack.ContextReplacementPlugin(/(.+)?angular([\\\/])core(.+)?/, helpers.root("src"), {})
   ]

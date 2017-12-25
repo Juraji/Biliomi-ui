@@ -6,7 +6,7 @@
 node_modules/
 
 # UI config file (Copy the sample when needed)
-/resources/config.yml
+/resources-dev/*
 
 # Build output directory
 /dist/
