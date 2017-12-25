@@ -18,7 +18,7 @@ mat-dialog-content
     hr
     p.
       Latest Subscriber: {{latestSubscriber.DisplayName}}#[br]
-      #[span.text-muted {{latestSubscriber.FollowDate | date}}]
+      #[span.text-muted {{latestSubscriber.SubscribeDate | date}}]
 
 mat-dialog-actions
   button(mat-raised-button, color="primary", (click)="close()")

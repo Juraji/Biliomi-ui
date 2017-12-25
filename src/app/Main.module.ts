@@ -4,7 +4,6 @@ import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SharedModule} from "./shared/Shared.module";
 import {MainComponent} from "./declarations/Main.component";
-import {PageNotFoundComponent} from "./declarations/PageNotFound.component";
 import {AuthenticatedGuard} from "./shared/router-guards/Authenticated.guard";
 
 export const LOGIN_ROUTE: string = "/login";
@@ -22,20 +21,21 @@ const ROOT_ROUTES: Routes = [
     canActivate: [AuthenticatedGuard],
     data: {breadCrumbName: "Dash"},
   },
+  {
+    path: "error",
+    loadChildren: './+error-pages/ErrorPages.module#ErrorPagesModule',
+  },
 
   // Default route for unknown paths
   {
     path: "**",
-    component: PageNotFoundComponent,
+    redirectTo: "/error/page-not-found",
     data: {breadCrumbName: "Not Found"}
   }
 ];
 
 @NgModule({
-  declarations: [
-    MainComponent,
-    PageNotFoundComponent
-  ],
+  declarations: [MainComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROOT_ROUTES),
