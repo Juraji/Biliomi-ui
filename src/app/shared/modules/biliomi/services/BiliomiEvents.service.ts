@@ -6,11 +6,11 @@ import {UriUtils} from "../../tools/UriUtils";
 import {StringUtils} from "../../tools/StringUtils";
 import {Consumer, Runnable} from "../../tools/FunctionalInterface";
 import {Subscription} from "rxjs/Subscription";
-import {BILIOMI_API} from "../classes/constants/BiliomiApiVariables";
 import {BiliomiApiService} from "./BiliomiApi.service";
 import IEventSource = sse.IEventSource;
 import IEvent = Biliomi.IEvent;
 import IOnMessageEvent = sse.IOnMessageEvent;
+import IRestAuthorizationResponse = Biliomi.IRestAuthorizationResponse;
 
 @Injectable()
 export class BiliomiEventsService {
@@ -44,8 +44,14 @@ export class BiliomiEventsService {
         this._outboundEvents.emit(JSON.parse(e.data));
       }
     });
-    this._eventSource.addEventListener("error", async () =>
-      this._eventSource.url = await this.getEventsUri());
+
+    this._eventSource.addEventListener("error", async () => {
+      this.disconnect();
+      let t = setTimeout(() => {
+        this.connect();
+        clearTimeout(t);
+      }, 1e4);
+    });
   }
 
   public disconnect() {
@@ -64,10 +70,15 @@ export class BiliomiEventsService {
   }
 
   private async getEventsUri(): Promise<string> {
-    let token: string = await this._api.getAuthorizationToken();
-    let url: string = await this._api.getApiUriFor(BILIOMI_API.EVENTS_ENDPOINT);
+    let shortLivedTokenResponse: IRestAuthorizationResponse = await this._api.get<IRestAuthorizationResponse>("/events/token");
+
+    if (shortLivedTokenResponse == null) {
+      throw new Error("Unable to get short lived token for /events, any further retries will be halted");
+    }
+
+    let url: string = await this._api.getApiUriFor("/events");
     let qm: Map<string, any> = new Map<string, any>()
-      .set("token", token);
+      .set("token", shortLivedTokenResponse.AuthorizationToken);
 
     return UriUtils.appendQueryString(url, qm);
   }

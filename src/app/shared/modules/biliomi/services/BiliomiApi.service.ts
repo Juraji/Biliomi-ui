@@ -3,7 +3,6 @@ import {ConfigService} from "../../../services/Config.service";
 import {AuthService} from "../../../services/Auth.service";
 import {Biliomi} from "../classes/interfaces/Biliomi";
 import {IConfig} from "../../../classes/interfaces/IConfig.interface";
-import {BILIOMI_API} from "../classes/constants/BiliomiApiVariables";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import ICommandRequest = Biliomi.ICommandRequest;
 import ITokenRequest = Biliomi.IRestRefreshTokenRequest;
@@ -171,7 +170,7 @@ export class BiliomiApiService {
    */
   public async postCommand(command: string, ...args: any[]): Promise<boolean> {
     let req: ICommandRequest = {Command: `${command} ${args.join(" ")}`};
-    let uri: string = await this.getApiUriFor(BILIOMI_API.COMMAND_ENDPOINT);
+    let uri: string = await this.getApiUriFor("/events/commands/run");
     let response: HttpResponse<string>;
 
     try {
@@ -201,7 +200,7 @@ export class BiliomiApiService {
    */
   public async postCliCommand(command: string, ...args: any[]): Promise<boolean> {
     let req: ICommandRequest = {Command: `${command} ${args.join(" ")}`};
-    let uri: string = await this.getApiUriFor(BILIOMI_API.CLI_COMMAND_ENDPOINT);
+    let uri: string = await this.getApiUriFor("/events/commands/cli/run");
     let response: HttpResponse<string>;
 
     try {
@@ -262,7 +261,7 @@ export class BiliomiApiService {
    */
   public async getApiUriFor(resourceUri: string): Promise<string> {
     let settings: IConfig = await this._configService.getConfig();
-    return settings.apiBase + BILIOMI_API.API_URI_PREFIX + resourceUri;
+    return `${settings.apiBase}/api${resourceUri}`;
   }
 
   private static cleanBody(body: any): any {

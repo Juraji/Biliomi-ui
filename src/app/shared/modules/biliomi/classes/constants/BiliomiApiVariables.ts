@@ -1,10 +1,3 @@
-export enum BILIOMI_API {
-  API_URI_PREFIX = "/api",
-  EVENTS_ENDPOINT = "/events",
-  COMMAND_ENDPOINT = "/events/commands/run",
-  CLI_COMMAND_ENDPOINT = "/events/commands/cli/run",
-}
-
 export enum BILIOMI_CLI_COMMANDS {
   // Exit Biliomi
   EXIT = "exit",
