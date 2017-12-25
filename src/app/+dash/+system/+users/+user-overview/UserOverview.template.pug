@@ -1,6 +1,6 @@
 data-table(tableId="users-overview", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
   ng-template(tableButtons)
-    table-filter-query([filterMapping]="tableFilterMapping")
+    table-filter-query(#usersTableFilterQuery="", [filterMapping]="tableFilterMapping")
 
   ng-container(matColumnDef="Username")
     mat-header-cell(*matHeaderCellDef="", sortHeader="Username", [sortByDefault]="'ASC'") Username
