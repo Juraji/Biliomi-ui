@@ -4,14 +4,15 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
   .col.span-8-of-12
     p Latest Followers
 
-    data-table(tableId="latest-followers", [dataSource]="latestFollowersDataSource", [exportConfig]="exportConfig", [filterMapping]="filterMapping")
+    data-table(tableId="latest-followers", [dataSource]="latestFollowersDataSource", [exportConfig]="exportConfig",
+    [disablePagination]="true", [disableFilter]="true")
       ng-container(columnDef="Username")
-        header-cell(*headerCellDef="", sortProperty="Username") Username
+        header-cell(*headerCellDef="") Username
         data-cell(*dataCellDef="let user")
           user-display([user]="user")
 
       ng-container(columnDef="Follows Since")
-        header-cell(*headerCellDef="", sortProperty="FollowDate", [sortDefault]="'DESC'") Follows Since
+        header-cell(*headerCellDef="") Follows Since
         data-cell(*dataCellDef="let user")
           | {{user.FollowDate | date}}
 

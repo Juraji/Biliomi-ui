@@ -1,4 +1,4 @@
-import {Component, OnInit, Optional, TemplateRef} from "@angular/core";
+import {Component, Optional, TemplateRef} from "@angular/core";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
 import {DataTableComponent} from "../DataTable.component";
 import {XlsxExporter} from "../../xlsx-export/classes/XlsxExporter";
@@ -13,7 +13,7 @@ import {TableSetupModalComponent} from "./TableSetupModal.component";
   templateUrl: require("./TableActionsRow.template.pug"),
   styleUrls: [require("./TableActionsRow.less").toString()]
 })
-export class TableActionsRowComponent<T> implements OnInit {
+export class TableActionsRowComponent<T> {
   private _parentTable: DataTableComponent<T>;
   private _dialog: MatDialog;
 
@@ -33,12 +33,13 @@ export class TableActionsRowComponent<T> implements OnInit {
     return this._parentTable.dataSource;
   }
 
+  public get disableFilter(): boolean {
+    return this._parentTable.disableFilter;
+  }
+
   constructor(@Optional() table: DataTableComponent<T>, dialog: MatDialog) {
     this._parentTable = table || {} as DataTableComponent<T>;
     this._dialog = dialog;
-  }
-
-  public ngOnInit() {
   }
 
   public exportData() {

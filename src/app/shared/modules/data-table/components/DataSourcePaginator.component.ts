@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, Input, OnDestroy, ViewChild} from "@angular/core";
 import {MatPaginator, PageEvent} from "@angular/material";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
 import {Subscription} from "rxjs/Subscription";
@@ -15,8 +15,15 @@ export class DataSourcePaginatorComponent<T> implements AfterViewInit, OnDestroy
   private _dsUpdateSub: Subscription;
   private _pgnPageSub: Subscription;
 
+  @Input("lockPaging")
+  public lockPaging: boolean;
+
   @ViewChild("matPaginator", {read: MatPaginator})
   public paginator: MatPaginator;
+
+  public get pagingOptions(): number[] {
+    return (this.lockPaging ? [] : [10, 20, 50, 100, 200]);
+  }
 
   public set dataSource(dataSource: RestTableDataSource<T>) {
     if (this._dsUpdateSub) {
@@ -30,15 +37,14 @@ export class DataSourcePaginatorComponent<T> implements AfterViewInit, OnDestroy
       });
   }
 
-  constructor() {
-  }
-
   public ngAfterViewInit() {
-    this._updateDataSourceParams(DEFAULT_LIMIT, 0);
-    this._pgnPageSub = this.paginator.page.subscribe((e: PageEvent) => {
-      this._updateDataSourceParams(e.pageSize, e.pageIndex);
-      this._dataSource.update();
-    });
+    this._updateDataSourceParams(DEFAULT_LIMIT, 0, false);
+
+    if (!this.lockPaging) {
+      this._pgnPageSub = this.paginator.page.subscribe((e: PageEvent) => {
+        this._updateDataSourceParams(e.pageSize, e.pageIndex);
+      });
+    }
   }
 
   public ngOnDestroy() {
@@ -51,10 +57,9 @@ export class DataSourcePaginatorComponent<T> implements AfterViewInit, OnDestroy
   }
 
   public showEveryThing() {
-    if (this.paginator && this._dataSource && this.paginator.pageSize < this._dataSource.totalRowsAvailable) {
+    if (!this.lockPaging && this.paginator && this._dataSource && this.paginator.pageSize < this._dataSource.totalRowsAvailable) {
       this.paginator.pageSize = this._dataSource.totalRowsAvailable;
       this._updateDataSourceParams(this.paginator.pageSize, 0);
-      this._dataSource.update();
     }
   }
 
@@ -66,11 +71,15 @@ export class DataSourcePaginatorComponent<T> implements AfterViewInit, OnDestroy
     }
   }
 
-  private _updateDataSourceParams(limit: number, pageIndex: number) {
+  private _updateDataSourceParams(limit: number, pageIndex: number, doUpdate: boolean = true) {
     if (this._dataSource) {
       this._dataSource.clientParams
         .set("limit", limit)
         .set("offset", Math.max((pageIndex * limit), 0));
+
+      if (doUpdate) {
+        this._dataSource.update();
+      }
     }
   }
 }

@@ -16,4 +16,4 @@
 
   ng-container(*ngIf="customActionsDef", [ngTemplateOutlet]="customActionsDef")
 
-  table-filter-query
+  table-filter-query(*ngIf="!disableFilter")

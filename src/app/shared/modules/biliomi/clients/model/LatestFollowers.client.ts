@@ -1,9 +1,8 @@
 import {ModelRestClient} from "../../classes/ModelRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../../services/BiliomiApi.service";
-import {HttpParams} from "@angular/common/http";
-import IUser = Biliomi.IUser;
 import {Injectable} from "@angular/core";
+import IUser = Biliomi.IUser;
 
 @Injectable()
 export class LatestFollowersClient extends ModelRestClient<IUser> {

@@ -72,6 +72,12 @@ export class DataTableComponent<T> implements CollectionViewer, OnInit, OnDestro
   @Input("filterMapping")
   public filterMapping: TableFilterNameMapping = null;
 
+  @Input("disableFilter")
+  public disableFilter: boolean = false;
+
+  @Input("disablePagination")
+  public disablePagination: boolean = false;
+
   @ViewChild("headerRowPlaceHolder", {read: ViewContainerRef})
   public headerRowPlaceHolderView: ViewContainerRef;
 

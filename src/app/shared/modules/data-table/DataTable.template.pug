@@ -4,7 +4,7 @@ ng-container(#headerRowPlaceHolder="")
 data-source-progress-bar
 ng-container(#dataRowPlaceHolder="")
 
-data-source-paginator
+data-source-paginator([lockPaging]="disablePagination")
 
 ng-container
   header-row(*headerRowDef="displayedColumnIds")
