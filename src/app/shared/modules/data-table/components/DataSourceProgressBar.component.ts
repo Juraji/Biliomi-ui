@@ -1,5 +1,6 @@
-import {Component, Input} from "@angular/core";
+import {Component, Optional} from "@angular/core";
 import {ProgressBarMode} from "../../ng-material/classes/interfaces/ProgressBarMode.interface";
+import {DataTableComponent} from "../DataTable.component";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
 
 @Component({
@@ -7,11 +8,17 @@ import {RestTableDataSource} from "../classes/RestTableDataSource";
   templateUrl: require("./DataSourceProgressBar.template.pug")
 })
 export class DataSourceProgressBarComponent<T> {
+  private _parentTable: DataTableComponent<T>;
 
-  @Input("tableDataSource")
-  public tableDataSource: RestTableDataSource<T>;
+  public get dataSource(): RestTableDataSource<T> {
+    return this._parentTable.dataSource;
+  }
+
+  constructor(@Optional() table: DataTableComponent<T>) {
+    this._parentTable = table || {} as DataTableComponent<T>;
+  }
 
   public get showProgressbar(): boolean {
-    return this.tableDataSource != null && this.tableDataSource.progressBarMode !== ProgressBarMode.NONE;
+    return this.dataSource && this.dataSource.progressBarMode !== ProgressBarMode.NONE;
   }
 }

@@ -24,8 +24,6 @@ export class DataSourcePaginatorComponent<T> implements AfterViewInit, OnDestroy
     }
 
     this._dataSource = dataSource;
-    this._updateDataSourceParams(DEFAULT_LIMIT, 0);
-
     this._dsUpdateSub = this._dataSource.dataSubject
       .subscribe(() => {
         this._updatePaginator(this._dataSource.totalRowsAvailable)
@@ -36,6 +34,7 @@ export class DataSourcePaginatorComponent<T> implements AfterViewInit, OnDestroy
   }
 
   public ngAfterViewInit() {
+    this._updateDataSourceParams(DEFAULT_LIMIT, 0);
     this._pgnPageSub = this.paginator.page.subscribe((e: PageEvent) => {
       this._updateDataSourceParams(e.pageSize, e.pageIndex);
       this._dataSource.update();

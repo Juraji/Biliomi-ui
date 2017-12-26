@@ -1,6 +1,5 @@
-import {Component, Input, OnInit, Optional} from "@angular/core";
+import {Component, OnInit, Optional, TemplateRef} from "@angular/core";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
-import {CustomTableActionsDirective} from "../directives/CustomTableActions.directive";
 import {DataTableComponent} from "../DataTable.component";
 import {XlsxExporter} from "../../xlsx-export/classes/XlsxExporter";
 import {IXlsxExportConfig} from "../../xlsx-export/classes/interfaces/Xlsx.interface";
@@ -15,33 +14,27 @@ import {TableSetupModalComponent} from "./TableSetupModal.component";
   styleUrls: [require("./TableActionsRow.less").toString()]
 })
 export class TableActionsRowComponent<T> implements OnInit {
-  private _table: DataTableComponent<T>;
+  private _parentTable: DataTableComponent<T>;
   private _dialog: MatDialog;
 
-  @Input("tableDataSource")
-  public tableDataSource: RestTableDataSource<T>;
-
-  @Input("customActionsDef")
-  public customActionsDef: CustomTableActionsDirective;
-
   public get parentTableId(): string {
-    if (this._table) {
-      return this._table.tableId;
-    } else {
-      return null;
-    }
+    return this._parentTable.tableId;
   }
 
   public get tableExportConfig(): IXlsxExportConfig {
-    if (this._table) {
-      return this._table.exportConfig;
-    } else {
-      return null;
-    }
+    return this._parentTable.exportConfig;
+  }
+
+  public get customActionsDef(): TemplateRef<any> {
+    return this._parentTable.customTableActions;
+  }
+
+  public get dataSource(): RestTableDataSource<T> {
+    return this._parentTable.dataSource;
   }
 
   constructor(@Optional() table: DataTableComponent<T>, dialog: MatDialog) {
-    this._table = table;
+    this._parentTable = table || {} as DataTableComponent<T>;
     this._dialog = dialog;
   }
 
@@ -52,16 +45,18 @@ export class TableActionsRowComponent<T> implements OnInit {
     let config: IXlsxExportConfig = this.tableExportConfig;
     if (config) {
       let exporter = new XlsxExporter(config);
-      exporter.exportData(this.tableDataSource.currentData);
+      exporter.exportData(this.dataSource.currentData);
     }
   }
 
   public tableSetup() {
-    this._dialog.open(TableSetupModalComponent, {data: this._table.columnSetup})
+    this._dialog.open(TableSetupModalComponent, {data: this._parentTable.columnSetup})
       .afterClosed()
       .subscribe((newColumnSetup: TableColumnsSetup) => {
-        Storage.store(this.parentTableId, newColumnSetup);
-        this._table.columnSetup = newColumnSetup;
+        if (newColumnSetup) {
+          Storage.store(this.parentTableId, newColumnSetup);
+          this._parentTable.columnSetup = newColumnSetup;
+        }
       });
   }
 }

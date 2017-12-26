@@ -1,6 +1,7 @@
 import {
   AfterContentChecked, AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild,
   ContentChildren, Input, IterableChangeRecord, IterableDiffer, IterableDiffers, NgIterable, OnDestroy, OnInit, QueryList,
+  TemplateRef,
   TrackByFunction, ViewChild, ViewContainerRef, ViewEncapsulation
 } from "@angular/core";
 import {CollectionViewer} from "./classes/interfaces/CollectionViewer.interface";
@@ -86,8 +87,8 @@ export class DataTableComponent<T> implements CollectionViewer, OnInit, OnDestro
   @ViewChild(DataRowDefDirective)
   public dataRowDef: DataRowDefDirective<T>;
 
-  @ContentChild(CustomTableActionsDirective)
-  public customTableActions: CustomTableActionsDirective;
+  @ContentChild(CustomTableActionsDirective, {read: TemplateRef})
+  public customTableActions: TemplateRef<any>;
 
   @ContentChildren(ColumnDefDirective)
   public contentColumnDefs: QueryList<ColumnDefDirective>;

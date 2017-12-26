@@ -8,7 +8,7 @@ import IUserGroup = Biliomi.IUserGroup;
   selector: "user-group-select",
   templateUrl: require("./UserGroupSelect.template.pug")
 })
-export class UserGroupSelectComponent implements OnInit {
+export class UserGroupSelectComponent {
   private userGroupsClient: UserGroupsClient;
   private userGroupControl: FormControl = new FormControl(null, [Validators.required]);
 
@@ -17,13 +17,11 @@ export class UserGroupSelectComponent implements OnInit {
 
   constructor(userGroupsClient: UserGroupsClient) {
     this.userGroupsClient = userGroupsClient;
-  }
-
-  public async ngOnInit() {
-    await this.userGroupsClient.load(true);
-    if (this.userGroupControl.value == null){
-      this.userGroupControl.setValue(this.userGroupsClient.getDefaultGroup());
-    }
+    this.userGroupsClient.load(true).then(() => {
+      if (this.userGroupControl.value == null){
+        this.userGroupControl.setValue(this.userGroupsClient.getDefaultGroup());
+      }
+    });
   }
 
   public get selectedGroup(): IUserGroup {
@@ -31,12 +29,14 @@ export class UserGroupSelectComponent implements OnInit {
   }
 
   public set selectedGroup(group: IUserGroup) {
-    this.userGroupsClient.load().then(() => {
-      // Since we need the actual object reference we'll search the cache for the corresponding usergroup.
-      let sGroup = this.userGroupsClient
-        .searchCacheByPredicate((g: IUserGroup) => g.Id === group.Id)
-        .pop();
-      this.userGroupControl.setValue(sGroup);
-    });
+    if (group) {
+      this.userGroupsClient.load().then(() => {
+        // Since we need the actual object reference we'll search the cache for the corresponding usergroup.
+        let sGroup = this.userGroupsClient
+          .searchCacheByPredicate((g: IUserGroup) => g.Id === group.Id)
+          .pop();
+        this.userGroupControl.setValue(sGroup);
+      });
+    }
   }
 }

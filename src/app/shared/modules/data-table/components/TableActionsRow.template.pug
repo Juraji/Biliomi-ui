@@ -14,6 +14,6 @@
   button(mat-icon-button, (click)="tableDataSource.update()", title="Refresh")
     mat-icon refresh
 
-  ng-container([ngTemplateOutlet]="customActionsDef")
+  ng-container(*ngIf="customActionsDef", [ngTemplateOutlet]="customActionsDef")
 
   table-filter-query

@@ -51,7 +51,8 @@ const EXPORTED_DECLARATIONS = [
     NgMaterialModule
   ],
   declarations: EXPORTED_DECLARATIONS,
-  exports: EXPORTED_DECLARATIONS
+  exports: EXPORTED_DECLARATIONS,
+  entryComponents: [TableSetupModalComponent]
 })
 export class DataTableModule {
 }

@@ -1,6 +1,6 @@
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {TableColumnsSetup} from "../../data-table/classes/interfaces/TableColumnSetup.interface";
+import {TableColumnsSetup} from "../classes/interfaces/TableColumnSetup.interface";
 
 @Component({
   selector: "table-setup-modal",
@@ -16,7 +16,7 @@ export class TableSetupModalComponent {
   }
 
   public saveTableSetup() {
-    this._dialogRef.close();
+    this._dialogRef.close(this._columnsSetup);
   }
 }
 
