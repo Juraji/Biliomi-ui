@@ -1,8 +1,7 @@
 import {
   AfterContentChecked, AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild,
   ContentChildren, Input, IterableChangeRecord, IterableDiffer, IterableDiffers, NgIterable, OnDestroy, OnInit, QueryList,
-  TemplateRef,
-  TrackByFunction, ViewChild, ViewContainerRef, ViewEncapsulation
+  TemplateRef, TrackByFunction, ViewChild, ViewContainerRef, ViewEncapsulation
 } from "@angular/core";
 import {CollectionViewer} from "./classes/interfaces/CollectionViewer.interface";
 import {Subject} from "rxjs/Subject";
@@ -25,6 +24,8 @@ import {ColumnSetup, TableColumnsSetup} from "./classes/interfaces/TableColumnSe
 import {Storage} from "../../classes/Storage";
 import {TableFilterNameMapping} from "./classes/interfaces/TableFilterMapping.interface";
 import {DataSourcePaginatorComponent} from "./components/DataSourcePaginator.component";
+
+export const TABLE_SETUP_STORAGE_PREFIX: string = "tableSetup.";
 
 @Component({
   selector: "data-table",
@@ -122,7 +123,6 @@ export class DataTableComponent<T> implements CollectionViewer, OnInit, OnDestro
     this._differs = differs;
     this._changeDetectorRef = changeDetectorRef;
     this._viewChange = new BehaviorSubject<{ start: number, end: number }>({start: 0, end: Number.MAX_VALUE});
-    this._columnSetup = Storage.get(this.tableId, null);
   }
 
   public ngOnInit() {
@@ -158,11 +158,16 @@ export class DataTableComponent<T> implements CollectionViewer, OnInit, OnDestro
 
     this._cacheColumnDefs();
 
-    if (this.columnSetup == null) {
-      this.columnSetup = this.contentColumnDefs.map((def: ColumnDefDirective) => <ColumnSetup>{
-        id: def.columnId,
-        visible: true
-      });
+    if (this._headerRowDefChanged){
+      let colSetup: TableColumnsSetup = Storage.get(TABLE_SETUP_STORAGE_PREFIX + this.tableId, null)
+      if (colSetup == null) {
+        this.columnSetup = this.contentColumnDefs.map((def: ColumnDefDirective) => <ColumnSetup>{
+          id: def.columnId,
+          visible: true
+        });
+      } else {
+        this.columnSetup = colSetup;
+      }
     }
 
     this._renderUpdatedColumns();

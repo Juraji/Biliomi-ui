@@ -16,7 +16,7 @@ export class TableSetupModalComponent {
   }
 
   public saveTableSetup() {
-    this._dialogRef.close(this._columnsSetup);
+    this._dialogRef.close();
   }
 }
 

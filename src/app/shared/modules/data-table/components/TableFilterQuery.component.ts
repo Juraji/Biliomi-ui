@@ -68,6 +68,7 @@ export class TableFilterQueryComponent<T> implements OnInit {
             });
           }
 
+          ds.clientParams.delete("offset");
           ds.clientParams.set("filter", query);
           let success: boolean = await ds.update();
           if (!success) {

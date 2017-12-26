@@ -1,11 +1,10 @@
 import {Component, Optional, TemplateRef} from "@angular/core";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
-import {DataTableComponent} from "../DataTable.component";
+import {DataTableComponent, TABLE_SETUP_STORAGE_PREFIX} from "../DataTable.component";
 import {XlsxExporter} from "../../xlsx-export/classes/XlsxExporter";
 import {IXlsxExportConfig} from "../../xlsx-export/classes/interfaces/Xlsx.interface";
 import {Storage} from "../../../classes/Storage";
 import {MatDialog} from "@angular/material";
-import {TableColumnsSetup} from "../classes/interfaces/TableColumnSetup.interface";
 import {TableSetupModalComponent} from "./TableSetupModal.component";
 
 @Component({
@@ -53,11 +52,6 @@ export class TableActionsRowComponent<T> {
   public tableSetup() {
     this._dialog.open(TableSetupModalComponent, {data: this._parentTable.columnSetup})
       .afterClosed()
-      .subscribe((newColumnSetup: TableColumnsSetup) => {
-        if (newColumnSetup) {
-          Storage.store(this.parentTableId, newColumnSetup);
-          this._parentTable.columnSetup = newColumnSetup;
-        }
-      });
+      .subscribe(() => Storage.store(TABLE_SETUP_STORAGE_PREFIX + this.parentTableId, this._parentTable.columnSetup));
   }
 }
