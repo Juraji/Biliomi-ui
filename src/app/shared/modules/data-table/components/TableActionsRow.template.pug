@@ -11,7 +11,7 @@
       mat-icon settings
       span Table Setup
 
-  button(mat-icon-button, (click)="tableDataSource.update()", title="Refresh")
+  button(mat-icon-button, (click)="dataSource.update()", title="Refresh")
     mat-icon refresh
 
   ng-container(*ngIf="customActionsDef", [ngTemplateOutlet]="customActionsDef")
