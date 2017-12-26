@@ -62,14 +62,22 @@ dash-page {
     }
   }
 
+  .mat-toolbar {
+    min-height: unset !important;
+
+    .mat-toolbar-row {
+      height: 40px !important;
+    }
+  }
+
   .main-content-wrapper {
     width: 100vw;
 
     .content-column {
       position: absolute;
       box-sizing: border-box;
-      padding: 1em 1em 1em;
-      top: 98px;
+      padding: 0 1em 1em 1em;
+      top: 61px;
       bottom: 0;
 
       &#content-column {

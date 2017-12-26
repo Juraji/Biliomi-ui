@@ -5,8 +5,8 @@ mat-sidenav-container
         mat-icon menu
       a.mat-icon-button(mat-button, routerLink="/dash/home", matTooltip="Go to Home")
         mat-icon home
+      span.spacer
       nav-channel-info-component
-      nav-follower-stats-component
       .flex-spacer
       a.mat-icon-button(mat-button, (click)="toggleDisplayTwitchChat()", matTooltip="Toggle Chat")
         mat-icon(*ngIf="displayTwitchChat") chat

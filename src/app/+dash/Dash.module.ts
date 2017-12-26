@@ -4,7 +4,6 @@ import {RouterModule, Routes} from "@angular/router";
 import {DashComponent} from "./Dash.component";
 import {NavChannelInfoComponent} from "./declarations/NavChannelInfo.component";
 import {NavAuthBarComponent} from "./declarations/NavAuthBar.component";
-import {NavFollowerStatsComponent} from "./declarations/NavFollowerStats.component";
 import {NavRemoteManagementComponent} from "./declarations/NavRemoteManagement.component";
 import {ChatComponent} from "./declarations/Chat.component";
 import {PowerManagementDialogComponent} from "./declarations/PowerManagementDialog.component";
@@ -48,7 +47,6 @@ const ROUTES: Routes = [
     DashComponent,
     NavChannelInfoComponent,
     NavAuthBarComponent,
-    NavFollowerStatsComponent,
     NavRemoteManagementComponent,
     PowerManagementDialogComponent,
     BreadCrumbsComponent,
