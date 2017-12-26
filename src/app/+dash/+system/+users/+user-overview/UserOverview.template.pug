@@ -36,5 +36,5 @@ data-table(tableId="users-overview", [dataSource]="dataSource", [exportConfig]="
   ng-container(columnDef="#Edit", [buttonsColumn]="1")
     header-cell(*headerCellDef="")
     data-cell(*dataCellDef="let user")
-      a.mat-icon-button.pull-right(mat-button, (click)="editUser(user)", title="Edit user")
+      a.mat-icon-button.pull-right(mat-button, (click)="editUser(user)", matTooltip="Edit user")
         mat-icon edit

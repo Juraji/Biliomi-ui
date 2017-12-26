@@ -10,7 +10,7 @@ form#channel-edit-form((submit)="submitChannelEdit()")
       [formControl]="channelGameControl", [matAutocomplete]="gameAutocomplete")
       mat-autocomplete(#gameAutocomplete="matAutocomplete")
         mat-option(*ngFor="let game of gamesClient.searchCache(channelGameControl.value)", [value]="game.Name")
-          .icon.small.pad-right.steam-icon-logo(*ngIf="game.SteamId != undefined", title="Imported from Steam")
+          .icon.small.pad-right.steam-icon-logo(*ngIf="game.SteamId != undefined", matTooltip="Imported from Steam")
           | {{game.Name}}
           small
       mat-hint The autocomplete only knows games Biliomi knows. If a game is not in there simply type it's full name and hit enter. Biliomi will make sure it will be available next time.
@@ -23,7 +23,7 @@ form#channel-edit-form((submit)="submitChannelEdit()")
       mat-error(*ngIf="channelStatusControl.hasError('required')") This field is required!
 
     .mat-button-row
-      button(mat-raised-button, color="primary", [disabled]="!isFormOk", title="Save")
+      button(mat-raised-button, color="primary", [disabled]="!isFormOk", matTooltip="Save")
         mat-icon done
-      button(mat-button, type="button", (click)="refreshFields()", title="Refresh data")
+      button(mat-button, type="button", (click)="refreshFields()", matTooltip="Refresh data")
         mat-icon refresh

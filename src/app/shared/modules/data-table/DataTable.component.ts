@@ -21,7 +21,7 @@ import {RestTableDataSource} from "./classes/RestTableDataSource";
 import {CustomTableActionsDirective} from "./directives/CustomTableActions.directive";
 import {IXlsxExportConfig} from "../xlsx-export/classes/interfaces/Xlsx.interface";
 import {ColumnSetup, TableColumnsSetup} from "./classes/interfaces/TableColumnSetup.interface";
-import {Storage} from "../../classes/Storage";
+import {Storage} from "../../storage/Storage";
 import {TableFilterNameMapping} from "./classes/interfaces/TableFilterMapping.interface";
 import {DataSourcePaginatorComponent} from "./components/DataSourcePaginator.component";
 

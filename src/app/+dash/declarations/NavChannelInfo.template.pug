@@ -1,4 +1,4 @@
-a.mat-button(mat-button)
+a.mat-button(mat-button, [matTooltip]="channelInfoClient.IsOnline ? 'You are online!' : 'You are offline'")
   mat-icon.pad-right.text-muted(*ngIf="!channelInfoClient.IsOnline") cast
   mat-icon.pad-right.text-ok(*ngIf="channelInfoClient.IsOnline") cast_connected
   | {{channelInfoClient.ChannelName}} #[small ({{channelInfoClient.CurrentGame.Name}})]

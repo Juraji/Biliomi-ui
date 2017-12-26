@@ -11,7 +11,7 @@ import {AuthService} from "../shared/services/Auth.service";
 import {SubscriptionBucket} from "../shared/classes/SubscriptionBucket";
 import {BILIOMI_EVENTS} from "../shared/modules/biliomi/classes/constants/BiliomiApiVariables";
 import {RouterRedirector} from "../shared/classes/RouterRedirector";
-import {Storage} from "../shared/classes/Storage";
+import {Storage} from "../shared/storage/Storage";
 import ITwitchFollowEvent = Biliomi.ITwitchFollowEvent;
 import ITwitchSubscriberEvent = Biliomi.ITwitchSubscriberEvent;
 import ITwitchHostInEvent = Biliomi.ITwitchHostInEvent;

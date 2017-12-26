@@ -36,5 +36,5 @@ data-table(tableId="system-commands", [dataSource]="dataSource", [exportConfig]=
   ng-container(columnDef="#Edit", [buttonsColumn]="1")
     header-cell(*headerCellDef="")
     data-cell(*dataCellDef="let command")
-      a.mat-icon-button.pull-right(mat-button, (click)="editCommand(command)", title="Edit command")
+      a.mat-icon-button.pull-right(mat-button, (click)="editCommand(command)", matTooltip="Edit command")
         mat-icon edit

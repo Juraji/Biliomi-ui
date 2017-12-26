@@ -3,7 +3,7 @@ import {RestTableDataSource} from "../classes/RestTableDataSource";
 import {DataTableComponent, TABLE_SETUP_STORAGE_PREFIX} from "../DataTable.component";
 import {XlsxExporter} from "../../xlsx-export/classes/XlsxExporter";
 import {IXlsxExportConfig} from "../../xlsx-export/classes/interfaces/Xlsx.interface";
-import {Storage} from "../../../classes/Storage";
+import {Storage} from "../../../storage/Storage";
 import {MatDialog} from "@angular/material";
 import {TableSetupModalComponent} from "./TableSetupModal.component";
 

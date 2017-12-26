@@ -2,7 +2,7 @@ p Manage games known by Biliomi
 
 data-table(tableId="game-register", [dataSource]="gamesDataSource", [exportConfig]="exportConfig", [filterMapping]="tableFilterMapping")
   ng-template(customTableActions)
-    button(mat-icon-button, (click)="editGame()", title="Add new game")
+    button(mat-icon-button, (click)="editGame()", matTooltip="Add new game")
       mat-icon add
 
   ng-container(columnDef="Title")
@@ -32,7 +32,7 @@ data-table(tableId="game-register", [dataSource]="gamesDataSource", [exportConfi
   ng-container(columnDef="#Actions", [buttonsColumn]="2")
     header-cell(*headerCellDef="")
     data-cell(*dataCellDef="let game")
-      a.mat-icon-button.pull-right(mat-button, (click)="editGame(game)", title="Edit game")
+      a.mat-icon-button.pull-right(mat-button, (click)="editGame(game)", matTooltip="Edit game")
         mat-icon edit
-      a.mat-icon-button.pull-right(mat-button, (click)="setAsCurrentGame(game)", title="Set as current game")
+      a.mat-icon-button.pull-right(mat-button, (click)="setAsCurrentGame(game)", matTooltip="Set as current game")
         mat-icon videogame_asset

@@ -14,5 +14,5 @@ form(#hostRecordForm="", (submit)="submitHostRecord()")
       user-autocomplete(#recordUserControl="", [required]="true")
 
     mat-card-actions
-      button(mat-raised-button, color="primary", [disabled]="!isFormOk", title="Save")
+      button(mat-raised-button, color="primary", [disabled]="!isFormOk", matTooltip="Save")
         mat-icon done

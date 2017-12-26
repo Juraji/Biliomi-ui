@@ -6,5 +6,5 @@ form.command-form((submit)="_executeCommand()")
     mat-error(*ngIf="argFormControl.hasError('required')") This field is required!
     mat-error(*ngIf="argFormControl.hasError('failed')") Excuting command failed, try again.
 
-  button(mat-raised-button, color="primary" title="Execute command", [disabled]="argFormControl.invalid")
+  button(mat-raised-button, color="primary" matTooltip="Execute command", [disabled]="argFormControl.invalid")
     | &#33;{{command.Command}}

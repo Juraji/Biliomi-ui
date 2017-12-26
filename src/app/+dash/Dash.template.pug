@@ -1,14 +1,14 @@
 mat-sidenav-container
   mat-toolbar(color="primary")
     mat-toolbar-row
-      a.mat-icon-button(mat-button, (click)="sideNav.toggle()", title="Toggle menu")
+      a.mat-icon-button(mat-button, (click)="sideNav.toggle()", matTooltip="Toggle menu")
         mat-icon menu
-      a.mat-icon-button(mat-button, routerLink="/dash/home", title="Go to Home")
+      a.mat-icon-button(mat-button, routerLink="/dash/home", matTooltip="Go to Home")
         mat-icon home
       nav-channel-info-component
       nav-follower-stats-component
       .flex-spacer
-      a.mat-icon-button(mat-button, (click)="toggleDisplayTwitchChat()", title="Toggle Chat")
+      a.mat-icon-button(mat-button, (click)="toggleDisplayTwitchChat()", matTooltip="Toggle Chat")
         mat-icon(*ngIf="displayTwitchChat") chat
         mat-icon(*ngIf="!displayTwitchChat") chat_bubble_outline
       nav-remote-management-component

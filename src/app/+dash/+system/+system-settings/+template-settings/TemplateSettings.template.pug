@@ -2,7 +2,7 @@ p Templates are used by Biliomi all over the place, from raid-messages to tweets
 
 data-table(tableId="templates", [dataSource]="dataSource", [exportConfig]="exportConfig", [filterMapping]="tableFilterMapping")
   ng-container(columnDef="TemplateKey")
-    header-cell(*headerCellDef="") Key
+    header-cell(*headerCellDef="", sortProperty="TemplateKey", [sortDefault]="'ASC'") Key
     data-cell(*dataCellDef="let template")
       | {{template.TemplateKey | caseToWord:"TITLE_CASE"}}
 
@@ -19,6 +19,6 @@ data-table(tableId="templates", [dataSource]="dataSource", [exportConfig]="expor
   ng-container(columnDef="#Edit", [buttonsColumn]="1")
     header-cell(*headerCellDef="")
     data-cell(*dataCellDef="let template")
-      a.mat-icon-button.pull-right(mat-button, (click)="editTemplate(template)", title="Edit template")
+      a.mat-icon-button.pull-right(mat-button, (click)="editTemplate(template)", matTooltip="Edit template")
         mat-icon edit
 

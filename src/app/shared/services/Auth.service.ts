@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Biliomi} from "../modules/biliomi/classes/interfaces/Biliomi";
 import {IJwtBody} from "../modules/biliomi/classes/interfaces/JWT";
-import {Storage} from "../classes/Storage";
+import {Storage} from "../storage/Storage";
 import moment = require("moment");
 import ITokenUserType = Biliomi.ITokenUserType;
 

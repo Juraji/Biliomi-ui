@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {EditUserModalComponent} from "./declarations/EditUserModal.component";
 import {MatDialog} from "@angular/material";
 import {
@@ -14,7 +14,6 @@ import {ChannelInfoClient} from "../../../../shared/modules/biliomi/clients/sett
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 import IUser = Biliomi.IUser;
-import {TableFilterQueryComponent} from "../../../../shared/modules/data-table/components/TableFilterQuery.component";
 
 @Component({
   selector: "user-overview",
@@ -26,9 +25,6 @@ export class UserOverviewComponent implements OnInit {
   private _activatedRoute: ActivatedRoute;
   private channelInfoClient: ChannelInfoClient;
   private dataSource: RestTableDataSource<IUser> = new RestTableDataSource<IUser>();
-
-  @ViewChild("usersTableFilterQuery", {read: TableFilterQueryComponent})
-  public usersTableFilterQuery: TableFilterQueryComponent<IUser>;
 
   public exportConfig: IXlsxExportConfig = {
     fileName: "Biliomi - Users",
@@ -71,19 +67,17 @@ export class UserOverviewComponent implements OnInit {
     this.channelInfoClient = channelInfoClient;
     this._activatedRoute = activatedRoute;
 
+    this._pointsSettingsClient.load();
     this.channelInfoClient.load();
     this.dataSource.client = usersClient;
   }
 
   public ngOnInit() {
-    this._pointsSettingsClient.load();
-
     this._activatedRoute.paramMap.subscribe(async (map: ParamMap) => {
       if (map.has("username")) {
         let user: IUser = await (this.dataSource.client as UsersClient).getUserByUsername(map.get("username"), false);
         if (user != null) {
           this.editUser(user);
-          this.usersTableFilterQuery.setInputAndApply("Username = " + user.DisplayName);
         }
       }
     });

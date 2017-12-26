@@ -9,8 +9,8 @@ form(#chatSettingsEditForm="", (submit)="save()")
       mat-slide-toggle([formControl]="muteBiliomiControl") Mute Biliomi
 
     mat-card-actions
-      button(mat-raised-button, color="primary", title="Save")
+      button(mat-raised-button, color="primary", matTooltip="Save")
         mat-icon done
-      button(mat-button, type="button", (click)="ngOnInit()", title="Refresh data")
+      button(mat-button, type="button", (click)="ngOnInit()", matTooltip="Refresh data")
         mat-icon refresh
 

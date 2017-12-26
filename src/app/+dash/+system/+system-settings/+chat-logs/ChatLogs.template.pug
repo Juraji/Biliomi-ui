@@ -8,9 +8,9 @@ mat-sidenav-container
 
   mat-sidenav-container
     .mat-button-row
-      button.pull-right(mat-mini-fab, color="primary", (click)="sideNav.toggle()", title="Show archive drawer")
+      button.pull-right(mat-mini-fab, color="primary", (click)="sideNav.toggle()", matTooltip="Show archive drawer")
         mat-icon menu
-      button.pull-right(mat-mini-fab, color="primary", (click)="refreshCurrentLog()", title="Refresh file")
+      button.pull-right(mat-mini-fab, color="primary", (click)="refreshCurrentLog()", matTooltip="Refresh file")
         mat-icon refresh
 
     mat-progress-bar(*ngIf="currentLog == undefined", mode="indeterminate")

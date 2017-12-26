@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {BiliomiApiService} from "../../../../shared/modules/biliomi/services/BiliomiApi.service";
-import {Storage} from "../../../../shared/classes/Storage";
+import {Storage} from "../../../../shared/storage/Storage";
 import {QUICK_ACTIONS_STORAGE_KEY, QuickAction, QuickActionType} from "./declarations/QuickAction.interface";
 import {MatDialog, MatDialogRef} from "@angular/material";
 import {AddQuickActionModalComponent} from "./declarations/AddQuickActionModal.component";

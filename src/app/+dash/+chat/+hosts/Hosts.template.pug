@@ -18,9 +18,9 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
           ng-container(columnDef="#Actions", [buttonsColumn]="2")
             header-cell(*headerCellDef="") &nbsp;
             data-cell(*dataCellDef="let record")
-              a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", title="Delete Record")
+              a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", matTooltip="Delete Record")
                 mat-icon delete_forever
-              a.mat-icon-button.pull-right(mat-button, (click)="hostNow(record)", title="Host Now")
+              a.mat-icon-button.pull-right(mat-button, (click)="hostNow(record)", matTooltip="Host Now")
                 mat-icon queue_play_next
 
       mat-tab(label="Outgoing Records")
@@ -38,9 +38,9 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
           ng-container(columnDef="#Actions", [buttonsColumn]="2")
             header-cell(*headerCellDef="") &nbsp;
             data-cell(*dataCellDef="let record")
-              a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", title="Delete Record")
+              a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", matTooltip="Delete Record")
                 mat-icon delete_forever
-              a.mat-icon-button.pull-right(mat-button, (click)="hostNow(record)", title="Host Now")
+              a.mat-icon-button.pull-right(mat-button, (click)="hostNow(record)", matTooltip="Host Now")
                 mat-icon queue_play_next
 
   .col.span-4-of-12

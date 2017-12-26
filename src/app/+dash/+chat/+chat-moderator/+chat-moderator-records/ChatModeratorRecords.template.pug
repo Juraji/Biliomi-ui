@@ -29,5 +29,5 @@ data-table(tableId="chatmoderator-records", [dataSource]="recordsDataSource", [e
   ng-container(columnDef="#Actions", [buttonsColumn]="1")
     header-cell(*headerCellDef="")
     data-cell(*dataCellDef="let record")
-      a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", title="Delete Record")
+      a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", matTooltip="Delete Record")
         mat-icon delete_forever

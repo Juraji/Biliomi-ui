@@ -3,6 +3,7 @@ import {Biliomi} from "../../classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../../services/BiliomiApi.service";
 import {Injectable} from "@angular/core";
 import IUser = Biliomi.IUser;
+import IPaginatedResponse = Biliomi.IPaginatedResponse;
 
 @Injectable()
 export class LatestFollowersClient extends ModelRestClient<IUser> {
@@ -27,10 +28,9 @@ export class LatestFollowersClient extends ModelRestClient<IUser> {
   }
 
   public async getLatestFollower(): Promise<IUser> {
-    let params: Map<string, any> = new Map<string, any>().set("limit", "1");
-    let arr: IUser[] = await this._api.get<IUser[]>(this.baseResourceUri, params);
-    if (arr != null && arr.length > 0) {
-      return arr.pop();
+    let response: IPaginatedResponse<IUser> = await this.getList();
+    if (response != null && response.TotalAvailable > 0) {
+      return response.Entities.pop();
     }
     return null;
   }
