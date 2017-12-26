@@ -1,78 +1,139 @@
-import {AfterViewInit, Component, Input, OnDestroy, ViewChild} from "@angular/core";
-import {MatPaginator, PageEvent} from "@angular/material";
-import {RestTableDataSource} from "../classes/RestTableDataSource";
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit,
+  ViewEncapsulation
+} from "@angular/core";
 import {Subscription} from "rxjs/Subscription";
+import {RestTableDataSource} from "../classes/RestTableDataSource";
+import {Supplier} from "../../tools/FunctionalInterface";
 
-const DEFAULT_LIMIT: number = 20;
+const DEFAULT_PAGE_SIZE: number = 10;
+const DEFAULT_PAGE_SIZE_OPTIONS: Supplier<number[]> = () => [10, 20, 50, 100, 200];
 
 @Component({
   selector: "data-source-paginator",
   templateUrl: require("./DataSourcePaginator.template.pug"),
-  styleUrls: [require("./DataSourcePaginator.less").toString()]
+  styleUrls: [require("./DataSourcePaginator.less").toString()],
+  host: {
+    "class": "data-source-paginator",
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  preserveWhitespaces: false,
 })
-export class DataSourcePaginatorComponent<T> implements AfterViewInit, OnDestroy {
+export class DataSourcePaginatorComponent<T> implements OnInit, OnDestroy {
   private _dataSource: RestTableDataSource<T>;
   private _dsUpdateSub: Subscription;
-  private _pgnPageSub: Subscription;
+  private _initialized: boolean;
+  private _pageIndex: number = 0;
+  private _length: number = 0;
+  private _pageSize: number;
+  private _displayedPageSizeOptions: number[] = [];
+  private _changeDetectorRef: ChangeDetectorRef;
 
   @Input("lockPaging")
   public lockPaging: boolean;
 
-  @ViewChild("matPaginator", {read: MatPaginator})
-  public paginator: MatPaginator;
+  public get pageIndex(): number {
+    return this._pageIndex;
+  }
 
-  public get pagingOptions(): number[] {
-    return (this.lockPaging ? [] : [10, 20, 50, 100, 200]);
+  public get hasPreviousPage(): boolean {
+    return this.pageIndex >= 1 && this._pageSize != 0;
+  }
+
+  public get hasNextPage(): boolean {
+    const numberOfPages = Math.ceil(this._length / this._pageSize) - 1;
+    return this.pageIndex < numberOfPages && this._pageSize != 0;
+  }
+
+  public get rangeLabel(): string {
+    if (this._length == 0 || this._pageSize == 0) {
+      return `0 of ${length}`;
+    }
+
+    const startIndex: number = this._pageIndex * this._pageSize;
+    const endIndex: number = Math.min(startIndex + this._pageSize, this._length);
+    return `${startIndex + 1} - ${endIndex} of ${this._length}`;
   }
 
   public set dataSource(dataSource: RestTableDataSource<T>) {
-    if (this._dsUpdateSub) {
-      this._dsUpdateSub.unsubscribe();
-    }
+    this.ngOnDestroy();
 
     this._dataSource = dataSource;
     this._dsUpdateSub = this._dataSource.dataSubject
-      .subscribe(() => {
-        this._updatePaginator(this._dataSource.totalRowsAvailable)
-      });
+      .subscribe(() => this._updatePaginator(this._dataSource.totalRowsAvailable));
   }
 
-  public ngAfterViewInit() {
-    this._updateDataSourceParams(DEFAULT_LIMIT, 0, false);
+  constructor(changeDetectorRef: ChangeDetectorRef) {
+    this._changeDetectorRef = changeDetectorRef;
+  }
 
-    if (!this.lockPaging) {
-      this._pgnPageSub = this.paginator.page.subscribe((e: PageEvent) => {
-        this._updateDataSourceParams(e.pageSize, e.pageIndex);
-      });
-    }
+  public ngOnInit() {
+    this._initialized = true;
+    this._updateDataSource(DEFAULT_PAGE_SIZE, 0, false);
   }
 
   public ngOnDestroy() {
     if (this._dsUpdateSub) {
       this._dsUpdateSub.unsubscribe();
-    }
-    if (this._pgnPageSub) {
-      this._pgnPageSub.unsubscribe();
+      this._dsUpdateSub = null;
     }
   }
 
-  public showEveryThing() {
-    if (!this.lockPaging && this.paginator && this._dataSource && this.paginator.pageSize < this._dataSource.totalRowsAvailable) {
-      this.paginator.pageSize = this._dataSource.totalRowsAvailable;
-      this._updateDataSourceParams(this.paginator.pageSize, 0);
+  public nextPage() {
+    if (this.hasNextPage) {
+      this._pageIndex++;
+      this._updateDataSource(this._pageSize, this._pageIndex);
     }
   }
 
-  private _updatePaginator(dataCount: number) {
-    this.paginator.length = dataCount;
-    if (this.paginator.pageIndex > 0) {
-      const lastPageIndex = Math.ceil(this.paginator.length / this.paginator.pageSize) - 1 || 0;
-      this.paginator.pageIndex = Math.min(this.paginator.pageIndex, lastPageIndex);
+  public previousPage() {
+    if (this.hasPreviousPage) {
+      this._pageIndex--;
+      this._updateDataSource(this._pageSize, this._pageIndex);
     }
   }
 
-  private _updateDataSourceParams(limit: number, pageIndex: number, doUpdate: boolean = true) {
-    if (this._dataSource) {
+  public changePageSize(pageSize: number) {
+    const startIndex = this._pageIndex * this._pageSize;
+    this._pageIndex = Math.floor(startIndex / pageSize) || 0;
+
+    this._pageSize = pageSize;
+    this._updateDataSource(this._pageSize, this._pageIndex);
+  }
+
+  private _updateDisplayedPageSizeOptions() {
+    if (this._initialized) {
+      if (this._pageSize == null) {
+        this._pageSize = DEFAULT_PAGE_SIZE;
+      }
+
+      this._displayedPageSizeOptions = DEFAULT_PAGE_SIZE_OPTIONS();
+      if (this._displayedPageSizeOptions.indexOf(this._pageSize) == -1) {
+        this._displayedPageSizeOptions.push(this._pageSize);
+      }
+
+      this._displayedPageSizeOptions.sort((a, b) => a - b);
+
+      if (this._length > this._displayedPageSizeOptions.slice().pop()) {
+        this._displayedPageSizeOptions.push(this._length);
+      }
+
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  private _updatePaginator(totalRowsAvailable: number) {
+    this._length = totalRowsAvailable;
+    const lastPageIndex = Math.ceil(this._length / this._pageSize) - 1;
+    if (!isNaN(lastPageIndex) && lastPageIndex > -1) {
+      this._pageIndex = Math.min(this._pageIndex, lastPageIndex);
+    }
+    this._updateDisplayedPageSizeOptions();
+  }
+
+  private _updateDataSource(limit: number, pageIndex: number, doUpdate: boolean = true) {
+    if (!this.lockPaging && this._dataSource) {
       this._dataSource.clientParams
         .set("limit", limit)
         .set("offset", Math.max((pageIndex * limit), 0));

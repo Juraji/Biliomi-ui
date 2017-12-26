@@ -51,6 +51,7 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatTableModule,
   material.MatTabsModule,
   material.MatToolbarModule,
+  material.MatTooltipModule,
 ];
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [

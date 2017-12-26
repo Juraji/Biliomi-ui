@@ -1,16 +1,62 @@
-@import "../DataTable";
-
 data-source-paginator {
   display: block;
-  min-height: 56px;
-  padding: 0 @row-horizontal-padding;
+  color: rgba(255,255,255,.7);
+  font-size: 12px;
 
-  .mat-paginator, .paginator-actions {
-    display: inline-block;
-    float: right;
+  .paginator-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 56px;
+    padding: 0 8px;
+    flex-wrap: wrap-reverse
   }
-
-  .paginator-actions {
-    line-height: 56px;
+  .paginator-page-size {
+    display: flex;
+    align-items: baseline;
+    margin-right: 8px
+  }
+  .paginator-page-size-label {
+    margin: 0 4px
+  }
+  .paginator-page-size-select {
+    margin: 6px 4px 0 4px;
+    width: 56px
+  }
+  .paginator-range-label {
+    margin: 0 32px 0 24px
+  }
+  .paginator-increment-button + .paginator-increment-button {
+    margin: 0 0 0 8px
+  }
+  [dir=rtl] .paginator-increment-button + .paginator-increment-button {
+    margin: 0 8px 0 0
+  }
+  .paginator-decrement, .paginator-increment {
+    width: 8px;
+    height: 8px
+  }
+  .paginator-decrement, [dir=rtl] .paginator-increment {
+    transform: rotate(45deg)
+  }
+  .paginator-increment, [dir=rtl] .paginator-decrement {
+    transform: rotate(225deg)
+  }
+  .paginator-decrement {
+    margin-left: 12px
+  }
+  [dir=rtl] .paginator-decrement {
+    margin-right: 12px
+  }
+  .paginator-increment {
+    margin-left: 16px
+  }
+  [dir=rtl] .paginator-increment {
+    margin-right: 16px
+  }
+  .paginator-range-actions {
+    display: flex;
+    align-items: center;
+    min-height: 48px
   }
 }

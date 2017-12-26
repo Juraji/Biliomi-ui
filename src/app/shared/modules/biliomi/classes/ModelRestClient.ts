@@ -22,6 +22,9 @@ export abstract class ModelRestClient<T> {
   }
 
   public getList(sorting?: SortBuilder, filters?: FilterBuilder, params: Map<string, any> = new Map<string, any>()): Promise<IPaginatedResponse<T>> {
+    // Create a copy of the params map, so the new entries don't backfire
+    params = new Map<string, any>(params.entries());
+
     if (sorting) {
       let sortQuery: string = sorting.toString();
       if (sortQuery != null) {
