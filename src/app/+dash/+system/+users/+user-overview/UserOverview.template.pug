@@ -1,44 +1,40 @@
-data-table(tableId="users-overview", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
-  ng-template(tableButtons)
-    table-filter-query(#usersTableFilterQuery="", [filterMapping]="tableFilterMapping")
+data-table(tableId="users-overview", [dataSource]="dataSource", [exportConfig]="exportConfig", [filterMapping]="tableFilterMapping")
+  ng-container(columnDef="Username")
+    header-cell(*headerCellDef="", sortProperty="Username", [sortDefault]="'ASC'") Username
+    data-cell(*dataCellDef="let user", [ngClass]="getUsernameColorClass(user)") {{user.DisplayName}}
 
-  ng-container(matColumnDef="Username")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="Username", [sortByDefault]="'ASC'") Username
-    mat-cell(*matCellDef="let user", [ngClass]="getUsernameColorClass(user)")
-      | {{user.DisplayName}}
-
-  ng-container(matColumnDef="Group")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="UserGroup.Name") Group
-    mat-cell(*matCellDef="let user")
+  ng-container(columnDef="Group")
+    header-cell(*headerCellDef="", sortProperty="UserGroup.Name") Group
+    data-cell(*dataCellDef="let user")
       | {{user.UserGroup.Name}}
 
-  ng-container(matColumnDef="Recorded Time")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="RecordedTime") Recorded time
-    mat-cell(*matCellDef="let user")
+  ng-container(columnDef="Recorded Time")
+    header-cell(*headerCellDef="", sortProperty="RecordedTime") Recorded time
+    data-cell(*dataCellDef="let user")
       | {{user.RecordedTime | time:false:true}}
 
-  ng-container(matColumnDef="Points")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="Points") Points
-    mat-cell(*matCellDef="let user")
+  ng-container(columnDef="Points")
+    header-cell(*headerCellDef="", sortProperty="Points") Points
+    data-cell(*dataCellDef="let user")
       | {{user.Points | points | async}}
 
-  ng-container(matColumnDef="Follower")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="Follower") Follows
-    mat-cell(*matCellDef="let user")
+  ng-container(columnDef="Follower")
+    header-cell(*headerCellDef="", sortProperty="Follower") Follows
+    data-cell(*dataCellDef="let user")
       mat-icon(*ngIf="user.Follower", color="primary") check
 
-  ng-container(matColumnDef="Subscriber")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="Subscriber") Subscribed
-    mat-cell(*matCellDef="let user")
+  ng-container(columnDef="Subscriber")
+    header-cell(*headerCellDef="", sortProperty="Subscriber") Subscribed
+    data-cell(*dataCellDef="let user")
       mat-icon(*ngIf="user.Subscriber", color="primary") check
 
-  ng-container(matColumnDef="Title")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="Title") Title
-    mat-cell(*matCellDef="let user")
+  ng-container(columnDef="Title")
+    header-cell(*headerCellDef="", sortProperty="Title") Title
+    data-cell(*dataCellDef="let user")
       | {{user.Title}}
 
-  ng-container(matColumnDef="#Edit")
-    mat-header-cell(*matHeaderCellDef="", buttonsColumn="1")
-    mat-cell(*matCellDef="let user", buttonsColumn="1")
+  ng-container(columnDef="#Edit", [buttonsColumn]="1")
+    header-cell(*headerCellDef="")
+    data-cell(*dataCellDef="let user")
       a.mat-icon-button.pull-right(mat-button, (click)="editUser(user)", title="Edit user")
         mat-icon edit

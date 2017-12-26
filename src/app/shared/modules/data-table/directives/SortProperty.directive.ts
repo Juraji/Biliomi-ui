@@ -3,6 +3,7 @@ import {AnimationCurves, AnimationDurations} from "@angular/material";
 import {animate, AnimationTriggerMetadata, keyframes, state, style, transition, trigger} from "@angular/animations";
 import {DataTableComponent} from "../DataTable.component";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
+import {SortHeaderState} from "../classes/interfaces/SortHeaderState.interface";
 
 const SORT_ANIMATION_TRANSITION: string = `${AnimationDurations.ENTERING} ${AnimationCurves.STANDARD_CURVE}`;
 const SORT_ANIMATIONS: AnimationTriggerMetadata[] = [
@@ -42,37 +43,37 @@ const SORT_ANIMATIONS: AnimationTriggerMetadata[] = [
   ])
 ];
 
-export enum SortHeaderState {
-  ASC = "ASC",
-  DESC = "DESC",
-  NONE = "OFF",
-}
 
 @Component({
-  selector: "mat-header-cell[sortHeader]",
-  templateUrl: require("./SortHeader.template.pug"),
-  styleUrls: [require("./SortHeader.less").toString()],
+  selector: "header-cell[sortProperty]",
+  templateUrl: require("./SortProperty.template.pug"),
+  styleUrls: [require("./SortProperty.less").toString()],
   animations: SORT_ANIMATIONS
 })
-export class SortHeaderDirective implements OnInit {
-  private _tableDataSource: RestTableDataSource<any>;
-  private _sort: SortHeaderState = SortHeaderState.NONE;
+export class SortPropertyDirective<T> implements OnInit {
+  private _parentTable: DataTableComponent<any>;
+  private _sortState: SortHeaderState = SortHeaderState.NONE;
 
-  @Input("sortHeader")
+  @Input("sortProperty")
   public objectPath: string;
 
-  @Input("sortByDefault")
-  public sortByDefault: SortHeaderState = null;
+  @Input("sortDefault")
+  public sortDefault: SortHeaderState = null;
 
-  @Input("doInitialUpdate")
-  public doInitialUpdate: boolean = true;
+  private get dataSource(): RestTableDataSource<T> {
+    if (this._parentTable) {
+      return this._parentTable.dataSource;
+    } else {
+      return null;
+    }
+  }
 
-  constructor(@Optional() table: DataTableComponent<any>) {
-    if (table == null) {
-      throw new Error("The SortHeaderDirective can only be used within a DataTableComponent");
+  constructor(@Optional() parentTable: DataTableComponent<any>) {
+    if (parentTable == null) {
+      throw new Error("The SortPropertyDirective can only be used within a DataTableComponent");
     }
 
-    this._tableDataSource = table.tableDataSource;
+    this._parentTable = parentTable;
   }
 
   public ngOnInit() {
@@ -81,19 +82,19 @@ export class SortHeaderDirective implements OnInit {
     }
 
 
-    if (this.sortByDefault != null) {
-      this._applySort(this.sortByDefault, this.doInitialUpdate);
+    if (this.sortDefault != null) {
+      this._applySort(this.sortDefault, false);
     }
   }
 
-  @HostBinding("class.mat-sort-header-sorted")
+  @HostBinding("class.sort-header-sorted")
   public get isSorted(): boolean {
-    return this._sort !== SortHeaderState.NONE;
+    return this._sortState !== SortHeaderState.NONE;
   }
 
   @HostListener("click")
   public handleClick() {
-    switch (this._sort) {
+    switch (this._sortState) {
       case SortHeaderState.NONE:
         this._applySort(SortHeaderState.ASC, true);
         break;
@@ -107,15 +108,19 @@ export class SortHeaderDirective implements OnInit {
   }
 
   private _applySort(sort: SortHeaderState, updateData: boolean) {
-    this._sort = sort;
-    if (SortHeaderState.NONE === sort) {
-      this._tableDataSource.sortBuilder.remove(this.objectPath);
-    } else {
-      this._tableDataSource.sortBuilder.add(this.objectPath, SortHeaderState.DESC === sort);
-    }
+    this._sortState = sort;
+    let ds: RestTableDataSource<T> = this.dataSource;
 
-    if (updateData) {
-      this._tableDataSource.update()
+    if (ds != null) {
+      if (SortHeaderState.NONE === sort) {
+        ds.sortBuilder.remove(this.objectPath);
+      } else {
+        ds.sortBuilder.add(this.objectPath, SortHeaderState.DESC === sort);
+      }
+
+      if (updateData) {
+        ds.update()
+      }
     }
   }
 }

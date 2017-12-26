@@ -1,27 +1,24 @@
 p Templates are used by Biliomi all over the place, from raid-messages to tweets.
 
-data-table(tableId="templates", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
-  ng-template(tableButtons)
-    table-filter-query([filterMapping]="tableFilterMapping")
-
-  ng-container(matColumnDef="TemplateKey")
-    mat-header-cell(*matHeaderCellDef="") Key
-    mat-cell(*matCellDef="let template")
+data-table(tableId="templates", [dataSource]="dataSource", [exportConfig]="exportConfig", [filterMapping]="tableFilterMapping")
+  ng-container(columnDef="TemplateKey")
+    header-cell(*headerCellDef="") Key
+    data-cell(*dataCellDef="let template")
       | {{template.TemplateKey | caseToWord:"TITLE_CASE"}}
 
-  ng-container(matColumnDef="Template")
-    mat-header-cell(*matHeaderCellDef="") Template
-    mat-cell(*matCellDef="let template")
+  ng-container(columnDef="Template")
+    header-cell(*headerCellDef="") Template
+    data-cell(*dataCellDef="let template")
       | {{template.Template}}
 
-  ng-container(matColumnDef="Description")
-    mat-header-cell(*matHeaderCellDef="") Description
-    mat-cell(*matCellDef="let template")
+  ng-container(columnDef="Description")
+    header-cell(*headerCellDef="") Description
+    data-cell(*dataCellDef="let template")
       | {{template.Description}}
 
-  ng-container(matColumnDef="#Edit")
-    mat-header-cell(*matHeaderCellDef="", buttonsColumn="1")
-    mat-cell(*matCellDef="let template", buttonsColumn="1")
+  ng-container(columnDef="#Edit", [buttonsColumn]="1")
+    header-cell(*headerCellDef="")
+    data-cell(*dataCellDef="let template")
       a.mat-icon-button.pull-right(mat-button, (click)="editTemplate(template)", title="Edit template")
         mat-icon edit
 

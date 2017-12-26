@@ -5,14 +5,11 @@ import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliom
 import {MatDialog} from "@angular/material";
 import {EditGameModalComponent} from "./declarations/EditGameModal.component";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
-import {
-  XLSX_FORMATTER_DATE,
-  XLSX_FORMATTER_LIST_REDUCTION
-} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import IGame = Biliomi.IGame;
-import ICommunity = Biliomi.ICommunity;
+import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {ConfirmDialogComponent} from "../../../shared/components/ConfirmDialog.component";
 import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
+import IGame = Biliomi.IGame;
+import ICommunity = Biliomi.ICommunity;
 
 @Component({
   selector: "game-register",
@@ -33,7 +30,7 @@ export class GameRegisterComponent {
       {
         objectPath: "$.Communities",
         headerName: "Communities",
-        formatter: XLSX_FORMATTER_LIST_REDUCTION((l: ICommunity, r: ICommunity) => l.Name + ", " + r.Name)
+        formatter: (c: ICommunity[]) => c.map((c: ICommunity) => c.Name).join(", ")
       },
     ]
   };
@@ -54,7 +51,7 @@ export class GameRegisterComponent {
     this._dialog.open(ConfirmDialogComponent, {
       data: `Are you sure you want to set "${game.Name}" as the current game?`
     }).afterClosed()
-      .filter((choice:boolean) => choice)
+      .filter((choice: boolean) => choice)
       .subscribe(() => this._gamesClient.setAsCurrentGame(game));
   }
 

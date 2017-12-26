@@ -1,40 +1,39 @@
 p Custom commands are messages bound to chat commands.#[br]
 
-data-table(tableId="custom-commands", [tableDataSource]="dataSource", [exportConfig]="exportConfig")
-  ng-template(tableButtons)
+data-table(tableId="custom-commands", [dataSource]="dataSource", [exportConfig]="exportConfig", [filterMapping]="tableFilterMapping")
+  ng-template(customTableActions)
     button(mat-icon-button, (click)="editCommand()", title="Add new command")
       mat-icon add
-    table-filter-query([filterMapping]="tableFilterMapping")
 
-  ng-container(matColumnDef="Command")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="Command", [sortByDefault]="'ASC'") Command
-    mat-cell(*matCellDef="let command")
+  ng-container(columnDef="Command")
+    header-cell(*headerCellDef="", sortProperty="Command", sortDefault="ASC") Command
+    data-cell(*dataCellDef="let command")
       command-form([command]="command", [argsDisabled]="!commandHasArgs(command)")
       small.command-message.text-muted {{command.Message}}
 
-  ng-container(matColumnDef="User Group")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="UserGroup.Name") Group
-    mat-cell(*matCellDef="let command")
+  ng-container(columnDef="User Group")
+    header-cell(*headerCellDef="", sortProperty="UserGroup.Name") Group
+    data-cell(*dataCellDef="let command")
       | {{command.UserGroup.Name}}
 
-  ng-container(matColumnDef="Cooldown")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="Cooldown") Cooldown
-    mat-cell(*matCellDef="let command")
+  ng-container(columnDef="Cooldown")
+    header-cell(*headerCellDef="", sortProperty="Cooldown") Cooldown
+    data-cell(*dataCellDef="let command")
       | {{command.Cooldown | time}}
 
-  ng-container(matColumnDef="Price")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="Price") Price
-    mat-cell(*matCellDef="let command")
+  ng-container(columnDef="Price")
+    header-cell(*headerCellDef="", sortProperty="Price") Price
+    data-cell(*dataCellDef="let command")
       | {{command.Price | points | async}}
 
-  ng-container(matColumnDef="Aliasses")
-    mat-header-cell(*matHeaderCellDef="") Aliasses
-    mat-cell(*matCellDef="let command")
+  ng-container(columnDef="Aliasses")
+    header-cell(*headerCellDef="") Aliasses
+    data-cell(*dataCellDef="let command")
       ul.list-unstyled
         li(*ngFor="let alias of command.Aliasses") &#33;{{alias}}
 
-  ng-container(matColumnDef="#Edit")
-    mat-header-cell(*matHeaderCellDef="", buttonsColumn="1")
-    mat-cell(*matCellDef="let command", buttonsColumn="1")
+  ng-container(columnDef="#Edit", [buttonsColumn]="1")
+    header-cell(*headerCellDef="")
+    data-cell(*dataCellDef="let command")
       a.mat-icon-button.pull-right(mat-button, (click)="editCommand(command)", title="Edit command")
         mat-icon edit

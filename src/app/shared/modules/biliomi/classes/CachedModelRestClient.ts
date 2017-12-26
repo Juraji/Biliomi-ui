@@ -4,6 +4,8 @@ import {ListCache} from "./ListCache";
 import {SortBuilder} from "./SortBuilder";
 import {Predicate} from "../../tools/FunctionalInterface";
 import {FilterBuilder} from "./FilterBuilder";
+import {Biliomi} from "./interfaces/Biliomi";
+import IPaginatedResponse = Biliomi.IPaginatedResponse;
 
 export abstract class CachedModelRestClient<T> extends ModelRestClient<T> {
   protected _cache: ListCache<T> = new ListCache<T>();
@@ -18,7 +20,10 @@ export abstract class CachedModelRestClient<T> extends ModelRestClient<T> {
     // so the API doesn't get flooded with requests by concurrent calls
     if ((!this._cache.hasData() || refresh) && this._loadPromise == null) {
       this._loadPromise = (async () => {
-        this._cache.set(await super.getList(sorting, filters, params));
+        let res: IPaginatedResponse<T> = await super.getList(sorting, filters, params);
+        if (res != null) {
+          this._cache.set(res.Entities);
+        }
         return this._cache.get();
       })();
     }

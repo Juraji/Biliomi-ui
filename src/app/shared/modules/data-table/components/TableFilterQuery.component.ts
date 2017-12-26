@@ -1,9 +1,10 @@
-import {Component, HostBinding, Input, OnInit, Optional} from "@angular/core";
+import {Component, HostBinding, OnInit, Optional} from "@angular/core";
 import {DataTableComponent} from "../DataTable.component";
 import {FormControl, Validators} from "@angular/forms";
 import {StringUtils} from "../../tools/StringUtils";
-import {TableFilterNameMapping} from "../classes/interfaces/TableFilterMapping.interface";
 import {MatDialog} from "@angular/material";
+import {RestTableDataSource} from "../classes/RestTableDataSource";
+import {TableFilterNameMapping} from "../classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "table-filter-query",
@@ -11,12 +12,11 @@ import {MatDialog} from "@angular/material";
   styleUrls: [require("./TableFilterQuery.less").toString()]
 })
 export class TableFilterQueryComponent<T> implements OnInit {
-  private _table: DataTableComponent<T>;
+  private _parentTable: DataTableComponent<T>;
   private _fieldFocus: boolean;
   private _dialog: MatDialog;
 
-  @Input("filterMapping")
-  public filterMapping: TableFilterNameMapping = null;
+  public filterQueryControl: FormControl = new FormControl("", [Validators.pattern(/^([a-z. ]+\s+[!]?[=~<>]\s["]?[a-z0-9.\- ]+["]?(\s(and|or)\s)?)+$/i)]);
 
   @HostBinding("class.filter-field-focus")
   public get fieldFocus(): boolean {
@@ -27,10 +27,24 @@ export class TableFilterQueryComponent<T> implements OnInit {
     this._fieldFocus = fieldFocus;
   }
 
-  public filterQueryControl: FormControl = new FormControl("", [Validators.pattern(/^([a-z. ]+\s+[!]?[=~<>]\s["]?[a-z0-9.\- ]+["]?(\s(and|or)\s)?)+$/i)]);
+  private get filterMapping(): TableFilterNameMapping {
+    if (this._parentTable) {
+      return this._parentTable.filterMapping;
+    } else {
+      return null;
+    }
+  }
+
+  private get dataSource(): RestTableDataSource<T> {
+    if (this._parentTable) {
+      return this._parentTable.dataSource;
+    } else {
+      return null;
+    }
+  }
 
   constructor(@Optional() table: DataTableComponent<T>, dialog: MatDialog) {
-    this._table = table;
+    this._parentTable = table;
     this._dialog = dialog;
   }
 
@@ -41,22 +55,24 @@ export class TableFilterQueryComponent<T> implements OnInit {
     if (this.filterQueryControl.valid) {
       e.preventDefault();
       let query = this.filterQueryControl.value.trim();
-      let ds = this._table.tableDataSource;
+      let ds = this.dataSource;
 
-      if (StringUtils.isEmpty(query)) {
-        ds.clientParams.delete("filter");
-        ds.update();
-      } else {
-        if (this.filterMapping != null) {
-          Object.keys(this.filterMapping).forEach((key:string) => {
-            query = query.replace(new RegExp(`(\\s?)${key}(\\s)`, "gi"), `$1${this.filterMapping[key]}$2`);
-          });
-        }
+      if (ds != null){
+        if (StringUtils.isEmpty(query)) {
+          ds.clientParams.delete("filter");
+          ds.update();
+        } else {
+          if (this.filterMapping != null) {
+            Object.keys(this.filterMapping).forEach((key:string) => {
+              query = query.replace(new RegExp(`(\\s?)${key}(\\s)`, "gi"), `$1${this.filterMapping[key]}$2`);
+            });
+          }
 
-        ds.clientParams.set("filter", query);
-        let success: boolean = await ds.update();
-        if (!success) {
-          this.filterQueryControl.setErrors({emptyResult: true});
+          ds.clientParams.set("filter", query);
+          let success: boolean = await ds.update();
+          if (!success) {
+            this.filterQueryControl.setErrors({emptyResult: true});
+          }
         }
       }
     }
@@ -69,8 +85,12 @@ export class TableFilterQueryComponent<T> implements OnInit {
 
   public clearInput(){
     this.filterQueryControl.setValue("");
-    this._table.tableDataSource.clientParams.delete("filter");
-    this._table.tableDataSource.update();
+
+    let ds = this.dataSource;
+    if (ds != null) {
+      ds.clientParams.delete("filter");
+      ds.update();
+    }
   }
 
   // noinspection JSMethodCanBeStatic

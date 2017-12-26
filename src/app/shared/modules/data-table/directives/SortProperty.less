@@ -1,0 +1,92 @@
+@sort-header-arrow-margin: 6px;
+@sort-header-arrow-container-size: 12px;
+@sort-header-arrow-stem-size: 10px;
+@sort-header-arrow-pointer-length: 6px;
+@sort-header-arrow-thickness: 2px;
+@sort-header-arrow-transition: 225ms cubic-bezier(0.4, 0, 0.2, 1);
+
+.sort-header-container {
+  display: flex;
+  cursor: pointer;
+
+  .sort-header-disabled & {
+    cursor: default;
+  }
+}
+
+.sort-header-position-before {
+  flex-direction: row-reverse;
+}
+
+.sort-header-button {
+  border: none;
+  background: 0 0;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  cursor: inherit;
+  outline: 0;
+  font: inherit;
+  color: currentColor;
+}
+
+.sort-header-arrow {
+  height: @sort-header-arrow-container-size;
+  width: @sort-header-arrow-container-size;
+  min-width: @sort-header-arrow-container-size;
+  margin: 0 0 0 @sort-header-arrow-margin;
+  position: relative;
+  display: flex;
+
+  .sort-header-position-before & {
+    margin: 0 @sort-header-arrow-margin 0 0;
+  }
+}
+
+.sort-header-stem {
+  background: currentColor;
+  height: @sort-header-arrow-stem-size;
+  width: @sort-header-arrow-thickness;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+.sort-header-indicator {
+  width: 100%;
+  height: @sort-header-arrow-thickness;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: @sort-header-arrow-transition;
+}
+
+.sort-header-pointer-middle {
+  margin: auto;
+  height: @sort-header-arrow-thickness;
+  width: @sort-header-arrow-thickness;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+.sort-header-pointer-left,
+.sort-header-pointer-right {
+  background: currentColor;
+  width: @sort-header-arrow-pointer-length;
+  height: @sort-header-arrow-thickness;
+  transition: @sort-header-arrow-transition;
+  position: absolute;
+  top: 0;
+}
+
+.sort-header-pointer-left {
+  transform-origin: right;
+  left: 0;
+}
+
+.sort-header-pointer-right {
+  transform-origin: left;
+  right: 0;
+}

@@ -2,6 +2,7 @@ const FS = require("fs");
 
 const TEMPLATE_FILE_SUFFIX = ".template.pug";
 const COMPONENT_FILE_SUFFIX = ".component.ts";
+const DIRECTIVE_FILE_SUFFIX = ".directive.ts";
 const MODULE_FILE_SUFFIX = ".module.ts";
 
 function getRelativePathToSharedModule(componentPath) {
@@ -27,7 +28,7 @@ function titleCaseToDashedLowercase(moduleNameTC) {
 
 function createTemplateFile(moduleDirPath, moduleNameTC) {
   var templateFilePath = moduleDirPath + "/" + moduleNameTC + TEMPLATE_FILE_SUFFIX;
-  var templateContents = "| Template for " + moduleNameTC
+  var templateContents = "| Template for " + moduleNameTC;
 
   FS.writeFileSync(templateFilePath, templateContents);
 }
@@ -50,6 +51,21 @@ function createComponentFile(moduleDirPath, moduleNameTC, dashedModuleName) {
     "}\n";
 
   FS.writeFileSync(componentFilePath, componentFileContents);
+}
+
+function createDirectiveFile(moduleDirPath, moduleNameTC) {
+  var directiveFilePath = moduleDirPath + "/" + moduleNameTC + DIRECTIVE_FILE_SUFFIX;
+  var camelCaseName = moduleNameTC.substr(0, 1).toLowerCase() + moduleNameTC.substr(1);
+  var directiveFileContents = "import {Directive} from \"@angular/core\";\n" +
+    "\n" +
+    "@Directive({selector: \"[" + camelCaseName + "]\"})\n" +
+    "export class " + moduleNameTC + "Directive {\n" +
+    "\n" +
+    "  constructor() {\n" +
+    "  }\n" +
+    "}\n";
+
+  FS.writeFileSync(directiveFilePath, directiveFileContents);
 }
 
 function createModuleFile(moduleDirPath, moduleNameTC) {
@@ -85,4 +101,5 @@ exports.getRelativePathToSharedModule = getRelativePathToSharedModule;
 exports.titleCaseToDashedLowercase = titleCaseToDashedLowercase;
 exports.createTemplateFile = createTemplateFile;
 exports.createComponentFile = createComponentFile;
+exports.createDirectiveFile = createDirectiveFile;
 exports.createModuleFile = createModuleFile;

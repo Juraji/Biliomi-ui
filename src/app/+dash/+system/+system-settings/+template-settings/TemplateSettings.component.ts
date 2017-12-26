@@ -55,7 +55,7 @@ export class TemplateSettingsComponent implements OnInit {
     this._activatedRoute.paramMap.subscribe((map: ParamMap) => {
       if (map.has("template")) {
         let templateKey: string = map.get("template");
-        let template: ITemplate = this.dataSource.data
+        let template: ITemplate = this.dataSource.currentData
           .filter((template: ITemplate) => StringUtils.equalsIgnoreCase(template.TemplateKey, templateKey))
           .pop();
 

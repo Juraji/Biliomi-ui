@@ -7,6 +7,7 @@ import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/c
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
 import {LatestFollowersClient} from "../../../shared/modules/biliomi/clients/model/LatestFollowers.client";
 import IUser = Biliomi.IUser;
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "followers-page",
@@ -25,6 +26,10 @@ export class FollowersComponent implements OnInit {
       {objectPath: "$.DisplayName", headerName: "Username"},
       {objectPath: "$.FollowDate", headerName: "Follow date", formatter: XLSX_FORMATTER_DATE},
     ]
+  };
+
+  public filterMapping: TableFilterNameMapping = {
+    "Follows Since": "FollowDate"
   };
 
   constructor(followerWatchSettingsClient: FollowerWatchSettingsClient, latestFollowersClient: LatestFollowersClient) {

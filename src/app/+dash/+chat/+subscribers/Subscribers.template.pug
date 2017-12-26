@@ -4,18 +4,15 @@ p Check out the latest subscribers and change the behaviour of Biliomi when new 
   .col.span-8-of-12
     p Latest Subscribers
 
-    data-table(tableId="latest-subscribers", [tableDataSource]="latestSubscribersDataSource", [exportConfig]="exportConfig")
-      ng-template(tableButtons)
-        table-filter-query([filterMapping]="tableFilterMapping")
-
-      ng-container(matColumnDef="Username")
-        mat-header-cell(*matHeaderCellDef="", sortHeader="Username") Username
-        mat-cell(*matCellDef="let user")
+    data-table(tableId="latest-subscribers", [dataSource]="latestSubscribersDataSource", [exportConfig]="exportConfig", [filterMapping]="tableFilterMapping")
+      ng-container(columnDef="Username")
+        header-cell(*headerCellDef="", sortProperty="Username") Username
+        data-cell(*dataCellDef="let user")
           user-display([user]="user")
 
-      ng-container(matColumnDef="Subscriber Since")
-        mat-header-cell(*matHeaderCellDef="", sortHeader="SubscribeDate", [sortByDefault]="'DESC'") Subscriber Since
-        mat-cell(*matCellDef="let user")
+      ng-container(columnDef="Subscriber Since")
+        header-cell(*headerCellDef="", sortProperty="SubscribeDate", [sortDefault]="'DESC'") Subscriber Since
+        data-cell(*dataCellDef="let user")
           | {{user.SubscribeDate | date}}
 
   .col.span-4-of-12

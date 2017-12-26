@@ -1,38 +1,37 @@
 p Manage games known by Biliomi
 
-data-table(tableId="game-register", [tableDataSource]="gamesDataSource", [exportConfig]="exportConfig")
-  ng-template(tableButtons)
+data-table(tableId="game-register", [dataSource]="gamesDataSource", [exportConfig]="exportConfig", [filterMapping]="tableFilterMapping")
+  ng-template(customTableActions)
     button(mat-icon-button, (click)="editGame()", title="Add new game")
       mat-icon add
-    table-filter-query([filterMapping]="tableFilterMapping")
 
-  ng-container(matColumnDef="Title")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="Name", [sortByDefault]="'ASC'") Title
-    mat-cell(*matCellDef="let game")
+  ng-container(columnDef="Title")
+    header-cell(*headerCellDef="", sortProperty="Name", [sortDefault]="'ASC'") Title
+    data-cell(*dataCellDef="let game")
       | {{game.Name}}
 
-  ng-container(matColumnDef="First Played")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="FirstPlayedOn") First Played
-    mat-cell(*matCellDef="let game")
+  ng-container(columnDef="First Played")
+    header-cell(*headerCellDef="", sortProperty="FirstPlayedOn") First Played
+    data-cell(*dataCellDef="let game")
       | {{game.FirstPlayedOn | date}}
 
-  ng-container(matColumnDef="Steam Id")
-    mat-header-cell(*matHeaderCellDef="", sortHeader="SteamId") Steam Id
-    mat-cell(*matCellDef="let game")
+  ng-container(columnDef="Steam Id")
+    header-cell(*headerCellDef="", sortProperty="SteamId") Steam Id
+    data-cell(*dataCellDef="let game")
       | {{game.SteamId}}
 
-  ng-container(matColumnDef="Communities")
-    mat-header-cell(*matHeaderCellDef="") Communities
-    mat-cell(*matCellDef="let game")
+  ng-container(columnDef="Communities")
+    header-cell(*headerCellDef="") Communities
+    data-cell(*dataCellDef="let game")
       ul.list-unstyled
         li(*ngFor="let community of game.Communities | objectSort:'Name'")
           | {{community.Name}}
           small.text-muted &nbsp;by&nbsp;
           user-display([user]="community.Owner")
 
-  ng-container(matColumnDef="#Actions")
-    mat-header-cell(*matHeaderCellDef="", buttonsColumn="2")
-    mat-cell(*matCellDef="let game", buttonsColumn="2")
+  ng-container(columnDef="#Actions", [buttonsColumn]="2")
+    header-cell(*headerCellDef="")
+    data-cell(*dataCellDef="let game")
       a.mat-icon-button.pull-right(mat-button, (click)="editGame(game)", title="Edit game")
         mat-icon edit
       a.mat-icon-button.pull-right(mat-button, (click)="setAsCurrentGame(game)", title="Set as current game")

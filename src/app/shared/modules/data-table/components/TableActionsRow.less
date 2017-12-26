@@ -1,0 +1,19 @@
+@import "../DataTable";
+
+table-actions-row {
+  display: block;
+  min-height: @row-height;
+  padding-top: .5em;
+  padding-right: .5em;
+  padding-left: .5em;
+
+  .table-notices > * {
+    float: left;
+  }
+
+  .table-actions {
+    > * {
+      float: right;
+    }
+  }
+}

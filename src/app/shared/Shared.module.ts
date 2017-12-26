@@ -1,4 +1,4 @@
-import {ModuleWithProviders, NgModule, PipeTransform, Provider, Type} from "@angular/core";
+import {NgModule, PipeTransform, Type} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {NgMaterialModule} from "./modules/ng-material/NgMaterial.module";
@@ -21,10 +21,10 @@ import {UserDisplayComponent} from "./components/UserDisplay.component";
 import {UserAutoCompleteComponent} from "./components/UserAutoComplete.component";
 import {TrimPipe} from "./modules/biliomi/pipes/Trim.pipe";
 import {NumberArrayPipe} from "./pipes/NumberArray.pipe";
-import {DataTableModule} from "./modules/data-table/DataTable.module";
 import {BooleanPipe} from "./pipes/Boolean.pipe";
 import {CommunityChipListComponent} from "./components/CommunityChipList.component";
 import {ObjectSortPipe} from "./pipes/ObjectSort.pipe";
+import {DataTableModule} from "./modules/data-table/DataTable.module";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,

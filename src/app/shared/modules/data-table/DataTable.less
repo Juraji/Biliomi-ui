@@ -1,47 +1,40 @@
 @import "../../../../style/toolkit/swatches";
 
-@mat-row-height: 48px;
-@mat-row-horizontal-padding: 24px;
+@row-height: 48px;
+@row-horizontal-padding: 24px;
 
-.mat-table {
+data-table {
   display: block;
-}
-
-.table-header {
   background-color: #424242;
-  min-height: @mat-row-height;
-  padding-top: .5em;
-  padding-right: .5em;
-  padding-left: .5em;
 
-  .table-notices > * {
-    float: left;
+  .header-cell {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, .7);
   }
 
-  .table-actions {
-    > * {
-      float: right;
+  .data-cell {
+    font-size: 14px;
+    color: #fff;
+  }
+
+  .data-row, .header-row {
+    display: flex;
+    border-bottom: 1px solid rgba(255, 255, 255, .12);
+    align-items: center;
+    min-height: @row-height;
+    padding: 0 @row-horizontal-padding;
+  }
+
+  .data-cell, .header-cell {
+    flex: 1;
+    overflow: hidden;
+    word-wrap: break-word;
+
+    &.buttons-column {
+      flex: initial;
     }
   }
+
 }
 
-.mat-row, .mat-header-row {
-  display: flex;
-  //noinspection CssOptimizeSimilarProperties
-  border-bottom-width: 1px;
-  //noinspection CssOptimizeSimilarProperties
-  border-bottom-style: solid;
-  align-items: center;
-  min-height: @mat-row-height;
-  padding: 0 @mat-row-horizontal-padding;
-}
-
-.mat-cell, .mat-header-cell {
-  flex: 1;
-  overflow: hidden;
-  word-wrap: break-word;
-
-  &.buttons-column {
-    flex: initial;
-  }
-}

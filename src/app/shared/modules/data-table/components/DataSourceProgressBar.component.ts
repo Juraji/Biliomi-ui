@@ -1,26 +1,17 @@
-import {Component, HostBinding, Input} from "@angular/core";
+import {Component, Input} from "@angular/core";
+import {ProgressBarMode} from "../../ng-material/classes/interfaces/ProgressBarMode.interface";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
-import {ProgressBarMode} from "../classes/interfaces/ProgressBarMode.interface";
 
 @Component({
   selector: "data-source-progress-bar",
   templateUrl: require("./DataSourceProgressBar.template.pug")
 })
-export class DataSourceProgressBarComponent {
+export class DataSourceProgressBarComponent<T> {
 
-  @Input("dataSource")
-  public dataSource: RestTableDataSource<any>;
+  @Input("tableDataSource")
+  public tableDataSource: RestTableDataSource<T>;
 
-  @HostBinding("hidden")
-  public get hideProgressBar(): boolean {
-    return this.progressBarMode == ProgressBarMode.NONE;
-  }
-
-  public get progressBarMode(): ProgressBarMode {
-    if (this.dataSource == null) {
-      return ProgressBarMode.NONE;
-    }
-
-    return this.dataSource.progressBarMode;
+  public get showProgressbar(): boolean {
+    return this.tableDataSource != null && this.tableDataSource.progressBarMode !== ProgressBarMode.NONE;
   }
 }

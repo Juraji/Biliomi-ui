@@ -6,8 +6,8 @@ function argvGetComponentType() {
   var componentType = process.argv[2];
 
   if (componentType === undefined || componentType.length === 0
-    || (componentType !== "module" && componentType !== "component")) {
-    throw new Error("Invalid component type (arg 1), A component type should be \"module\" or \"component\"");
+    || (componentType !== "module" && componentType !== "component" && componentType !== "directive")) {
+    throw new Error("Invalid component type (arg 1), A component type should be \"module\", \"component\" or \"directive\"");
   }
 
   return componentType;
@@ -74,6 +74,18 @@ function generateComponent(parentPath, componentName, componentSelector) {
   moduleFiles.createComponentFile(parentPath, componentName, componentSelector);
 }
 
+function generateDirective(parentPath, componentName) {
+  console.log("Generating directive " + componentName + " in " + parentPath);
+
+  if (!parentPath.match(/directives\/?$/)) {
+    parentPath += "directives/";
+  }
+
+  mkDir(parentPath);
+
+  moduleFiles.createDirectiveFile(parentPath, componentName)
+}
+
 (function () {
   var componentType = argvGetComponentType();
   var parentPath = argvGetParentPath();
@@ -86,5 +98,8 @@ function generateComponent(parentPath, componentName, componentSelector) {
       break;
     case "component":
       generateComponent(parentPath, componentName, componentSelector);
+      break;
+    case "directive":
+      generateDirective(parentPath, componentName);
   }
 })();

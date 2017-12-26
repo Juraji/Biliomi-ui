@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.29.366 on 2017-12-24 02:27:53.
+// Generated using typescript-generator version 1.29.366 on 2017-12-26 02:30:22.
 
 export namespace Biliomi {
 
@@ -260,6 +260,11 @@ export namespace Biliomi {
     Date: string;
   }
 
+  export interface IPaginatedResponse<T> {
+    Entities: T[];
+    TotalAvailable: number;
+  }
+
   export interface IPointsSettings extends ISettings {
     PointsNameSingular: string;
     PointsNamePlural: string;
@@ -325,6 +330,11 @@ export namespace Biliomi {
   export interface IRouletteSettings extends ISettings {
     TimeoutOnDeathEnabled: boolean;
     TimeoutOnDeath: number;
+  }
+
+  export interface IServerErrorResponse {
+    ErrorMessage: string;
+    CausedBy: string;
   }
 
   export interface ISettings {

@@ -1,32 +1,29 @@
 import {ModelRestClient} from "../../biliomi/classes/ModelRestClient";
 import {SortBuilder} from "../../biliomi/classes/SortBuilder";
-import {MatTableDataSource} from "@angular/material";
-import {ProgressBarMode} from "./interfaces/ProgressBarMode.interface";
-import {FilterBuilder} from "../../biliomi/classes/FilterBuilder";
+import {ProgressBarMode} from "../../ng-material/classes/interfaces/ProgressBarMode.interface";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Biliomi} from "../../biliomi/classes/interfaces/Biliomi";
+import IPaginatedResponse = Biliomi.IPaginatedResponse;
 
-export class RestTableDataSource<T> extends MatTableDataSource<T> {
+export class RestTableDataSource<T> {
+  private _data: BehaviorSubject<T[]>;
   private _restClient: ModelRestClient<T>;
   private _progressBarMode: ProgressBarMode = ProgressBarMode.NONE;
-  private _isInitialized: boolean = false;
   private _sortBuilder: SortBuilder;
-  private _filterBuilder: FilterBuilder;
   private _clientParams: Map<string, any>;
-
-
-  constructor() {
-    super([]);
-  }
+  private _totalRowsAvailable: number = 0;
+  private _initialized: boolean = false;
 
   public get client(): ModelRestClient<T> {
     return this._restClient;
   }
 
-  public get isInitialized(): boolean {
-    return this._isInitialized;
+  public set client(client: ModelRestClient<T>) {
+    this._restClient = client;
   }
 
-  public get hasData(): boolean {
-    return this.data != null && this.data.length > 0;
+  public get isInitialized(): boolean {
+    return this._initialized;
   }
 
   public get sortBuilder(): SortBuilder {
@@ -34,13 +31,6 @@ export class RestTableDataSource<T> extends MatTableDataSource<T> {
       this._sortBuilder = new SortBuilder();
     }
     return this._sortBuilder;
-  }
-
-  public get filterBuilder(): FilterBuilder {
-    if (this._filterBuilder == null) {
-      this._filterBuilder = new FilterBuilder();
-    }
-    return this._filterBuilder;
   }
 
   public get clientParams() {
@@ -54,19 +44,36 @@ export class RestTableDataSource<T> extends MatTableDataSource<T> {
     return this._progressBarMode;
   }
 
-  public set client(client: ModelRestClient<T>) {
-    this._restClient = client;
+  public get dataSubject(): BehaviorSubject<T[]> {
+    return this._data;
+  }
+
+  public get currentData(): T[] {
+    return this._data.getValue();
+  }
+
+  public get totalRowsAvailable(): number {
+    return this._totalRowsAvailable;
+  }
+
+  constructor() {
+    this._data = new BehaviorSubject<T[]>([]);
   }
 
   public async update(): Promise<boolean> {
+    this._initialized = true;
     this._progressBarMode = ProgressBarMode.INDETERMINATE;
 
-    let data: T[] = await this._restClient.getList(this._sortBuilder, this._filterBuilder, this._clientParams);
-    this.data = data || [];
+    let data: IPaginatedResponse<T> = await this._restClient.getList(this._sortBuilder, null, this._clientParams);
+    if (data != null) {
+      this._totalRowsAvailable = data.TotalAvailable;
+      this._data.next(data.Entities);
+    } else {
+      this._totalRowsAvailable = 0;
+      this._data.next([]);
+    }
 
     this._progressBarMode = ProgressBarMode.NONE;
-    this._isInitialized = true;
-
     return data != null;
   }
 }

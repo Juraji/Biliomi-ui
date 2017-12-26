@@ -1,6 +1,8 @@
 import {BiliomiApiService} from "../services/BiliomiApi.service";
 import {SortBuilder} from "./SortBuilder";
 import {FilterBuilder} from "./FilterBuilder";
+import {Biliomi} from "./interfaces/Biliomi";
+import IPaginatedResponse = Biliomi.IPaginatedResponse;
 
 export abstract class ModelRestClient<T> {
   protected _api: BiliomiApiService;
@@ -19,7 +21,7 @@ export abstract class ModelRestClient<T> {
     return this._api.get<T>(this._baseResourceUri + "/" + id, params);
   }
 
-  public getList(sorting?: SortBuilder, filters?: FilterBuilder, params: Map<string, any> = new Map<string, any>()): Promise<T[]> {
+  public getList(sorting?: SortBuilder, filters?: FilterBuilder, params: Map<string, any> = new Map<string, any>()): Promise<IPaginatedResponse<T>> {
     if (sorting) {
       let sortQuery: string = sorting.toString();
       if (sortQuery != null) {
@@ -34,7 +36,7 @@ export abstract class ModelRestClient<T> {
       }
     }
 
-    return this._api.get<T[]>(this._baseResourceUri, params);
+    return this._api.get<IPaginatedResponse<T>>(this._baseResourceUri, params);
   }
 
   public post(obj: T, params?: Map<string, any>): Promise<T> {

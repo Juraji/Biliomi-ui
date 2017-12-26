@@ -1,0 +1,19 @@
+.table-notices
+  //button(*ngIf="!tableDataSource.hasData", mat-button, disabled="disabled") No data
+.table-actions
+  button(mat-icon-button, [matMenuTriggerFor]="tableMenu")
+    mat-icon more_vert
+  mat-menu(#tableMenu="matMenu")
+    button(*ngIf="tableExportConfig != undefined", mat-menu-item, (click)="exportData()")
+      mat-icon cloud_download
+      span Export
+    button(*ngIf="parentTableId", mat-menu-item, (click)="tableSetup()")
+      mat-icon settings
+      span Table Setup
+
+  button(mat-icon-button, (click)="tableDataSource.update()", title="Refresh")
+    mat-icon refresh
+
+  ng-container([ngTemplateOutlet]="customActionsDef")
+
+  table-filter-query

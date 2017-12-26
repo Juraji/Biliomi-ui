@@ -1,9 +1,0 @@
-.mat-sort-header-container([class.mat-sort-header-position-before]="arrowPosition == 'before'")
-  button.mat-sort-header-button(type="button")
-    ng-content
-  .mat-sort-header-arrow(*ngIf="isSorted", [@indicatorToggle]="_sort")
-    .mat-sort-header-stem
-    .mat-sort-header-indicator([@indicator]="_sort")
-      .mat-sort-header-pointer-left([@leftPointer]="_sort")
-      .mat-sort-header-pointer-right([@rightPointer]="_sort")
-      .mat-sort-header-pointer-middle

@@ -4,23 +4,20 @@ p Manage Twitch communities known by Biliomi
   .col.span-8-of-12
     p Known Communities
 
-    data-table(tableId="known-communites", [tableDataSource]="communitiesDataSource", [exportConfig]="exportConfig")
-      ng-template(tableButtons)
-        table-filter-query([filterMapping]="tableFilterMapping")
-
-      ng-container(matColumnDef="Name")
-        mat-header-cell(*matHeaderCellDef="", sortHeader="Name", [sortByDefault]="'ASC'") Name
-        mat-cell(*matCellDef="let community")
+    data-table(tableId="known-communites", [dataSource]="communitiesDataSource", [exportConfig]="exportConfig", [filterMapping]="tableFilterMapping")
+      ng-container(columnDef="Name")
+        header-cell(*headerCellDef="", sortProperty="Name", [sortDefault]="'ASC'") Name
+        data-cell(*dataCellDef="let community")
           | {{community.Name}}
 
-      ng-container(matColumnDef="Owner")
-        mat-header-cell(*matHeaderCellDef="", sortHeader="Owner.Username") Owner
-        mat-cell(*matCellDef="let community")
+      ng-container(columnDef="Owner")
+        header-cell(*headerCellDef="", sortProperty="Owner.Username") Owner
+        data-cell(*dataCellDef="let community")
           user-display([user]="community.Owner")
 
-      ng-container(matColumnDef="Twitch Id")
-        mat-header-cell(*matHeaderCellDef="", sortHeader="TwitchId") Twitch Id
-        mat-cell(*matCellDef="let community")
+      ng-container(columnDef="Twitch Id")
+        header-cell(*headerCellDef="", sortProperty="TwitchId") Twitch Id
+        data-cell(*dataCellDef="let community")
           | {{community.TwitchId}}
 
   .col.span-4-of-12
