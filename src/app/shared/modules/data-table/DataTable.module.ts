@@ -1,7 +1,7 @@
-import {NgModule} from "@angular/core";
+import {NgModule, Type} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgMaterialModule} from "../ng-material/NgMaterial.module";
+import * as material from "@angular/material";
 import {CellOutletDirective} from "./directives/CellOutlet.directive";
 import {HeaderRowComponent} from "./components/HeaderRow.component";
 import {DataSourceProgressBarComponent} from "./components/DataSourceProgressBar.component";
@@ -21,8 +21,23 @@ import {DataCellDefDirective} from "./directives/DataCellDef.directive";
 import {CustomTableActionsDirective} from "./directives/CustomTableActions.directive";
 import {DataSourcePaginatorComponent} from "./components/DataSourcePaginator.component";
 
-const EXPORTED_DECLARATIONS = [
-  DataTableComponent,
+const IMPORTS: Type<any>[] = [
+  CommonModule,
+  FormsModule,
+  ReactiveFormsModule,
+  material.MatButtonModule,
+  material.MatDialogModule,
+  material.MatFormFieldModule,
+  material.MatIconModule,
+  material.MatInputModule,
+  material.MatMenuModule,
+  material.MatProgressBarModule,
+  material.MatSelectModule,
+  material.MatSlideToggleModule,
+  material.MatTooltipModule,
+];
+
+const DECLARATIONS: Type<any>[] = [
   HeaderRowComponent,
   DataRowComponent,
   TableActionsRowComponent,
@@ -31,9 +46,14 @@ const EXPORTED_DECLARATIONS = [
   DataSourceProgressBarComponent,
   DataSourcePaginatorComponent,
 
+  CellOutletDirective
+];
+
+const EXPORTED_DECLARATIONS: Type<any>[] = [
+  DataTableComponent,
+
   DataCellDirective,
   DataCellDefDirective,
-  CellOutletDirective,
   ColumnDefDirective,
   CustomTableActionsDirective,
   DataRowDefDirective,
@@ -44,13 +64,8 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    NgMaterialModule
-  ],
-  declarations: EXPORTED_DECLARATIONS,
+  imports: IMPORTS,
+  declarations: DECLARATIONS.concat(EXPORTED_DECLARATIONS),
   exports: EXPORTED_DECLARATIONS,
   entryComponents: [TableSetupModalComponent]
 })
