@@ -1,10 +1,13 @@
 import {Component} from "@angular/core";
-import {RedirectToFirstChildComponent} from "../../../shared/classes/abstract/RedirectToFirstChildComponent";
+import {
+  COMPONENT_TEMPLATE,
+  RedirectToFirstChildComponent
+} from "../../../shared/classes/abstract/RedirectToFirstChildComponent";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: "users-page",
-  templateUrl: require("../../../shared/classes/abstract/RedirectToFirstChildComponentTemplate.pug")
+  templateUrl: COMPONENT_TEMPLATE
 })
 export class UsersComponent extends RedirectToFirstChildComponent {
   constructor(router: Router, activatedRoute: ActivatedRoute) {

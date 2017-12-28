@@ -3,7 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SharedModule} from "./shared/Shared.module";
-import {MainComponent} from "./declarations/Main.component";
+import {MainComponent} from "./Main.component";
 import {AuthenticatedGuard} from "./shared/router-guards/Authenticated.guard";
 
 export const LOGIN_ROUTE: string = "/login";

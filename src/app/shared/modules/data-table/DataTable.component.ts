@@ -1,7 +1,7 @@
 import {
   AfterContentChecked, AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild,
-  ContentChildren, Input, IterableChangeRecord, IterableDiffer, IterableDiffers, NgIterable, OnDestroy, OnInit, QueryList,
-  TemplateRef, TrackByFunction, ViewChild, ViewContainerRef, ViewEncapsulation
+  ContentChildren, Input, IterableChangeRecord, IterableDiffer, IterableDiffers, NgIterable, OnDestroy, OnInit,
+  QueryList, TemplateRef, TrackByFunction, ViewChild, ViewContainerRef, ViewEncapsulation
 } from "@angular/core";
 import {CollectionViewer} from "./classes/interfaces/CollectionViewer.interface";
 import {Subject} from "rxjs/Subject";
@@ -29,13 +29,13 @@ export const TABLE_SETUP_STORAGE_PREFIX: string = "tableSetup.";
 
 @Component({
   selector: "data-table",
-  exportAs: 'cdkTable',
+  exportAs: "cdkTable",
   templateUrl: require("./DataTable.template.pug"),
   styleUrls: [require("./DataTable.less").toString()],
   host: {"class": "data-table"},
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DataTableComponent<T> implements CollectionViewer, OnInit, OnDestroy, AfterContentInit, AfterContentChecked {
   private _onDestroy: Subject<void> = new Subject<void>();
@@ -158,12 +158,11 @@ export class DataTableComponent<T> implements CollectionViewer, OnInit, OnDestro
 
     this._cacheColumnDefs();
 
-    if (this._headerRowDefChanged){
-      let colSetup: TableColumnsSetup = Storage.get(TABLE_SETUP_STORAGE_PREFIX + this.tableId, null)
+    if (this._headerRowDefChanged) {
+      let colSetup: TableColumnsSetup = Storage.get(TABLE_SETUP_STORAGE_PREFIX + this.tableId, null);
       if (colSetup == null) {
-        this.columnSetup = this.contentColumnDefs.map((def: ColumnDefDirective) => <ColumnSetup>{
-          id: def.columnId,
-          visible: true
+        this.columnSetup = this.contentColumnDefs.map((def: ColumnDefDirective) => {
+          return {id: def.columnId, visible: true};
         });
       } else {
         this.columnSetup = colSetup;
@@ -215,7 +214,7 @@ export class DataTableComponent<T> implements CollectionViewer, OnInit, OnDestro
   }
 
   private _renderUpdatedColumns() {
-    if (!!this.dataRowDef.getColumnsDiff()) {
+    if (this.dataRowDef.getColumnsDiff() != null) {
       this._dataDiffer.diff([]);
 
       this.dataRowPlaceHolderView.clear();
@@ -256,7 +255,7 @@ export class DataTableComponent<T> implements CollectionViewer, OnInit, OnDestro
           } else if (currentIndex == null) {
             this.dataRowPlaceHolderView.remove(adjustedPreviousIndex);
           } else {
-            const view = <RowViewRef<T>>this.dataRowPlaceHolderView.get(adjustedPreviousIndex);
+            const view = this.dataRowPlaceHolderView.get(adjustedPreviousIndex);
             this.dataRowPlaceHolderView.move(view!, currentIndex);
           }
         });
@@ -267,7 +266,7 @@ export class DataTableComponent<T> implements CollectionViewer, OnInit, OnDestro
       // Update rows that did not get added/removed/moved but may have had their identity changed,
       // e.g. if trackBy matched data on some property but the actual data reference changed.
       changes.forEachIdentityChange((record: IterableChangeRecord<T>) => {
-        const rowView = <RowViewRef<T>>this.dataRowPlaceHolderView.get(record.currentIndex!);
+        const rowView = this.dataRowPlaceHolderView.get(record.currentIndex!) as RowViewRef<T>;
         rowView.context.$implicit = record.item;
       });
     }
@@ -296,7 +295,8 @@ export class DataTableComponent<T> implements CollectionViewer, OnInit, OnDestro
   }
 
   private _updateRowIndexContext() {
-    for (let index = 0, count = this.dataRowPlaceHolderView.length; index < count; index++) {
+    let count: number = this.dataRowPlaceHolderView.length;
+    for (let index = 0; index < count; index++) {
       const viewRef = this.dataRowPlaceHolderView.get(index) as RowViewRef<T>;
       viewRef.context.index = index;
       viewRef.context.count = count;
