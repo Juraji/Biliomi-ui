@@ -10,7 +10,7 @@ import {StrikesAndExcemptionSettingsComponent} from "./declarations/StrikesAndEx
 const ROUTES: Routes = [
   {
     path: "",
-    component: ChatModeratorSettingsComponent,
+    component: ChatModeratorSettingsComponent
   }
 ];
 
@@ -24,7 +24,7 @@ const ROUTES: Routes = [
     CapsAndRepeatedCharactersSettingsComponent,
     LinkModerationSettingsComponent,
     StrikesAndExcemptionSettingsComponent,
-    StrikeSelectComponent,
+    StrikeSelectComponent
   ]
 })
 export class ChatModeratorSettingsModule {

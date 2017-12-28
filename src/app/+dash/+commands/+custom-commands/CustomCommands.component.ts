@@ -37,7 +37,7 @@ export class CustomCommandsComponent implements OnInit {
   };
 
   public tableFilterMapping: TableFilterNameMapping = {
-    "group": "Usergroup.Name",
+    "group": "Usergroup.Name"
   };
 
   constructor(customCommandsClient: CustomCommandsClient, dialog: MatDialog) {
@@ -58,7 +58,7 @@ export class CustomCommandsComponent implements OnInit {
 
   private editCommand(command: ICustomCommand) {
     let dialogRef = this._dialog.open(EditCustomCommandModalComponent, {
-      width: '600px',
+      width: "600px",
       data: (command ? command.Id : null)
     });
 

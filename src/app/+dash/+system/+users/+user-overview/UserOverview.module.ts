@@ -7,7 +7,7 @@ import {EditUserModalComponent} from "./declarations/EditUserModal.component";
 const ROUTES: Routes = [
   {
     path: "",
-    component: UserOverviewComponent,
+    component: UserOverviewComponent
   },
   {
     path: ":username",
@@ -23,7 +23,7 @@ const ROUTES: Routes = [
   ],
   declarations: [
     UserOverviewComponent,
-    EditUserModalComponent,
+    EditUserModalComponent
   ],
   entryComponents: [EditUserModalComponent]
 })

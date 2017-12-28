@@ -18,7 +18,7 @@ export class EditUserModalComponent implements AfterViewInit {
   private _userId: number;
 
   private editedUser: IUser;
-  private userTitleControl: FormControl = new FormControl('');
+  private userTitleControl: FormControl = new FormControl("");
   private userPointsControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   private userFollowDateControl: FormControl = new FormControl();
   private userSubscribeDateControl: FormControl = new FormControl();
@@ -52,11 +52,11 @@ export class EditUserModalComponent implements AfterViewInit {
     this.userGroupSelect.selectedGroup = this.editedUser.UserGroup;
 
     if (this.editedUser.Follower) {
-      this.userFollowDateControl.setValue(this.editedUser.FollowDate)
+      this.userFollowDateControl.setValue(this.editedUser.FollowDate);
     }
 
     if (this.editedUser.Subscriber) {
-      this.userSubscribeDateControl.setValue(this.editedUser.SubscribeDate)
+      this.userSubscribeDateControl.setValue(this.editedUser.SubscribeDate);
     }
   }
 

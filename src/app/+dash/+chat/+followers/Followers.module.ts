@@ -6,7 +6,7 @@ import {FollowersComponent} from "./Followers.component";
 const ROUTES: Routes = [
   {
     path: "",
-    component: FollowersComponent,
+    component: FollowersComponent
   }
 ];
 

@@ -54,7 +54,7 @@ export class QuickActionsComponent {
   }
 
   public deleteQuickAction(action: QuickAction) {
-    let index: number = this.quickActions.findIndex((a: QuickAction) => a.name == action.name);
+    let index: number = this.quickActions.findIndex((a: QuickAction) => a.name === action.name);
     this.quickActions.splice(index, 1);
     this.loadQuickActions(true);
   }

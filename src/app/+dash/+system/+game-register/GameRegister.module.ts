@@ -7,7 +7,7 @@ import {EditGameModalComponent} from "./declarations/EditGameModal.component";
 const ROUTES: Routes = [
   {
     path: "",
-    component: GameRegisterComponent,
+    component: GameRegisterComponent
   }
 ];
 

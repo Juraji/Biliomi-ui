@@ -4,8 +4,8 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/co
   selector: "data-row",
   templateUrl: require("./Row.template.pug"),
   host: {
-    'class': 'data-row',
-    'role': 'row',
+    "class": "data-row",
+    "role": "row"
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

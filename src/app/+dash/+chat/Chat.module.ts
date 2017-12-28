@@ -10,31 +10,31 @@ const ROUTES: Routes = [
   },
   {
     path: "followers",
-    loadChildren: './+followers/Followers.module#FollowersModule',
+    loadChildren: "./+followers/Followers.module#FollowersModule",
     data: {breadCrumbName: "Followers"}
   },
   {
     path: "subscribers",
-    loadChildren: './+subscribers/Subscribers.module#SubscribersModule',
+    loadChildren: "./+subscribers/Subscribers.module#SubscribersModule",
     data: {breadCrumbName: "Subscribers"}
   },
   {
     path: "hosts",
-    loadChildren: './+hosts/Hosts.module#HostsModule',
+    loadChildren: "./+hosts/Hosts.module#HostsModule",
     data: {breadCrumbName: "Hosts"}
   },
   {
     path: "chat-moderator",
-    loadChildren: './+chat-moderator/ChatModerator.module#ChatModeratorModule',
+    loadChildren: "./+chat-moderator/ChatModerator.module#ChatModeratorModule",
     data: {breadCrumbName: "Chat Moderator"}
-  },
+  }
 ];
 
 @NgModule({
   imports: [
     SharedModule,
     RouterModule.forChild(ROUTES)
-  ],
+  ]
 })
 export class ChatModule {
 }

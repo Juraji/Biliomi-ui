@@ -6,7 +6,7 @@ import {ChatModeratorRecordsComponent} from "./ChatModeratorRecords.component";
 const ROUTES: Routes = [
   {
     path: "",
-    component: ChatModeratorRecordsComponent,
+    component: ChatModeratorRecordsComponent
   }
 ];
 

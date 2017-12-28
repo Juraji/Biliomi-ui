@@ -14,7 +14,7 @@ export class CaseToWordPipe implements PipeTransform {
       throw new Error("Missing case type parameter");
     }
 
-    if (value == null || value.length == 0) {
+    if (value == null || value.length === 0) {
       return value;
     }
 
@@ -26,7 +26,7 @@ export class CaseToWordPipe implements PipeTransform {
       case CaseType.SCREAMING_SNAKE_CASE:
         return CaseToWordPipe._doTransform(value, upperCaseFirst, /_/g, " ");
       default:
-        throw new Error("Unknown case type")
+        throw new Error("Unknown case type");
     }
   }
 

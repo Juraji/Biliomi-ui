@@ -22,7 +22,7 @@ export abstract class SettingsRestClient<T> {
 
   public load(refresh: boolean = false): Promise<void> {
     if (this._updateSub == null && this._updateInterval != null && this._updateInterval > 0) {
-      this._updateSub = Observable.interval(this._updateInterval).subscribe(() => this.load(true))
+      this._updateSub = Observable.interval(this._updateInterval).subscribe(() => this.load(true));
     }
     if ((!this._isLoaded || refresh) && this._loadPromise == null) {
       // Cache the actual load promise in a local variable to return to subsequent callers,

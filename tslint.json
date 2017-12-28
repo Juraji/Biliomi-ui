@@ -2,7 +2,7 @@
   "extends": "tslint-config-standard",
   "rules": {
     "indent": [true, "spaces"],
-    "ter-indent": [true, 2],
+    "ter-indent": [true, 2, {"SwitchCase": 1}],
     "quotemark": [true, "double"],
     "semicolon": true,
     "space-before-function-paren": [true, "Never"],
@@ -14,8 +14,8 @@
           "private-static-field",
           "protected-static-field",
           "public-static-field",
-          "protected-instance-field",
           "private-instance-field",
+          "protected-instance-field",
           "public-instance-field",
           "public-constructor",
           "public-instance-method",

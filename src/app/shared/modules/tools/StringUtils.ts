@@ -29,7 +29,8 @@ export class StringUtils {
    */
   public static messageFormat(pattern: string, ...replacements: Array<any>) {
     if (StringUtils.isNotEmpty(pattern) && replacements != null && replacements.length > 0) {
-      let pi: number, piPat: string;
+      let pi: number;
+      let piPat: string;
       for (pi = 0; pi < replacements.length; pi++) {
         piPat = "{" + pi + "}";
         while (pattern.indexOf(piPat) > -1) {
@@ -48,7 +49,7 @@ export class StringUtils {
    * @returns {Boolean}
    */
   public static isEmpty(value: string): boolean {
-    return (value == null || value.length == 0);
+    return (value == null || value.length === 0);
   }
 
   /**
@@ -72,7 +73,7 @@ export class StringUtils {
     if (source == null && comparison == null) return true;
     if (source == null || comparison == null) return false;
     if (source.length !== comparison.length) return false;
-    return source.toLowerCase() == comparison.toLowerCase();
+    return source.toLowerCase() === comparison.toLowerCase();
   }
 
   /**

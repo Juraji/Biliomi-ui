@@ -6,7 +6,7 @@ import {CommunitiesComponent} from "./Communities.component";
 const ROUTES: Routes = [
   {
     path: "",
-    component: CommunitiesComponent,
+    component: CommunitiesComponent
   }
 ];
 

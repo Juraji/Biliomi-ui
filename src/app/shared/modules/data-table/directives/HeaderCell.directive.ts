@@ -6,7 +6,7 @@ import {ColumnDefDirective} from "./ColumnDef.directive";
   selector: "header-cell",
   host: {
     "class": "header-cell",
-    "role": "columnheader",
+    "role": "columnheader"
   }
 })
 export class HeaderCellDirective extends BaseCell {

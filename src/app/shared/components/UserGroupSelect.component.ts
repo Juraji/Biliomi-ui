@@ -18,7 +18,7 @@ export class UserGroupSelectComponent {
   constructor(userGroupsClient: UserGroupsClient) {
     this.userGroupsClient = userGroupsClient;
     this.userGroupsClient.load(true).then(() => {
-      if (this.userGroupControl.value == null){
+      if (this.userGroupControl.value == null) {
         this.userGroupControl.setValue(this.userGroupsClient.getDefaultGroup());
       }
     });

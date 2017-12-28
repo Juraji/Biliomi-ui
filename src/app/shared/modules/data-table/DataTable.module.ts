@@ -34,7 +34,7 @@ const IMPORTS: Type<any>[] = [
   material.MatProgressBarModule,
   material.MatSelectModule,
   material.MatSlideToggleModule,
-  material.MatTooltipModule,
+  material.MatTooltipModule
 ];
 
 const DECLARATIONS: Type<any>[] = [
@@ -60,7 +60,7 @@ const EXPORTED_DECLARATIONS: Type<any>[] = [
   HeaderCellDirective,
   HeaderCellDefDirective,
   HeaderRowDefDirective,
-  SortPropertyDirective,
+  SortPropertyDirective
 ];
 
 @NgModule({

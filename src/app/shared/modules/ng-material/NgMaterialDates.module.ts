@@ -1,7 +1,6 @@
 import {NgModule, Type} from "@angular/core";
 import {MatMomentDateModule} from "@angular/material-moment-adapter";
-import * as material from "@angular/material";
-import {MAT_DATE_FORMATS, MatDateFormats} from "@angular/material";
+import {MAT_DATE_FORMATS, MatDateFormats, MatDatepickerModule} from "@angular/material";
 
 const DATE_FORMATS: MatDateFormats = {
   parse: {
@@ -17,7 +16,7 @@ const DATE_FORMATS: MatDateFormats = {
 
 const MODULE_EXPORTS: Type<any>[] = [
   MatMomentDateModule,
-  material.MatDatepickerModule,
+  MatDatepickerModule
 ];
 
 @NgModule({

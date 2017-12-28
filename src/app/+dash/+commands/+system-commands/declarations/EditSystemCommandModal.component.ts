@@ -23,7 +23,7 @@ export class EditSystemCommandModalComponent implements AfterViewInit {
   public commandAliasses: string[] = [];
 
   @ViewChild("userGroup", {read: UserGroupSelectComponent})
-  private userGroupSelect: UserGroupSelectComponent;
+  public userGroupSelect: UserGroupSelectComponent;
 
   constructor(@Inject(MAT_DIALOG_DATA) commandId: number,
               commandsClient: CommandsClient,
@@ -46,7 +46,7 @@ export class EditSystemCommandModalComponent implements AfterViewInit {
     this.moderatorCanAlwaysActivateControl.setValue(this.editedCommand.ModeratorCanAlwaysActivate);
     this.userGroupSelect.selectedGroup = this.editedCommand.UserGroup;
     this.commandAliasses.length = 0;
-    this.commandAliasses.push(...this.editedCommand.Aliasses)
+    this.commandAliasses.push(...this.editedCommand.Aliasses);
   }
 
   public get isFormOk(): boolean {
@@ -86,7 +86,7 @@ export class EditSystemCommandModalComponent implements AfterViewInit {
     }
 
     if (event.input) {
-      event.input.value = '';
+      event.input.value = "";
     }
   }
 

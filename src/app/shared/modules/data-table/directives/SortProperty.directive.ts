@@ -7,42 +7,41 @@ import {SortHeaderState} from "../classes/interfaces/SortHeaderState.interface";
 
 const SORT_ANIMATION_TRANSITION: string = `${AnimationDurations.ENTERING} ${AnimationCurves.STANDARD_CURVE}`;
 const SORT_ANIMATIONS: AnimationTriggerMetadata[] = [
-  trigger('indicator', [
-    state('ASC', style({transform: 'translateY(0px)'})),
+  trigger("indicator", [
+    state("ASC", style({transform: "translateY(0px)"})),
     // 10px is the height of the sort indicator, minus the width of the pointers
-    state('DESC', style({transform: 'translateY(10px)'})),
-    transition('ASC <=> DESC', animate(SORT_ANIMATION_TRANSITION))
+    state("DESC", style({transform: "translateY(10px)"})),
+    transition("ASC <=> DESC", animate(SORT_ANIMATION_TRANSITION))
   ]),
-  trigger('leftPointer', [
-    state('ASC', style({transform: 'rotate(-45deg)'})),
-    state('DESC', style({transform: 'rotate(45deg)'})),
-    transition('ASC <=> DESC', animate(SORT_ANIMATION_TRANSITION))
+  trigger("leftPointer", [
+    state("ASC", style({transform: "rotate(-45deg)"})),
+    state("DESC", style({transform: "rotate(45deg)"})),
+    transition("ASC <=> DESC", animate(SORT_ANIMATION_TRANSITION))
   ]),
-  trigger('rightPointer', [
-    state('ASC', style({transform: 'rotate(45deg)'})),
-    state('DESC', style({transform: 'rotate(-45deg)'})),
-    transition('ASC <=> DESC', animate(SORT_ANIMATION_TRANSITION))
+  trigger("rightPointer", [
+    state("ASC", style({transform: "rotate(45deg)"})),
+    state("DESC", style({transform: "rotate(-45deg)"})),
+    transition("ASC <=> DESC", animate(SORT_ANIMATION_TRANSITION))
   ]),
-  trigger('indicatorToggle', [
-    transition('NONE => ASC', animate(SORT_ANIMATION_TRANSITION, keyframes([
-      style({transform: 'translateY(25%)', opacity: 0}),
-      style({transform: 'none', opacity: 1})
+  trigger("indicatorToggle", [
+    transition("NONE => ASC", animate(SORT_ANIMATION_TRANSITION, keyframes([
+      style({transform: "translateY(25%)", opacity: 0}),
+      style({transform: "none", opacity: 1})
     ]))),
-    transition('ASC => NONE', animate(SORT_ANIMATION_TRANSITION, keyframes([
-      style({transform: 'none', opacity: 1}),
-      style({transform: 'translateY(-25%)', opacity: 0})
+    transition("ASC => NONE", animate(SORT_ANIMATION_TRANSITION, keyframes([
+      style({transform: "none", opacity: 1}),
+      style({transform: "translateY(-25%)", opacity: 0})
     ]))),
-    transition('NONE => DESC', animate(SORT_ANIMATION_TRANSITION, keyframes([
-      style({transform: 'translateY(-25%)', opacity: 0}),
-      style({transform: 'none', opacity: 1})
+    transition("NONE => DESC", animate(SORT_ANIMATION_TRANSITION, keyframes([
+      style({transform: "translateY(-25%)", opacity: 0}),
+      style({transform: "none", opacity: 1})
     ]))),
-    transition('DESC => NONE', animate(SORT_ANIMATION_TRANSITION, keyframes([
-      style({transform: 'none', opacity: 1}),
-      style({transform: 'translateY(25%)', opacity: 0})
-    ]))),
+    transition("DESC => NONE", animate(SORT_ANIMATION_TRANSITION, keyframes([
+      style({transform: "none", opacity: 1}),
+      style({transform: "translateY(25%)", opacity: 0})
+    ])))
   ])
 ];
-
 
 @Component({
   selector: "header-cell[sortProperty]",
@@ -81,7 +80,6 @@ export class SortPropertyDirective<T> implements OnInit {
       throw new Error("No object path supplied for sort header!");
     }
 
-
     if (this.sortDefault != null) {
       this._applySort(this.sortDefault, false);
     }
@@ -119,7 +117,7 @@ export class SortPropertyDirective<T> implements OnInit {
       }
 
       if (updateData) {
-        ds.update()
+        ds.update();
       }
     }
   }

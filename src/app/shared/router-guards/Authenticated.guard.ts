@@ -31,7 +31,7 @@ export class AuthenticatedGuard implements CanActivate, CanActivateChild {
   }
 
   private userTypeCanActivate(route: ActivatedRouteSnapshot) {
-    if (this._auth.userType == ITokenUserType.CASTER) {
+    if (this._auth.userType === ITokenUserType.CASTER) {
       return true;
     } else {
       return route.routeConfig.data.hasOwnProperty(MODERATOR_CAN_ACTIVATE_ROUTE_DATA_KEY)

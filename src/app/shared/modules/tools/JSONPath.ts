@@ -41,17 +41,17 @@ export class JSONPath {
     }
   }
 
-  private static _execute(path:string, rootObject: any): any {
+  private static _execute(path: string, rootObject: any): any {
     if (rootObject == null) {
       throw new Error("Can not apply JSONPath to undefined");
     }
 
     let pathArray: string[] = path.split(".");
-    let key: string;
     let value: any = null;
+    let key: string;
 
-    while ((key = pathArray.shift()) != null) {
-      if (key == "$") {
+    for (let key of pathArray) {
+      if (key === "$") {
         // Root object
         value = rootObject;
       } else if (key.endsWith("]")) {
@@ -62,18 +62,18 @@ export class JSONPath {
           throw new Error("Invalid [] operator.");
         }
 
-        if (match[2] == "*") {
+        if (match[2] === "*") {
           // [*] wildcard
           value = value[match[1]];
         } else if (match[2].indexOf(":") > -1) {
           // [start:end] slice operator
           let startEnd = match[2].split(":");
 
-          if (startEnd[0].length == 0 && startEnd[1].length == 0) {
+          if (startEnd[0].length === 0 && startEnd[1].length === 0) {
             throw new Error("Invalid [start:end] operator.");
           }
 
-          if (startEnd[0].length == 0) {
+          if (startEnd[0].length === 0) {
             startEnd[0] = "0";
           }
 

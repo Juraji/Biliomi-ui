@@ -14,8 +14,8 @@ export class ChannelEditComponent implements OnInit {
   private channelInfoClient: ChannelInfoClient;
   private gamesClient: GamesClient;
 
-  private channelGameControl = new FormControl('', [Validators.required]);
-  private channelStatusControl = new FormControl('', [Validators.required]);
+  private channelGameControl = new FormControl("", [Validators.required]);
+  private channelStatusControl = new FormControl("", [Validators.required]);
 
   constructor(channelInfoClient: ChannelInfoClient, gamesClient: GamesClient, api: BiliomiApiService) {
     this.channelInfoClient = channelInfoClient;
@@ -45,12 +45,12 @@ export class ChannelEditComponent implements OnInit {
     if (this.isFormOk) {
 
       // Only update the game if it has actually changed
-      if (this.channelGameControl.value != this.channelInfoClient.CurrentGame.Name) {
-        await this._api.postCommand("channel", "game", this.channelGameControl.value)
+      if (this.channelGameControl.value !== this.channelInfoClient.CurrentGame.Name) {
+        await this._api.postCommand("channel", "game", this.channelGameControl.value);
       }
 
       // Only update the status if it has actually changed
-      if (this.channelStatusControl.value != this.channelInfoClient.Status) {
+      if (this.channelStatusControl.value !== this.channelInfoClient.Status) {
         await this._api.postCommand("channel", "status", this.channelStatusControl.value);
       }
 

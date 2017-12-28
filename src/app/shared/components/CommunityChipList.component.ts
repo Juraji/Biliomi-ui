@@ -75,7 +75,7 @@ export class CommunityChipListComponent extends ChipListInputComponent implement
       this.addChipItem({
         input: this.chipList as any, // Slight hack to have addChipItem accept the input
         value: e.option.value
-      })
-    })
+      });
+    });
   }
 }

@@ -5,8 +5,8 @@ import {Biliomi} from "./interfaces/Biliomi";
 import IPaginatedResponse = Biliomi.IPaginatedResponse;
 
 export abstract class ModelRestClient<T> {
-  protected _api: BiliomiApiService;
   private _baseResourceUri: string;
+  protected _api: BiliomiApiService;
 
   constructor(api: BiliomiApiService, baseResourceUri: string) {
     this._api = api;
@@ -35,7 +35,7 @@ export abstract class ModelRestClient<T> {
     if (filters) {
       let filterQuery: string = filters.toString();
       if (filterQuery != null) {
-        params.set("filter", filterQuery)
+        params.set("filter", filterQuery);
       }
     }
 

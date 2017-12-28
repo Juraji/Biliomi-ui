@@ -158,7 +158,7 @@ export class BiliomiApiService {
       this._postRequestErrorInterceptor.emit(e);
     }
 
-    return response != null && response.status == 200;
+    return response != null && response.status === 200;
   }
 
   /**
@@ -188,7 +188,7 @@ export class BiliomiApiService {
       this._postRequestErrorInterceptor.emit(e);
     }
 
-    return response != null && response.status == 200;
+    return response != null && response.status === 200;
   }
 
   /**
@@ -218,7 +218,7 @@ export class BiliomiApiService {
       this._postRequestErrorInterceptor.emit(e);
     }
 
-    return response != null && response.status == 200;
+    return response != null && response.status === 200;
   }
 
   /**

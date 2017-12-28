@@ -7,9 +7,9 @@ import {BaseCell} from "../classes/abstract/BaseCell";
   host: {
     "class": "data-cell",
     "role": "gridcell"
-  },
+  }
 })
-export class DataCellDirective extends BaseCell{
+export class DataCellDirective extends BaseCell {
 
   @HostBinding("style.width.px")
   public get targetWidth(): number {

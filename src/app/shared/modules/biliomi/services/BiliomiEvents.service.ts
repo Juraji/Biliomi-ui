@@ -1,4 +1,4 @@
-///<reference path="../../../classes/interfaces/EventSource.d.ts"/>
+///<reference path="../../../classes/interfaces/EventSource.interface.ts"/>
 
 import {EventEmitter, Injectable} from "@angular/core";
 import {Biliomi} from "../classes/interfaces/Biliomi";
@@ -7,15 +7,14 @@ import {StringUtils} from "../../tools/StringUtils";
 import {Consumer, Runnable} from "../../tools/FunctionalInterface";
 import {Subscription} from "rxjs/Subscription";
 import {BiliomiApiService} from "./BiliomiApi.service";
-import IEventSource = sse.IEventSource;
 import IEvent = Biliomi.IEvent;
-import IOnMessageEvent = sse.IOnMessageEvent;
 import IRestAuthorizationResponse = Biliomi.IRestAuthorizationResponse;
+import {EventSource, IOnMessageEvent} from "../../../classes/interfaces/EventSource.interface";
 
 @Injectable()
 export class BiliomiEventsService {
   private _api: BiliomiApiService;
-  private _eventSource: IEventSource;
+  private _eventSource: EventSource;
   private _outboundEvents: EventEmitter<IEvent>;
 
   constructor(api: BiliomiApiService) {
@@ -24,11 +23,11 @@ export class BiliomiEventsService {
   }
 
   public get isConnected(): boolean {
-    return this._eventSource != null && this._eventSource.readyState == this._eventSource.OPEN;
+    return this._eventSource != null && this._eventSource.readyState === EventSource.OPEN;
   }
 
   public get isConnecting(): boolean {
-    return this._eventSource != null && this._eventSource.readyState == this._eventSource.CONNECTING;
+    return this._eventSource != null && this._eventSource.readyState === EventSource.CONNECTING;
   }
 
   public async connect() {
@@ -36,7 +35,6 @@ export class BiliomiEventsService {
       // Do nothing when already connected
       return;
     }
-
 
     this._eventSource = new EventSource(await this.getEventsUri());
     this._eventSource.addEventListener("message", (e: IOnMessageEvent) => {

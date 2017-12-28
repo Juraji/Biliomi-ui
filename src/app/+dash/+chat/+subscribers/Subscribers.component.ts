@@ -26,7 +26,7 @@ export class SubscribersComponent implements OnInit {
     sheetName: "Latest Subscribers",
     columns: [
       {objectPath: "$.DisplayName", headerName: "Username"},
-      {objectPath: "$.SubscribeDate", headerName: "Subscribe date", formatter: XLSX_FORMATTER_DATE},
+      {objectPath: "$.SubscribeDate", headerName: "Subscribe date", formatter: XLSX_FORMATTER_DATE}
     ]
   };
 
@@ -34,7 +34,7 @@ export class SubscribersComponent implements OnInit {
     "Subscriber Since": "SubscribeDate"
   };
 
-  constructor(subscriberWatchSettingsClient: SubscriberWatchSettingsClient, latestSubscribersClient:LatestSubscribersClient) {
+  constructor(subscriberWatchSettingsClient: SubscriberWatchSettingsClient, latestSubscribersClient: LatestSubscribersClient) {
     this._subscriberWatchSettingsClient = subscriberWatchSettingsClient;
     this.latestSubscribersDataSource.client = latestSubscribersClient;
   }

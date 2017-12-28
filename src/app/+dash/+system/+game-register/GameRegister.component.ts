@@ -26,19 +26,19 @@ export class GameRegisterComponent {
     columns: [
       {objectPath: "$.Name", headerName: "Name"},
       {objectPath: "$.FirstPlayedOn", headerName: "First Played On", formatter: XLSX_FORMATTER_DATE},
-      {objectPath: "$.SteamId", headerName: "Steam Id",},
+      {objectPath: "$.SteamId", headerName: "Steam Id"},
       {
         objectPath: "$.Communities",
         headerName: "Communities",
         formatter: (c: ICommunity[]) => c.map((c: ICommunity) => c.Name).join(", ")
-      },
+      }
     ]
   };
 
   public tableFilterMapping: TableFilterNameMapping = {
     "title": "Name",
     "first played": "FirstPlayedOn",
-    "steam id": "SteamId",
+    "steam id": "SteamId"
   };
 
   constructor(gamesClient: GamesClient, dialog: MatDialog) {
@@ -57,7 +57,7 @@ export class GameRegisterComponent {
 
   public editGame(game: IGame) {
     this._dialog.open(EditGameModalComponent, {
-      width: '600px',
+      width: "600px",
       data: (game ? game.Id : null)
     }).afterClosed()
       .filter((success: boolean) => success)

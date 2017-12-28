@@ -31,7 +31,6 @@ export class LinkModerationSettingsComponent implements AfterViewInit {
     return (this.linksAllowedControl.value || this.linkPermitExpireTimeControl.valid);
   }
 
-
   public saveSettings() {
     if (this.isFormOk) {
       this._chatModeratorSettingsClient.LinksAllowed = this.linksAllowedControl.value;

@@ -43,7 +43,7 @@ export class ChannelInfoClient extends SettingsRestClient<IChannelInfo> implemen
 
     // Append a timestamp to the preview uri, so angular will refresh it
     if (this.PreviewUri != null) {
-      this.PreviewUri += '?t=' + new Date().getMilliseconds();
+      this.PreviewUri += "?t=" + new Date().getMilliseconds();
     }
   }
 

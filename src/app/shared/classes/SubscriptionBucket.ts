@@ -9,7 +9,7 @@ export class SubscriptionBucket {
   }
 
   public clear() {
-    this._subscriptions.forEach((subscription:Subscription) => subscription.unsubscribe());
+    this._subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     this._subscriptions = [];
   }
 }

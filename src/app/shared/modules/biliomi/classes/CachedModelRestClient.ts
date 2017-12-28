@@ -8,8 +8,8 @@ import {Biliomi} from "./interfaces/Biliomi";
 import IPaginatedResponse = Biliomi.IPaginatedResponse;
 
 export abstract class CachedModelRestClient<T> extends ModelRestClient<T> {
-  protected _cache: ListCache<T> = new ListCache<T>();
   private _loadPromise: Promise<T[]>;
+  protected _cache: ListCache<T> = new ListCache<T>();
 
   constructor(api: BiliomiApiService, baseResourceUri: string) {
     super(api, baseResourceUri);

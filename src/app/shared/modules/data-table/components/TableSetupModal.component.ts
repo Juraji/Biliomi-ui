@@ -19,4 +19,3 @@ export class TableSetupModalComponent {
     this._dialogRef.close();
   }
 }
-

@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
   private _auth: AuthService;
   private _router: Router;
 
-  private usernameControl = new FormControl('', [Validators.required]);
-  private passwordControl = new FormControl('', [Validators.required]);
+  private usernameControl = new FormControl("", [Validators.required]);
+  private passwordControl = new FormControl("", [Validators.required]);
 
   constructor(api: BiliomiApiService, auth: AuthService, router: Router) {
     this._api = api;
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
     if (this.isFormOk) {
       let authRequest: IAuthRequest = {
         Username: this.usernameControl.value,
-        Password: this.passwordControl.value,
+        Password: this.passwordControl.value
       };
 
       let response: IAuthResponse = await this._api.postUnauthorized<IAuthRequest, IAuthResponse>("/auth/login", authRequest);

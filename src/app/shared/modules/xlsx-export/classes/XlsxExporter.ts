@@ -1,10 +1,8 @@
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
-import {ColInfo, Sheet, WorkBook} from "xlsx";
 import {IXlsxColumnDefinition, IXlsxExportConfig, IXlsXRowObject, XlsxBookType} from "./interfaces/Xlsx.interface";
 import {JSONPath} from "../../tools/JSONPath";
 import {Supplier} from "../../tools/FunctionalInterface";
-
 
 const AUTO_COLUMN_WIDTH_MARGIN: number = 5;
 
@@ -36,7 +34,7 @@ export class XlsxExporter {
    */
   public exportData(data: any[]) {
     // Create new work book
-    let book: WorkBook = XLSX.utils.book_new();
+    let book: XLSX.WorkBook = XLSX.utils.book_new();
 
     // Set initialColumnWidths
     this._columnWidths = this._config.columns.map((colDef: IXlsxColumnDefinition) => colDef.headerName.length);
@@ -51,7 +49,7 @@ export class XlsxExporter {
     this._sortSheetRows(sheetRows);
 
     // Generate a sheet from sheetRows
-    let sheet: Sheet = XLSX.utils.json_to_sheet(sheetRows, {header: this._sheetHeaders});
+    let sheet: XLSX.Sheet = XLSX.utils.json_to_sheet(sheetRows, {header: this._sheetHeaders});
 
     // Append the sheet to the work book
     XLSX.utils.book_append_sheet(book, sheet, this._config.sheetName);
@@ -80,7 +78,6 @@ export class XlsxExporter {
       if (value == null && colDef.defaultValue != null) {
         value = colDef.defaultValue;
       }
-
 
       if (value != null) {
         if (colDef.formatter) {
@@ -112,17 +109,8 @@ export class XlsxExporter {
     return finalObject;
   }
 
-  private static _s2ab(s: any): ArrayBuffer {
-    let buf = new ArrayBuffer(s.length);
-    let view = new Uint8Array(buf);
-    for (let i = 0; i != s.length; ++i) {
-      view[i] = s.charCodeAt(i) & 0xFF;
-    }
-    return buf;
-  }
-
-  private _processColumnWidths(sheet: Sheet) {
-    let sheetCols: ColInfo[] = [];
+  private _processColumnWidths(sheet: XLSX.Sheet) {
+    let sheetCols: XLSX.ColInfo[] = [];
     let i = 0;
 
     while (i < this._sheetHeaders.length) {
@@ -150,8 +138,17 @@ export class XlsxExporter {
         } else {
           return aValue.localeCompare(bValue);
         }
-      })
+      });
     }
+  }
+
+  private static _s2ab(s: any): ArrayBuffer {
+    let buf = new ArrayBuffer(s.length);
+    let view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) {
+      view[i] = s.charCodeAt(i) & 0xFF;
+    }
+    return buf;
   }
 
   private static _mapSheetHeaderName(headerName: string | Supplier<string>) {

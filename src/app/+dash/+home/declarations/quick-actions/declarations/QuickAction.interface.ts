@@ -7,7 +7,7 @@ export enum QuickActionType {
 }
 
 export interface QuickAction {
-  name: string,
-  type: QuickActionType,
+  name: string;
+  type: QuickActionType;
   execute: string;
 }

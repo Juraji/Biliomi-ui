@@ -11,7 +11,7 @@ export abstract class BaseRowDef implements OnChanges {
   }
 
   public set columnIds(columnIds: string[]) {
-    this._columnIds =  columnIds;
+    this._columnIds = columnIds;
   }
 
   public get columnIds(): string[] {
@@ -25,7 +25,7 @@ export abstract class BaseRowDef implements OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges) {
-    const columns = changes['columnIds'].currentValue || [];
+    const columns = changes["columnIds"].currentValue || [];
     if (!this._columnsIdsDiffer) {
       this._columnsIdsDiffer = this._differs.find(columns).create();
       this._columnsIdsDiffer.diff(columns);

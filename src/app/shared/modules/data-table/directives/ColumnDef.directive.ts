@@ -12,7 +12,7 @@ export class ColumnDefDirective {
     this._columnId = columnId;
     this._cssFriendlyName = columnId
       .toLowerCase()
-      .replace(/[^a-z0-9_-]/g, '-');
+      .replace(/[^a-z0-9_-]/g, "-");
   }
 
   @Input("buttonsColumn")

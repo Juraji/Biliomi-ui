@@ -50,7 +50,7 @@ const ROUTES: Routes = [
     NavRemoteManagementComponent,
     PowerManagementDialogComponent,
     BreadCrumbsComponent,
-    ChatComponent,
+    ChatComponent
   ],
   entryComponents: [PowerManagementDialogComponent]
 })

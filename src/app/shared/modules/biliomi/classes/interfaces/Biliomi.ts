@@ -522,51 +522,51 @@ export namespace Biliomi {
 
   export enum IDirection {
     INCOMING = "INCOMING",
-    OUTGOING = "OUTGOING",
+    OUTGOING = "OUTGOING"
   }
 
   export enum IGender {
     MALE = "MALE",
     FEMALE = "FEMALE",
-    NEUTRAL = "NEUTRAL",
+    NEUTRAL = "NEUTRAL"
   }
 
   export enum IModerationAction {
     WARN = "WARN",
     PURGE = "PURGE",
     TIMEOUT = "TIMEOUT",
-    BAN = "BAN",
+    BAN = "BAN"
   }
 
   export enum IModerationReason {
     POSTED_LINK = "POSTED_LINK",
     EXCESSIVE_CAPS = "EXCESSIVE_CAPS",
     REPEATED_CHARACTERS = "REPEATED_CHARACTERS",
-    UNKNOWN = "UNKNOWN",
+    UNKNOWN = "UNKNOWN"
   }
 
   export enum IRestFilterOperator {
     EQUALS = "EQUALS",
     CONTAINS = "CONTAINS",
     LESSER_THAN = "LESSER_THAN",
-    GREATER_THAN = "GREATER_THAN",
+    GREATER_THAN = "GREATER_THAN"
   }
 
   export enum ISubscriberPlanType {
     PRIME = "PRIME",
     TIER1 = "TIER1",
     TIER2 = "TIER2",
-    TIER3 = "TIER3",
+    TIER3 = "TIER3"
   }
 
   export enum ITokenType {
     AUTH = "AUTH",
-    REFRESH = "REFRESH",
+    REFRESH = "REFRESH"
   }
 
   export enum ITokenUserType {
     CASTER = "CASTER",
-    MODERATOR = "MODERATOR",
+    MODERATOR = "MODERATOR"
   }
 
 }

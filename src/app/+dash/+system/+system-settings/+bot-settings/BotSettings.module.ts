@@ -22,7 +22,7 @@ const ROUTES: Routes = [
     BotSettingsComponent,
     ChatSettingsComponent,
     TimeTrackingSettingsComponent,
-    PointsSettingsComponent,
+    PointsSettingsComponent
   ],
   entryComponents: []
 })

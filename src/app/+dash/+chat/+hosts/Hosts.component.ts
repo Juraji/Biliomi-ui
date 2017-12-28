@@ -33,7 +33,7 @@ export class HostsComponent {
       {objectPath: "$.Direction", headerName: "Direction"},
       {objectPath: "$.User.DisplayName", headerName: "Username"},
       {objectPath: "$.Date", headerName: "Follow date", formatter: XLSX_FORMATTER_DATE},
-      {objectPath: "$.AutoHost", headerName: "Was auto host", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
+      {objectPath: "$.AutoHost", headerName: "Was auto host", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO}
     ]
   };
 
@@ -56,7 +56,7 @@ export class HostsComponent {
   }
 
   public updateOnRecordCreated(record: IHostRecord) {
-    if (record.Direction == IDirection.INCOMING) {
+    if (record.Direction === IDirection.INCOMING) {
       this.incomingRecordsDataSource.update();
     } else {
       this.outgoingRecordsDataSource.update();

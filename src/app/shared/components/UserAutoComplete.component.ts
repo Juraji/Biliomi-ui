@@ -48,7 +48,7 @@ export class UserAutoCompleteComponent implements OnInit {
       selectedUser = await this.usersClient.getUserByUsername(this.usernameControl.value, true);
 
       if (selectedUser == null) {
-        this.usernameControl.setErrors({"unknownUser": true})
+        this.usernameControl.setErrors({"unknownUser": true});
       }
     }
 

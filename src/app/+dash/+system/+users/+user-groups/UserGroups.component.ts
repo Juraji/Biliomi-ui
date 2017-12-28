@@ -24,7 +24,7 @@ export class UserGroupsComponent {
       {objectPath: "$.Name", headerName: "Name"},
       {objectPath: "$.Weight", headerName: "Weight"},
       {objectPath: "$.DefaultGroup", headerName: "Is default group", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
-      {objectPath: "$.LevelUpHours", headerName: "Hours for auto group assign"},
+      {objectPath: "$.LevelUpHours", headerName: "Hours for auto group assign"}
     ]
   };
 
@@ -41,7 +41,7 @@ export class UserGroupsComponent {
   public editGroup(group: IUserGroup) {
     if (group == null || !group.DefaultGroup) {
       let dialogRef = this._dialog.open(EditUserGroupModalComponent, {
-        width: '600px',
+        width: "600px",
         data: (group != null ? group.Id : null)
       });
 

@@ -46,7 +46,7 @@ export class UserOverviewComponent implements OnInit {
       {objectPath: "$.FollowDate", headerName: "FollowDate", formatter: XLSX_FORMATTER_DATE},
       {objectPath: "$.Subscriber", headerName: "Subscriber", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
       {objectPath: "$.SubscribeDate", headerName: "SubscribeDate", formatter: XLSX_FORMATTER_DATE},
-      {objectPath: "$.BlacklistedSince", headerName: "BlacklistedSince", formatter: XLSX_FORMATTER_DATE},
+      {objectPath: "$.BlacklistedSince", headerName: "BlacklistedSince", formatter: XLSX_FORMATTER_DATE}
     ]
   };
 
@@ -54,7 +54,7 @@ export class UserOverviewComponent implements OnInit {
     "group": "UserGroup.Name",
     "recorded time": "RecordedTime",
     "follows": "Follower",
-    "subscribed": "Subscriber",
+    "subscribed": "Subscriber"
   };
 
   constructor(usersClient: UsersClient,
@@ -85,7 +85,7 @@ export class UserOverviewComponent implements OnInit {
 
   public editUser(user: IUser) {
     let dialogRef = this._dialog.open(EditUserModalComponent, {
-      width: '600px',
+      width: "600px",
       data: user.Id
     });
 

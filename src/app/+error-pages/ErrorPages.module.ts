@@ -10,7 +10,7 @@ const ROUTES: Routes = [
   },
   {
     path: "page-not-found",
-    component: PageNotFoundComponent,
+    component: PageNotFoundComponent
   }
 ];
 

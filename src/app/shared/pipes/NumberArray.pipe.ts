@@ -1,15 +1,14 @@
 import {Pipe, PipeTransform} from "@angular/core";
 
 @Pipe({name: "numberArray"})
-export class NumberArrayPipe implements PipeTransform{
-  public transform(max: number, min: number = 0): number[] {
-    let c: number = min;
+export class NumberArrayPipe implements PipeTransform {
+  public transform(count: number, startAt: number = 0): number[] {
+    let c: number = startAt;
     let numbers: number[] = [];
 
-    while (c <= max) {
+    do {
       numbers.push(c);
-      c++;
-    }
+    } while (++c <= count);
 
     return numbers;
   }

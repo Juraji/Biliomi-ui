@@ -28,7 +28,7 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES)
   ],
   declarations: [
-    CommandsComponent,
+    CommandsComponent
   ],
   entryComponents: []
 })

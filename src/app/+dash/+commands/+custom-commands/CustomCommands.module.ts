@@ -18,10 +18,10 @@ const ROUTES: Routes = [
   ],
   declarations: [
     CustomCommandsComponent,
-    EditCustomCommandModalComponent,
+    EditCustomCommandModalComponent
   ],
   entryComponents: [
-    EditCustomCommandModalComponent,
+    EditCustomCommandModalComponent
   ]
 })
 export class CustomCommandsModule {

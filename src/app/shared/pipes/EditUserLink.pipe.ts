@@ -4,7 +4,7 @@ import {Pipe, PipeTransform} from "@angular/core";
 export class EditUserLinkPipe implements PipeTransform {
 
   public transform(username: string): string {
-    if (username == null || username.length == 0) {
+    if (username == null || username.length === 0) {
       return username;
     }
 

@@ -13,7 +13,7 @@ import ICommand = Biliomi.ICommand;
 })
 export class CommandFormComponent {
   private _api: BiliomiApiService;
-  private argFormControl = new FormControl('', [Validators.required]);
+  private argFormControl = new FormControl("", [Validators.required]);
   private argFieldMatcher: ErrorStateMatcher = new AllowTouchedFieldMatcher();
 
   @Input("command")
@@ -24,7 +24,7 @@ export class CommandFormComponent {
 
   @Input("argsDisabled")
   private set argsDisabled(disabled: boolean) {
-    this.argFormControl.reset({value: '', disabled: disabled});
+    this.argFormControl.reset({value: "", disabled: disabled});
   }
 
   @Input("argsRequired")

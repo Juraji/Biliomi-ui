@@ -20,7 +20,6 @@ export class EditUserGroupModalComponent implements AfterViewInit {
   private weightControl: FormControl = new FormControl(1000, [Validators.required, Validators.min(10), Validators.max(1000)]);
   private levelUpHoursControl: FormControl = new FormControl(null, [Validators.min(0)]);
 
-
   constructor(@Inject(MAT_DIALOG_DATA) groupId: number,
               userGroupsClient: UserGroupsClient,
               dialogRef: MatDialogRef<EditUserGroupModalComponent>,
@@ -62,7 +61,7 @@ export class EditUserGroupModalComponent implements AfterViewInit {
       group.Name = this.groupNameControl.value;
       group.Weight = this.weightControl.value;
 
-      if (this.levelUpHoursControl.value == 0) {
+      if (this.levelUpHoursControl.value === 0) {
         group.LevelUpHours = null;
       } else {
         group.LevelUpHours = this.levelUpHoursControl.value;

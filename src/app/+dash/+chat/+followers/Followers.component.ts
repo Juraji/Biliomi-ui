@@ -23,7 +23,7 @@ export class FollowersComponent implements OnInit {
     sheetName: "Latest Followers",
     columns: [
       {objectPath: "$.DisplayName", headerName: "Username"},
-      {objectPath: "$.FollowDate", headerName: "Follow date", formatter: XLSX_FORMATTER_DATE},
+      {objectPath: "$.FollowDate", headerName: "Follow date", formatter: XLSX_FORMATTER_DATE}
     ]
   };
 

@@ -4,8 +4,8 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/co
   selector: "header-row",
   templateUrl: require("./Row.template.pug"),
   host: {
-    'class': 'header-row',
-    'role': 'row',
+    "class": "header-row",
+    "role": "row"
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,

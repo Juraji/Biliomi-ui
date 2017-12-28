@@ -4,7 +4,7 @@ import IUser = Biliomi.IUser;
 
 @Component({
   selector: "user-display",
-  templateUrl: require("./UserDisplay.template.pug"),
+  templateUrl: require("./UserDisplay.template.pug")
 })
 export class UserDisplayComponent implements OnInit {
 

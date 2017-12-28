@@ -19,17 +19,24 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
   private _matSnackBar: MatSnackBar;
   private _dialog: MatDialog;
 
-  private editedCommand: ICustomCommand;
-  private commandCommandControl: FormControl = new FormControl("", [Validators.required]);
-  private commandMessageControl: FormControl = new FormControl("", [Validators.required]);
-  private commandCooldownControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
-  private commandPriceControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
+  public editedCommand: ICustomCommand;
+  public commandCommandControl: FormControl = new FormControl("", [Validators.required]);
+  public commandMessageControl: FormControl = new FormControl("", [Validators.required]);
+  public commandCooldownControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
+  public commandPriceControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
 
   @ViewChild("userGroup", {read: UserGroupSelectComponent})
-  private userGroupSelect: UserGroupSelectComponent;
+  public userGroupSelect: UserGroupSelectComponent;
 
   @ViewChild("commandAliases", {read: ChipListInputComponent})
-  private commandAliases: ChipListInputComponent;
+  public commandAliases: ChipListInputComponent;
+
+  public get isFormOk(): boolean {
+    return this.commandCommandControl.valid
+      && this.commandMessageControl.valid
+      && this.commandCooldownControl.valid
+      && this.commandPriceControl.valid;
+  }
 
   constructor(@Inject(MAT_DIALOG_DATA) commandId: number,
               customCommandsClient: CustomCommandsClient,
@@ -50,11 +57,11 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
     this.initFields();
   }
 
-  private initFields() {
+  public initFields() {
     if (this.editedCommand == null) {
       // No command was loaded, initialize a new Command
       this.editedCommand = {} as ICustomCommand;
-      this.editedCommand.Message = '';
+      this.editedCommand.Message = "";
       this.editedCommand.Cooldown = 0;
       this.editedCommand.Price = 0;
       this.editedCommand.UserGroup = this.userGroupSelect.selectedGroup;
@@ -67,13 +74,6 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
     this.commandPriceControl.setValue(this.editedCommand.Price);
     this.userGroupSelect.selectedGroup = this.editedCommand.UserGroup;
     this.commandAliases.inputItems = this.editedCommand.Aliasses;
-  }
-
-  private get isFormOk(): boolean {
-    return this.commandCommandControl.valid
-      && this.commandMessageControl.valid
-      && this.commandCooldownControl.valid
-      && this.commandPriceControl.valid;
   }
 
   public async save() {

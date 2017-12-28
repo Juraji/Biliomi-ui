@@ -8,7 +8,7 @@ import {HostWatchSettingsComponent} from "./declarations/HostWatchSettings.compo
 const ROUTES: Routes = [
   {
     path: "",
-    component: HostsComponent,
+    component: HostsComponent
   }
 ];
 

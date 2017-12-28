@@ -95,11 +95,11 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   private _onBiliomiTwitchBitsEvent(e: ITwitchBitsEvent) {
-    this._matSnackBar.open(e.Username + " cheered " + e.BitsUsed + " bits, making it a total of " + e.TotalBitsUsed + " bits cheered in this channel!", "Ok")
+    this._matSnackBar.open(e.Username + " cheered " + e.BitsUsed + " bits, making it a total of " + e.TotalBitsUsed + " bits cheered in this channel!", "Ok");
   }
 
   private _onBiliomiTwitchHostInEvent(e: ITwitchHostInEvent) {
-    this._matSnackBar.open("Incoming host: " + e.ChannelName + "!", "Ok")
+    this._matSnackBar.open("Incoming host: " + e.ChannelName + "!", "Ok");
   }
 
   private _onBiliomiMessageEvent(e: IIrcChatMessageEvent) {

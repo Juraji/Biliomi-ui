@@ -10,17 +10,17 @@ const ROUTES: Routes = [
   },
   {
     path: "users",
-    loadChildren: './+users/Users.module#UsersModule',
+    loadChildren: "./+users/Users.module#UsersModule",
     data: {breadCrumbName: "Users"}
   },
   {
     path: "system-settings",
-    loadChildren: './+system-settings/SystemSettings.module#SystemSettingsModule',
+    loadChildren: "./+system-settings/SystemSettings.module#SystemSettingsModule",
     data: {breadCrumbName: "System Settings"}
   },
   {
     path: "game-register",
-    loadChildren: './+game-register/GameRegister.module#GameRegisterModule',
+    loadChildren: "./+game-register/GameRegister.module#GameRegisterModule",
     data: {breadCrumbName: "Games"}
   }
 ];
@@ -29,7 +29,7 @@ const ROUTES: Routes = [
   imports: [
     SharedModule,
     RouterModule.forChild(ROUTES)
-  ],
+  ]
 })
 export class SystemModule {
 }

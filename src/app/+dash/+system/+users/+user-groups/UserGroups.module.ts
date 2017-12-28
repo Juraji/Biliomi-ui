@@ -7,7 +7,7 @@ import {EditUserGroupModalComponent} from "./declarations/EditUserGroupModal.com
 const ROUTES: Routes = [
   {
     path: "",
-    component: UserGroupsComponent,
+    component: UserGroupsComponent
   }
 ];
 

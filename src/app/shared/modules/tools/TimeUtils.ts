@@ -2,7 +2,6 @@ import * as moment from "moment";
 import {NumberUtils} from "./NumberUtils";
 import {StringUtils} from "./StringUtils";
 
-
 export class TimeUtils {
   public static MILLIS_IN_YEAR: number = 3.1709791983765e10;
   public static MILLIS_IN_DAY: number = 864e5;
@@ -41,13 +40,13 @@ export class TimeUtils {
    * @returns {string}
    */
   public static millisToRelTimeStrHMS(millis: number, hrsOnly: boolean = false, minify: boolean = false): string {
-    let cHrs = millis / this.MILLIS_IN_HOUR,
-      cMins = cHrs % 1 * 60,
-      cSecs = cMins % 1 * 60,
-      hrs = ~~cHrs,
-      mins = ~~cMins,
-      secs = ~~cSecs,
-      s: Array<string> = [];
+    let cHrs = millis / this.MILLIS_IN_HOUR;
+    let cMins = cHrs % 1 * 60;
+    let cSecs = cMins % 1 * 60;
+    let hrs = ~~cHrs;
+    let mins = ~~cMins;
+    let secs = ~~cSecs;
+    let s: Array<string> = [];
 
     if (hrs > 0 || hrsOnly) s.push(hrs + " " + (NumberUtils.isPlural(hrs) ? "hours" : "hour"));
     if ((mins > 0 || hrs > 0) && !hrsOnly) s.push(mins + " " + (NumberUtils.isPlural(mins) ? "minutes" : "minute"));
@@ -64,13 +63,13 @@ export class TimeUtils {
    * @returns {string}
    */
   public static millisToDigiClockStr(millis: number): string {
-    let cHrs = millis / this.MILLIS_IN_HOUR,
-      cMins = cHrs % 1 * 60,
-      cSecs = cMins % 1 * 60,
-      hrs = ~~cHrs,
-      mins = ~~cMins,
-      secs = ~~cSecs,
-      s: Array<string> = [];
+    let cHrs = millis / this.MILLIS_IN_HOUR;
+    let cMins = cHrs % 1 * 60;
+    let cSecs = cMins % 1 * 60;
+    let hrs = ~~cHrs;
+    let mins = ~~cMins;
+    let secs = ~~cSecs;
+    let s: Array<string> = [];
 
     if (hrs > 0) {
       s.push(StringUtils.strPad(hrs));
@@ -95,11 +94,11 @@ export class TimeUtils {
       return ~~cHrs + " " + (NumberUtils.isPlural(~~cHrs) ? "hours" : "hour");
     }
 
-    let dt = moment.duration(millis),
-      yrs = dt.years(),
-      mts = dt.months(),
-      days = dt.days(),
-      s: Array<string> = [];
+    let dt = moment.duration(millis);
+    let yrs = dt.years();
+    let mts = dt.months();
+    let days = dt.days();
+    let s: Array<string> = [];
 
     if (yrs > 0) s.push(yrs + " " + (NumberUtils.isPlural(yrs) ? "years" : "year"));
     if (mts > 0 || yrs > 0) s.push(mts + " " + (NumberUtils.isPlural(mts) ? "months" : "month"));

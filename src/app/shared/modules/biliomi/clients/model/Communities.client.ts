@@ -26,6 +26,6 @@ export class CommunitiesClient extends CachedModelRestClient<ICommunity> {
 
   public searchCache(query: string) {
     return super.searchCacheByPredicate((c: ICommunity) =>
-      StringUtils.containsIgnoreCase(c.Name, query) || StringUtils.containsIgnoreCase(c.Owner.Username, query))
+      StringUtils.containsIgnoreCase(c.Name, query) || StringUtils.containsIgnoreCase(c.Owner.Username, query));
   }
 }

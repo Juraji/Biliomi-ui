@@ -13,17 +13,17 @@ const ROOT_ROUTES: Routes = [
   {path: "", redirectTo: LOGIN_ROUTE, pathMatch: "full"},
   {
     path: "login",
-    loadChildren: './+login/Login.module#LoginModule'
+    loadChildren: "./+login/Login.module#LoginModule"
   },
   {
     path: "dash",
-    loadChildren: './+dash/Dash.module#DashModule',
+    loadChildren: "./+dash/Dash.module#DashModule",
     canActivate: [AuthenticatedGuard],
-    data: {breadCrumbName: "Dash"},
+    data: {breadCrumbName: "Dash"}
   },
   {
     path: "error",
-    loadChildren: './+error-pages/ErrorPages.module#ErrorPagesModule',
+    loadChildren: "./+error-pages/ErrorPages.module#ErrorPagesModule"
   },
 
   // Default route for unknown paths
@@ -40,7 +40,7 @@ const ROOT_ROUTES: Routes = [
     BrowserModule,
     RouterModule.forRoot(ROOT_ROUTES),
     BrowserAnimationsModule,
-    SharedModule,
+    SharedModule
   ],
   bootstrap: [MainComponent]
 })

@@ -6,7 +6,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {NgMaterialDatesModule} from "./NgMaterialDates.module";
 
-
 const NG_MATERIAL_MODULES: Type<any>[] = [
   CommonModule,
   FormsModule,
@@ -38,18 +37,18 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
   material.MatTableModule,
   material.MatTabsModule,
   material.MatToolbarModule,
-  material.MatTooltipModule,
+  material.MatTooltipModule
 ];
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [
   ArrayPageSlicePipe,
-  ChipListInputComponent,
+  ChipListInputComponent
 ];
 
 @NgModule({
   imports: NG_MATERIAL_MODULES,
   declarations: NG_MATERIAL_DECLARATIONS,
-  exports: [].concat(NG_MATERIAL_MODULES, NG_MATERIAL_DECLARATIONS),
+  exports: [].concat(NG_MATERIAL_MODULES, NG_MATERIAL_DECLARATIONS)
 
 })
 export class NgMaterialModule {

@@ -37,7 +37,7 @@ export class RouterRedirector {
     if (Array.isArray(url)) {
       return url
         .map((segment: UrlSegment) => segment.path)
-        .reduce((prev: string, next: string) => prev + "/" + next, "/")
+        .reduce((prev: string, next: string) => prev + "/" + next, "/");
     } else {
       return url;
     }

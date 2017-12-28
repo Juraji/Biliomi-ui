@@ -32,7 +32,7 @@ export class TemplateSettingsComponent implements OnInit {
         objectPath: "$.KeyDescriptions",
         headerName: "Replacements",
         formatter: XLSX_FORMATTER_DICTIONARY_KEY_VALUE_PAIR
-      },
+      }
     ]
   };
 
@@ -46,7 +46,7 @@ export class TemplateSettingsComponent implements OnInit {
     this._activatedRoute = activatedRoute;
 
     this.dataSource.client = this._templatesClient;
-    this.dataSource.sortBuilder.add("TemplateKey")
+    this.dataSource.sortBuilder.add("TemplateKey");
   }
 
   public async ngOnInit() {
@@ -68,7 +68,7 @@ export class TemplateSettingsComponent implements OnInit {
 
   private editTemplate(template: ITemplate) {
     let dialogRef = this._dialog.open(EditTemplateModalComponent, {
-      width: '600px',
+      width: "600px",
       data: (template ? template.Id : null)
     });
 

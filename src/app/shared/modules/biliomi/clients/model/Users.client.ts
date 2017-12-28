@@ -13,7 +13,7 @@ export class UsersClient extends CachedModelRestClient<IUser> {
   }
 
   public searchCache(query: string) {
-    return super.searchCacheByPredicate((u: IUser) => StringUtils.containsIgnoreCase(u.Username, query))
+    return super.searchCacheByPredicate((u: IUser) => StringUtils.containsIgnoreCase(u.Username, query));
   }
 
   public getUserByUsername(username: string, createIfNotExists: boolean): Promise<IUser> {

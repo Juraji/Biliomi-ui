@@ -16,7 +16,7 @@ export class SortBuilder {
   }
 
   public remove(property: string): SortBuilder {
-    let index: number = this.directives.findIndex((d: IRestSortDirective) => d.Property == property);
+    let index: number = this.directives.findIndex((d: IRestSortDirective) => d.Property === property);
     if (index > -1) {
       this.directives.splice(index, 1);
     }
@@ -28,7 +28,7 @@ export class SortBuilder {
   }
 
   public toString() {
-    if (this.directives.length == 0) {
+    if (this.directives.length === 0) {
       return null;
     }
     return JSON.stringify(this.directives);

@@ -2,8 +2,8 @@ import {Directive, IterableDiffers, TemplateRef} from "@angular/core";
 import {BaseRowDef} from "../classes/abstract/BaseRowDef";
 
 @Directive({
-  selector: '[headerRowDef]',
-  inputs: ['columnIds: headerRowDef'],
+  selector: "[headerRowDef]",
+  inputs: ["columnIds: headerRowDef"]
 })
 export class HeaderRowDefDirective extends BaseRowDef {
 

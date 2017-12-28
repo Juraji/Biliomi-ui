@@ -94,8 +94,8 @@ export class AuthService {
     }
 
     let parts: string[] = token.split(".");
-    if (parts.length != 3) {
-      throw new Error("JWT must have 3 parts")
+    if (parts.length !== 3) {
+      throw new Error("JWT must have 3 parts");
     }
 
     let decoded: string = atob(parts[1]);

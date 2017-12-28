@@ -1,6 +1,6 @@
 export class NumberUtils {
-  private static FILE_SIZE_UNITS = ['KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
-  private static FILE_SIZE_UNITS_SI = ['kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  private static FILE_SIZE_UNITS = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
+  private static FILE_SIZE_UNITS_SI = ["kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
   /**
    * Calculate the simplified fraction of two numbers.

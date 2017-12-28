@@ -17,7 +17,7 @@ const ROUTES: Routes = [
         path: "chat-moderator-records",
         loadChildren: "./+chat-moderator-records/ChatModeratorRecords.module#ChatModeratorRecordsModule",
         data: {breadCrumbName: "Records"}
-      },
+      }
     ]
   }
 ];

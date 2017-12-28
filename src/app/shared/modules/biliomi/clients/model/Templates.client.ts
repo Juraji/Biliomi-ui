@@ -11,6 +11,6 @@ export class TemplatesClient extends ModelRestClient<ITemplate> {
   }
 
   public getByKey(key: string): Promise<ITemplate> {
-    return this._api.get("/core/templates/" + key)
+    return this._api.get("/core/templates/" + key);
   }
 }

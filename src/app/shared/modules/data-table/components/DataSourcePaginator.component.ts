@@ -14,11 +14,11 @@ const DEFAULT_PAGE_SIZE_OPTIONS: Supplier<number[]> = () => [10, 20, 50, 100, 20
   templateUrl: require("./DataSourcePaginator.template.pug"),
   styleUrls: [require("./DataSourcePaginator.less").toString()],
   host: {
-    "class": "data-source-paginator",
+    "class": "data-source-paginator"
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  preserveWhitespaces: false,
+  preserveWhitespaces: false
 })
 export class DataSourcePaginatorComponent<T> implements OnInit, OnDestroy {
   private _dataSource: RestTableDataSource<T>;
@@ -38,16 +38,16 @@ export class DataSourcePaginatorComponent<T> implements OnInit, OnDestroy {
   }
 
   public get hasPreviousPage(): boolean {
-    return this.pageIndex >= 1 && this._pageSize != 0;
+    return this.pageIndex >= 1 && this._pageSize !== 0;
   }
 
   public get hasNextPage(): boolean {
     const numberOfPages = Math.ceil(this._length / this._pageSize) - 1;
-    return this.pageIndex < numberOfPages && this._pageSize != 0;
+    return this.pageIndex < numberOfPages && this._pageSize !== 0;
   }
 
   public get rangeLabel(): string {
-    if (this._length == 0 || this._pageSize == 0) {
+    if (this._length === 0 || this._pageSize === 0) {
       return `0 of ${length}`;
     }
 
@@ -109,7 +109,7 @@ export class DataSourcePaginatorComponent<T> implements OnInit, OnDestroy {
       }
 
       this._displayedPageSizeOptions = DEFAULT_PAGE_SIZE_OPTIONS();
-      if (this._displayedPageSizeOptions.indexOf(this._pageSize) == -1) {
+      if (this._displayedPageSizeOptions.indexOf(this._pageSize) === -1) {
         this._displayedPageSizeOptions.push(this._pageSize);
       }
 

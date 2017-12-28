@@ -28,8 +28,8 @@ export class FilterBuilder {
   }
 
   public remove(property: string): FilterBuilder {
-    let index: number;
-    while ((index = this.directives.findIndex((d: IRestFilterDirective) => d.Property == property)) > -1) {
+    let index: number = this.directives.findIndex((d: IRestFilterDirective) => d.Property === property);
+    if (index > -1) {
       this.directives.splice(index, 1);
     }
     return this;
@@ -40,7 +40,7 @@ export class FilterBuilder {
   }
 
   public toString() {
-    if (this.directives.length == 0) {
+    if (this.directives.length === 0) {
       return null;
     }
     return JSON.stringify(this.directives);

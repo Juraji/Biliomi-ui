@@ -17,7 +17,7 @@ const ROUTES: Routes = [
         path: "user-groups",
         loadChildren: "./+user-groups/UserGroups.module#UserGroupsModule",
         data: {breadCrumbName: "Groups"}
-      },
+      }
     ]
   }
 ];
@@ -28,7 +28,7 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES)
   ],
   declarations: [
-    UsersComponent,
+    UsersComponent
   ]
 })
 export class UsersModule {

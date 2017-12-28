@@ -21,7 +21,7 @@ export class StrikeSelectComponent {
     this.selectedStrikeControl.setValue(strike);
   }
 
-  public get valid():boolean{
+  public get valid(): boolean {
     return this.selectedStrikeControl.valid;
   }
 }

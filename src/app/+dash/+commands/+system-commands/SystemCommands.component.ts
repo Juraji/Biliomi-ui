@@ -37,7 +37,7 @@ export class SystemCommandsComponent implements OnInit {
       {objectPath: "$.Price", headerName: "Price (formatted)", suffix: " Bolts"},
       {objectPath: "$.Cooldown", headerName: "Cooldown"},
       {objectPath: "$.Cooldown", headerName: "Cooldown (formatted)", formatter: XLSX_FORMATTER_RELATIVE_TIME},
-      {objectPath: "$.Aliasses[]", headerName: "Aliasses", formatter: XLSX_FORMATTER_LIST_JOIN},
+      {objectPath: "$.Aliasses[]", headerName: "Aliasses", formatter: XLSX_FORMATTER_LIST_JOIN}
     ]
   };
 
@@ -57,7 +57,7 @@ export class SystemCommandsComponent implements OnInit {
 
   private editCommand(command: ICommand) {
     let dialogRef = this._dialog.open(EditSystemCommandModalComponent, {
-      width: '600px',
+      width: "600px",
       data: (command ? command.Id : null)
     });
 

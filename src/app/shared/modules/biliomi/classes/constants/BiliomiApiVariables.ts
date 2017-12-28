@@ -16,7 +16,7 @@ export enum BILIOMI_CLI_COMMANDS {
   // Manually run the ModWatch
   UPDATE_MODS = "updatemods",
   // Force the Tamagotchi Aging service to run aging
-  FORCE_TG_AGING = "forcetamagotchiaging",
+  FORCE_TG_AGING = "forcetamagotchiaging"
 }
 
 export enum BILIOMI_EVENTS {
@@ -39,5 +39,5 @@ export enum BILIOMI_EVENTS {
   TWITCH_FOLLOW_EVENT = "TwitchFollowEvent",
   TWITCH_HOST_IN_EVENT = "TwitchHostInEvent",
   TWITCH_HOST_OUT_EVENT = "TwitchHostOutEvent",
-  TWITCH_SUBSCRIBER_EVENT = "TwitchSubscriberEvent",
+  TWITCH_SUBSCRIBER_EVENT = "TwitchSubscriberEvent"
 }

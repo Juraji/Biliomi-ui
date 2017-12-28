@@ -24,11 +24,11 @@ export class PowerManagementDialogComponent {
       data: "Are you sure you want to restart Biliomi?"
     })
       .afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this._api.postCliCommand(BILIOMI_CLI_COMMANDS.RESTART);
-      }
-      this._dialogRef.close();
-    });
+        if (confirmed) {
+          this._api.postCliCommand(BILIOMI_CLI_COMMANDS.RESTART);
+        }
+        this._dialogRef.close();
+      });
   }
 
   public shutdownBiliomi() {
@@ -36,11 +36,11 @@ export class PowerManagementDialogComponent {
       data: "Are you sure you want to shutdown Biliomi?"
     })
       .afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this._api.postCliCommand(BILIOMI_CLI_COMMANDS.EXIT);
-      }
-      this._dialogRef.close();
-    });
+        if (confirmed) {
+          this._api.postCliCommand(BILIOMI_CLI_COMMANDS.EXIT);
+        }
+        this._dialogRef.close();
+      });
   }
 
   public close() {

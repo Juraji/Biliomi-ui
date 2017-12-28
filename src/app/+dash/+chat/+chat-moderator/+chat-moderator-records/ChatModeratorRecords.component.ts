@@ -29,12 +29,12 @@ export class ChatModeratorRecordsComponent {
       {objectPath: "$.Action", headerName: "Action", formatter: XLSX_FORMATTER_ENUM},
       {objectPath: "$.Reason", headerName: "Reason", formatter: XLSX_FORMATTER_ENUM},
       {objectPath: "$.Message", headerName: "Message"},
-      {objectPath: "$.Date", headerName: "Date", formatter: XLSX_FORMATTER_DATE},
+      {objectPath: "$.Date", headerName: "Date", formatter: XLSX_FORMATTER_DATE}
     ]
   };
 
   public tableFilterMapping: TableFilterNameMapping = {
-    "Username": "User.Username",
+    "Username": "User.Username"
   };
 
   constructor(moderationRecordsClient: ModerationRecordsClient, dialog: MatDialog) {

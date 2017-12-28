@@ -38,7 +38,7 @@ const ROUTES: Routes = [
     RouterModule.forChild(ROUTES)
   ],
   declarations: [
-    SystemSettingsComponent,
+    SystemSettingsComponent
   ],
   entryComponents: []
 })

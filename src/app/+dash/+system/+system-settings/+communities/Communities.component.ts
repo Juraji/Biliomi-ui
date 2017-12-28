@@ -19,7 +19,7 @@ export class CommunitiesComponent implements AfterViewInit {
 
   @ViewChild("communitiesControl", {read: CommunityChipListComponent})
   public communitiesControl: CommunityChipListComponent;
-  public autoUpdateCommunitiesControl: FormControl = new FormControl(false)
+  public autoUpdateCommunitiesControl: FormControl = new FormControl(false);
 
   public exportConfig: IXlsxExportConfig = {
     fileName: "Biliomi - Communities",
@@ -27,12 +27,12 @@ export class CommunitiesComponent implements AfterViewInit {
     columns: [
       {objectPath: "$.Name", headerName: "Name"},
       {objectPath: "$.Owner.DisplayName", headerName: "Owner"},
-      {objectPath: "$.TwitchId", headerName: "Twitch Id"},
+      {objectPath: "$.TwitchId", headerName: "Twitch Id"}
     ]
   };
 
   public tableFilterMapping: TableFilterNameMapping = {
-    "owner": "Owner.Username",
+    "owner": "Owner.Username"
   };
 
   constructor(communitiesClient: CommunitiesClient, communitesSettingsClient: CommunitesSettingsClient) {

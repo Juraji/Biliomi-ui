@@ -11,7 +11,7 @@ import {TableFilterNameMapping} from "../classes/interfaces/TableFilterMapping.i
   templateUrl: require("./TableFilterQuery.template.pug"),
   styleUrls: [require("./TableFilterQuery.less").toString()]
 })
-export class TableFilterQueryComponent<T> implements OnInit {
+export class TableFilterQueryComponent<T> {
   private _parentTable: DataTableComponent<T>;
   private _fieldFocus: boolean;
   private _dialog: MatDialog;
@@ -21,10 +21,6 @@ export class TableFilterQueryComponent<T> implements OnInit {
   @HostBinding("class.filter-field-focus")
   public get fieldFocus(): boolean {
     return this._fieldFocus || this.filterQueryControl.value.length > 0;
-  }
-
-  public set fieldFocus(fieldFocus: boolean) {
-    this._fieldFocus = fieldFocus;
   }
 
   private get filterMapping(): TableFilterNameMapping {
@@ -48,22 +44,19 @@ export class TableFilterQueryComponent<T> implements OnInit {
     this._dialog = dialog;
   }
 
-  public ngOnInit() {
-  }
-
   public async applyQuery(e: Event) {
     if (this.filterQueryControl.valid) {
       e.preventDefault();
       let query = this.filterQueryControl.value.trim();
       let ds = this.dataSource;
 
-      if (ds != null){
+      if (ds != null) {
         if (StringUtils.isEmpty(query)) {
           ds.clientParams.delete("filter");
           ds.update();
         } else {
           if (this.filterMapping != null) {
-            Object.keys(this.filterMapping).forEach((key:string) => {
+            Object.keys(this.filterMapping).forEach((key: string) => {
               query = query.replace(new RegExp(`(\\s?)${key}(\\s)`, "gi"), `$1${this.filterMapping[key]}$2`);
             });
           }
@@ -79,12 +72,7 @@ export class TableFilterQueryComponent<T> implements OnInit {
     }
   }
 
-  public setInputAndApply(input: string) {
-    this.filterQueryControl.setValue(input);
-    this.applyQuery(new Event("submit"));
-  }
-
-  public clearInput(){
+  public clearInput() {
     this.filterQueryControl.setValue("");
 
     let ds = this.dataSource;
