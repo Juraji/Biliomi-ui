@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const webpackMerge = require("webpack-merge");
+const TSLintPlugin = require("tslint-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
@@ -23,6 +24,9 @@ module.exports = webpackMerge(commonConfig, {
   },
 
   plugins: [
+    // Linting
+    new TSLintPlugin({files: [helpers.root("src", "**", "*.ts")]}),
+
     // Error handling
     new webpack.NoEmitOnErrorsPlugin(),
 

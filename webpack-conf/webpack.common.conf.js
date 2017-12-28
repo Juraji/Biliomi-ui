@@ -2,7 +2,6 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const helpers = require("./dev-scripts/paths.helpers");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const LessPluginCleanCSS = require("less-plugin-clean-css");
-const TSLinkPlugin = require("tslint-webpack-plugin");
 const Webpack = require("webpack");
 
 const webpackEntry = {
@@ -81,10 +80,6 @@ module.exports = {
   },
 
   plugins: [
-    new TSLinkPlugin({
-      files: [helpers.root("src", "**", "*.ts")],
-      fix: true
-    }),
     new HtmlWebpackPlugin({
       filename: "index.html",
       template: helpers.root("src") + "/BiliomiUI.template.pug",
