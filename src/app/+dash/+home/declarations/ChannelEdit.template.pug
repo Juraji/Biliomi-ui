@@ -1,28 +1,27 @@
 form#channel-edit-form((submit)="submitChannelEdit()")
-  mat-expansion-panel
-    mat-expansion-panel-header
-      mat-panel-title
-        mat-icon.pad-right mode_edit
-        | Edit Channel
+  mat-card
+    mat-card-header
+      mat-icon(matCardAvatar) mode_edit
+      mat-card-title Edit Channel
 
-    mat-form-field
-      input#login-username(matInput, name="channel-edit-game", placeholder="Current Game", required="true",
-      [formControl]="channelGameControl", [matAutocomplete]="gameAutocomplete")
-      mat-autocomplete(#gameAutocomplete="matAutocomplete")
-        mat-option(*ngFor="let game of gamesClient.searchCache(channelGameControl.value)", [value]="game.Name")
-          .icon.small.pad-right.steam-icon-logo(*ngIf="game.SteamId != undefined", matTooltip="Imported from Steam")
-          | {{game.Name}}
-          small
-      mat-hint The autocomplete only knows games Biliomi knows. If a game is not in there simply type it's full name and hit enter. Biliomi will make sure it will be available next time.
-      mat-error(*ngIf="channelGameControl.hasError('required')") This field is required!
+    mat-card-content
+      mat-form-field
+        input#login-username(matInput, name="channel-edit-game", placeholder="Current Game", required="true",
+        [formControl]="channelGameControl", [matAutocomplete]="gameAutocomplete")
+        mat-autocomplete(#gameAutocomplete="matAutocomplete")
+          mat-option(*ngFor="let game of gamesClient.searchCache(channelGameControl.value)", [value]="game.Name")
+            .icon.small.pad-right.steam-icon-logo(*ngIf="game.SteamId != undefined", matTooltip="Imported from Steam")
+            | {{game.Name}}
+            small
+        mat-error(*ngIf="channelGameControl.hasError('required')") This field is required!
 
-    mat-form-field
-      input#login-password(matInput, name="channel-edit-status", placeholder="Channel Status", required="true",
-      [formControl]="channelStatusControl")
-      mat-hint If you've set a template you can simply replace the contents of this field with the title you wish, Biliomi will handle the templating for you.
-      mat-error(*ngIf="channelStatusControl.hasError('required')") This field is required!
+      mat-form-field
+        input#login-password(matInput, name="channel-edit-status", placeholder="Channel Status", required="true",
+        [formControl]="channelStatusControl")
+        mat-hint(*ngIf="statusHasTemplate") Current status with template: {{channelInfoClient.Status}}
+        mat-error(*ngIf="channelStatusControl.hasError('required')") This field is required!
 
-    .mat-button-row
+    mat-card-actions
       button(mat-raised-button, color="primary", [disabled]="!isFormOk", matTooltip="Save")
         mat-icon done
       button(mat-button, type="button", (click)="refreshFields()", matTooltip="Refresh data")

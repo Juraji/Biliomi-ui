@@ -31,9 +31,11 @@ export class CaseToWordPipe implements PipeTransform {
   }
 
   private static _doTransform(value: string, upperCaseFirst: boolean, regex: RegExp, replacement: string): string {
-    let result: string = value.toLowerCase().replace(regex, replacement);
+    let result: string = value.replace(regex, replacement);
     if (upperCaseFirst) {
       result = result.charAt(0).toUpperCase() + result.slice(1).toLowerCase();
+    } else {
+      result = result.toLowerCase();
     }
     return result;
   }

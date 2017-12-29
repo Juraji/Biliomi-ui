@@ -5,11 +5,12 @@ import {RestTableDataSource} from "../../../../shared/modules/data-table/classes
 import {MatDialog} from "@angular/material";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {EditTemplateModalComponent} from "./declarations/EditTemplateModal.component";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
 import {XLSX_FORMATTER_DICTIONARY_KEY_VALUE_PAIR} from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import ITemplate = Biliomi.ITemplate;
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
+import {RouterUtils} from "../../../../shared/modules/tools/RouterUtils";
+import ITemplate = Biliomi.ITemplate;
 
 @Component({
   selector: "template-settings-component",
@@ -19,6 +20,7 @@ export class TemplateSettingsComponent implements OnInit {
   private _templatesClient: TemplatesClient;
   private _dialog: MatDialog;
   private _activatedRoute: ActivatedRoute;
+  private _router: Router;
   private dataSource: RestTableDataSource<ITemplate> = new RestTableDataSource<ITemplate>();
 
   public exportConfig: IXlsxExportConfig = {
@@ -40,10 +42,14 @@ export class TemplateSettingsComponent implements OnInit {
     "Key": "TemplateKey"
   };
 
-  constructor(templatesClient: TemplatesClient, dialog: MatDialog, activatedRoute: ActivatedRoute) {
+  constructor(templatesClient: TemplatesClient,
+              dialog: MatDialog,
+              activatedRoute: ActivatedRoute,
+              router: Router) {
     this._templatesClient = templatesClient;
     this._dialog = dialog;
     this._activatedRoute = activatedRoute;
+    this._router = router;
 
     this.dataSource.client = this._templatesClient;
     this.dataSource.sortBuilder.add("TemplateKey");
@@ -71,6 +77,11 @@ export class TemplateSettingsComponent implements OnInit {
       width: "600px",
       data: (template ? template.Id : null)
     });
+
+
+    dialogRef.afterClosed()
+      .filter(() => !RouterUtils.routeEndsWith(this._activatedRoute, "templates"))
+      .subscribe(() => this._router.navigateByUrl(RouterUtils.routeToUrl(this._activatedRoute.parent)));
 
     dialogRef.afterClosed()
       .filter((success: boolean) => success)

@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.29.366 on 2017-12-26 02:30:22.
+// Generated using typescript-generator version 1.29.366 on 2017-12-29 22:33:41.
 
 export namespace Biliomi {
 
@@ -63,6 +63,7 @@ export namespace Biliomi {
     ChannelName: string;
     IsOnline: boolean;
     Status: string;
+    StatusWithoutTemplate: string;
     CurrentGame: IGame;
     FollowerCount: number;
     SubscriberCount: number;

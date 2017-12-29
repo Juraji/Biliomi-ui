@@ -4,10 +4,11 @@
 
 mat-card
   mat-card-header
+    mat-icon(matCardAvatar) grade
     mat-card-title Quick Actions
     mat-card-subtitle &nbsp;
 
-  mat-card-content
+  mat-card-actions
     p(*ngIf="quickActions.length == 0") No quick actions defined
     .action-button-block(*ngFor="let action of quickActions")
       button.action-button(mat-raised-button, color="primary", (click)="executeAction(action)") {{action.name}}

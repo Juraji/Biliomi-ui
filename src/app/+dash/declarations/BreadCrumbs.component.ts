@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET, Router, RouterEvent} from "@angular/router";
+import {RouterUtils} from "../../shared/modules/tools/RouterUtils";
 
 interface IBreadCrumb {
   displayName: string;
@@ -50,34 +51,30 @@ export class BreadCrumbsComponent implements OnInit {
     // iterate over each children
     for (let child of children) {
       // verify primary route
-      if (child.outlet !== PRIMARY_OUTLET) {
-        continue;
-      }
+      if (child.outlet === PRIMARY_OUTLET) {
+        // verify the custom data property ROUTE_DATA_DISPLAY_NAME is specified on the route
+        if (child.snapshot.data.hasOwnProperty(ROUTE_DATA_DISPLAY_NAME)) {
+          // get the route's URL segment
+          let routeURL: string = RouterUtils.joinUrlSegments(child.snapshot.url);
 
-      // verify the custom data property "breadcrumb" is specified on the route
-      if (!child.snapshot.data.hasOwnProperty(ROUTE_DATA_DISPLAY_NAME)) {
+          // Do not add empty segments
+          if (breadCrumbs.length === 0 || routeURL.length > 0) {
+            // append route URL to URL
+            url += `/${routeURL}`;
+
+            // add breadcrumb
+            breadCrumbs.push({
+              displayName: child.snapshot.data[ROUTE_DATA_DISPLAY_NAME],
+              params: (url.length !== 1 ? child.snapshot.params : undefined),
+              queryParams: child.snapshot.queryParams,
+              url: url
+            });
+          }
+        }
+
+        // recursive
         return this._renderBreadCrumbs(child, url, breadCrumbs);
       }
-
-      // get the route's URL segment
-      let routeURL: string = child.snapshot.url.map(segment => segment.path).join("/");
-
-      // Do not add empty segments
-      if (breadCrumbs.length === 0 || routeURL.length > 0) {
-        // append route URL to URL
-        url += `/${routeURL}`;
-
-        // add breadcrumb
-        breadCrumbs.push({
-          displayName: child.snapshot.data[ROUTE_DATA_DISPLAY_NAME],
-          params: (url.length !== 1 ? child.snapshot.params : undefined),
-          queryParams: child.snapshot.queryParams,
-          url: url
-        });
-      }
-
-      // recursive
-      return this._renderBreadCrumbs(child, url, breadCrumbs);
     }
 
     return [];

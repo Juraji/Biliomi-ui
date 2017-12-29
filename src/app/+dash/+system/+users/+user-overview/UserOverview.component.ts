@@ -6,7 +6,7 @@ import {
   XLSX_FORMATTER_RELATIVE_TIME
 } from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {UsersClient} from "../../../../shared/modules/biliomi/clients/model/Users.client";
-import {ActivatedRoute, ParamMap} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
 import {PointsSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/PointsSettings.client";
@@ -14,6 +14,7 @@ import {ChannelInfoClient} from "../../../../shared/modules/biliomi/clients/sett
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 import IUser = Biliomi.IUser;
+import {RouterUtils} from "../../../../shared/modules/tools/RouterUtils";
 
 @Component({
   selector: "user-overview",
@@ -23,6 +24,7 @@ export class UserOverviewComponent implements OnInit {
   private _dialog: MatDialog;
   private _pointsSettingsClient: PointsSettingsClient;
   private _activatedRoute: ActivatedRoute;
+  private _router: Router;
   private channelInfoClient: ChannelInfoClient;
   private dataSource: RestTableDataSource<IUser> = new RestTableDataSource<IUser>();
 
@@ -61,11 +63,13 @@ export class UserOverviewComponent implements OnInit {
               channelInfoClient: ChannelInfoClient,
               pointsSettingsClient: PointsSettingsClient,
               dialog: MatDialog,
-              activatedRoute: ActivatedRoute) {
+              activatedRoute: ActivatedRoute,
+              router: Router) {
     this._dialog = dialog;
     this._pointsSettingsClient = pointsSettingsClient;
     this.channelInfoClient = channelInfoClient;
     this._activatedRoute = activatedRoute;
+    this._router = router;
 
     this._pointsSettingsClient.load();
     this.channelInfoClient.load();
@@ -88,6 +92,10 @@ export class UserOverviewComponent implements OnInit {
       width: "600px",
       data: user.Id
     });
+
+    dialogRef.afterClosed()
+      .filter(() => !RouterUtils.routeEndsWith(this._activatedRoute, "overview"))
+      .subscribe(() => this._router.navigateByUrl(RouterUtils.routeToUrl(this._activatedRoute.parent)));
 
     dialogRef.afterClosed()
       .filter((success: boolean) => success)

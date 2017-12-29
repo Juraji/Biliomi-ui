@@ -1,6 +1,5 @@
-///<reference path="../../../classes/interfaces/EventSource.interface.ts"/>
-
 import {EventEmitter, Injectable} from "@angular/core";
+import {EventSourcePolyfill, OnMessageEvent} from "ng-event-source";
 import {Biliomi} from "../classes/interfaces/Biliomi";
 import {UriUtils} from "../../tools/UriUtils";
 import {StringUtils} from "../../tools/StringUtils";
@@ -9,12 +8,11 @@ import {Subscription} from "rxjs/Subscription";
 import {BiliomiApiService} from "./BiliomiApi.service";
 import IEvent = Biliomi.IEvent;
 import IRestAuthorizationResponse = Biliomi.IRestAuthorizationResponse;
-import {EventSource, IOnMessageEvent} from "../../../classes/interfaces/EventSource.interface";
 
 @Injectable()
 export class BiliomiEventsService {
   private _api: BiliomiApiService;
-  private _eventSource: EventSource;
+  private _eventSource: EventSourcePolyfill;
   private _outboundEvents: EventEmitter<IEvent>;
 
   constructor(api: BiliomiApiService) {
@@ -23,11 +21,11 @@ export class BiliomiEventsService {
   }
 
   public get isConnected(): boolean {
-    return this._eventSource != null && this._eventSource.readyState === EventSource.OPEN;
+    return this._eventSource != null && this._eventSource.readyState === 1;
   }
 
   public get isConnecting(): boolean {
-    return this._eventSource != null && this._eventSource.readyState === EventSource.CONNECTING;
+    return this._eventSource != null && this._eventSource.readyState === 0;
   }
 
   public async connect() {
@@ -36,20 +34,9 @@ export class BiliomiEventsService {
       return;
     }
 
-    this._eventSource = new EventSource(await this.getEventsUri());
-    this._eventSource.addEventListener("message", (e: IOnMessageEvent) => {
-      if (StringUtils.isNotEmpty(e.data)) {
-        this._outboundEvents.emit(JSON.parse(e.data));
-      }
-    });
-
-    this._eventSource.addEventListener("error", async () => {
-      this.disconnect();
-      let t = setTimeout(() => {
-        this.connect();
-        clearTimeout(t);
-      }, 1e4);
-    });
+    this._eventSource = new EventSourcePolyfill(await this.getEventsUri(), {checkActivity: false});
+    this._eventSource.onmessage = (e: OnMessageEvent) => this.onMessageHandler(e);
+    this._eventSource.onerror = () => this.onErrorHandler();
   }
 
   public disconnect() {
@@ -79,5 +66,19 @@ export class BiliomiEventsService {
       .set("token", shortLivedTokenResponse.AuthorizationToken);
 
     return UriUtils.appendQueryString(url, qm);
+  }
+
+  private onMessageHandler(e: OnMessageEvent) {
+    if (StringUtils.isNotEmpty(e.data)) {
+      this._outboundEvents.emit(JSON.parse(e.data));
+    }
+  }
+
+  private onErrorHandler() {
+    this.disconnect();
+    let t = setTimeout(() => {
+      this.connect();
+      clearTimeout(t);
+    }, 1e4);
   }
 }

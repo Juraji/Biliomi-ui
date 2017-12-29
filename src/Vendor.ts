@@ -6,7 +6,9 @@ require("zone.js/dist/zone");
 
 // RxJS (Selectively, since we do not need the entire framework)
 // noinspection ES6UnusedImports
-import {Observable} from "rxjs";
+import {Observable, Subscription, Subject, BehaviorSubject} from "rxjs";
+// noinspection ES6UnusedImports
+import {takeUntil} from "rxjs/operators";
 import "rxjs/add/observable/interval";
 import "rxjs/add/operator/filter";
 import "rxjs/add/operator/toPromise";
@@ -28,3 +30,4 @@ import "@angular/core";
 import "@angular/common";
 import "@angular/router";
 import "@angular/forms";
+import "@angular/common/locales/nl";

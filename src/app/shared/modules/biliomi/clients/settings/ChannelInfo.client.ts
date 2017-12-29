@@ -15,6 +15,7 @@ export class ChannelInfoClient extends SettingsRestClient<IChannelInfo> implemen
   public ChannelName: string;
   public IsOnline: boolean;
   public Status: string;
+  public StatusWithoutTemplate: string;
   public CurrentGame: IGame = {} as IGame;
   public FollowerCount: number = 0;
   public SubscriberCount: number = 0;

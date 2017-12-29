@@ -1,5 +1,6 @@
 import {NavigationEnd, Router, RouterEvent, UrlSegment} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
+import {RouterUtils} from "../modules/tools/RouterUtils";
 
 export class RouterRedirector {
   private _router: Router;
@@ -10,8 +11,8 @@ export class RouterRedirector {
   constructor(router: Router, from: string | UrlSegment[], to: string | UrlSegment[]) {
     this._router = router;
 
-    this._from = RouterRedirector.urlSegmentsToUrl(from);
-    this._to = RouterRedirector.urlSegmentsToUrl(to);
+    this._from = RouterRedirector.url(from);
+    this._to = RouterRedirector.url(to);
   }
 
   public start() {
@@ -33,13 +34,7 @@ export class RouterRedirector {
     this._router.navigateByUrl(this._to, {replaceUrl: true});
   }
 
-  private static urlSegmentsToUrl(url: UrlSegment[] | string): string {
-    if (Array.isArray(url)) {
-      return url
-        .map((segment: UrlSegment) => segment.path)
-        .reduce((prev: string, next: string) => prev + "/" + next, "/");
-    } else {
-      return url;
-    }
+  private static url(url: UrlSegment[] | string): string {
+    return (Array.isArray(url) ? RouterUtils.joinUrlSegments(url) : url);
   }
 }

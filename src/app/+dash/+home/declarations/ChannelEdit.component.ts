@@ -11,11 +11,15 @@ import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
 })
 export class ChannelEditComponent implements OnInit {
   private _api: BiliomiApiService;
-  private channelInfoClient: ChannelInfoClient;
-  private gamesClient: GamesClient;
+  public channelInfoClient: ChannelInfoClient;
+  public gamesClient: GamesClient;
 
-  private channelGameControl = new FormControl("", [Validators.required]);
-  private channelStatusControl = new FormControl("", [Validators.required]);
+  public channelGameControl = new FormControl("", [Validators.required]);
+  public channelStatusControl = new FormControl("", [Validators.required]);
+
+  public get statusHasTemplate(): boolean {
+    return this.channelInfoClient.Status !== this.channelInfoClient.StatusWithoutTemplate;
+  }
 
   constructor(channelInfoClient: ChannelInfoClient, gamesClient: GamesClient, api: BiliomiApiService) {
     this.channelInfoClient = channelInfoClient;
@@ -27,21 +31,21 @@ export class ChannelEditComponent implements OnInit {
     this.refreshFields();
   }
 
-  private get isFormOk(): boolean {
+  public get isFormOk(): boolean {
     return this.channelGameControl.valid && this.channelStatusControl.valid;
   }
 
-  private async refreshFields() {
+  public async refreshFields() {
     let gamesSort: SortBuilder = new SortBuilder()
       .add("Name", false);
 
     await this.channelInfoClient.load(true);
     await this.gamesClient.load(true, gamesSort);
     this.channelGameControl.setValue(this.channelInfoClient.CurrentGame.Name);
-    this.channelStatusControl.setValue(this.channelInfoClient.Status);
+    this.channelStatusControl.setValue(this.channelInfoClient.StatusWithoutTemplate);
   }
 
-  private async submitChannelEdit() {
+  public async submitChannelEdit() {
     if (this.isFormOk) {
 
       // Only update the game if it has actually changed
@@ -50,7 +54,7 @@ export class ChannelEditComponent implements OnInit {
       }
 
       // Only update the status if it has actually changed
-      if (this.channelStatusControl.value !== this.channelInfoClient.Status) {
+      if (this.channelStatusControl.value !== this.channelInfoClient.StatusWithoutTemplate) {
         await this._api.postCommand("channel", "status", this.channelStatusControl.value);
       }
 
