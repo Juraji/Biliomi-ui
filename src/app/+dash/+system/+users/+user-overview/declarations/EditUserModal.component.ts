@@ -20,6 +20,7 @@ export class EditUserModalComponent implements AfterViewInit {
   private editedUser: IUser;
   private userTitleControl: FormControl = new FormControl("");
   private userPointsControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
+  private userRecordedTimeControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   private userFollowDateControl: FormControl = new FormControl();
   private userSubscribeDateControl: FormControl = new FormControl();
   private userIsBlacklistedControl: FormControl = new FormControl(false);
@@ -48,6 +49,7 @@ export class EditUserModalComponent implements AfterViewInit {
   public initFields() {
     this.userTitleControl.setValue(this.editedUser.Title);
     this.userPointsControl.setValue(this.editedUser.Points);
+    this.userRecordedTimeControl.setValue(this.editedUser.RecordedTime);
     this.userIsBlacklistedControl.setValue(this.editedUser.BlacklistedSince != null);
     this.userGroupSelect.selectedGroup = this.editedUser.UserGroup;
 
@@ -61,7 +63,8 @@ export class EditUserModalComponent implements AfterViewInit {
   }
 
   public get isFormOk(): boolean {
-    return this.userPointsControl.valid;
+    return this.userPointsControl.valid
+      && this.userRecordedTimeControl.valid;
   }
 
   public async save() {
@@ -72,6 +75,7 @@ export class EditUserModalComponent implements AfterViewInit {
       Object.assign(user, this.editedUser);
       user.Title = this.userTitleControl.value;
       user.Points = this.userPointsControl.value;
+      user.RecordedTime = this.userRecordedTimeControl.value;
       user.UserGroup = this.userGroupSelect.selectedGroup;
 
       if (this.userIsBlacklistedControl.value === true && this.editedUser.BlacklistedSince == null) {
