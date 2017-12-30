@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit, Optional} from "@angular/core";
+import {Component, HostBinding, Optional} from "@angular/core";
 import {DataTableComponent} from "../DataTable.component";
 import {FormControl, Validators} from "@angular/forms";
 import {StringUtils} from "../../tools/StringUtils";
@@ -20,7 +20,11 @@ export class TableFilterQueryComponent<T> {
 
   @HostBinding("class.filter-field-focus")
   public get fieldFocus(): boolean {
-    return this._fieldFocus || this.filterQueryControl.value.length > 0;
+    return this._fieldFocus || this.fieldValue.length > 0;
+  }
+
+  private get fieldValue(): string {
+    return this.filterQueryControl.value.trim();
   }
 
   private get filterMapping(): TableFilterNameMapping {
@@ -46,8 +50,11 @@ export class TableFilterQueryComponent<T> {
 
   public async applyQuery(e: Event) {
     if (this.filterQueryControl.valid) {
-      e.preventDefault();
-      let query = this.filterQueryControl.value.trim();
+      if (e) {
+        e.preventDefault();
+      }
+
+      let query = this.fieldValue;
       let ds = this.dataSource;
 
       if (ds != null) {
@@ -70,6 +77,11 @@ export class TableFilterQueryComponent<T> {
         }
       }
     }
+  }
+
+  public fieldFocusChange(isFocused: boolean) {
+    this._fieldFocus = isFocused;
+    this.applyQuery(null);
   }
 
   public clearInput() {
