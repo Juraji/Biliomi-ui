@@ -1,6 +1,6 @@
 import {ModelRestClient} from "../../biliomi/classes/ModelRestClient";
 import {SortBuilder} from "../../biliomi/classes/SortBuilder";
-import {ProgressBarMode} from "../../ng-material/classes/interfaces/ProgressBarMode.interface";
+import {ProgressBarMode} from "../../ng-material/classes/interfaces/ProgressBarMode.enum";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Biliomi} from "../../biliomi/classes/interfaces/Biliomi";
 import IPaginatedResponse = Biliomi.IPaginatedResponse;

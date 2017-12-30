@@ -1,4 +1,4 @@
-import {XlsxFormatterFunction} from "../interfaces/Xlsx.interface";
+import {XlsxFormatterFunction} from "../interfaces/Xlsx";
 import {TimeUtils} from "../../../tools/TimeUtils";
 import {DatePipe} from "../../../../pipes/Date.pipe";
 import {CaseToWordPipe, CaseType} from "../../../../pipes/CaseToWord.pipe";

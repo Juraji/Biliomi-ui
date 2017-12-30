@@ -5,14 +5,14 @@ import {
   XLSX_FORMATTER_BOOLEAN_YES_NO,
   XLSX_FORMATTER_DATE
 } from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {ConfirmDialogComponent} from "../../../shared/components/ConfirmDialog.component";
 import {MatDialog} from "@angular/material";
 import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
-import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 import IHostRecord = Biliomi.IHostRecord;
 import IDirection = Biliomi.IDirection;
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
 
 @Component({
   selector: "hosts-page",

@@ -8,13 +8,13 @@ import {
 import {UsersClient} from "../../../../shared/modules/biliomi/clients/model/Users.client";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
-import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {PointsSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/PointsSettings.client";
 import {ChannelInfoClient} from "../../../../shared/modules/biliomi/clients/settings/ChannelInfo.client";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
-import IUser = Biliomi.IUser;
 import {RouterUtils} from "../../../../shared/modules/tools/RouterUtils";
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
+import IUser = Biliomi.IUser;
 
 @Component({
   selector: "user-overview",

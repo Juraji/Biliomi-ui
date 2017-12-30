@@ -1,13 +1,13 @@
 import {Component, OnInit} from "@angular/core";
-import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {FormControl, Validators} from "@angular/forms";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {SubscriberWatchSettingsClient} from "../../../shared/modules/biliomi/clients/settings/SubscriberWatchSettings.client";
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
 import {LatestSubscribersClient} from "../../../shared/modules/biliomi/clients/model/LatestSubscribers.client";
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
 import IUser = Biliomi.IUser;
-import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "subscribers-page",

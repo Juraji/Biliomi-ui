@@ -4,7 +4,7 @@ import {FormControl, Validators} from "@angular/forms";
 import {StringUtils} from "../../tools/StringUtils";
 import {MatDialog} from "@angular/material";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
-import {TableFilterNameMapping} from "../classes/interfaces/TableFilterMapping.interface";
+import {TableFilterNameMapping} from "../classes/interfaces/DataTable";
 
 @Component({
   selector: "table-filter-query",

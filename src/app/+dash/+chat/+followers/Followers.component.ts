@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {FollowerWatchSettingsClient} from "../../../shared/modules/biliomi/clients/settings/FollowerWatchSettings.client";
 import {FormControl, Validators} from "@angular/forms";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
 import {LatestFollowersClient} from "../../../shared/modules/biliomi/clients/model/LatestFollowers.client";

@@ -1,6 +1,6 @@
 import {Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {TableColumnsSetup} from "../classes/interfaces/TableColumnSetup.interface";
+import {TableColumnsSetup} from "../classes/interfaces/DataTable";
 
 @Component({
   selector: "table-setup-modal",

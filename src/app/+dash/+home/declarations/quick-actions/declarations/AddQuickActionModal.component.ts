@@ -1,7 +1,8 @@
 import {Component} from "@angular/core";
 import {FormControl, Validators} from "@angular/forms";
-import {QuickAction, QuickActionType} from "./QuickAction.interface";
 import {MatDialogRef} from "@angular/material";
+import {QuickActionType} from "../classes/interfaces/QuickAction.enum";
+import {QuickAction} from "../classes/interfaces/QuickAction";
 
 @Component({
   selector: "add-quick-action-modal",

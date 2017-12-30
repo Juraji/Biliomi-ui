@@ -5,13 +5,13 @@ import {CustomCommandsClient} from "../../../shared/modules/biliomi/clients/mode
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
 import {ARG_COMMAND_REPLACEMENTS} from "../../../shared/modules/biliomi/classes/constants/CommandReplacements";
 import {EditCustomCommandModalComponent} from "./declarations/EditCustomCommandModal.component";
-import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {
   XLSX_FORMATTER_LIST_JOIN,
   XLSX_FORMATTER_RELATIVE_TIME
 } from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
 import ICustomCommand = Biliomi.ICustomCommand;
-import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "custom-commands-component",

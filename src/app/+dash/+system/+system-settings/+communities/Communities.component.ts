@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, ViewChild} from "@angular/core";
-import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CommunitiesClient} from "../../../../shared/modules/biliomi/clients/model/Communities.client";
 import {CommunitesSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/CommunitesSettings.client";
 import {FormControl} from "@angular/forms";
 import {CommunityChipListComponent} from "../../../../shared/components/CommunityChipList.component";
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
 import ICommunity = Biliomi.ICommunity;
-import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "communities",

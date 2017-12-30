@@ -1,5 +1,4 @@
 import {EventEmitter, Injectable} from "@angular/core";
-import {EventSourcePolyfill, OnMessageEvent} from "ng-event-source";
 import {Biliomi} from "../classes/interfaces/Biliomi";
 import {UriUtils} from "../../tools/UriUtils";
 import {StringUtils} from "../../tools/StringUtils";
@@ -12,7 +11,7 @@ import IRestAuthorizationResponse = Biliomi.IRestAuthorizationResponse;
 @Injectable()
 export class BiliomiEventsService {
   private _api: BiliomiApiService;
-  private _eventSource: EventSourcePolyfill;
+  private _eventSource: EventSource;
   private _outboundEvents: EventEmitter<IEvent>;
 
   constructor(api: BiliomiApiService) {
@@ -34,8 +33,9 @@ export class BiliomiEventsService {
       return;
     }
 
-    this._eventSource = new EventSourcePolyfill(await this.getEventsUri(), {checkActivity: false});
-    this._eventSource.onmessage = (e: OnMessageEvent) => this.onMessageHandler(e);
+    this._eventSource = new EventSource(await this.getEventsUri());
+
+    this._eventSource.onmessage = (e: MessageEvent) => this.onMessageHandler(e);
     this._eventSource.onerror = () => this.onErrorHandler();
   }
 
@@ -68,7 +68,7 @@ export class BiliomiEventsService {
     return UriUtils.appendQueryString(url, qm);
   }
 
-  private onMessageHandler(e: OnMessageEvent) {
+  private onMessageHandler(e: MessageEvent) {
     if (StringUtils.isNotEmpty(e.data)) {
       this._outboundEvents.emit(JSON.parse(e.data));
     }

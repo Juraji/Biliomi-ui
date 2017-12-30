@@ -1,5 +1,5 @@
 import {Component, Optional} from "@angular/core";
-import {ProgressBarMode} from "../../ng-material/classes/interfaces/ProgressBarMode.interface";
+import {ProgressBarMode} from "../../ng-material/classes/interfaces/ProgressBarMode.enum";
 import {DataTableComponent} from "../DataTable.component";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
 

@@ -3,7 +3,6 @@ import {
   ContentChildren, Input, IterableChangeRecord, IterableDiffer, IterableDiffers, NgIterable, OnDestroy, OnInit,
   QueryList, TemplateRef, TrackByFunction, ViewChild, ViewContainerRef, ViewEncapsulation
 } from "@angular/core";
-import {CollectionViewer} from "./classes/interfaces/CollectionViewer.interface";
 import {Subject} from "rxjs/Subject";
 import {Subscription} from "rxjs/Subscription";
 import {ColumnDefDirective} from "./directives/ColumnDef.directive";
@@ -15,15 +14,16 @@ import {takeUntil} from "rxjs/operators";
 import {HeaderCellDefDirective} from "./directives/HeaderCellDef.directive";
 import {CellOutletDirective} from "./directives/CellOutlet.directive";
 import {RowViewRef} from "./classes/abstract/RowViewRef";
-import {CellOutletRowContext} from "./classes/interfaces/CellOutletRowContext.interface";
 import {DataCellDefDirective} from "./directives/DataCellDef.directive";
 import {RestTableDataSource} from "./classes/RestTableDataSource";
 import {CustomTableActionsDirective} from "./directives/CustomTableActions.directive";
-import {IXlsxExportConfig} from "../xlsx-export/classes/interfaces/Xlsx.interface";
-import {ColumnSetup, TableColumnsSetup} from "./classes/interfaces/TableColumnSetup.interface";
+import {IXlsxExportConfig} from "../xlsx-export/classes/interfaces/Xlsx";
 import {Storage} from "../../storage/Storage";
-import {TableFilterNameMapping} from "./classes/interfaces/TableFilterMapping.interface";
 import {DataSourcePaginatorComponent} from "./components/DataSourcePaginator.component";
+import {
+  CellOutletRowContext, CollectionViewer, ColumnSetup, TableColumnsSetup,
+  TableFilterNameMapping
+} from "./classes/interfaces/DataTable";
 
 export const TABLE_SETUP_STORAGE_PREFIX: string = "tableSetup.";
 

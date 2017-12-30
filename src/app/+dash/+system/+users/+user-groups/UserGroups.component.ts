@@ -1,13 +1,13 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {UserGroupsClient} from "../../../../shared/modules/biliomi/clients/model/UserGroups.client";
-import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {XLSX_FORMATTER_BOOLEAN_YES_NO} from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {MatDialog} from "@angular/material";
 import {EditUserGroupModalComponent} from "./declarations/EditUserGroupModal.component";
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
 import IUserGroup = Biliomi.IUserGroup;
-import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "user-groups",

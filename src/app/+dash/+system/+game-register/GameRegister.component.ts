@@ -4,10 +4,10 @@ import {RestTableDataSource} from "../../../shared/modules/data-table/classes/Re
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {MatDialog} from "@angular/material";
 import {EditGameModalComponent} from "./declarations/EditGameModal.component";
-import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {ConfirmDialogComponent} from "../../../shared/components/ConfirmDialog.component";
-import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
 import IGame = Biliomi.IGame;
 import ICommunity = Biliomi.ICommunity;
 

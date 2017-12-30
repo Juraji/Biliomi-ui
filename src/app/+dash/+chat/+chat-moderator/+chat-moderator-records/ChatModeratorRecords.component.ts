@@ -6,11 +6,11 @@ import {
   XLSX_FORMATTER_DATE,
   XLSX_FORMATTER_ENUM
 } from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {MatDialog} from "@angular/material";
 import {ConfirmDialogComponent} from "../../../../shared/components/ConfirmDialog.component";
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
 import IModerationRecord = Biliomi.IModerationRecord;
-import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 
 @Component({
   selector: "chat-moderator-records",

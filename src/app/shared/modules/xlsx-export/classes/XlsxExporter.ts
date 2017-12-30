@@ -1,10 +1,12 @@
 import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
-import {IXlsxColumnDefinition, IXlsxExportConfig, IXlsXRowObject, XlsxBookType} from "./interfaces/Xlsx.interface";
+import {IXlsxColumnDefinition, IXlsxExportConfig, IXlsXRowObject} from "./interfaces/Xlsx";
 import {JSONPath} from "../../tools/JSONPath";
 import {Supplier} from "../../tools/FunctionalInterface";
 
 const AUTO_COLUMN_WIDTH_MARGIN: number = 5;
+// Possible booktypes are: xlsx, xlsm, xlsb, xls, biff8, biff5, biff2, xlml, ods, fods, csv, txt, sylk, html, dif, rtf, prn.
+const BOOK_TYPE: XLSX.BookType = "xlsx";
 
 /**
  * Enables Excel (XLSX) exports in Typescript/Angular
@@ -16,7 +18,6 @@ export class XlsxExporter {
   private _config: IXlsxExportConfig;
   private _sheetHeaders: string[];
   private _fileName: string;
-  private _bookType: XlsxBookType;
   private _columnWidths: number[];
 
   constructor(config: IXlsxExportConfig) {
@@ -24,8 +25,7 @@ export class XlsxExporter {
     this._sheetHeaders = this._config.columns
       .map((cd: IXlsxColumnDefinition) => XlsxExporter._mapSheetHeaderName(cd.headerName));
 
-    this._bookType = (this._config.bookType || XlsxBookType.XLSX);
-    this._fileName = (this._config.fileName || this._config.sheetName) + "." + this._bookType;
+    this._fileName = (this._config.fileName || this._config.sheetName) + "." + BOOK_TYPE;
   }
 
   /**
@@ -58,7 +58,7 @@ export class XlsxExporter {
     this._processColumnWidths(sheet);
 
     // Present file as download to the browser
-    let fileStream: any = XLSX.write(book, {type: "binary", bookType: this._bookType});
+    let fileStream: any = XLSX.write(book, {type: "binary", bookType: BOOK_TYPE});
     let fileBlob: any = new Blob([XlsxExporter._s2ab(fileStream)], {type: "application/octet-stream"});
     FileSaver.saveAs(fileBlob, this._fileName);
   }

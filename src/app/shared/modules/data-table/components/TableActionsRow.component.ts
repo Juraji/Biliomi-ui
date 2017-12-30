@@ -2,7 +2,7 @@ import {Component, Optional, TemplateRef} from "@angular/core";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
 import {DataTableComponent, TABLE_SETUP_STORAGE_PREFIX} from "../DataTable.component";
 import {XlsxExporter} from "../../xlsx-export/classes/XlsxExporter";
-import {IXlsxExportConfig} from "../../xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../xlsx-export/classes/interfaces/Xlsx";
 import {Storage} from "../../../storage/Storage";
 import {MatDialog} from "@angular/material";
 import {TableSetupModalComponent} from "./TableSetupModal.component";

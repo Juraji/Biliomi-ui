@@ -3,14 +3,14 @@ import {TemplatesClient} from "../../../../shared/modules/biliomi/clients/model/
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {MatDialog} from "@angular/material";
-import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {EditTemplateModalComponent} from "./declarations/EditTemplateModal.component";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
 import {XLSX_FORMATTER_DICTIONARY_KEY_VALUE_PAIR} from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
 import {RouterUtils} from "../../../../shared/modules/tools/RouterUtils";
 import ITemplate = Biliomi.ITemplate;
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
 
 @Component({
   selector: "template-settings-component",

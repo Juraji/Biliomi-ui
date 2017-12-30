@@ -8,9 +8,9 @@ import {
   XLSX_FORMATTER_BOOLEAN_YES_NO, XLSX_FORMATTER_LIST_JOIN,
   XLSX_FORMATTER_RELATIVE_TIME
 } from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx.interface";
+import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import ICommand = Biliomi.ICommand;
-import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/TableFilterMapping.interface";
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
 
 @Component({
   // Since "default" is a pug keyword I chose to name the selector differently

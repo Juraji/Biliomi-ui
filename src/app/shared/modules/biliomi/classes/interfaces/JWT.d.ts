@@ -2,7 +2,7 @@ import {Biliomi} from "./Biliomi";
 import ITokenUserType = Biliomi.ITokenUserType;
 import ITokenType = Biliomi.ITokenType;
 
-export interface IJwtBody {
+interface IJwtBody {
   sub: string; // Subject username
   iat: number; // Issued at timestamp
   iss: string; // Issuer

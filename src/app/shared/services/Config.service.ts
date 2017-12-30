@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {IConfig} from "../classes/interfaces/IConfig.interface";
 import * as jsyaml from "js-yaml";
 
 @Injectable()

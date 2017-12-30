@@ -2,7 +2,6 @@ import {EventEmitter, Injectable} from "@angular/core";
 import {ConfigService} from "../../../services/Config.service";
 import {AuthService} from "../../../services/Auth.service";
 import {Biliomi} from "../classes/interfaces/Biliomi";
-import {IConfig} from "../../../classes/interfaces/IConfig.interface";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import ICommandRequest = Biliomi.ICommandRequest;
 import ITokenRequest = Biliomi.IRestRefreshTokenRequest;
