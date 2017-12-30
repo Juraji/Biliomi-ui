@@ -1,7 +1,7 @@
 form(#filterQueryForm="", (submit)="applyQuery($event)")
   mat-form-field
     input(matInput, name="filter-query", [formControl]="filterQueryControl", placeholder="Query",
-    (focus)="fieldFocus = true", (blur)="fieldFocus = false", autocomplete="off")
+    (focus)="_fieldFocus = true", (blur)="_fieldFocus = false", autocomplete="off")
     mat-icon(matSuffix, (click)="showHelp()", matTooltip="Help") help
     mat-icon(*ngIf="filterQueryControl.value != ''", matSuffix, (click)="clearInput()", matTooltip="Clear input") backspace
     mat-error(*ngIf="filterQueryControl.getError('pattern')") Invalid query
