@@ -13,8 +13,8 @@ import ICommand = Biliomi.ICommand;
 })
 export class CommandFormComponent {
   private _api: BiliomiApiService;
-  private argFormControl = new FormControl("", [Validators.required]);
-  private argFieldMatcher: ErrorStateMatcher = new AllowTouchedFieldMatcher();
+  public argFormControl = new FormControl("", [Validators.required]);
+  public argFieldMatcher: ErrorStateMatcher = new AllowTouchedFieldMatcher();
 
   @Input("command")
   private command: ICommand;
@@ -23,21 +23,21 @@ export class CommandFormComponent {
   private placeholder: string = "Arguments...";
 
   @Input("argsDisabled")
-  private set argsDisabled(disabled: boolean) {
+  public set argsDisabled(disabled: boolean) {
     this.argFormControl.reset({value: "", disabled: disabled});
   }
 
   @Input("argsRequired")
-  private argsRequired: boolean = true;
+  public argsRequired: boolean = true;
 
   @Input("helpText")
-  private helpText: string = null;
+  public helpText: string = null;
 
   constructor(api: BiliomiApiService) {
     this._api = api;
   }
 
-  private async executeCommand() {
+  public async executeCommand() {
     if (this.argsRequired && this.argFormControl.invalid) {
       return;
     }
