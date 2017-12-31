@@ -38,7 +38,9 @@ export class ChannelInfoClient extends SettingsRestClient<IChannelInfo> implemen
     await super.load(refresh);
 
     // Sort viewers by Username for easthetics
-    this.Viewers = (this.Viewers || []).sort((a: IUser, b: IUser) => a.Username.localeCompare(b.Username));
+    this.Viewers = (this.Viewers || [])
+      .sort((a: IUser, b: IUser) => a.Username.localeCompare(b.Username))
+      .sort((a: IUser, b: IUser) => (a.Caster || a.Moderator ? -1 : 1));
     // Sort hosters by Username for easthetics
     this.Hosters = (this.Hosters || []).sort((a: IUser, b: IUser) => a.Username.localeCompare(b.Username));
 
@@ -50,5 +52,15 @@ export class ChannelInfoClient extends SettingsRestClient<IChannelInfo> implemen
 
   public save(): Promise<Biliomi.IChannelInfo> {
     throw Error("Save action is not allowed for channel info");
+  }
+
+  private sortUsers(a: IUser, b: IUser): number {
+    if (a.Caster || a.Moderator) {
+      return 1;
+    } else if (b.Caster || b.Moderator) {
+      return -1;
+    }
+
+    return a.Username.localeCompare(b.Username);
   }
 }
