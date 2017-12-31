@@ -5,7 +5,7 @@ p Check out the latest subscribers and change the behaviour of Biliomi when new 
     p Latest Subscribers
 
     data-table(tableId="latest-subscribers", [dataSource]="latestSubscribersDataSource", [exportConfig]="exportConfig",
-    [disableFilter]="true", [disablePagination]="true")
+    [disableFilter]="true", [lockPagination]="true")
       ng-container(columnDef="Username")
         header-cell(*headerCellDef="") Username
         data-cell(*dataCellDef="let user")

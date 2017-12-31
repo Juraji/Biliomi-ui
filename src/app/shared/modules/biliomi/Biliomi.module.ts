@@ -24,6 +24,8 @@ import {LatestFollowersClient} from "./clients/model/LatestFollowers.client";
 import {LatestSubscribersClient} from "./clients/model/LatestSubscribers.client";
 import {CommunitiesClient} from "./clients/model/Communities.client";
 import {CommunitesSettingsClient} from "./clients/settings/CommunitesSettings.client";
+import {AchievementRecordsClient} from "./clients/model/AchievementRecords.client";
+import {AchievementSettingsClient} from "./clients/settings/AchievementSettings.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -35,6 +37,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   BiliomiEventsService,
 
   // Model clients
+  AchievementRecordsClient,
   ChatLogsClient,
   CommandsClient,
   CommunitiesClient,
@@ -49,6 +52,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   UsersClient,
 
   // Settings clients
+  AchievementSettingsClient,
   ChannelInfoClient,
   ChatModeratorSettingsClient,
   CommunitesSettingsClient,

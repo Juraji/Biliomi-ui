@@ -1,0 +1,40 @@
+form(#userEditForm="", (submit)="save()")
+  mat-form-field
+    input#user-title(matInput, name="user-title", placeholder="Title", [formControl]="userTitleControl")
+    mat-hint Some commands prepend this value to the user's username.
+
+  mat-form-field
+    input#user-points(matInput, type="number", name="user-points", [placeholder]="undefined | points | async", required="true",
+    [formControl]="userPointsControl")
+    mat-hint User {{undefined | points | async}}
+    mat-error(*ngIf="userPointsControl.hasError('required')") This field is required!
+
+  mat-form-field
+    input#user-recorded-time(matInput, type="number", name="user-recorded-time", placeholder="Recorded Time", required="true",
+    [formControl]="userRecordedTimeControl")
+    mat-hint The time, Biliomi measured, for which this user has been in the channel in milliseconds.
+    mat-error(*ngIf="userRecordedTimeControl.hasError('required')") This field is required!
+
+  mat-form-field(*ngIf="editedUser?.Follower")
+    input#user-follow-date(matInput, name="user-follow-date", placeholder="Follows Since",
+    [formControl]="userFollowDateControl", [matDatepicker]="followDatePicker")
+    mat-datepicker-toggle(matSuffix, [for]="followDatePicker")
+    mat-datepicker(#followDatePicker="", [disabled]="false")
+    mat-hint Only for correction purposes. Biliomi keeps track of followers via Twitch.
+
+  mat-form-field(*ngIf="editedUser?.Subscriber")
+    input#user-subscribe-date(matInput, name="user-subscribe-date", placeholder="Subscribed Since",
+    [formControl]="userSubscribeDateControl", [matDatepicker]="subscribeDatePicker")
+    mat-datepicker-toggle(matSuffix, [for]="subscribeDatePicker")
+    mat-datepicker(#subscribeDatePicker="", [disabled]="false")
+    mat-hint Only for correction purposes. Biliomi keeps track of subscribers via Twitch.
+
+  mat-slide-toggle([hidden]="editedUser?.Caster || editedUser?.Moderator", [formControl]="userIsBlacklistedControl")
+    | Blacklist User
+  .checkbox-subscript
+    .checkbox-hint
+      | Blacklisted users are prohibited from posting commands.
+    .checkbox-error([hidden]="editedUser?.BlacklistedSince == undefined")
+      | {{editedUser?.DisplayName}} has been blacklisted since {{editedUser?.BlacklistedSince| date}}
+
+  user-group-select(#userGroup="")

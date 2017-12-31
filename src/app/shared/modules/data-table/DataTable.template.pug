@@ -1,10 +1,10 @@
-table-actions-row
+table-actions-row(*ngIf="hideActions == false")
 
 ng-container(#headerRowPlaceHolder="")
 data-source-progress-bar
 ng-container(#dataRowPlaceHolder="")
 
-data-source-paginator([lockPaging]="disablePagination")
+data-source-paginator([lockPaging]="lockPagination")
 
 ng-container
   header-row(*headerRowDef="displayedColumnIds")

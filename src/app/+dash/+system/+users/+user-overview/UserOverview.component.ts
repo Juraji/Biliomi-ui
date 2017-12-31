@@ -1,5 +1,4 @@
 import {Component, OnInit} from "@angular/core";
-import {EditUserModalComponent} from "./declarations/EditUserModal.component";
 import {MatDialog} from "@angular/material";
 import {
   XLSX_FORMATTER_BOOLEAN_YES_NO, XLSX_FORMATTER_DATE,
@@ -15,6 +14,7 @@ import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Bil
 import {RouterUtils} from "../../../../shared/modules/tools/RouterUtils";
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
 import IUser = Biliomi.IUser;
+import {EditUserModalComponent} from "./edit-user-modal/EditUserModal.component";
 
 @Component({
   selector: "user-overview",
@@ -98,7 +98,7 @@ export class UserOverviewComponent implements OnInit {
       .subscribe(() => this._router.navigateByUrl(RouterUtils.routeToUrl(this._activatedRoute.parent)));
 
     dialogRef.afterClosed()
-      .filter((success: boolean) => success)
+      .filter((changesMade: boolean) => changesMade)
       .subscribe(() => this.dataSource.update());
   }
 

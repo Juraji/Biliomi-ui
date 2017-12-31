@@ -1,0 +1,35 @@
+h2(matDialogTitle) Editing user: {{editedUser?.DisplayName}}
+
+table(*ngIf="editedUser != undefined")
+  tr(*ngIf="editedUser.Caster")
+    td: small Special user:
+    td.text-primary Channel owner
+  tr(*ngIf="editedUser.Moderator")
+    td: small Special user:
+    td.text-secondary Channel moderator
+  tr(*ngIf="editedUser.Follower")
+    td: small Follower Since:
+    td {{editedUser.FollowDate | date}}
+  tr(*ngIf="editedUser.Subscriber")
+    td: small Subscriber Since:
+    td {{editedUser.SubscribeDate | date}}
+
+mat-dialog-content(*ngIf="editedUser == undefined")
+  mat-spinner
+
+mat-dialog-content(*ngIf="editedUser != undefined")
+  mat-tab-group
+    mat-tab(label="Information")
+      user-information
+    mat-tab(label="Host records")
+      user-host-records
+    mat-tab(label="Achievements")
+      user-achievements
+
+mat-dialog-actions(*ngIf="editedUser != undefined")
+  button(mat-raised-button, color="primary", [disabled]="!modalFormOk", (click)="saveForms()", matTooltip="Save")
+    mat-icon done
+  button(mat-raised-button, type="button", color="warn", (click)="close(false)", matTooltip="Cancel edit")
+    mat-icon arrow_back
+  button(mat-button, type="button", (click)="refreshForms()", matTooltip="Refresh data")
+    mat-icon refresh

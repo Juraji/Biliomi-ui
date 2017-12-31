@@ -1,52 +1,53 @@
-import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
-import {UsersClient} from "../../../../../shared/modules/biliomi/clients/model/Users.client";
-import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {AfterViewInit, Component, Optional, ViewChild} from "@angular/core";
+import {EditUserModalComponent} from "../EditUserModal.component";
+import {UsersClient} from "../../../../../../shared/modules/biliomi/clients/model/Users.client";
+import {MatSnackBar} from "@angular/material";
 import {FormControl, Validators} from "@angular/forms";
-import {UserGroupSelectComponent} from "../../../../../shared/components/UserGroupSelect.component";
+import {Biliomi} from "../../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {UserGroupSelectComponent} from "../../../../../../shared/components/UserGroupSelect.component";
 import * as moment from "moment";
 import IUser = Biliomi.IUser;
 
 @Component({
-  selector: "edit-user-modal-component",
-  templateUrl: require("./EditUserModal.template.pug")
+  selector: "user-information",
+  templateUrl: require("./UserInformation.template.pug")
 })
-export class EditUserModalComponent implements AfterViewInit {
-  private _dialogRef: MatDialogRef<EditUserModalComponent>;
+export class UserInformationComponent implements AfterViewInit {
+  private _parentModal: EditUserModalComponent;
   private _usersClient: UsersClient;
   private _matSnackBar: MatSnackBar;
-  private _userId: number;
 
-  private editedUser: IUser;
-  private userTitleControl: FormControl = new FormControl("");
-  private userPointsControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
-  private userRecordedTimeControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
-  private userFollowDateControl: FormControl = new FormControl();
-  private userSubscribeDateControl: FormControl = new FormControl();
-  private userIsBlacklistedControl: FormControl = new FormControl(false);
+  public editedUser: IUser;
 
   @ViewChild("userGroup", {read: UserGroupSelectComponent})
-  private userGroupSelect: UserGroupSelectComponent;
+  public userGroupSelect: UserGroupSelectComponent;
+  public userTitleControl: FormControl = new FormControl("");
+  public userPointsControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
+  public userRecordedTimeControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
+  public userFollowDateControl: FormControl = new FormControl();
+  public userSubscribeDateControl: FormControl = new FormControl();
+  public userIsBlacklistedControl: FormControl = new FormControl(false);
 
-  constructor(@Inject(MAT_DIALOG_DATA) userId: number,
+  constructor(@Optional() parentModal: EditUserModalComponent,
               usersClient: UsersClient,
-              dialogRef: MatDialogRef<EditUserModalComponent>,
               matSnackBar: MatSnackBar) {
-    this._userId = userId;
+    this._parentModal = parentModal;
     this._usersClient = usersClient;
-    this._dialogRef = dialogRef;
     this._matSnackBar = matSnackBar;
+
+    this._parentModal.onSave.subscribe(() => this.save());
+    this._parentModal.onRefresh.subscribe(() => this.initFields());
 
     this.userFollowDateControl.disable();
     this.userSubscribeDateControl.disable();
   }
 
-  public async ngAfterViewInit() {
-    this.editedUser = await this._usersClient.get(this._userId);
+  public ngAfterViewInit() {
     this.initFields();
   }
 
   public initFields() {
+    this.editedUser = this._parentModal.editedUser;
     this.userTitleControl.setValue(this.editedUser.Title);
     this.userPointsControl.setValue(this.editedUser.Points);
     this.userRecordedTimeControl.setValue(this.editedUser.RecordedTime);
@@ -92,16 +93,12 @@ export class EditUserModalComponent implements AfterViewInit {
         user.SubscribeDate = this.userSubscribeDateControl.value;
       }
 
-      persistedUser = await this._usersClient.put(this._userId, user);
+      persistedUser = await this._usersClient.put(this.editedUser.Id, user);
       if (persistedUser == null) {
         this._matSnackBar.open("Could not save " + this.editedUser.DisplayName + ", check your input.", "Ok");
       } else {
-        this._dialogRef.close(true);
+        this._parentModal.close(true);
       }
     }
-  }
-
-  public cancelEdit() {
-    this._dialogRef.close(false);
   }
 }
