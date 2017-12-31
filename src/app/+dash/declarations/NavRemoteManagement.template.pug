@@ -1,4 +1,4 @@
-a.mat-icon-button(mat-button, (click)="openMgmtDialog()", )
+a.mat-icon-button(mat-button, (click)="handleItemClick()", )
   mat-icon(*ngIf="eventsService.isConnected", matTooltip="Remote management") settings_power
   mat-icon(*ngIf="eventsService.isConnecting", matTooltip="Connecting to Biliomi") wifi
-  mat-icon(*ngIf="!eventsService.isConnected && !eventsService.isConnecting", matTooltip="Biliomi's seems to not be available, try reloading") warning
+  mat-icon(*ngIf="!eventsService.isConnected && !eventsService.isConnecting", matTooltip="Biliomi's seems to not be available, click to retry") warning

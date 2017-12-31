@@ -9,17 +9,19 @@ import {PowerManagementDialogComponent} from "./PowerManagementDialog.component"
   styleUrls: [require("./NavRemoteManagement.less").toString()]
 })
 export class NavRemoteManagementComponent {
-  private eventsService: BiliomiEventsService;
   private _dialog: MatDialog;
+  public eventsService: BiliomiEventsService;
 
   constructor(eventsService: BiliomiEventsService, dialog: MatDialog) {
     this.eventsService = eventsService;
     this._dialog = dialog;
   }
 
-  private openMgmtDialog() {
+  public handleItemClick() {
     if (this.eventsService.isConnected) {
       this._dialog.open(PowerManagementDialogComponent);
+    } else if (!this.eventsService.isConnecting) {
+      this.eventsService.connect();
     }
   }
 }
