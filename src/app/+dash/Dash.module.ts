@@ -8,6 +8,7 @@ import {NavRemoteManagementComponent} from "./declarations/NavRemoteManagement.c
 import {ChatComponent} from "./declarations/Chat.component";
 import {PowerManagementDialogComponent} from "./declarations/PowerManagementDialog.component";
 import {BreadCrumbsComponent} from "./declarations/BreadCrumbs.component";
+import {PageLoadingBarComponent} from "./declarations/PageLoadingBar.component";
 
 const ROUTES: Routes = [
   {
@@ -50,6 +51,7 @@ const ROUTES: Routes = [
     NavRemoteManagementComponent,
     PowerManagementDialogComponent,
     BreadCrumbsComponent,
+    PageLoadingBarComponent,
     ChatComponent
   ],
   entryComponents: [PowerManagementDialogComponent]
