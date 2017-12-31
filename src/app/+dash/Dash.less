@@ -76,9 +76,13 @@ dash-page {
     .content-column {
       position: absolute;
       box-sizing: border-box;
-      padding: .5em 1em 1em 1em;
+      padding: .5em;
       top: 61px;
       bottom: 0;
+
+      &:last-child {
+        padding-left: 0;
+      }
 
       &#content-column {
         left: 0;
