@@ -14,6 +14,6 @@ data-table([dataSource]="dataSource", [hideActions]="true", [lockPagination]="tr
 
   ng-container(columnDef="#Edit", [buttonsColumn]="1")
     header-cell(*headerCellDef="")
-      data-cell(*dataCellDef="let record")
-        a.mat-icon-button.pull-right(mat-button, (click)="deleteRecord(record)", matTooltip="Delete record")
-          mat-icon(color="warn") delete_forever
+    data-cell(*dataCellDef="let record")
+      a.mat-icon-button.pull-right(mat-button, (click)="deleteRecord(record)", matTooltip="Delete record")
+        mat-icon(color="warn") delete_forever

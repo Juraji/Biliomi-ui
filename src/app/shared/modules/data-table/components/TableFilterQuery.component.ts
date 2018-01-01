@@ -16,7 +16,7 @@ export class TableFilterQueryComponent<T> {
   private _fieldFocus: boolean;
   private _dialog: MatDialog;
 
-  public filterQueryControl: FormControl = new FormControl("", [Validators.pattern(/^([a-z. ]+\s+[!]?[=~<>]\s["]?[a-z0-9.\- ]+["]?(\s(and|or)\s)?)+$/i)]);
+  public filterQueryControl: FormControl = new FormControl("", [Validators.pattern(/^([a-z. ]+\s+[!]?[=~<>]\s["]?[a-z0-9.\-_: ]+["]?(\s(and|or)\s)?)+$/i)]);
 
   @HostBinding("class.filter-field-focus")
   public get fieldFocus(): boolean {

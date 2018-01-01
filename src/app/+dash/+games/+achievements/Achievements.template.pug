@@ -1,0 +1,46 @@
+p Check out your viewer's latest achievements and change achievement settings
+
+.columns
+  .col.span-8-of-12
+    p Achievements
+
+    data-table(tableId="achievements", [dataSource]="achievementsDataSource", [exportConfig]="exportConfig", [filterMapping]="filterMapping")
+      ng-container(columnDef="Username")
+        header-cell(*headerCellDef="", sortProperty="User.Username") Username
+        data-cell(*dataCellDef="let record")
+          user-display([user]="record.User")
+
+      ng-container(columnDef="Achievement")
+        header-cell(*headerCellDef="", sortProperty="Achievement") Achievement
+        data-cell(*dataCellDef="let record")
+          | {{record.Achievement}}
+
+      ng-container(columnDef="Date")
+        header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
+        data-cell(*dataCellDef="let record")
+          | {{record.Date | date}}
+
+      ng-container(columnDef="#Actions", [buttonsColumn]="1")
+        header-cell(*headerCellDef="")
+        data-cell(*dataCellDef="let record")
+          a.mat-icon-button.pull-right(mat-button, (click)="deleteRecord(record)", matTooltip="Delete record")
+            mat-icon(color="warn") delete_forever
+
+  .col.span-4-of-12
+    p &nbsp;
+
+    form(#achievementSettingsForm="", (submit)="saveSettings()")
+      mat-card
+        mat-card-header
+          mat-card-title Achievement Settings
+          mat-card-subtitle &nbsp;
+
+        mat-card-content
+          mat-slide-toggle([formControl]="achievementsEnabledControl")
+            | Enable Achievements
+
+        mat-card-actions
+          button(mat-raised-button, color="primary" matTooltip="Save")
+            mat-icon done
+          button(mat-button, type="button", (click)="initSettingsFields()", matTooltip="Refresh data")
+            mat-icon refresh

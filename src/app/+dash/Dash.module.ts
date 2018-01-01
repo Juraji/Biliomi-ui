@@ -9,7 +9,6 @@ import {ChatComponent} from "./declarations/Chat.component";
 import {PowerManagementDialogComponent} from "./declarations/PowerManagementDialog.component";
 import {BreadCrumbsComponent} from "./declarations/BreadCrumbs.component";
 import {PageLoadingBarComponent} from "./declarations/PageLoadingBar.component";
-import {VoiceCommandsComponent} from "./voice-commands/VoiceCommands.component";
 import {VoiceCommandsModule} from "./voice-commands/VoiceCommands.module";
 
 const ROUTES: Routes = [
@@ -36,6 +35,11 @@ const ROUTES: Routes = [
         path: "chat",
         loadChildren: "./+chat/Chat.module#ChatModule",
         data: {breadCrumbName: "Chat"}
+      },
+      {
+        path: "games",
+        loadChildren: "./+games/Games.module#GamesModule",
+        data: {breadCrumbName: "Games"}
       }
     ]
   }
