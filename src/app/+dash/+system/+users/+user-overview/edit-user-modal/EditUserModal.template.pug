@@ -25,6 +25,8 @@ mat-dialog-content(*ngIf="editedUser != undefined")
       user-host-records
     mat-tab(label="Achievements")
       user-achievements
+    mat-tab(label="Adventures")
+      user-adventure-records
 
 mat-dialog-actions(*ngIf="editedUser != undefined")
   button(mat-raised-button, color="primary", [disabled]="!modalFormOk", (click)="saveForms()", matTooltip="Save")
