@@ -150,9 +150,11 @@ export class VoiceCommandsService {
         .add("command", IRestFilterOperator.CONTAINS, command)
         .toString());
 
+    // Try finding custom command
     let commands = await this._api.get<IPaginatedResponse<ICommand>>("/core/customcommands", apiParams);
 
     if (commands == null) {
+      // Try finding core command
       commands = await this._api.get<IPaginatedResponse<ICommand>>("/core/commands", apiParams);
     }
 
@@ -186,6 +188,6 @@ export class VoiceCommandsService {
         return;
     }
 
-    this._vcMessagesService.notify("Navigating to " + pageName);
+    this._vcMessagesService.notify("Navigated to " + pageName);
   }
 }
