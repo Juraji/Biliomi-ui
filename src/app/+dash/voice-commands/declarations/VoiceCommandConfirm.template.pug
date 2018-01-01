@@ -1,0 +1,8 @@
+h2(matDialogTitle) Confirm Voice Command
+
+mat-dialog-content
+  p {{message}}
+
+mat-dialog-actions
+  button(mat-raised-button, color="primary", (click)="confirmCommand()") Say "Confirm"
+  button(mat-raised-button, color="warn", (click)="cancelCommand()") Say "Cancel"

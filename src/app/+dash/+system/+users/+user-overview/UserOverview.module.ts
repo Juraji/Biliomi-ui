@@ -22,7 +22,7 @@ const ROUTES: Routes = [
     EditUserModalModule,
     RouterModule.forChild(ROUTES)
   ],
-  declarations: [UserOverviewComponent],
+  declarations: [UserOverviewComponent]
 })
 export class UserOverviewModule {
 }

@@ -17,10 +17,10 @@ export class CommandFormComponent {
   public argFieldMatcher: ErrorStateMatcher = new AllowTouchedFieldMatcher();
 
   @Input("command")
-  private command: ICommand;
+  public command: ICommand;
 
   @Input("placeholder")
-  private placeholder: string = "Arguments...";
+  public placeholder: string = "Arguments...";
 
   @Input("argsDisabled")
   public set argsDisabled(disabled: boolean) {

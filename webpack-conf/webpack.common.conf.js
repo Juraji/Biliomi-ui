@@ -5,6 +5,9 @@ const LessPluginCleanCSS = require("less-plugin-clean-css");
 const Webpack = require("webpack");
 
 const webpackEntry = {
+  Angular: "./src/Angular.ts",
+  Polyfills: "./src/Polyfills.ts",
+  Rx: "./src/Rx.ts",
   Vendor: "./src/Vendor.ts",
   BiliomiUI: "./src/BiliomiUI.bootstrap.ts"
 };
@@ -91,7 +94,7 @@ module.exports = {
       chunks: Object.keys(webpackEntry),
       chunksSortMode: "dependency"
     }),
-    new Webpack.optimize.CommonsChunkPlugin({name: ['Vendor']}),
+    new Webpack.optimize.CommonsChunkPlugin({name: ["Angular", "Polyfills", "Rx", "Vendor"]}),
     new Webpack.ContextReplacementPlugin(/(.+)?angular([\\\/])core(.+)?/, helpers.root("src"), {})
   ]
 };

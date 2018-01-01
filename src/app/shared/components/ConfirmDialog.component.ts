@@ -10,6 +10,7 @@ export class ConfirmDialogComponent {
   private _dialogRef: MatDialogRef<ConfirmDialogComponent>;
 
   constructor(@Inject(MAT_DIALOG_DATA) message: string, dialogRef: MatDialogRef<ConfirmDialogComponent>) {
+    console.log(message);
     this.message = message;
     this._dialogRef = dialogRef;
   }

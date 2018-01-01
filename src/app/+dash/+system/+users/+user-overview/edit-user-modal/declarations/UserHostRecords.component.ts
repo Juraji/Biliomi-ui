@@ -34,7 +34,7 @@ export class UserHostRecordsComponent {
     }).afterClosed()
       .filter((doDelete: boolean) => doDelete)
       .subscribe(async () => {
-        let success: boolean = await this.dataSource.client.delete(record.Id)
+        let success: boolean = await this.dataSource.client.delete(record.Id);
         if (success) {
           this.dataSource.update();
         }
