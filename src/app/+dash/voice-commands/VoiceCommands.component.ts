@@ -1,4 +1,4 @@
-import {Component, HostBinding} from "@angular/core";
+import {Component, HostBinding, OnDestroy} from "@angular/core";
 import {VoiceCommandsService} from "./services/VoiceCommands.service";
 import {VCMessagesService} from "./services/VCMessages.service";
 
@@ -7,7 +7,7 @@ import {VCMessagesService} from "./services/VCMessages.service";
   templateUrl: require("./VoiceCommands.template.pug"),
   styleUrls: [require("./VoiceCommands.less").toString()]
 })
-export class VoiceCommandsComponent {
+export class VoiceCommandsComponent implements OnDestroy {
   public voiceCommandsService: VoiceCommandsService;
   public vcMessagesService: VCMessagesService;
 
@@ -20,6 +20,10 @@ export class VoiceCommandsComponent {
               vcMessagesService: VCMessagesService) {
     this.voiceCommandsService = voiceCommandsService;
     this.vcMessagesService = vcMessagesService;
+  }
+
+  public ngOnDestroy() {
+    this.voiceCommandsService.stop();
   }
 
   public startStopListening() {

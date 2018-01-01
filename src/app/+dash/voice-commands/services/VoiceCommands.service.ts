@@ -1,12 +1,13 @@
 import {Injectable, NgZone} from "@angular/core";
+import {Router} from "@angular/router";
+import {MatDialog, MatDialogRef} from "@angular/material";
 import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
 import {VoiceCommandConfirmComponent} from "../declarations/VoiceCommandConfirm.component";
-import {MatDialog, MatDialogRef} from "@angular/material";
 import {Observable} from "rxjs/Observable";
 import {VCMessagesService} from "./VCMessages.service";
 import {FilterBuilder} from "../../../shared/modules/biliomi/classes/FilterBuilder";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {Router} from "@angular/router";
+import {BrowserSpeechRecognition} from "../classes/BrowserSpeechRecognition";
 import IRestFilterOperator = Biliomi.IRestFilterOperator;
 import IPaginatedResponse = Biliomi.IPaginatedResponse;
 import ICommand = Biliomi.ICommand;
@@ -22,27 +23,21 @@ export class VoiceCommandsService {
   private _recognitionObj: SpeechRecognition = null;
   private _ngZone: NgZone;
 
+  private _shouldStopListening: boolean = false;
+
   private _commands: IVoiceCommand[] = [
-    {
-      regex: /commands? ([a-z]+)/,
-      executor: (command: string) => this.executorCommand(command)
-    },
-    {
-      regex: /give everyone [^\d]?(\d+)/,
-      executor: (amount: string) => this.executorPoints(amount)
-    },
-    {
-      regex: /show ([a-z]+)/,
-      executor: (pageName: string) => this.executorNavigate(pageName)
-    },
-    {
-      regex: /(confirm|cancel)/,
-      executor: (action: string) => this.confirmOrCancelModal(action)
-    },
-    {
-      regex: /stop listening/,
-      executor: () => this.stop()
-    }
+    {regex: /commands? ([a-z]+)/, executor: (command: string) => this.executorCommand(command)},
+    {regex: /give everyone [^\d]?(\d+)/, executor: (amount: string) => this.executorPoints(amount)},
+    {regex: /show ([a-z]+)/, executor: (pageName: string) => this.executorNavigate(pageName)},
+    {regex: /(confirm|cancel)/, executor: (action: string) => this.confirmOrCancelModal(action)},
+    {regex: /stop listening/, executor: () => this.stop()}
+  ];
+
+  private _voiceNavigationRoutes: IVoiceNavigationRoutes[] = [
+    {commands: ["dash", "home"], path: "/dash/home"},
+    {commands: ["users"], path: "/dash/system/users/overview"},
+    {commands: ["followers"], path: "/dash/chat/followers"},
+    {commands: ["commands"], path: "/dash/commands/custom-commands"}
   ];
 
   public get isListening(): boolean {
@@ -62,23 +57,39 @@ export class VoiceCommandsService {
   }
 
   public start() {
-    this._recognitionObj = new SpeechRecognition();
-    this._recognitionObj.continuous = true;
-    this._recognitionObj.lang = "en-US";
-    this._recognitionObj.maxAlternatives = 5;
-    this._recognitionObj.onresult = (e: SpeechRecognitionEvent) => this.processSpeechResults(e);
-    this._recognitionObj.onend = () => this._ngZone.runTask(() => {
-      this._vcMessagesService.notify("Stopped listening");
-      this._recognitionObj = null;
-    }, this);
-    this._recognitionObj.start();
-    this._vcMessagesService.notify("Listening for commands");
+    this._recognitionObj = BrowserSpeechRecognition.get();
+
+    if (this._recognitionObj != null) {
+      this._recognitionObj.continuous = true;
+      this._recognitionObj.lang = "en-US";
+      this._recognitionObj.maxAlternatives = 5;
+      this._recognitionObj.onresult = (e: SpeechRecognitionEvent) => this.processSpeechResults(e);
+      this._recognitionObj.onend = () => this.stopOrRestart();
+      this._recognitionObj.start();
+      this._vcMessagesService.notify("Listening for commands");
+    } else {
+      this._vcMessagesService.notify("Speech recognition is not supported by your browser");
+    }
   }
 
   public stop() {
     if (this.isListening) {
-      this._recognitionObj.stop();
+      this._shouldStopListening = true;
+      this._recognitionObj.abort();
     }
+  }
+
+  private stopOrRestart() {
+    // Run in zone task, so the recognition thread doesn't stall the view
+    this._ngZone.runTask(() => {
+      if (!this._shouldStopListening) {
+        this._recognitionObj.start();
+      } else {
+        this._shouldStopListening = false;
+        this._vcMessagesService.notify("Stopped listening");
+        this._recognitionObj = null;
+      }
+    }, this);
   }
 
   private processSpeechResults(e: SpeechRecognitionEvent) {
@@ -151,12 +162,8 @@ export class VoiceCommandsService {
         .toString());
 
     // Try finding custom command
-    let commands = await this._api.get<IPaginatedResponse<ICommand>>("/core/customcommands", apiParams);
-
-    if (commands == null) {
-      // Try finding core command
-      commands = await this._api.get<IPaginatedResponse<ICommand>>("/core/commands", apiParams);
-    }
+    let commands = await this._api.get<IPaginatedResponse<ICommand>>("/core/customcommands", apiParams)
+      || await this._api.get<IPaginatedResponse<ICommand>>("/core/commands", apiParams);
 
     if (commands == null) {
       this._vcMessagesService.notify("Command not found");
@@ -169,25 +176,14 @@ export class VoiceCommandsService {
   }
 
   private executorNavigate(pageName: string) {
-    switch (pageName) {
-      case "home":
-      case "dash":
-        this._router.navigateByUrl("/dash/home");
-        break;
-      case "users":
-        this._router.navigateByUrl("/dash/system/users/overview");
-        break;
-      case "followers":
-        this._router.navigateByUrl("/dash/chat/followers");
-        break;
-      case "commands":
-        this._router.navigateByUrl("/dash/commands/custom-commands");
-        break;
-      default:
-        this._vcMessagesService.notify("Unknown page \"" + pageName + "\"");
+    for (let route of this._voiceNavigationRoutes) {
+      if (route.commands.indexOf(pageName) > -1) {
+        this._router.navigateByUrl(route.path);
+        this._vcMessagesService.notify("Navigated to " + pageName);
         return;
+      }
     }
 
-    this._vcMessagesService.notify("Navigated to " + pageName);
+    this._vcMessagesService.notify("Unknown page \"" + pageName + "\"");
   }
 }

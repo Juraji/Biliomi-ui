@@ -1,5 +1,7 @@
 import {Injectable} from "@angular/core";
 
+const MESSAGE_DURATION: number = 5e3;
+
 @Injectable()
 export class VCMessagesService {
   private _message: string;
@@ -14,13 +16,19 @@ export class VCMessagesService {
   }
 
   public notify(message: string) {
-    this._message = message;
-
     this.clearTimeoutKey();
+
+    this._message = null;
+
+    let t = setTimeout(() => {
+      this._message = message;
+      clearTimeout(t);
+    }, 100);
+
     this._timeoutKey = setTimeout(() => {
       this._message = null;
       this.clearTimeoutKey();
-    }, 3000);
+    }, MESSAGE_DURATION);
   }
 
   private clearTimeoutKey() {
