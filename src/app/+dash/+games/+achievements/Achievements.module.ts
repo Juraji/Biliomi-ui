@@ -6,7 +6,7 @@ import {AchievementsComponent} from "./Achievements.component";
 const ROUTES: Routes = [
   {
     path: "",
-    component: AchievementsComponent,
+    component: AchievementsComponent
   }
 ];
 

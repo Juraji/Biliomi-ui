@@ -18,7 +18,7 @@ const ROUTES: Routes = [
   imports: [
     SharedModule,
     RouterModule.forChild(ROUTES)
-  ],
+  ]
 })
 export class GamesModule {
 }

@@ -79,7 +79,7 @@ function createModuleFile(moduleDirPath, moduleNameTC) {
     "const ROUTES: Routes = [\n" +
     "  {\n" +
     "    path: \"\",\n" +
-    "    component: " + moduleNameTC + "Component,\n" +
+    "    component: " + moduleNameTC + "Component\n" +
     "  }\n" +
     "];\n" +
     "\n" +
