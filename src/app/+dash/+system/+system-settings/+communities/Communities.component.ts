@@ -3,7 +3,7 @@ import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CommunitiesClient} from "../../../../shared/modules/biliomi/clients/model/Communities.client";
-import {CommunitesSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/CommunitesSettings.client";
+import {CommunitiesSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/CommunitiesSettings.client";
 import {FormControl} from "@angular/forms";
 import {CommunityChipListComponent} from "../../../../shared/components/CommunityChipList.component";
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
@@ -14,7 +14,7 @@ import ICommunity = Biliomi.ICommunity;
   templateUrl: require("./Communities.template.pug")
 })
 export class CommunitiesComponent implements AfterViewInit {
-  private _communitesSettingsClient: CommunitesSettingsClient;
+  private _communitiesSettingsClient: CommunitiesSettingsClient;
   public communitiesDataSource: RestTableDataSource<ICommunity> = new RestTableDataSource<ICommunity>();
 
   @ViewChild("communitiesControl", {read: CommunityChipListComponent})
@@ -35,25 +35,25 @@ export class CommunitiesComponent implements AfterViewInit {
     "owner": "Owner.Username"
   };
 
-  constructor(communitiesClient: CommunitiesClient, communitesSettingsClient: CommunitesSettingsClient) {
+  constructor(communitiesClient: CommunitiesClient, communitesSettingsClient: CommunitiesSettingsClient) {
     this.communitiesDataSource.client = communitiesClient;
-    this._communitesSettingsClient = communitesSettingsClient;
+    this._communitiesSettingsClient = communitesSettingsClient;
   }
 
   public async ngAfterViewInit() {
-    await this._communitesSettingsClient.load(true);
+    await this._communitiesSettingsClient.load(true);
     this.initFields();
   }
 
   public initFields() {
-    this.autoUpdateCommunitiesControl.setValue(this._communitesSettingsClient.AutoUpdateCommunities);
-    this.communitiesControl.selectedCommunities = this._communitesSettingsClient.DefaultCommunities.slice();
+    this.autoUpdateCommunitiesControl.setValue(this._communitiesSettingsClient.AutoUpdateCommunities);
+    this.communitiesControl.selectedCommunities = this._communitiesSettingsClient.DefaultCommunities.slice();
   }
 
   public async saveSettings() {
-    this._communitesSettingsClient.AutoUpdateCommunities = this.autoUpdateCommunitiesControl.value;
-    this._communitesSettingsClient.DefaultCommunities = this.communitiesControl.selectedCommunities;
-    await this._communitesSettingsClient.save();
+    this._communitiesSettingsClient.AutoUpdateCommunities = this.autoUpdateCommunitiesControl.value;
+    this._communitiesSettingsClient.DefaultCommunities = this.communitiesControl.selectedCommunities;
+    await this._communitiesSettingsClient.save();
     this.initFields();
   }
 }

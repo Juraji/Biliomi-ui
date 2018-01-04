@@ -25,6 +25,7 @@ import {CommunityChipListComponent} from "./components/CommunityChipList.compone
 import {ObjectSortPipe} from "./pipes/ObjectSort.pipe";
 import {DataTableModule} from "./modules/data-table/DataTable.module";
 import {ConfirmDialogModule} from "./modules/confirm-dialog/ConfirmDialog.module";
+import {SaveButtonComponent} from "./components/SaveButton.component";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -44,7 +45,8 @@ const SHARED_COMPONENTS: Type<any>[] = [
   EditTemplateButtonComponent,
   UserDisplayComponent,
   UserAutoCompleteComponent,
-  CommunityChipListComponent
+  CommunityChipListComponent,
+  SaveButtonComponent
 ];
 
 const SHARED_DIRECTIVES: Type<any>[] = [];
@@ -67,7 +69,7 @@ const SHARED_MODULES: Type<any>[] = [
   NgMaterialModule,
   BiliomiModule,
   DataTableModule,
-  ConfirmDialogModule
+  ConfirmDialogModule,
 ];
 
 @NgModule({

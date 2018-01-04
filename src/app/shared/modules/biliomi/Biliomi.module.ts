@@ -23,7 +23,7 @@ import {HostWatchSettingsClient} from "./clients/settings/HostWatchSettings.clie
 import {LatestFollowersClient} from "./clients/model/LatestFollowers.client";
 import {LatestSubscribersClient} from "./clients/model/LatestSubscribers.client";
 import {CommunitiesClient} from "./clients/model/Communities.client";
-import {CommunitesSettingsClient} from "./clients/settings/CommunitesSettings.client";
+import {CommunitiesSettingsClient} from "./clients/settings/CommunitiesSettings.client";
 import {AchievementRecordsClient} from "./clients/model/AchievementRecords.client";
 import {AchievementSettingsClient} from "./clients/settings/AchievementSettings.client";
 import {AdventureRecordsClient} from "./clients/model/AdventureRecords.client";
@@ -60,7 +60,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   AchievementSettingsClient,
   AdventureSettingsClient,
   ChatModeratorSettingsClient,
-  CommunitesSettingsClient,
+  CommunitiesSettingsClient,
   FollowerWatchSettingsClient,
   HostWatchSettingsClient,
   PointsSettingsClient,

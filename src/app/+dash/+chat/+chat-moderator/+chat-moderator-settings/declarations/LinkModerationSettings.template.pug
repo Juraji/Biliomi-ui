@@ -18,7 +18,6 @@ form(#linkModerationSettingsForm="", (submit)="saveSettings()")
         | So http://shadywebsite.com?url=http://juraji.nl would also be seen as an ok link. You might want to be very specific about whitelisting links.
 
     mat-card-actions
-      button(mat-raised-button, color="primary", [disabled]="!isFormOk", matTooltip="Save")
-        mat-icon done
+      save-button([disabled]="!isFormOk", [stateEmitter]="_chatModeratorSettingsClient.afterSave")
       button(mat-button, type="button", (click)="ngAfterViewInit()", matTooltip="Refresh data")
         mat-icon refresh

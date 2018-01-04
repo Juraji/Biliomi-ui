@@ -90,6 +90,7 @@ export class UserOverviewComponent implements OnInit {
   public editUser(user: IUser) {
     let dialogRef = this._dialog.open(EditUserModalComponent, {
       width: "600px",
+      height: "710px",
       data: user.Id
     });
 

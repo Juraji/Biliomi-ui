@@ -6,7 +6,7 @@ import ICommunity = Biliomi.ICommunity;
 import {Injectable} from "@angular/core";
 
 @Injectable()
-export class CommunitesSettingsClient extends SettingsRestClient<ICommunitiesSettings> implements ICommunitiesSettings {
+export class CommunitiesSettingsClient extends SettingsRestClient<ICommunitiesSettings> implements ICommunitiesSettings {
   public AutoUpdateCommunities: boolean;
   public DefaultCommunities: ICommunity[];
   public Type: string;

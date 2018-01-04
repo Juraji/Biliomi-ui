@@ -37,6 +37,7 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
             edit-template-button(templateKey="IncomingFollowNotice") Edit Incoming Follow Notice
 
         mat-card-actions
+          save-button([disabled]="!isSettingsFormOk", [stateEmitter]="_followerWatchSettingsClient.afterSave")
           button(mat-raised-button, color="primary", [disabled]="!isSettingsFormOk", matTooltip="Save")
             mat-icon done
           button(mat-button, type="button", (click)="initSettingsFields()", matTooltip="Refresh data")

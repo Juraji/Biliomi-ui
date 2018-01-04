@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Optional, ViewChild} from "@angular/core";
+import {AfterViewChecked, AfterViewInit, Component, Optional, ViewChild} from "@angular/core";
 import {EditUserModalComponent} from "../EditUserModal.component";
 import {UsersClient} from "../../../../../../shared/modules/biliomi/clients/model/Users.client";
 import {MatSnackBar} from "@angular/material";
@@ -12,7 +12,7 @@ import IUser = Biliomi.IUser;
   selector: "user-information",
   templateUrl: require("./UserInformation.template.pug")
 })
-export class UserInformationComponent implements AfterViewInit {
+export class UserInformationComponent implements AfterViewInit, AfterViewChecked {
   private _parentModal: EditUserModalComponent;
   private _usersClient: UsersClient;
   private _matSnackBar: MatSnackBar;
@@ -44,6 +44,10 @@ export class UserInformationComponent implements AfterViewInit {
 
   public ngAfterViewInit() {
     this.initFields();
+  }
+
+  public ngAfterViewChecked() {
+    this._parentModal.modalFormOk = this.isFormOk;
   }
 
   public initFields() {
@@ -94,10 +98,9 @@ export class UserInformationComponent implements AfterViewInit {
       }
 
       persistedUser = await this._usersClient.put(this.editedUser.Id, user);
+      this._parentModal.saveButton.state = persistedUser != null;
       if (persistedUser == null) {
         this._matSnackBar.open("Could not save " + this.editedUser.DisplayName + ", check your input.", "Ok");
-      } else {
-        this._parentModal.close(true);
       }
     }
   }

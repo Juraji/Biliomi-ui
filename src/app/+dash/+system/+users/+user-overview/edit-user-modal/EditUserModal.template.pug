@@ -29,8 +29,7 @@ mat-dialog-content(*ngIf="editedUser != undefined")
       user-adventure-records
 
 mat-dialog-actions(*ngIf="editedUser != undefined")
-  button(mat-raised-button, color="primary", [disabled]="!modalFormOk", (click)="saveForms()", matTooltip="Save")
-    mat-icon done
+  save-button([disabled]="!modalFormOk", (click)="saveForms()")
   button(mat-raised-button, type="button", color="warn", (click)="close(false)", matTooltip="Cancel edit")
     mat-icon arrow_back
   button(mat-button, type="button", (click)="refreshForms()", matTooltip="Refresh data")

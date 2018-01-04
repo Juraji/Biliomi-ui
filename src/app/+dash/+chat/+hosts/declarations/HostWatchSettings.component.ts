@@ -8,7 +8,6 @@ import {FormControl, Validators} from "@angular/forms";
 })
 export class HostWatchSettingsComponent implements OnInit {
   private _hostWatchSettingsClient: HostWatchSettingsClient;
-
   private hostRewardControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
 
   constructor(hostWatchSettingsClient: HostWatchSettingsClient) {
@@ -25,9 +24,7 @@ export class HostWatchSettingsComponent implements OnInit {
   }
 
   public saveSettings() {
-    if (this.isFormOk) {
-      this._hostWatchSettingsClient.Reward = this.hostRewardControl.value;
-      this._hostWatchSettingsClient.save();
-    }
+    this._hostWatchSettingsClient.Reward = this.hostRewardControl.value;
+    this._hostWatchSettingsClient.save();
   }
 }

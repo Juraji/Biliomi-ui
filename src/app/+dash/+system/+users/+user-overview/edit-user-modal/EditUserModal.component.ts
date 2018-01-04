@@ -1,12 +1,14 @@
-import {Component, EventEmitter, Inject, OnInit} from "@angular/core";
+import {Component, EventEmitter, Inject, OnInit, ViewChild} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
 import {UsersClient} from "../../../../../shared/modules/biliomi/clients/model/Users.client";
 import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {SaveButtonComponent} from "../../../../../shared/components/SaveButton.component";
 import IUser = Biliomi.IUser;
 
 @Component({
   selector: "edit-user-modal-component",
-  templateUrl: require("./EditUserModal.template.pug")
+  templateUrl: require("./EditUserModal.template.pug"),
+  styleUrls: [require("./EditUserModal.less").toString()]
 })
 export class EditUserModalComponent implements OnInit {
   private _dialogRef: MatDialogRef<EditUserModalComponent>;
@@ -17,6 +19,9 @@ export class EditUserModalComponent implements OnInit {
   private _modalFormOk: boolean = true;
   private _onSave: EventEmitter<void> = new EventEmitter<void>();
   private _onRefresh: EventEmitter<void> = new EventEmitter<void>();
+
+  @ViewChild(SaveButtonComponent)
+  public saveButton: SaveButtonComponent;
 
   public get editedUser(): IUser {
     return this._editedUser;

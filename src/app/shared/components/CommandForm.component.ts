@@ -1,9 +1,10 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, ViewChild} from "@angular/core";
 import {Biliomi} from "../modules/biliomi/classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../modules/biliomi/services/BiliomiApi.service";
 import {FormControl, Validators} from "@angular/forms";
 import {AllowTouchedFieldMatcher} from "../modules/ng-material/classes/AllowTouchedFieldMatcher";
 import {ErrorStateMatcher} from "@angular/material";
+import {SaveButtonComponent} from "./SaveButton.component";
 import ICommand = Biliomi.ICommand;
 
 @Component({
@@ -33,6 +34,9 @@ export class CommandFormComponent {
   @Input("helpText")
   public helpText: string = null;
 
+  @ViewChild(SaveButtonComponent)
+  public saveButton: SaveButtonComponent;
+
   constructor(api: BiliomiApiService) {
     this._api = api;
   }
@@ -43,6 +47,7 @@ export class CommandFormComponent {
     }
 
     let success = await this._api.postCommand(this.command.Command, this.argFormControl.value);
+    this.saveButton.state = success;
     if (success) {
       this.argFormControl.reset();
     } else {
