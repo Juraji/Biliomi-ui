@@ -20,6 +20,10 @@ export abstract class SettingsRestClient<T> {
     return this._isLoaded;
   }
 
+  protected get api(): BiliomiApiService {
+    return this._api;
+  }
+
   public load(refresh: boolean = false): Promise<void> {
     if (this._updateSub == null && this._updateInterval != null && this._updateInterval > 0) {
       this._updateSub = Observable.interval(this._updateInterval).subscribe(() => this.load(true));

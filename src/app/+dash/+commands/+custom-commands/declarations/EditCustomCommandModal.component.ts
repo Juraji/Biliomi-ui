@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
-import {MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatSnackBar} from "@angular/material";
+import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CustomCommandsClient} from "../../../../shared/modules/biliomi/clients/model/CustomCommands.client";
 import {FormControl, Validators} from "@angular/forms";
 import {UserGroupSelectComponent} from "../../../../shared/components/UserGroupSelect.component";
-import {ConfirmDialogComponent} from "../../../../shared/components/ConfirmDialog.component";
 import {ChipListInputComponent} from "../../../../shared/modules/ng-material/components/ChipListInput.component";
+import {ConfirmDialogService} from "../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
 import ICustomCommand = Biliomi.ICustomCommand;
 
 @Component({
@@ -17,7 +17,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
   private _customCommandsClient: CustomCommandsClient;
   private _commandId: number;
   private _matSnackBar: MatSnackBar;
-  private _dialog: MatDialog;
+  private _dialog: ConfirmDialogService;
 
   public editedCommand: ICustomCommand;
   public commandCommandControl: FormControl = new FormControl("", [Validators.required]);
@@ -42,7 +42,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
               customCommandsClient: CustomCommandsClient,
               dialogRef: MatDialogRef<EditCustomCommandModalComponent>,
               matSnackBar: MatSnackBar,
-              dialog: MatDialog) {
+              dialog: ConfirmDialogService) {
     this._customCommandsClient = customCommandsClient;
     this._dialogRef = dialogRef;
     this._commandId = commandId;
@@ -105,18 +105,16 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
 
   public deleteCommand() {
     if (this._commandId != null) {
-      this._dialog.open(ConfirmDialogComponent, {
-        data: "Are you sure you want to delete !" + this.editedCommand.Command + "?"
-      }).afterClosed().subscribe(async (confirmed: boolean) => {
-        if (confirmed) {
+      this._dialog.confirm(`Are you sure you want to delete !${this.editedCommand.Command}?`)
+        .filter((confirmed: boolean) => confirmed)
+        .subscribe(async () => {
           let success: boolean = await this._customCommandsClient.delete(this._commandId);
           if (success == null) {
             this._matSnackBar.open("Could not delete !" + this.editedCommand.Command + ", does it still exist?", "Ok");
           } else {
             this._dialogRef.close(true);
           }
-        }
-      });
+        });
     }
   }
 

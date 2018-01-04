@@ -13,7 +13,6 @@ import {TimePipe} from "./pipes/Time.pipe";
 import {DatePipe} from "./pipes/Date.pipe";
 import {CommandFormComponent} from "./components/CommandForm.component";
 import {UserGroupSelectComponent} from "./components/UserGroupSelect.component";
-import {ConfirmDialogComponent} from "./components/ConfirmDialog.component";
 import {CaseToWordPipe} from "./pipes/CaseToWord.pipe";
 import {EditUserLinkPipe} from "./pipes/EditUserLink.pipe";
 import {EditTemplateButtonComponent} from "./components/EditTemplateButton.component";
@@ -25,6 +24,7 @@ import {BooleanPipe} from "./pipes/Boolean.pipe";
 import {CommunityChipListComponent} from "./components/CommunityChipList.component";
 import {ObjectSortPipe} from "./pipes/ObjectSort.pipe";
 import {DataTableModule} from "./modules/data-table/DataTable.module";
+import {ConfirmDialogModule} from "./modules/confirm-dialog/ConfirmDialog.module";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -41,7 +41,6 @@ const SHARED_PIPES: Type<PipeTransform>[] = [
 const SHARED_COMPONENTS: Type<any>[] = [
   CommandFormComponent,
   UserGroupSelectComponent,
-  ConfirmDialogComponent,
   EditTemplateButtonComponent,
   UserDisplayComponent,
   UserAutoCompleteComponent,
@@ -67,7 +66,8 @@ const SHARED_MODULES: Type<any>[] = [
   ReactiveFormsModule,
   NgMaterialModule,
   BiliomiModule,
-  DataTableModule
+  DataTableModule,
+  ConfirmDialogModule
 ];
 
 @NgModule({

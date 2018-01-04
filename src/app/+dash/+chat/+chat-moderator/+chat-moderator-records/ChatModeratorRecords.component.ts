@@ -7,9 +7,8 @@ import {
   XLSX_FORMATTER_ENUM
 } from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
-import {MatDialog} from "@angular/material";
-import {ConfirmDialogComponent} from "../../../../shared/components/ConfirmDialog.component";
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
+import {ConfirmDialogService} from "../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
 import IModerationRecord = Biliomi.IModerationRecord;
 
 @Component({
@@ -17,7 +16,7 @@ import IModerationRecord = Biliomi.IModerationRecord;
   templateUrl: require("./ChatModeratorRecords.template.pug")
 })
 export class ChatModeratorRecordsComponent {
-  private _dialog: MatDialog;
+  private _dialog: ConfirmDialogService;
   private _moderationRecordsClient: ModerationRecordsClient;
   private recordsDataSource: RestTableDataSource<IModerationRecord> = new RestTableDataSource<IModerationRecord>();
 
@@ -37,17 +36,15 @@ export class ChatModeratorRecordsComponent {
     "Username": "User.Username"
   };
 
-  constructor(moderationRecordsClient: ModerationRecordsClient, dialog: MatDialog) {
+  constructor(moderationRecordsClient: ModerationRecordsClient, dialog: ConfirmDialogService) {
     this._dialog = dialog;
     this._moderationRecordsClient = moderationRecordsClient;
     this.recordsDataSource.client = moderationRecordsClient;
   }
 
   public deleteRecord(record: IModerationRecord) {
-    this._dialog.open(ConfirmDialogComponent, {
-      data: `Are you sure you want to delete this record for ${record.User.DisplayName}?`
-    }).afterClosed()
-      .filter((choice: boolean) => choice)
+    this._dialog.confirm(`Are you sure you want to delete this record for ${record.User.DisplayName}?`)
+      .filter((confirmed: boolean) => confirmed)
       .subscribe(async () => {
         await this._moderationRecordsClient.delete(record.Id);
         this.recordsDataSource.update();

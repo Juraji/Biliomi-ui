@@ -2,7 +2,7 @@ import {NgModule} from "@angular/core";
 import {SharedModule} from "../shared/Shared.module";
 import {RouterModule, Routes} from "@angular/router";
 import {DashComponent} from "./Dash.component";
-import {NavChannelInfoComponent} from "./declarations/NavChannelInfo.component";
+import {NavChannelStatusComponent} from "./declarations/NavChannelStatus.component";
 import {NavAuthBarComponent} from "./declarations/NavAuthBar.component";
 import {NavRemoteManagementComponent} from "./declarations/NavRemoteManagement.component";
 import {ChatComponent} from "./declarations/Chat.component";
@@ -53,7 +53,7 @@ const ROUTES: Routes = [
   ],
   declarations: [
     DashComponent,
-    NavChannelInfoComponent,
+    NavChannelStatusComponent,
     NavAuthBarComponent,
     NavRemoteManagementComponent,
     PowerManagementDialogComponent,

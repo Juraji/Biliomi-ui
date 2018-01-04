@@ -1,8 +1,8 @@
 import {Component} from "@angular/core";
-import {MatDialog, MatDialogRef} from "@angular/material";
+import {MatDialogRef} from "@angular/material";
 import {BiliomiApiService} from "../../shared/modules/biliomi/services/BiliomiApi.service";
 import {BILIOMI_CLI_COMMANDS} from "../../shared/modules/biliomi/classes/constants/BiliomiApiVariables";
-import {ConfirmDialogComponent} from "../../shared/components/ConfirmDialog.component";
+import {ConfirmDialogService} from "../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
 
 @Component({
   selector: "power-management-dialog-component",
@@ -10,20 +10,18 @@ import {ConfirmDialogComponent} from "../../shared/components/ConfirmDialog.comp
 })
 export class PowerManagementDialogComponent {
   private _api: BiliomiApiService;
-  private _dialog: MatDialog;
+  private _dialog: ConfirmDialogService;
   private _dialogRef: MatDialogRef<PowerManagementDialogComponent>;
 
-  constructor(api: BiliomiApiService, dialog: MatDialog, dialogRef: MatDialogRef<PowerManagementDialogComponent>) {
+  constructor(api: BiliomiApiService, dialog: ConfirmDialogService, dialogRef: MatDialogRef<PowerManagementDialogComponent>) {
     this._api = api;
     this._dialog = dialog;
     this._dialogRef = dialogRef;
   }
 
   public restartBiliomi() {
-    this._dialog.open(ConfirmDialogComponent, {
-      data: "Are you sure you want to restart Biliomi?"
-    })
-      .afterClosed().subscribe((confirmed: boolean) => {
+    this._dialog.confirm("Are you sure you want to restart Biliomi?")
+      .subscribe((confirmed: boolean) => {
         if (confirmed) {
           this._api.postCliCommand(BILIOMI_CLI_COMMANDS.RESTART);
         }
@@ -32,10 +30,8 @@ export class PowerManagementDialogComponent {
   }
 
   public shutdownBiliomi() {
-    this._dialog.open(ConfirmDialogComponent, {
-      data: "Are you sure you want to shutdown Biliomi?"
-    })
-      .afterClosed().subscribe((confirmed: boolean) => {
+    this._dialog.confirm("Are you sure you want to shut down Biliomi?")
+      .subscribe((confirmed: boolean) => {
         if (confirmed) {
           this._api.postCliCommand(BILIOMI_CLI_COMMANDS.EXIT);
         }

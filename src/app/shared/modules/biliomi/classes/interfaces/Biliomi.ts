@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.29.366 on 2017-12-29 22:33:41.
+// Generated using typescript-generator version 1.29.366 on 2018-01-04 19:45:01.
 
 export namespace Biliomi {
 
@@ -49,13 +49,13 @@ export namespace Biliomi {
     MinChatMessages: number;
   }
 
-  export interface IBitsSettings extends ISettings {
-    EnableBitsToPoints: boolean;
-    BitsToPointsPayoutToAllChatters: boolean;
-    BitsToPointsMultiplier: number;
+  export interface IChannelStateEvent extends ITwitchEvent {
+    ChannelId: string;
+    IsOnline: boolean;
+    GameId: string;
   }
 
-  export interface IChannelInfo {
+  export interface IChannelStatus {
     LogoUri: string;
     PreviewUri: string;
     Affiliate: boolean;
@@ -67,8 +67,6 @@ export namespace Biliomi {
     CurrentGame: IGame;
     FollowerCount: number;
     SubscriberCount: number;
-    Viewers: IUser[];
-    Hosters: IUser[];
   }
 
   export interface IChatModeratorSettings extends ISettings {
@@ -419,24 +417,17 @@ export namespace Biliomi {
     TrackOffline: boolean;
   }
 
-  export interface ITwitchBitsEvent extends ITwitchEvent {
-    Username: string;
-    UserId: number;
-    BitsUsed: number;
-    TotalBitsUsed: number;
-  }
-
   export interface ITwitchEvent extends IEvent {
   }
 
   export interface ITwitchFollowEvent extends ITwitchEvent {
-    Username: string;
-    TwitchId: number;
+    User: IUser;
     FollowsSince: string;
   }
 
   export interface ITwitchHostInEvent extends ITwitchEvent {
     ChannelName: string;
+    ChannelId: number;
     IsAuto: boolean;
   }
 
@@ -445,11 +436,14 @@ export namespace Biliomi {
   }
 
   export interface ITwitchSubscriberEvent extends ITwitchEvent {
-    Username: string;
-    UserId: number;
-    Time: string;
+    User: IUser;
+    Timestamp: string;
     SubPlan: ISubscriberPlanType;
     IsResub: boolean;
+  }
+
+  export interface ITwitchUnhostEvent extends IEvent {
+    ChannelName: string;
   }
 
   export interface ITwitterSettings extends ISettings {

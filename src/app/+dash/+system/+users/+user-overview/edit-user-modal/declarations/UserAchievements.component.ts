@@ -3,8 +3,7 @@ import {EditUserModalComponent} from "../EditUserModal.component";
 import {RestTableDataSource} from "../../../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {AchievementRecordsClient} from "../../../../../../shared/modules/biliomi/clients/model/AchievementRecords.client";
-import {ConfirmDialogComponent} from "../../../../../../shared/components/ConfirmDialog.component";
-import {MatDialog} from "@angular/material";
+import {ConfirmDialogService} from "../../../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
 import IAchievementRecord = Biliomi.IAchievementRecord;
 
 @Component({
@@ -13,12 +12,12 @@ import IAchievementRecord = Biliomi.IAchievementRecord;
 })
 export class UserAchievementsComponent {
   private _parentModal: EditUserModalComponent;
-  private _dialog: MatDialog;
+  private _dialog: ConfirmDialogService;
   private dataSource: RestTableDataSource<IAchievementRecord> = new RestTableDataSource<IAchievementRecord>();
 
   constructor(@Optional() parentModal: EditUserModalComponent,
               achievementRecordsClient: AchievementRecordsClient,
-              dialog: MatDialog) {
+              dialog: ConfirmDialogService) {
     this._parentModal = parentModal;
     this._dialog = dialog;
     this.dataSource.client = achievementRecordsClient;
@@ -29,9 +28,7 @@ export class UserAchievementsComponent {
   }
 
   public deleteRecord(record: IAchievementRecord) {
-    this._dialog.open(ConfirmDialogComponent, {
-      data: "Are you sure you want to delete the achievement \"" + record.Achievement + "\" for " + record.User.DisplayName
-    }).afterClosed()
+    this._dialog.confirm(`Are you sure you want to delete the achievement "${record.Achievement}" for ${record.User.DisplayName}`)
       .filter((doDelete: boolean) => doDelete)
       .subscribe(async () => {
         let success: boolean = await this.dataSource.client.delete(record.Id);

@@ -16,7 +16,6 @@ import ITwitchFollowEvent = Biliomi.ITwitchFollowEvent;
 import ITwitchSubscriberEvent = Biliomi.ITwitchSubscriberEvent;
 import ITwitchHostInEvent = Biliomi.ITwitchHostInEvent;
 import IIrcChatMessageEvent = Biliomi.IIrcChatMessageEvent;
-import ITwitchBitsEvent = Biliomi.ITwitchBitsEvent;
 
 @Component({
   selector: "dash-page",
@@ -60,7 +59,6 @@ export class DashComponent implements OnInit, OnDestroy {
     this._subscriptionBucket
       .add(this._biliomiEventsService.subscribe((e: ITwitchFollowEvent) => this._onBiliomiTwitchFollowEvent(e), [BILIOMI_EVENTS.TWITCH_FOLLOW_EVENT]))
       .add(this._biliomiEventsService.subscribe((e: ITwitchSubscriberEvent) => this._onBiliomiTwitchSubscriberEvent(e), [BILIOMI_EVENTS.TWITCH_SUBSCRIBER_EVENT]))
-      .add(this._biliomiEventsService.subscribe((e: ITwitchBitsEvent) => this._onBiliomiTwitchBitsEvent(e), [BILIOMI_EVENTS.TWITCH_BITS_EVENT]))
       .add(this._biliomiEventsService.subscribe((e: ITwitchHostInEvent) => this._onBiliomiTwitchHostInEvent(e), [BILIOMI_EVENTS.TWITCH_HOST_IN_EVENT]))
       .add(this._biliomiEventsService.subscribe((e: IIrcChatMessageEvent) => this._onBiliomiMessageEvent(e), [BILIOMI_EVENTS.IRC_CHAT_MESSAGE_EVENT]));
   }
@@ -86,16 +84,12 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   private _onBiliomiTwitchFollowEvent(e: ITwitchFollowEvent) {
-    this._matSnackBar.open("New follower: " + e.Username + "!", "Ok");
+    this._matSnackBar.open("New follower: " + e.User.DisplayName + "!", "Ok");
   }
 
   private _onBiliomiTwitchSubscriberEvent(e: ITwitchSubscriberEvent) {
     let prefix: string = (e.IsResub ? "Recurring subscriber" : "New subscriber");
-    this._matSnackBar.open(prefix + ": " + e.Username + "! (plan: " + e.SubPlan + ")", "Ok");
-  }
-
-  private _onBiliomiTwitchBitsEvent(e: ITwitchBitsEvent) {
-    this._matSnackBar.open(e.Username + " cheered " + e.BitsUsed + " bits, making it a total of " + e.TotalBitsUsed + " bits cheered in this channel!", "Ok");
+    this._matSnackBar.open(prefix + ": " + e.User.DisplayName + "! (plan: " + e.SubPlan + ")", "Ok");
   }
 
   private _onBiliomiTwitchHostInEvent(e: ITwitchHostInEvent) {

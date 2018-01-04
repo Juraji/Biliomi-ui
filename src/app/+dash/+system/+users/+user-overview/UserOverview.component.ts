@@ -9,7 +9,7 @@ import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {PointsSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/PointsSettings.client";
-import {ChannelInfoClient} from "../../../../shared/modules/biliomi/clients/settings/ChannelInfo.client";
+import {ChannelStatusClient} from "../../../../shared/modules/biliomi/clients/ChannelStatus.client";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {RouterUtils} from "../../../../shared/modules/tools/RouterUtils";
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
@@ -25,7 +25,7 @@ export class UserOverviewComponent implements OnInit {
   private _pointsSettingsClient: PointsSettingsClient;
   private _activatedRoute: ActivatedRoute;
   private _router: Router;
-  private channelInfoClient: ChannelInfoClient;
+  private channelInfoClient: ChannelStatusClient;
   private dataSource: RestTableDataSource<IUser> = new RestTableDataSource<IUser>();
 
   public exportConfig: IXlsxExportConfig = {
@@ -60,7 +60,7 @@ export class UserOverviewComponent implements OnInit {
   };
 
   constructor(usersClient: UsersClient,
-              channelInfoClient: ChannelInfoClient,
+              channelInfoClient: ChannelStatusClient,
               pointsSettingsClient: PointsSettingsClient,
               dialog: MatDialog,
               activatedRoute: ActivatedRoute,
@@ -72,14 +72,14 @@ export class UserOverviewComponent implements OnInit {
     this._router = router;
 
     this._pointsSettingsClient.load();
-    this.channelInfoClient.load();
     this.dataSource.client = usersClient;
   }
 
   public ngOnInit() {
     this._activatedRoute.paramMap.subscribe(async (map: ParamMap) => {
       if (map.has("username")) {
-        let user: IUser = await (this.dataSource.client as UsersClient).getUserByUsername(map.get("username"), false);
+        let user: IUser = await (this.dataSource.client as UsersClient)
+          .getUserByUsername(map.get("username"), false);
         if (user != null) {
           this.editUser(user);
         }

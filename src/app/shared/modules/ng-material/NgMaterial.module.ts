@@ -5,6 +5,7 @@ import {ChipListInputComponent} from "./components/ChipListInput.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {NgMaterialDatesModule} from "./NgMaterialDates.module";
+import {FormSaveButtonComponent} from "./components/FormSaveButton.component";
 
 const NG_MATERIAL_MODULES: Type<any>[] = [
   CommonModule,
@@ -42,7 +43,8 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [
   ArrayPageSlicePipe,
-  ChipListInputComponent
+  ChipListInputComponent,
+  FormSaveButtonComponent
 ];
 
 @NgModule({

@@ -4,11 +4,10 @@ import {RestTableDataSource} from "../../../shared/modules/data-table/classes/Re
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {ConfirmDialogComponent} from "../../../shared/components/ConfirmDialog.component";
-import {MatDialog} from "@angular/material";
 import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
 import {FormControl} from "@angular/forms";
 import {AchievementSettingsClient} from "../../../shared/modules/biliomi/clients/settings/AchievementSettings.client";
+import {ConfirmDialogService} from "../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
 import IAchievementRecord = Biliomi.IAchievementRecord;
 
 @Component({
@@ -17,7 +16,7 @@ import IAchievementRecord = Biliomi.IAchievementRecord;
 })
 export class AchievementsComponent implements OnInit {
   private _achievementSettingsClient: AchievementSettingsClient;
-  private _dialog: MatDialog;
+  private _dialog: ConfirmDialogService;
 
   public achievementsEnabledControl: FormControl = new FormControl(true);
 
@@ -38,7 +37,7 @@ export class AchievementsComponent implements OnInit {
 
   constructor(achievementRecordsClient: AchievementRecordsClient,
               achievementSettingsClient: AchievementSettingsClient,
-              dialog: MatDialog) {
+              dialog: ConfirmDialogService) {
     this._achievementSettingsClient = achievementSettingsClient;
     this.achievementsDataSource.client = achievementRecordsClient;
     this._dialog = dialog;
@@ -62,10 +61,8 @@ export class AchievementsComponent implements OnInit {
   }
 
   public deleteRecord(record: IAchievementRecord) {
-    this._dialog.open(ConfirmDialogComponent, {
-      data: "Are you sure you want to delete this achievement for " + record.User.DisplayName
-    }).afterClosed()
-      .filter((doDelete: boolean) => doDelete)
+    this._dialog.confirm(`Are you sure you want to delete this achievement for ${record.User.DisplayName}`)
+      .filter((confirmed: boolean) => confirmed)
       .subscribe(async () => {
         let success: boolean = await this.achievementsDataSource.client.delete(record.Id);
         if (success) {

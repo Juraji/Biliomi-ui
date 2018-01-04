@@ -2,7 +2,6 @@ import {Injectable, NgZone} from "@angular/core";
 import {Router} from "@angular/router";
 import {MatDialog, MatDialogRef} from "@angular/material";
 import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
-import {VoiceCommandConfirmComponent} from "../declarations/VoiceCommandConfirm.component";
 import {Observable} from "rxjs/Observable";
 import {VCMessagesService} from "./VCMessages.service";
 import {FilterBuilder} from "../../../shared/modules/biliomi/classes/FilterBuilder";
@@ -11,6 +10,7 @@ import {BrowserSpeechRecognition} from "../classes/BrowserSpeechRecognition";
 import IRestFilterOperator = Biliomi.IRestFilterOperator;
 import IPaginatedResponse = Biliomi.IPaginatedResponse;
 import ICommand = Biliomi.ICommand;
+import {ConfirmDialogService} from "../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
 
 const VOICE_COMMAND_TRIGGER_WORD: string = "panel";
 
@@ -19,7 +19,7 @@ export class VoiceCommandsService {
   private _api: BiliomiApiService;
   private _router: Router;
   private _vcMessagesService: VCMessagesService;
-  private _dialog: MatDialog;
+  private _dialog: ConfirmDialogService;
   private _recognitionObj: SpeechRecognition = null;
   private _ngZone: NgZone;
 
@@ -47,7 +47,7 @@ export class VoiceCommandsService {
   constructor(api: BiliomiApiService,
               router: Router,
               vcMessagesService: VCMessagesService,
-              dialog: MatDialog,
+              dialog: ConfirmDialogService,
               ngZone: NgZone) {
     this._api = api;
     this._router = router;
@@ -120,18 +120,17 @@ export class VoiceCommandsService {
   }
 
   private openConfirmModal(message: string): Observable<boolean> {
-    let dialogRef = this._dialog.open(VoiceCommandConfirmComponent, {
-      id: "voice-command-confirm",
-      data: message
-    });
-
-    return dialogRef
-      .afterClosed()
+    return this._dialog.confirm(
+      message,
+      "voice-command-confirm",
+      "Say \"panel confirm\"",
+      "Say \"panel cancel\""
+    )
       .filter((confirmed: boolean) => confirmed);
   }
 
   private confirmOrCancelModal(action: string) {
-    let dialogRef: MatDialogRef<VoiceCommandConfirmComponent> = this._dialog.getDialogById("voice-command-confirm");
+    let dialogRef: MatDialogRef<any> = this._dialog.getDialogById("voice-command-confirm");
     if (dialogRef) {
       switch (action) {
         case "confirm":

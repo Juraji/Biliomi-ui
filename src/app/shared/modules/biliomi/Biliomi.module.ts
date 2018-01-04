@@ -1,7 +1,7 @@
 import {NgModule, Type} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
 import {BiliomiApiService} from "./services/BiliomiApi.service";
-import {ChannelInfoClient} from "./clients/settings/ChannelInfo.client";
+import {ChannelStatusClient} from "./clients/ChannelStatus.client";
 import {UsersClient} from "./clients/model/Users.client";
 import {GamesClient} from "./clients/model/Games.client";
 import {BiliomiEventsService} from "./services/BiliomiEvents.service";
@@ -28,6 +28,8 @@ import {AchievementRecordsClient} from "./clients/model/AchievementRecords.clien
 import {AchievementSettingsClient} from "./clients/settings/AchievementSettings.client";
 import {AdventureRecordsClient} from "./clients/model/AdventureRecords.client";
 import {AdventureSettingsClient} from "./clients/settings/AdventureSettings.client";
+import {ViewersClient} from "./clients/Viewers.client";
+import {HostersClient} from "./clients/Hosters.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -57,7 +59,6 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   // Settings clients
   AchievementSettingsClient,
   AdventureSettingsClient,
-  ChannelInfoClient,
   ChatModeratorSettingsClient,
   CommunitesSettingsClient,
   FollowerWatchSettingsClient,
@@ -65,7 +66,12 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   PointsSettingsClient,
   SubscriberWatchSettingsClient,
   SystemSettingsClient,
-  TimeTrackingSettingsClient
+  TimeTrackingSettingsClient,
+
+  // Non-REST clients
+  ChannelStatusClient,
+  ViewersClient,
+  HostersClient
 ];
 
 @NgModule({

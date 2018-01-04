@@ -5,7 +5,7 @@ span([matTooltip]="channelInfoClient.IsOnline ? 'You are online!' : 'You are off
 span.spacer
 span(matTooltip="Viewers in chat")
   mat-icon.text-ok chat
-  .badge {{channelInfoClient.Viewers.length}}
+  .badge {{viewersClient.count}}
 span.spacer
 span(matTooltip="Followers")
   mat-icon.text-not-ok favorite

@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {ChannelInfoClient} from "../../../shared/modules/biliomi/clients/settings/ChannelInfo.client";
+import {ChannelStatusClient} from "../../../shared/modules/biliomi/clients/ChannelStatus.client";
 
 @Component({
   selector: "channel-info-component",
@@ -7,9 +7,9 @@ import {ChannelInfoClient} from "../../../shared/modules/biliomi/clients/setting
   styleUrls: [require("./ChannelInfo.less").toString()]
 })
 export class ChannelInfoComponent {
-  private channelInfoClient: ChannelInfoClient;
+  private channelInfoClient: ChannelStatusClient;
 
-  constructor(channelInfoClient: ChannelInfoClient) {
+  constructor(channelInfoClient: ChannelStatusClient) {
     this.channelInfoClient = channelInfoClient;
   }
 }

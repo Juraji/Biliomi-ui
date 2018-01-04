@@ -1,24 +1,20 @@
-import {Component, OnInit} from "@angular/core";
-import {ChannelInfoClient} from "../../../shared/modules/biliomi/clients/settings/ChannelInfo.client";
+import {Component} from "@angular/core";
 import {PageEvent} from "@angular/material";
+import {ViewersClient} from "../../../shared/modules/biliomi/clients/Viewers.client";
 
 @Component({
   selector: "chatter-list-component",
   templateUrl: require("./ChatterList.template.pug")
 })
-export class ChatterListComponent implements OnInit {
-  private channelInfoClient: ChannelInfoClient;
+export class ChatterListComponent {
+  private viewersClient: ViewersClient;
   private matPageEvent: PageEvent;
 
-  constructor(channelInfoClient: ChannelInfoClient) {
-    this.channelInfoClient = channelInfoClient;
+  constructor(viewersClient: ViewersClient) {
+    this.viewersClient = viewersClient;
     this.matPageEvent = new PageEvent();
     this.matPageEvent.pageSize = 10;
     this.matPageEvent.pageIndex = 0;
     this.matPageEvent.length = 0;
-  }
-
-  public ngOnInit() {
-    this.channelInfoClient.load();
   }
 }
