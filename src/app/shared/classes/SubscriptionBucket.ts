@@ -8,7 +8,7 @@ export class SubscriptionBucket {
     return this;
   }
 
-  public clear() {
+  public unsubscribeAll() {
     this._subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
     this._subscriptions = [];
   }

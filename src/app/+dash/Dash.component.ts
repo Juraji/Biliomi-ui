@@ -12,10 +12,12 @@ import {SubscriptionBucket} from "../shared/classes/SubscriptionBucket";
 import {BILIOMI_EVENTS} from "../shared/modules/biliomi/classes/constants/BiliomiApiVariables";
 import {RouterRedirector} from "../shared/classes/RouterRedirector";
 import {Storage} from "../shared/storage/Storage";
+import {ChannelStatusClient} from "../shared/modules/biliomi/clients/ChannelStatus.client";
 import ITwitchFollowEvent = Biliomi.ITwitchFollowEvent;
 import ITwitchSubscriberEvent = Biliomi.ITwitchSubscriberEvent;
 import ITwitchHostInEvent = Biliomi.ITwitchHostInEvent;
 import IIrcChatMessageEvent = Biliomi.IIrcChatMessageEvent;
+import IChannelStateEvent = Biliomi.IChannelStateEvent;
 
 @Component({
   selector: "dash-page",
@@ -33,13 +35,20 @@ export class DashComponent implements OnInit, OnDestroy {
   private _biliomiEventsService: BiliomiEventsService;
   private _subscriptionBucket: SubscriptionBucket = new SubscriptionBucket();
   private _redirector: RouterRedirector;
+  private _channelStatusClient: ChannelStatusClient;
 
-  constructor(router: Router, api: BiliomiApiService, biliomiEventsService: BiliomiEventsService, auth: AuthService, matSnackBar: MatSnackBar) {
+  constructor(router: Router,
+              api: BiliomiApiService,
+              biliomiEventsService: BiliomiEventsService,
+              channelStatusClient: ChannelStatusClient,
+              auth: AuthService,
+              matSnackBar: MatSnackBar) {
     this._router = router;
     this._api = api;
     this._auth = auth;
     this._matSnackBar = matSnackBar;
     this._biliomiEventsService = biliomiEventsService;
+    this._channelStatusClient = channelStatusClient;
 
     // Subscribe to Api errors in order to display them in a snackbar
     this._api.postRequestErrorInterceptor.subscribe((e: HttpErrorResponse) => this._onHttpError(e));
@@ -57,6 +66,7 @@ export class DashComponent implements OnInit, OnDestroy {
     this._biliomiEventsService.connect();
 
     this._subscriptionBucket
+      .add(this._biliomiEventsService.subscribe((e: IChannelStateEvent) => this._onBiliomiChannelStateEvent(e), [BILIOMI_EVENTS.CHANNEL_STATE_EVENT]))
       .add(this._biliomiEventsService.subscribe((e: ITwitchFollowEvent) => this._onBiliomiTwitchFollowEvent(e), [BILIOMI_EVENTS.TWITCH_FOLLOW_EVENT]))
       .add(this._biliomiEventsService.subscribe((e: ITwitchSubscriberEvent) => this._onBiliomiTwitchSubscriberEvent(e), [BILIOMI_EVENTS.TWITCH_SUBSCRIBER_EVENT]))
       .add(this._biliomiEventsService.subscribe((e: ITwitchHostInEvent) => this._onBiliomiTwitchHostInEvent(e), [BILIOMI_EVENTS.TWITCH_HOST_IN_EVENT]))
@@ -64,7 +74,7 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this._subscriptionBucket.clear();
+    this._subscriptionBucket.unsubscribeAll();
     this._biliomiEventsService.disconnect();
     this._redirector.stop();
   }
@@ -81,6 +91,12 @@ export class DashComponent implements OnInit, OnDestroy {
   // Global event subscriber methods
   private _onHttpError(e: HttpErrorResponse) {
     this._matSnackBar.open("An error occurred while comunicating with Biliomi! (" + e.message + ")", "Ok", {duration: 1e4});
+  }
+
+  private _onBiliomiChannelStateEvent(e: IChannelStateEvent) {
+    if (e.IsOnline) {
+      this._channelStatusClient.load(true);
+    }
   }
 
   private _onBiliomiTwitchFollowEvent(e: ITwitchFollowEvent) {

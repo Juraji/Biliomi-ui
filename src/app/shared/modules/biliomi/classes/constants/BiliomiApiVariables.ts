@@ -22,6 +22,7 @@ export enum BILIOMI_CLI_COMMANDS {
 export enum BILIOMI_EVENTS {
   ACHIEVEMENT_EVENT = "AchievementEvent",
   CONSOLE_INPUT_EVENT = "ConsoleInputEvent",
+  CHANNEL_STATE_EVENT = "ChannelStateEvent",
   IRC_CHANNEL_JOINED_EVENT = "IrcChannelJoinedEvent",
   IRC_CHANNEL_NOTICE_EVENT = "IrcChannelNoticeEvent",
   IRC_CHAT_MESSAGE_EVENT = "IrcChatMessageEvent",
