@@ -6,9 +6,7 @@ import {VCMessagesService} from "./services/VCMessages.service";
 
 @NgModule({
   imports: [SharedModule],
-  declarations: [
-    VoiceCommandsComponent,
-  ],
+  declarations: [VoiceCommandsComponent],
   providers: [
     VoiceCommandsService,
     VCMessagesService

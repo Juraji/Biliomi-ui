@@ -69,7 +69,7 @@ const SHARED_MODULES: Type<any>[] = [
   NgMaterialModule,
   BiliomiModule,
   DataTableModule,
-  ConfirmDialogModule,
+  ConfirmDialogModule
 ];
 
 @NgModule({

@@ -4,6 +4,6 @@ interface IVoiceCommand {
 }
 
 interface IVoiceNavigationRoutes {
-  commands: string[],
+  commands: string[];
   path: string;
 }
