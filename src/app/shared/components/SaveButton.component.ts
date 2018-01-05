@@ -31,7 +31,7 @@ export class SaveButtonComponent {
     if (emitter != null) {
       this._emitterSub = emitter
         .filter(() => this._button != null)
-        .subscribe((state: boolean) => this.state = state)
+        .subscribe((state: boolean) => this.state = state);
     }
   }
 
