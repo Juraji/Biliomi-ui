@@ -4,6 +4,12 @@ import {AdventureSettingsClient} from "../../../shared/modules/biliomi/clients/s
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {FormControl, Validators} from "@angular/forms";
+import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
+import {
+  XLSX_FORMATTER_BOOLEAN_YES_NO,
+  XLSX_FORMATTER_DATE
+} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
+import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
 import IAdventureRecord = Biliomi.IAdventureRecord;
 
 @Component({
@@ -19,6 +25,23 @@ export class AdventuresComponent implements OnInit {
   public maximumBetControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   public cooldownControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   public winMultiplierControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
+
+  public filterMapping: TableFilterNameMapping = {
+    "username": "Adventurer.Username",
+    "By Tamagotchi": "ByTamagotchi"
+  };
+
+  public exportConfig: IXlsxExportConfig = {
+    fileName: "Biliomi - Achievements",
+    sheetName: "Achievements",
+    columns: [
+      {objectPath: "$.Adventurer.DisplayName", headerName: "Username"},
+      {objectPath: "$.Bet", headerName: "Bet"},
+      {objectPath: "$.Payout", headerName: "Payout"},
+      {objectPath: "$.ByTamagotchi", headerName: "By Tamagotchi", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
+      {objectPath: "$.Date", headerName: "Date", formatter: XLSX_FORMATTER_DATE}
+    ]
+  };
 
   constructor(adventureRecordsClient: AdventureRecordsClient,
               adventureSettingsClient: AdventureSettingsClient) {

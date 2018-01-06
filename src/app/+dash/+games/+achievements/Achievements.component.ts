@@ -21,9 +21,11 @@ export class AchievementsComponent implements OnInit {
   public achievementsEnabledControl: FormControl = new FormControl(true);
 
   public achievementsDataSource: RestTableDataSource<IAchievementRecord> = new RestTableDataSource<IAchievementRecord>();
+
   public filterMapping: TableFilterNameMapping = {
     "username": "User.Username"
   };
+
   public exportConfig: IXlsxExportConfig = {
     fileName: "Biliomi - Achievements",
     sheetName: "Achievements",
