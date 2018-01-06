@@ -30,6 +30,8 @@ import {AdventureRecordsClient} from "./clients/model/AdventureRecords.client";
 import {AdventureSettingsClient} from "./clients/settings/AdventureSettings.client";
 import {ViewersClient} from "./clients/Viewers.client";
 import {HostersClient} from "./clients/Hosters.client";
+import {AnnouncementsClient} from "./clients/model/Announcements.client";
+import {AnnouncementSettingsClient} from "./clients/settings/AnnouncementSettings.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -43,6 +45,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   // Model clients
   AchievementRecordsClient,
   AdventureRecordsClient,
+  AnnouncementsClient,
   ChatLogsClient,
   CommandsClient,
   CommunitiesClient,
@@ -59,6 +62,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   // Settings clients
   AchievementSettingsClient,
   AdventureSettingsClient,
+  AnnouncementSettingsClient,
   ChatModeratorSettingsClient,
   CommunitiesSettingsClient,
   FollowerWatchSettingsClient,

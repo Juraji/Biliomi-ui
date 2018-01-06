@@ -96,7 +96,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
       }
 
       if (persistedCommand == null) {
-        this._matSnackBar.open("Could not save !" + this.editedCommand.Command + ", check your input.", "Ok");
+        this._matSnackBar.open(`Could not save !${this.editedCommand.Command}, check your input.`, "Ok");
       } else {
         this._dialogRef.close(true);
       }
@@ -110,7 +110,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
         .subscribe(async () => {
           let success: boolean = await this._customCommandsClient.delete(this._commandId);
           if (success == null) {
-            this._matSnackBar.open("Could not delete !" + this.editedCommand.Command + ", does it still exist?", "Ok");
+            this._matSnackBar.open(`Could not delete !${this.editedCommand.Command}, does it still exist?`, "Ok");
           } else {
             this._dialogRef.close(true);
           }

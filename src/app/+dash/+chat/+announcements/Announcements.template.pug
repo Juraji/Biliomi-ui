@@ -1,0 +1,59 @@
+p Manage announcements en announcement settings
+
+.columns
+  .col.span-8-of-12
+    p Announcements
+
+    data-table(tableId="announcements", [dataSource]="announcementsDataSource", [exportConfig]="exportConfig", [filterMapping]="tableFilterMapping")
+      ng-template(customTableActions)
+        button(mat-icon-button, (click)="editAnnouncement()", matTooltip="Add new announcement")
+          mat-icon add
+
+
+      ng-container(columnDef="Id")
+        header-cell(*headerCellDef="", sortProperty="Id", [sortDefault]="'ASC'") Id
+        data-cell(*dataCellDef="let announcement")
+          | {{announcement.Id}}
+
+      ng-container(columnDef="Message")
+        header-cell(*headerCellDef="", sortProperty="Message") Message
+        data-cell(*dataCellDef="let announcement")
+          | {{announcement.Message}}
+
+      ng-container(columnDef="#Edit", [buttonsColumn]="1")
+        header-cell(*headerCellDef="")
+        data-cell(*dataCellDef="let announcement")
+          a.mat-icon-button.pull-right(mat-button, (click)="editAnnouncement(announcement)", matTooltip="Edit announcement")
+            mat-icon edit
+
+  .col.span-4-of-12
+    p &nbsp;
+
+    form(#announcementsSettingsForm="", (submit)="saveSettings()")
+      mat-card
+        mat-card-header
+          mat-card-title Announcement Settings
+          mat-card-subtitle &nbsp;
+
+        mat-card-content
+          mat-slide-toggle([formControl]="enabledControl")
+            | Enable Announcements
+
+          mat-slide-toggle([formControl]="shuffleControl")
+            | Shuffle Announcements
+
+          mat-form-field
+            input#announcements-run-interval(matInput, name="announcements-run-interval", type="number",
+            placeholder="Interval", [formControl]="runIntervalControl")
+            mat-hint The interval at which announcements should be posted in milliseconds.
+            mat-error(*ngIf="runIntervalControl.hasError('min')") A minimum of 10 seconds is required (10000 milliseconds).
+
+          mat-form-field
+            input#announcements-min-chat-messages(matInput, name="announcements-min-chat-messages", type="number",
+            placeholder="Interval", [formControl]="minChatMessagesControl")
+            mat-hint The amount of messages other users should have posted before posting an announcement
+
+        mat-card-actions
+          save-button([stateEmitter]="_announcementSettingsClient.afterSave")
+          button(mat-button, type="button", (click)="initSettingsFields()", matTooltip="Refresh data")
+            mat-icon refresh

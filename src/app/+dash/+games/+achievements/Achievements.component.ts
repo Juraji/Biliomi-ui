@@ -45,12 +45,12 @@ export class AchievementsComponent implements OnInit {
     this._dialog = dialog;
   }
 
-  public ngOnInit() {
+  public async ngOnInit() {
+    await this._achievementSettingsClient.load(true);
     this.initSettingsFields();
   }
 
-  public async initSettingsFields() {
-    await this._achievementSettingsClient.load(true);
+  public initSettingsFields() {
     this.achievementsEnabledControl.setValue(this._achievementSettingsClient.AchievementsEnabled);
   }
 
