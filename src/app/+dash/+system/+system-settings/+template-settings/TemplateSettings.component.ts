@@ -8,9 +8,8 @@ import {EditTemplateModalComponent} from "./declarations/EditTemplateModal.compo
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
 import {XLSX_FORMATTER_DICTIONARY_KEY_VALUE_PAIR} from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {RouterUtils} from "../../../../shared/modules/tools/RouterUtils";
-import ITemplate = Biliomi.ITemplate;
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
+import ITemplate = Biliomi.ITemplate;
 
 @Component({
   selector: "template-settings-component",

@@ -30,7 +30,7 @@ export class EditDonationModalComponent implements AfterViewInit {
   public userControl: UserAutoCompleteComponent;
 
   public get isFormOk(): boolean {
-    console.log(this.donationControl.valid, this.dateControl.valid, this.userControl.valid)
+    console.log(this.donationControl.valid, this.dateControl.valid, this.userControl.valid);
     return this.donationControl.valid
       && this.dateControl.valid
       && this.userControl.valid;

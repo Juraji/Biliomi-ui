@@ -13,7 +13,7 @@ import IDonation = Biliomi.IDonation;
   selector: "donations",
   templateUrl: require("./Donations.template.pug")
 })
-export class DonationsComponent implements OnInit {
+export class DonationsComponent {
   private _dialog: MatDialog;
   public donationsDataSource: RestTableDataSource<IDonation> = new RestTableDataSource<IDonation>();
 
@@ -36,9 +36,6 @@ export class DonationsComponent implements OnInit {
               dialog: MatDialog) {
     this.donationsDataSource.client = donationsClient;
     this._dialog = dialog;
-  }
-
-  public ngOnInit() {
   }
 
   editDonation(donation: IDonation) {

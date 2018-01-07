@@ -30,7 +30,7 @@ export class AnnouncementsComponent implements OnInit {
     fileName: "Biliomi - Announcements",
     sheetName: "Announcements",
     columns: [
-      {objectPath: "$.Message", headerName: "Message"},
+      {objectPath: "$.Message", headerName: "Message"}
     ]
   };
 

@@ -2,7 +2,6 @@ import {Component, OnInit} from "@angular/core";
 import {SubscriberWatchSettingsClient} from "../../../../../shared/modules/biliomi/clients/settings/SubscriberWatchSettings.client";
 import {FormControl, Validators} from "@angular/forms";
 
-
 @Component({
   selector: "subscribers-settings",
   templateUrl: require("./Subscribers.template.pug")
