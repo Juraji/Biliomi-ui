@@ -14,9 +14,19 @@ const ROUTES: Routes = [
         data: {breadCrumbName: "Overview"}
       },
       {
-        path: "user-groups",
-        loadChildren: "./+user-groups/UserGroups.module#UserGroupsModule",
-        data: {breadCrumbName: "Groups"}
+        path: "users-settings",
+        loadChildren: "./+users-settings/UsersSettings.module#UsersSettingsModule",
+        data: {breadCrumbName: "Settings"}
+      },
+      {
+        path: "hosts",
+        loadChildren: "./+hosts/Hosts.module#HostsModule",
+        data: {breadCrumbName: "Hosts"}
+      },
+      {
+        path: "donations",
+        loadChildren: "./+donations/Donations.module#DonationsModule",
+        data: {breadCrumbName: "Donations"}
       }
     ]
   }

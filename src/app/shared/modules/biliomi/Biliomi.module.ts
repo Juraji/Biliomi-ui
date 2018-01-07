@@ -32,6 +32,7 @@ import {ViewersClient} from "./clients/Viewers.client";
 import {HostersClient} from "./clients/Hosters.client";
 import {AnnouncementsClient} from "./clients/model/Announcements.client";
 import {AnnouncementSettingsClient} from "./clients/settings/AnnouncementSettings.client";
+import {DonationsClient} from "./clients/model/Donations.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -50,6 +51,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   CommandsClient,
   CommunitiesClient,
   CustomCommandsClient,
+  DonationsClient,
   GamesClient,
   HostRecordsClient,
   LatestFollowersClient,

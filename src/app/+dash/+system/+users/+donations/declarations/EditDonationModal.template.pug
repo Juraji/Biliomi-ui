@@ -1,0 +1,40 @@
+form(#editAnnouncementForm="", (submit)="save()")
+  h2(matDialogTitle)
+    span(*ngIf="!editedDonation?.Id") New donation
+    span(*ngIf="editedDonation?.Id") Editing donation
+
+  mat-dialog-content
+    mat-spinner(*ngIf="editedDonation == undefined")
+
+    mat-form-field
+      input#donation-donation(matInput, name="donation-donation", placeholder="Donation", required="true",
+      [formControl]="donationControl")
+      mat-hint The donation. This can be an amount of money, or a game title, feel free!
+      mat-error(*ngIf="donationControl.hasError('required')") This field is required!
+
+    user-autocomplete(#userControl="", required="true")
+
+    mat-form-field
+      input#donation-note(matInput, name="donation-note", placeholder="Note",
+      [formControl]="noteControl")
+      mat-hint Any note the donator might have supplied.
+
+    mat-form-field
+      input#donation-date(matInput, name="donation-date", placeholder="Date",
+      [formControl]="dateControl", [matDatepicker]="donationDatePicker")
+      mat-datepicker-toggle(matSuffix, [for]="donationDatePicker")
+      mat-datepicker(#donationDatePicker="", [disabled]="false")
+      mat-hint The date on which this donation occurred
+
+  mat-dialog-actions
+    button(*ngIf="!editedDonation?.Id", mat-raised-button, type="button", color="primary",
+    [disabled]="!isFormOk", matTooltip="Save and state in chat", (click)="saveAndStateInChat()")
+      mat-icon announcement
+    button(mat-raised-button, color="primary", [disabled]="!isFormOk", matTooltip="Save")
+      mat-icon done
+    button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()", matTooltip="Cancel edit")
+      mat-icon arrow_back
+    button(mat-button, type="button", (click)="initFields()", matTooltip="Refresh data")
+      mat-icon backspace
+    button(mat-button, type="button", (click)="deleteDonation()", [disabled]="!editedDonation?.Id", matTooltip="Delete donation")
+      mat-icon delete_forever

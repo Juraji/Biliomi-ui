@@ -12,7 +12,6 @@ const ROUTES: Routes = [
   {
     path: ":template",
     component: TemplateSettingsComponent,
-    data: {breadCrumbName: "Edit Template"}
   }
 ];
 

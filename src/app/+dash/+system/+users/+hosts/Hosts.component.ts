@@ -1,15 +1,15 @@
 import {Component} from "@angular/core";
-import {HostRecordsClient} from "../../../shared/modules/biliomi/clients/model/HostRecords.client";
-import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {HostRecordsClient} from "../../../../shared/modules/biliomi/clients/model/HostRecords.client";
+import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {
   XLSX_FORMATTER_BOOLEAN_YES_NO,
   XLSX_FORMATTER_DATE
-} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
-import {BiliomiApiService} from "../../../shared/modules/biliomi/services/BiliomiApi.service";
-import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
-import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
-import {ConfirmDialogService} from "../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
+} from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
+import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
+import {BiliomiApiService} from "../../../../shared/modules/biliomi/services/BiliomiApi.service";
+import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
+import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
+import {ConfirmDialogService} from "../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
 import IHostRecord = Biliomi.IHostRecord;
 import IDirection = Biliomi.IDirection;
 

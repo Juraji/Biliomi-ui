@@ -95,10 +95,6 @@ export class UserOverviewComponent implements OnInit {
     });
 
     dialogRef.afterClosed()
-      .filter(() => !RouterUtils.routeEndsWith(this._activatedRoute, "overview"))
-      .subscribe(() => this._router.navigateByUrl(RouterUtils.routeToUrl(this._activatedRoute.parent)));
-
-    dialogRef.afterClosed()
       .filter((changesMade: boolean) => changesMade)
       .subscribe(() => this.dataSource.update());
   }

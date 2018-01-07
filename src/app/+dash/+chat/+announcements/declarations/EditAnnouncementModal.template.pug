@@ -13,7 +13,7 @@ form(#editAnnouncementForm="", (submit)="save()")
       mat-error(*ngIf="messageControl.hasError('required')") This field is required!
 
   mat-dialog-actions
-    button(mat-raised-button, color="primary", [disabled]="", matTooltip="Save")
+    button(mat-raised-button, color="primary", [disabled]="!isFormOk", matTooltip="Save")
       mat-icon done
     button(mat-raised-button, type="button", color="warn", (click)="cancelEdit()", matTooltip="Cancel edit")
       mat-icon arrow_back

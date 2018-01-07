@@ -1,6 +1,6 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {SharedModule} from "../../../shared/Shared.module";
+import {SharedModule} from "../../../../shared/Shared.module";
 import {HostsComponent} from "./Hosts.component";
 import {HostFormComponent} from "./declarations/HostForm.component";
 import {HostWatchSettingsComponent} from "./declarations/HostWatchSettings.component";

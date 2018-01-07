@@ -1,0 +1,47 @@
+.columns
+  .col.span-8-of-12
+    p View and manage donations
+
+    data-table(tableId="donations", [dataSource]="donationsDataSource", [exportConfig]="exportConfig", [filterMapping]="tableFilterMapping")
+      ng-template(customTableActions)
+        button(mat-icon-button, (click)="editDonation()", matTooltip="Add new donation")
+          mat-icon add
+
+      ng-container(columnDef="Username")
+        header-cell(*headerCellDef="", sortProperty="User.Username", [sortDefault]="'ASC'") Username
+        data-cell(*dataCellDef="let donation")
+          user-display([user]="donation.User")
+
+      ng-container(columnDef="Donation")
+        header-cell(*headerCellDef="", sortProperty="Donation") Donation
+        data-cell(*dataCellDef="let donation")
+          | {{donation.Donation}}
+
+      ng-container(columnDef="Note")
+        header-cell(*headerCellDef="", sortProperty="Note") Note
+        data-cell(*dataCellDef="let donation")
+          | {{donation.Note}}
+
+      ng-container(columnDef="Date")
+        header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
+        data-cell(*dataCellDef="let donation")
+          | {{donation.Date | date}}
+
+      ng-container(columnDef="#Edit", [buttonsColumn]="1")
+        header-cell(*headerCellDef="")
+        data-cell(*dataCellDef="let donation")
+          a.mat-icon-button.pull-right(mat-button, (click)="editDonation(donation)", matTooltip="Edit donation")
+            mat-icon edit
+
+  .col.span-4-of-12
+    p &nbsp;
+
+    mat-card
+      mat-card-header
+        mat-card-title Donations Settings
+        mat-card-subtitle &nbsp;
+
+      mat-card-content
+        .mat-button-row.mat-button-row-blocks
+          edit-template-button(templateKey="IncomingDonationNotice") Edit Automated Donations Notice
+          edit-template-button(templateKey="ManualDonationNotice") Edit Manual Donations Notice

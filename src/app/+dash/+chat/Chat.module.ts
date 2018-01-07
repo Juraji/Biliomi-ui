@@ -5,23 +5,8 @@ import {NgModule} from "@angular/core";
 const ROUTES: Routes = [
   {
     path: "",
-    redirectTo: "/dash/chat/followers",
+    redirectTo: "/dash/chat/chat-moderator",
     pathMatch: "full"
-  },
-  {
-    path: "followers",
-    loadChildren: "./+followers/Followers.module#FollowersModule",
-    data: {breadCrumbName: "Followers"}
-  },
-  {
-    path: "subscribers",
-    loadChildren: "./+subscribers/Subscribers.module#SubscribersModule",
-    data: {breadCrumbName: "Subscribers"}
-  },
-  {
-    path: "hosts",
-    loadChildren: "./+hosts/Hosts.module#HostsModule",
-    data: {breadCrumbName: "Hosts"}
   },
   {
     path: "chat-moderator",

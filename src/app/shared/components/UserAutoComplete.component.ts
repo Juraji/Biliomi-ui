@@ -18,6 +18,12 @@ export class UserAutoCompleteComponent implements OnInit {
   @Input("allowUnknownUsers")
   public allowUnknownUsers: boolean = true;
 
+  public set selectedUser(user: IUser) {
+    if (user != null) {
+      this.usernameControl.setValue(user.DisplayName);
+    }
+  }
+
   constructor(usersClient: UsersClient) {
     this.usersClient = usersClient;
   }

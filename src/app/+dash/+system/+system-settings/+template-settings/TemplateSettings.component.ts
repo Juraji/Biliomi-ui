@@ -79,10 +79,6 @@ export class TemplateSettingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed()
-      .filter(() => !RouterUtils.routeEndsWith(this._activatedRoute, "templates"))
-      .subscribe(() => this._router.navigateByUrl(RouterUtils.routeToUrl(this._activatedRoute.parent)));
-
-    dialogRef.afterClosed()
       .filter((success: boolean) => success)
       .subscribe(() => this.dataSource.update());
   }

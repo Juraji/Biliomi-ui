@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Output, ViewChild} from "@angular/core";
 import {FormControl} from "@angular/forms";
-import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {UserAutoCompleteComponent} from "../../../../shared/components/UserAutoComplete.component";
+import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import {UserAutoCompleteComponent} from "../../../../../shared/components/UserAutoComplete.component";
 import * as moment from "moment";
-import {HostRecordsClient} from "../../../../shared/modules/biliomi/clients/model/HostRecords.client";
+import {HostRecordsClient} from "../../../../../shared/modules/biliomi/clients/model/HostRecords.client";
 import IDirection = Biliomi.IDirection;
 import IHostRecord = Biliomi.IHostRecord;
 

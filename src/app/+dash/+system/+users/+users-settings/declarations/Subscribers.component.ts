@@ -1,42 +1,21 @@
 import {Component, OnInit} from "@angular/core";
-import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
-import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
+import {SubscriberWatchSettingsClient} from "../../../../../shared/modules/biliomi/clients/settings/SubscriberWatchSettings.client";
 import {FormControl, Validators} from "@angular/forms";
-import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {SubscriberWatchSettingsClient} from "../../../shared/modules/biliomi/clients/settings/SubscriberWatchSettings.client";
-import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
-import {LatestSubscribersClient} from "../../../shared/modules/biliomi/clients/model/LatestSubscribers.client";
-import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
-import IUser = Biliomi.IUser;
+
 
 @Component({
-  selector: "subscribers-page",
+  selector: "subscribers-settings",
   templateUrl: require("./Subscribers.template.pug")
 })
 export class SubscribersComponent implements OnInit {
   private _subscriberWatchSettingsClient: SubscriberWatchSettingsClient;
 
-  private latestSubscribersDataSource: RestTableDataSource<IUser> = new RestTableDataSource<IUser>();
   private subscriberRewardTier1Control: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   private subscriberRewardTier2Control: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   private subscriberRewardTier3Control: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
 
-  public exportConfig: IXlsxExportConfig = {
-    fileName: "Biliomi - Latest Subscribers",
-    sheetName: "Latest Subscribers",
-    columns: [
-      {objectPath: "$.DisplayName", headerName: "Username"},
-      {objectPath: "$.SubscribeDate", headerName: "Subscribe date", formatter: XLSX_FORMATTER_DATE}
-    ]
-  };
-
-  public tableFilterMapping: TableFilterNameMapping = {
-    "Subscriber Since": "SubscribeDate"
-  };
-
-  constructor(subscriberWatchSettingsClient: SubscriberWatchSettingsClient, latestSubscribersClient: LatestSubscribersClient) {
+  constructor(subscriberWatchSettingsClient: SubscriberWatchSettingsClient) {
     this._subscriberWatchSettingsClient = subscriberWatchSettingsClient;
-    this.latestSubscribersDataSource.client = latestSubscribersClient;
   }
 
   public ngOnInit() {

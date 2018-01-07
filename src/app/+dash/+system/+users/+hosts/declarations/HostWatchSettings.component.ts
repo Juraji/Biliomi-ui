@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {HostWatchSettingsClient} from "../../../../shared/modules/biliomi/clients/settings/HostWatchSettings.client";
+import {HostWatchSettingsClient} from "../../../../../shared/modules/biliomi/clients/settings/HostWatchSettings.client";
 import {FormControl, Validators} from "@angular/forms";
 
 @Component({
