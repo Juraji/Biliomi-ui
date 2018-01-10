@@ -67,6 +67,15 @@ export class SortPropertyDirective<T> implements OnInit {
     }
   }
 
+  public get sortIndex(): number {
+    let ds = this.dataSource;
+    if (ds) {
+      return ds.sortBuilder.indexOf(this.objectPath) + 1;
+    } else {
+      return 0;
+    }
+  }
+
   constructor(@Optional() parentTable: DataTableComponent<any>) {
     if (parentTable == null) {
       throw new Error("The SortPropertyDirective can only be used within a DataTableComponent");
