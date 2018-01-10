@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {SettingsRestClient} from "../../classes/SettingsRestClient";
+import {SettingsRestClient} from "../../classes/abstract/SettingsRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import IChatModeratorSettings = Biliomi.IChatModeratorSettings;
 import {BiliomiApiService} from "../../services/BiliomiApi.service";

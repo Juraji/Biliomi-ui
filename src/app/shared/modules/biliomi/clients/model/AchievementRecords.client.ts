@@ -1,4 +1,4 @@
-import {ModelRestClient} from "../../classes/ModelRestClient";
+import {ModelRestClient} from "../../classes/abstract/ModelRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import IAchievementRecord = Biliomi.IAchievementRecord;
 import {BiliomiApiService} from "../../services/BiliomiApi.service";

@@ -25,7 +25,7 @@ form(#editGameForm="", (submit)="save()")
       [formControl]="steamIdControl")
       mat-hint The Steam Id for this game
 
-    community-chip-list(#communitiesControl="", placeholder="Automatic Communities")
+    community-chip-list([(communities)]="communities", placeholder="Automatic Communities")
       | Select up to 3 communities to set on your channel when you set this game via Biliomi.#[br]Press [space] while typing to confirm input.
 
   mat-dialog-actions

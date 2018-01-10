@@ -37,4 +37,4 @@ form(#userEditForm="", (submit)="save()")
     .checkbox-error([hidden]="editedUser?.BlacklistedSince == undefined")
       | {{editedUser?.DisplayName}} has been blacklisted since {{editedUser?.BlacklistedSince| date}}
 
-  user-group-select(#userGroup="")
+  user-group-selector([(userGroup)]="userGroup")

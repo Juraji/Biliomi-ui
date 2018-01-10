@@ -11,6 +11,12 @@ export class ListCache<T> {
     }
   }
 
+  public append(item: T) {
+    if (item != null) {
+      this._list.push(item);
+    }
+  }
+
   public get(): T[] {
     return this._list.slice();
   }

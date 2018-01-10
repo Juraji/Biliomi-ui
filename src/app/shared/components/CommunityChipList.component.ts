@@ -1,5 +1,5 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
-import {ChipListInputComponent} from "../modules/ng-material/components/ChipListInput.component";
+import {AfterViewInit, Component, EventEmitter, Input, Output, ViewChild} from "@angular/core";
+import {ChipListInputComponent} from "./ChipListInput.component";
 import {CommunitiesClient} from "../modules/biliomi/clients/model/Communities.client";
 import {MatAutocomplete, MatAutocompleteSelectedEvent, MatChipInputEvent, MatChipList, MatSnackBar} from "@angular/material";
 import {Biliomi} from "../modules/biliomi/classes/interfaces/Biliomi";
@@ -20,16 +20,14 @@ export class CommunityChipListComponent extends ChipListInputComponent implement
   @ViewChild("autoComplete", {read: MatAutocomplete})
   public autoComplete: MatAutocomplete;
 
-  public set selectedCommunities(communites: ICommunity[]) {
-    if (communites != null) {
-      this.inputItems = communites.map((c: ICommunity) => c.Name);
-    }
-  }
+  @Output("communitiesChange")
+  public communitiesChange: EventEmitter<ICommunity[]> = new EventEmitter<ICommunity[]>();
 
-  public get selectedCommunities(): ICommunity[] {
+  @Input("communities")
+  public get communities(): ICommunity[] {
     let communities: ICommunity[] = [];
 
-    for (let communityName of this.inputItems) {
+    for (let communityName of this.chips) {
       let match: ICommunity = this.communitiesClient.getCache()
         .filter((c: ICommunity) => c.Name === communityName)
         .pop();
@@ -39,6 +37,12 @@ export class CommunityChipListComponent extends ChipListInputComponent implement
     return communities;
   }
 
+  public set communities(communites: ICommunity[]) {
+    if (communites != null) {
+      this.chips = communites.map((c: ICommunity) => c.Name);
+    }
+  }
+
   constructor(communitiesClient: CommunitiesClient, matSnackBar: MatSnackBar) {
     super();
     this.communitiesClient = communitiesClient;
@@ -46,10 +50,11 @@ export class CommunityChipListComponent extends ChipListInputComponent implement
   }
 
   public async addChipItem(event: MatChipInputEvent): Promise<void> {
-    if (StringUtils.isNotEmpty(event.value) && this.inputItems.indexOf(event.value) === -1) {
+    if (StringUtils.isNotEmpty(event.value) && this.chips.indexOf(event.value) === -1) {
       let community: ICommunity;
 
-      let matches: ICommunity[] = this.communitiesClient.searchCacheByPredicate((c: ICommunity) => StringUtils.equalsIgnoreCase(c.Name, event.value));
+      let matches: ICommunity[] = this.communitiesClient.searchCacheByPredicate((c: ICommunity) =>
+        StringUtils.equalsIgnoreCase(c.Name, event.value));
       if (matches.length > 0) {
         community = matches.shift();
       } else {
@@ -57,16 +62,22 @@ export class CommunityChipListComponent extends ChipListInputComponent implement
       }
 
       if (community != null) {
-        if (this.inputItems.length >= 3) {
-          this.inputItems.shift();
+        if (this.chips.length >= 3) {
+          this.chips.shift();
         }
         event.value = community.Name;
         super.addChipItem(event);
+        this.communitiesChange.next(this.communities);
       } else {
         this._matSnackBar.open("Could not find a community by name \"" + event.value + "\"!", "Ok");
         event.input.value = "";
       }
     }
+  }
+
+  public removeChip(value: string): void {
+    super.removeChip(value);
+    this.communitiesChange.next(this.communities);
   }
 
   public ngAfterViewInit() {

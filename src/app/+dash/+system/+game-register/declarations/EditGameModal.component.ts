@@ -3,9 +3,9 @@ import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
 import {GamesClient} from "../../../../shared/modules/biliomi/clients/model/Games.client";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {FormControl, Validators} from "@angular/forms";
-import {CommunityChipListComponent} from "../../../../shared/components/CommunityChipList.component";
 import * as moment from "moment";
 import IGame = Biliomi.IGame;
+import ICommunity = Biliomi.ICommunity;
 
 @Component({
   selector: "edit-game-modal",
@@ -21,9 +21,7 @@ export class EditGameModalComponent implements AfterViewInit {
   public gameNameControl: FormControl = new FormControl("", [Validators.required]);
   public firstPlayedOnControl: FormControl = new FormControl();
   public steamIdControl: FormControl = new FormControl();
-
-  @ViewChild("communitiesControl", {read: CommunityChipListComponent})
-  public communitiesControl: CommunityChipListComponent;
+  public communities: ICommunity[];
 
   constructor(@Inject(MAT_DIALOG_DATA) gameId: number,
               gamesClient: GamesClient,
@@ -58,19 +56,18 @@ export class EditGameModalComponent implements AfterViewInit {
     this.gameNameControl.setValue(this.editedGame.Name);
     this.firstPlayedOnControl.setValue(this.editedGame.FirstPlayedOn);
     this.steamIdControl.setValue(this.editedGame.SteamId);
-    this.communitiesControl.selectedCommunities = this.editedGame.Communities.slice();
+    this.communities = this.editedGame.Communities.slice();
   }
 
   public async save() {
     if (this.isFormOk) {
-      let game: IGame = {} as IGame;
+      let game: IGame = {...this.editedGame};
       let persistedGame: IGame;
 
-      Object.assign(game, this.editedGame);
       game.Name = this.gameNameControl.value;
       game.FirstPlayedOn = this.firstPlayedOnControl.value;
       game.SteamId = this.steamIdControl.value;
-      game.Communities = this.communitiesControl.selectedCommunities;
+      game.Communities = this.communities;
 
       if (this._gameId == null) {
         persistedGame = await this._gamesClient.post(game);

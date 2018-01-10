@@ -1,10 +1,10 @@
 import {ModelRestClient} from "./ModelRestClient";
-import {BiliomiApiService} from "../services/BiliomiApi.service";
-import {ListCache} from "./ListCache";
-import {SortBuilder} from "./SortBuilder";
-import {Predicate} from "../../tools/FunctionalInterface";
-import {FilterBuilder} from "./FilterBuilder";
-import {Biliomi} from "./interfaces/Biliomi";
+import {BiliomiApiService} from "../../services/BiliomiApi.service";
+import {ListCache} from "../ListCache";
+import {SortBuilder} from "../SortBuilder";
+import {Predicate} from "../../../tools/FunctionalInterface";
+import {FilterBuilder} from "../FilterBuilder";
+import {Biliomi} from "../interfaces/Biliomi";
 import IPaginatedResponse = Biliomi.IPaginatedResponse;
 
 export abstract class CachedModelRestClient<T> extends ModelRestClient<T> {
@@ -33,6 +33,11 @@ export abstract class CachedModelRestClient<T> extends ModelRestClient<T> {
 
   public getCache(): T[] {
     return this._cache.get();
+  }
+
+  public searchCacheById(id: number) {
+    return this._cache.get()
+      .find((t: any) => t.hasOwnProperty("Id") && t.Id === id);
   }
 
   public searchCacheByPredicate(predicate: Predicate<T>): T[] {

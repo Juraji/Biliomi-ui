@@ -38,7 +38,7 @@ p Manage Twitch communities known by Biliomi
           mat-slide-toggle([formControl]="autoUpdateCommunitiesControl")
             | Automatically update communities
 
-          community-chip-list(#communitiesControl="", placeholder="Default Communities")
+          community-chip-list([(communities)]="communities", placeholder="Default Communities")
             | Select up to 3 communities. Press [space] while typing to confirm input.
 
         mat-card-actions

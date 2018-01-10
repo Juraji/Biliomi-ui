@@ -4,6 +4,7 @@ mat-form-field
   mat-autocomplete(#userAutoComplete="matAutocomplete")
     mat-option(*ngFor="let user of usersClient.searchCache(usernameControl.value)", [value]="user.Username")
       | {{user.DisplayName}}
-  mat-hint The autocomplete only knows users Biliomi knows. If a user is not in there simply type their full name and hit enter. Biliomi will make sure it will be available next time.
+  mat-icon(matSuffix, *ngIf="inputIsUnknownUser", (click)="performApiSearch()", matTooltip="Search on Twitch for this user") search
+  mat-hint The autocomplete only knows users Biliomi knows. If an user is unknown a search icon will appear, click it!
   mat-error(*ngIf="usernameControl.hasError('required')") This field is required!
   mat-error(*ngIf="usernameControl.hasError('unknownUser')") This user can not be found!

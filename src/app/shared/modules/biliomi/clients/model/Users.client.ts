@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../../services/BiliomiApi.service";
-import {CachedModelRestClient} from "../../classes/CachedModelRestClient";
+import {CachedModelRestClient} from "../../classes/abstract/CachedModelRestClient";
 import {StringUtils} from "../../../tools/StringUtils";
 import IUser = Biliomi.IUser;
 
@@ -16,9 +16,9 @@ export class UsersClient extends CachedModelRestClient<IUser> {
     return super.searchCacheByPredicate((u: IUser) => StringUtils.containsIgnoreCase(u.Username, query));
   }
 
-  public getUserByUsername(username: string, createIfNotExists: boolean): Promise<IUser> {
-    let params: Map<string, any> = new Map<string, any>()
-      .set("createifnotexists", createIfNotExists.toString());
-    return this._api.get("/core/users/byusername/" + username, params);
+  public async getUserByUsername(username: string): Promise<IUser> {
+    let user = await this._api.get<IUser>("/core/users/byusername/" + username);
+    this._cache.append(user);
+    return user;
   }
 }

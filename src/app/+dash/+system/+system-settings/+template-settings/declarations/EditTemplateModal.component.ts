@@ -64,10 +64,9 @@ export class EditTemplateModalComponent implements AfterViewInit {
   }
 
   public async save() {
-    let template: ITemplate = {} as ITemplate;
+    let template: ITemplate = {...this.editedTemplate};
     let persistedTemplate: ITemplate;
 
-    Object.assign(template, this.editedTemplate);
     template.Template = this.templateControl.value;
 
     persistedTemplate = await this._templatesClient.put(this._templateId, template);

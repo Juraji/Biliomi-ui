@@ -1,6 +1,6 @@
 mat-form-field
   mat-chip-list(#chipList="")
-    mat-chip(*ngFor="let item of inputItems", (remove)="removeChip(item)")
+    mat-chip(*ngFor="let item of chips", (remove)="removeChip(item)")
       | {{item}}
       mat-icon(matChipRemove) cancel
     input(#chipListInput="", [placeholder]="inputPlaceholder", [matChipInputFor]="chipList",

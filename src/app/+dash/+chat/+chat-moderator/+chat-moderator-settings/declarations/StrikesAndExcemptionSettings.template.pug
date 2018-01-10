@@ -7,16 +7,17 @@ form(#strikesAndExcemptionSettingsForm="", (submit)="saveSettings()")
       p.
         Messages by users in the excempted group (or higher) are not evaluated by the chat moderator.#[br]
         For example if you set the excempted group to Viewer all users will be excempted from moderation.
-      user-group-select(#exemptedGroupControl="", placeholder="Excempted User Group")
+      user-group-selector([(userGroup)]="exemptedGroup")
+      //user-group-select(#exemptedGroupControl="", placeholder="Excempted User Group")
 
       hr
 
       p.
         Biliomi keeps moderation strikes per user for the duration of an hour.#[br]
         The first moderation action will perform strike 1, the second Strike 2 and 3 and beyond will execute Strike 3.
-      strike-selector(#strike1="", placeholder="Strike 1")
-      strike-selector(#strike2="", placeholder="Strike 2")
-      strike-selector(#strike3="", placeholder="Strike 3")
+      strike-selector([(strike)]="firstStrike")
+      strike-selector([(strike)]="secondStrike")
+      strike-selector([(strike)]="thirdStrike")
 
     mat-card-actions
       save-button([stateEmitter]="_chatModeratorSettingsClient.afterSave")

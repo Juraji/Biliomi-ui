@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {ModelRestClient} from "../../classes/ModelRestClient";
+import {ModelRestClient} from "../../classes/abstract/ModelRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import ITemplate = Biliomi.ITemplate;
 import {BiliomiApiService} from "../../services/BiliomiApi.service";

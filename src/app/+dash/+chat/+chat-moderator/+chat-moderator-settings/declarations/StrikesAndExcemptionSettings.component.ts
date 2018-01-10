@@ -1,7 +1,8 @@
-import {AfterViewInit, Component, ViewChild} from "@angular/core";
+import {AfterViewInit, Component} from "@angular/core";
 import {ChatModeratorSettingsClient} from "../../../../../shared/modules/biliomi/clients/settings/ChatModeratorSettings.client";
-import {UserGroupSelectComponent} from "../../../../../shared/components/UserGroupSelect.component";
-import {StrikeSelectComponent} from "./StrikeSelect.component";
+import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
+import IUserGroup = Biliomi.IUserGroup;
+import IModerationAction = Biliomi.IModerationAction;
 
 @Component({
   selector: "strikes-and-excemption-settings",
@@ -10,17 +11,10 @@ import {StrikeSelectComponent} from "./StrikeSelect.component";
 export class StrikesAndExcemptionSettingsComponent implements AfterViewInit {
   private _chatModeratorSettingsClient: ChatModeratorSettingsClient;
 
-  @ViewChild("exemptedGroupControl", {read: UserGroupSelectComponent})
-  public exemptedGroupControl: UserGroupSelectComponent;
-
-  @ViewChild("strike1", {read: StrikeSelectComponent})
-  public firstStrikeControl: StrikeSelectComponent = new StrikeSelectComponent();
-
-  @ViewChild("strike2", {read: StrikeSelectComponent})
-  public secondStrikeControl: StrikeSelectComponent = new StrikeSelectComponent();
-
-  @ViewChild("strike3", {read: StrikeSelectComponent})
-  public thirdStrikeControl: StrikeSelectComponent = new StrikeSelectComponent();
+  public exemptedGroup: IUserGroup = null;
+  public firstStrike: IModerationAction;
+  public secondStrike: IModerationAction;
+  public thirdStrike: IModerationAction;
 
   constructor(chatModeratorSettingsClient: ChatModeratorSettingsClient) {
     this._chatModeratorSettingsClient = chatModeratorSettingsClient;
@@ -29,19 +23,18 @@ export class StrikesAndExcemptionSettingsComponent implements AfterViewInit {
   public async ngAfterViewInit() {
     await this._chatModeratorSettingsClient.load(true);
 
-    this.exemptedGroupControl.selectedGroup = this._chatModeratorSettingsClient.ExemptedGroup;
-
-    this.firstStrikeControl.selectedStrike = this._chatModeratorSettingsClient.FirstStrike;
-    this.secondStrikeControl.selectedStrike = this._chatModeratorSettingsClient.SecondStrike;
-    this.thirdStrikeControl.selectedStrike = this._chatModeratorSettingsClient.ThirdStrike;
+    this.exemptedGroup = this._chatModeratorSettingsClient.ExemptedGroup;
+    this.firstStrike = this._chatModeratorSettingsClient.FirstStrike;
+    this.secondStrike = this._chatModeratorSettingsClient.SecondStrike;
+    this.thirdStrike = this._chatModeratorSettingsClient.ThirdStrike;
   }
 
   public saveSettings() {
-    this._chatModeratorSettingsClient.ExemptedGroup = this.exemptedGroupControl.selectedGroup;
+    this._chatModeratorSettingsClient.ExemptedGroup = this.exemptedGroup;
 
-    this._chatModeratorSettingsClient.FirstStrike = this.firstStrikeControl.selectedStrike;
-    this._chatModeratorSettingsClient.SecondStrike = this.secondStrikeControl.selectedStrike;
-    this._chatModeratorSettingsClient.ThirdStrike = this.thirdStrikeControl.selectedStrike;
+    this._chatModeratorSettingsClient.FirstStrike = this.firstStrike;
+    this._chatModeratorSettingsClient.SecondStrike = this.secondStrike;
+    this._chatModeratorSettingsClient.ThirdStrike = this.thirdStrike;
     this._chatModeratorSettingsClient.save();
   }
 }

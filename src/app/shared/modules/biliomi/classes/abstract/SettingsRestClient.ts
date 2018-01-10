@@ -1,4 +1,4 @@
-import {BiliomiApiService} from "../services/BiliomiApi.service";
+import {BiliomiApiService} from "../../services/BiliomiApi.service";
 import {Subscription} from "rxjs/Subscription";
 import {Observable} from "rxjs/Observable";
 import {EventEmitter} from "@angular/core";
@@ -17,10 +17,6 @@ export abstract class SettingsRestClient<T> {
     this._baseResourceUri = baseResourceUri;
     this._updateInterval = updateInterval;
     this._afterSave = new EventEmitter<boolean>();
-  }
-
-  public get isLoaded(): boolean {
-    return this._isLoaded;
   }
 
   public get afterSave(): EventEmitter<boolean> {

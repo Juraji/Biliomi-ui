@@ -55,10 +55,9 @@ export class EditAnnouncementModalComponent implements OnInit {
 
   public async save() {
     if (this.isFormOk) {
-      let announcement: IAnnouncement = {} as IAnnouncement;
+      let announcement: IAnnouncement = {...this.editedAnnouncement};
       let persistedAnnouncement: IAnnouncement;
 
-      Object.assign(announcement, this.editedAnnouncement);
       announcement.Message = this.messageControl.value;
 
       if (this._announcementId == null) {

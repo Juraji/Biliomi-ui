@@ -79,7 +79,7 @@ export class UserOverviewComponent implements OnInit {
     this._activatedRoute.paramMap.subscribe(async (map: ParamMap) => {
       if (map.has("username")) {
         let user: IUser = await (this.dataSource.client as UsersClient)
-          .getUserByUsername(map.get("username"), false);
+          .getUserByUsername(map.get("username"));
         if (user != null) {
           this.editUser(user);
         }

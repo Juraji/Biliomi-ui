@@ -1,12 +1,12 @@
-import {AfterViewChecked, AfterViewInit, Component, Optional, ViewChild} from "@angular/core";
+import {AfterViewChecked, AfterViewInit, Component, Optional} from "@angular/core";
 import {EditUserModalComponent} from "../EditUserModal.component";
 import {UsersClient} from "../../../../../../shared/modules/biliomi/clients/model/Users.client";
 import {MatSnackBar} from "@angular/material";
 import {FormControl, Validators} from "@angular/forms";
 import {Biliomi} from "../../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {UserGroupSelectComponent} from "../../../../../../shared/components/UserGroupSelect.component";
 import * as moment from "moment";
 import IUser = Biliomi.IUser;
+import IUserGroup = Biliomi.IUserGroup;
 
 @Component({
   selector: "user-information",
@@ -19,8 +19,7 @@ export class UserInformationComponent implements AfterViewInit, AfterViewChecked
 
   public editedUser: IUser;
 
-  @ViewChild("userGroup", {read: UserGroupSelectComponent})
-  public userGroupSelect: UserGroupSelectComponent;
+  public userGroup: IUserGroup;
   public userTitleControl: FormControl = new FormControl("");
   public userPointsControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   public userRecordedTimeControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
@@ -56,7 +55,7 @@ export class UserInformationComponent implements AfterViewInit, AfterViewChecked
     this.userPointsControl.setValue(this.editedUser.Points);
     this.userRecordedTimeControl.setValue(this.editedUser.RecordedTime);
     this.userIsBlacklistedControl.setValue(this.editedUser.BlacklistedSince != null);
-    this.userGroupSelect.selectedGroup = this.editedUser.UserGroup;
+    this.userGroup = this.editedUser.UserGroup;
 
     if (this.editedUser.Follower) {
       this.userFollowDateControl.setValue(this.editedUser.FollowDate);
@@ -74,14 +73,13 @@ export class UserInformationComponent implements AfterViewInit, AfterViewChecked
 
   public async save() {
     if (this.isFormOk) {
-      let user: IUser = {} as IUser;
+      let user: IUser = {...this.editedUser};
       let persistedUser: IUser;
 
-      Object.assign(user, this.editedUser);
       user.Title = this.userTitleControl.value;
       user.Points = this.userPointsControl.value;
       user.RecordedTime = this.userRecordedTimeControl.value;
-      user.UserGroup = this.userGroupSelect.selectedGroup;
+      user.UserGroup = this.userGroup;
 
       if (this.userIsBlacklistedControl.value === true && this.editedUser.BlacklistedSince == null) {
         user.BlacklistedSince = moment().format();

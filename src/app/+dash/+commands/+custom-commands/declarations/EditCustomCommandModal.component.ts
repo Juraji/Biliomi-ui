@@ -3,10 +3,10 @@ import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CustomCommandsClient} from "../../../../shared/modules/biliomi/clients/model/CustomCommands.client";
 import {FormControl, Validators} from "@angular/forms";
-import {UserGroupSelectComponent} from "../../../../shared/components/UserGroupSelect.component";
-import {ChipListInputComponent} from "../../../../shared/modules/ng-material/components/ChipListInput.component";
+import {ChipListInputComponent} from "../../../../shared/components/ChipListInput.component";
 import {ConfirmDialogService} from "../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
 import ICustomCommand = Biliomi.ICustomCommand;
+import IUserGroup = Biliomi.IUserGroup;
 
 @Component({
   selector: "edit-custom-command-modal-component",
@@ -24,12 +24,8 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
   public commandMessageControl: FormControl = new FormControl("", [Validators.required]);
   public commandCooldownControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   public commandPriceControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
-
-  @ViewChild("userGroup", {read: UserGroupSelectComponent})
-  public userGroupSelect: UserGroupSelectComponent;
-
-  @ViewChild("commandAliases", {read: ChipListInputComponent})
-  public commandAliases: ChipListInputComponent;
+  public userGroup: IUserGroup;
+  public commandAliases: string[];
 
   public get isFormOk(): boolean {
     return this.commandCommandControl.valid
@@ -64,7 +60,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
       this.editedCommand.Message = "";
       this.editedCommand.Cooldown = 0;
       this.editedCommand.Price = 0;
-      this.editedCommand.UserGroup = this.userGroupSelect.selectedGroup;
+      this.editedCommand.UserGroup = this.userGroup;
       this.editedCommand.Aliasses = [];
     }
 
@@ -72,22 +68,21 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
     this.commandMessageControl.setValue(this.editedCommand.Message);
     this.commandCooldownControl.setValue(this.editedCommand.Cooldown);
     this.commandPriceControl.setValue(this.editedCommand.Price);
-    this.userGroupSelect.selectedGroup = this.editedCommand.UserGroup;
-    this.commandAliases.inputItems = this.editedCommand.Aliasses;
+    this.userGroup = this.editedCommand.UserGroup;
+    this.commandAliases = this.editedCommand.Aliasses;
   }
 
   public async save() {
     if (this.isFormOk) {
-      let command: ICustomCommand = {} as ICustomCommand;
+      let command: ICustomCommand = {...this.editedCommand};
       let persistedCommand: ICustomCommand;
 
-      Object.assign(command, this.editedCommand);
       command.Command = this.commandCommandControl.value;
       command.Message = this.commandMessageControl.value;
       command.Cooldown = this.commandCooldownControl.value;
       command.Price = this.commandPriceControl.value;
-      command.Aliasses = this.commandAliases.inputItems;
-      command.UserGroup = this.userGroupSelect.selectedGroup;
+      command.Aliasses = this.commandAliases;
+      command.UserGroup = this.userGroup;
 
       if (this._commandId == null) {
         persistedCommand = await this._customCommandsClient.post(command);

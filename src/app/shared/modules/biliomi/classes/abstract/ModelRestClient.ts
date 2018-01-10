@@ -1,7 +1,7 @@
-import {BiliomiApiService} from "../services/BiliomiApi.service";
-import {SortBuilder} from "./SortBuilder";
-import {FilterBuilder} from "./FilterBuilder";
-import {Biliomi} from "./interfaces/Biliomi";
+import {BiliomiApiService} from "../../services/BiliomiApi.service";
+import {SortBuilder} from "../SortBuilder";
+import {FilterBuilder} from "../FilterBuilder";
+import {Biliomi} from "../interfaces/Biliomi";
 import IPaginatedResponse = Biliomi.IPaginatedResponse;
 
 export abstract class ModelRestClient<T> {

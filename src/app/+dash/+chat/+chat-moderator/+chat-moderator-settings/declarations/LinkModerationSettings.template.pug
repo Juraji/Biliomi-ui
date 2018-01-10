@@ -13,7 +13,7 @@ form(#linkModerationSettingsForm="", (submit)="saveSettings()")
         mat-error(*ngIf="linkPermitExpireTimeControl.hasError('required')") This field is required!
         mat-error(*ngIf="linkPermitExpireTimeControl.hasError('min')") Please enter a valid amount (min 60000 = 1 minute).
 
-      chip-list-input(#linkWhitelistInput="", placeholder="Whitelisted Links")
+      chip-list-input([(chips)]="linkWhitelist", placeholder="Whitelisted Links")
         | Simply start typing urls separated by spaces to add them to the list. Links are checked by occurence of whitelisted links.
         | So http://shadywebsite.com?url=http://juraji.nl would also be seen as an ok link. You might want to be very specific about whitelisting links.
 

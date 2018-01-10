@@ -34,7 +34,7 @@ export class HostFormComponent {
   public async submitHostRecord() {
     if (this.isFormOk) {
       let record: IHostRecord = {} as IHostRecord;
-      record.User = await this.recordUserControl.getSelectedUser();
+      record.User = this.recordUserControl.user;
       record.Date = moment().format();
       record.Direction = this.recordDirectionControl.value;
       record.AutoHost = this.recordAutoHostControl.value;
@@ -43,7 +43,7 @@ export class HostFormComponent {
       if (response != null) {
         this.recordAutoHostControl.setValue(false);
         this.recordDirectionControl.setValue(IDirection.INCOMING);
-        this.recordUserControl.reset();
+        this.recordUserControl.user = null;
         this.onRecordCreated.emit(response);
       }
     }

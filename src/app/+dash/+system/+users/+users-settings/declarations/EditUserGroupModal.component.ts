@@ -54,10 +54,9 @@ export class EditUserGroupModalComponent implements AfterViewInit {
 
   public async save() {
     if (this.isFormOk) {
-      let group: IUserGroup = {} as IUserGroup;
+      let group: IUserGroup = {...this.editedGroup};
       let persistedGroup: IUserGroup;
 
-      Object.assign(group, this.editedGroup);
       group.Name = this.groupNameControl.value;
       group.Weight = this.weightControl.value;
 

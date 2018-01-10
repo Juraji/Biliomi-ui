@@ -32,7 +32,7 @@ form(#customCommandEditForm="", (submit)="save()")
 
     user-group-select(#userGroup="")
 
-    chip-list-input(#commandAliases="")
+    chip-list-input([(chips)]="commandAliases")
       | An alias is like a different name for a command, like shorter syntax for instance.
 
   mat-dialog-actions

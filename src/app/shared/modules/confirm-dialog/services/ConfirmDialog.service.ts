@@ -6,11 +6,11 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class ConfirmDialogService extends MatDialog {
 
-  public confirm(message: string, dialogId?: string, confirmButtonText?: string, cancelButtonText?: string): Observable<boolean> {
+  public confirm(message: string | string[], dialogId?: string, confirmButtonText?: string, cancelButtonText?: string): Observable<boolean> {
     let dialogRef: MatDialogRef<ConfirmDialogComponent> = this.open(ConfirmDialogComponent, {
       id: dialogId,
       data: {
-        message: message,
+        message: (Array.isArray(message) ? message : [message]),
         confirmButtonText: confirmButtonText || "Confirm",
         cancelButtonText: cancelButtonText || "Cancel"
       } as IDialogData

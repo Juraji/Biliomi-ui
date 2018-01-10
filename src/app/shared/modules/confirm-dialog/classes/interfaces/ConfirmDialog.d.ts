@@ -1,5 +1,5 @@
 interface IDialogData {
-  message: string;
+  message: string[];
   confirmButtonText: string;
   cancelButtonText: string;
 }

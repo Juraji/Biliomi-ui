@@ -1,4 +1,4 @@
-import {ModelRestClient} from "../../biliomi/classes/ModelRestClient";
+import {ModelRestClient} from "../../biliomi/classes/abstract/ModelRestClient";
 import {SortBuilder} from "../../biliomi/classes/SortBuilder";
 import {ProgressBarMode} from "../../ng-material/classes/interfaces/ProgressBarMode.enum";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";

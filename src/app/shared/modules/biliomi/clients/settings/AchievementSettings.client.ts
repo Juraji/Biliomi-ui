@@ -1,4 +1,4 @@
-import {SettingsRestClient} from "../../classes/SettingsRestClient";
+import {SettingsRestClient} from "../../classes/abstract/SettingsRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import IAchievementsSettings = Biliomi.IAchievementsSettings;
 import {BiliomiApiService} from "../../services/BiliomiApi.service";

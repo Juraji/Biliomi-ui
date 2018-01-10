@@ -30,7 +30,6 @@ export class EditDonationModalComponent implements AfterViewInit {
   public userControl: UserAutoCompleteComponent;
 
   public get isFormOk(): boolean {
-    console.log(this.donationControl.valid, this.dateControl.valid, this.userControl.valid);
     return this.donationControl.valid
       && this.dateControl.valid
       && this.userControl.valid;
@@ -67,15 +66,16 @@ export class EditDonationModalComponent implements AfterViewInit {
     this.donationControl.setValue(this.editedDonation.Donation);
     this.dateControl.setValue(this.editedDonation.Date);
     this.noteControl.setValue(this.editedDonation.Note);
-    this.userControl.selectedUser = this.editedDonation.User;
+    this.userControl.user = this.editedDonation.User;
   }
 
   public saveAndStateInChat() {
     if (this.isFormOk) {
-      this._dialog.confirm("This action will discard any note provided and regenerate the date, are you sure?")
+      this._dialog.confirm(["Notifying in the chat will use the !donation add command in order to save the donation.",
+        " Doing this will discard any set note and generate a new date, are you sure?"])
         .filter((confirmed: boolean) => confirmed)
         .subscribe(async () => {
-          let username: string = (await this.userControl.getSelectedUser()).Username;
+          let username: string = (await this.userControl.user).Username;
           let donation: string = this.donationControl.value;
           let success = await this._donationsClient.saveAsCommand(username, donation);
 
@@ -90,13 +90,12 @@ export class EditDonationModalComponent implements AfterViewInit {
 
   public async save() {
     if (this.isFormOk) {
-      let donation: IDonation = {} as IDonation;
+      let donation: IDonation = {...this.editedDonation};
       let persistedDonation: IDonation;
 
-      Object.assign(donation, this.editedDonation);
       donation.Donation = this.donationControl.value;
       donation.Date = this.dateControl.value;
-      donation.User = await this.userControl.getSelectedUser();
+      donation.User = await this.userControl.user;
       donation.Note = this.noteControl.value;
 
       if (this._donationId == null) {

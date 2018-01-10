@@ -25,6 +25,7 @@ export class HostersClient {
     Observable
       .interval(6e4)
       .subscribe(() => this.load());
+    console.log(this);
   }
 
   private async load() {

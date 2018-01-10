@@ -12,7 +12,7 @@ form(#editAnnouncementForm="", (submit)="save()")
       mat-hint The donation. This can be an amount of money, or a game title, feel free!
       mat-error(*ngIf="donationControl.hasError('required')") This field is required!
 
-    user-autocomplete(#userControl="", required="true")
+    user-autocomplete(#userControl="", [required]="true")
 
     mat-form-field
       input#donation-note(matInput, name="donation-note", placeholder="Note",

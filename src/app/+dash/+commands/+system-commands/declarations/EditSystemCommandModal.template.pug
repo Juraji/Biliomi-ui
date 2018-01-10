@@ -19,7 +19,7 @@ form(#defaultCommandEditForm="", (submit)="save()")
       mat-hint The price for this command in {{'' | points | async}}.
       mat-error(*ngIf="commandPriceControl.hasError('required')") This field is required!
 
-    user-group-select([hidden]="editedCommand?.SystemCommand", #userGroup="")
+    user-group-selector([hidden]="editedCommand?.SystemCommand", [(userGroup)]="userGroup")
 
     mat-slide-toggle([hidden]="!editedCommand?.SystemCommand", [formControl]="moderatorCanAlwaysActivateControl").
       Moderators can always activate

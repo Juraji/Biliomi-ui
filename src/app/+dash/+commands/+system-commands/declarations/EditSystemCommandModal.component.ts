@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatChipInputEvent, MatDialogRef, MatSnackBar} from "@angular/material";
 import {CommandsClient} from "../../../../shared/modules/biliomi/clients/model/Commands.client";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {FormControl, Validators} from "@angular/forms";
-import {UserGroupSelectComponent} from "../../../../shared/components/UserGroupSelect.component";
 import ICommand = Biliomi.ICommand;
+import IUserGroup = Biliomi.IUserGroup;
 
 @Component({
   selector: "edit-default-command-modal-component",
@@ -21,9 +21,7 @@ export class EditSystemCommandModalComponent implements AfterViewInit {
   public commandPriceControl: FormControl = new FormControl(0, [Validators.required, Validators.min(0)]);
   public moderatorCanAlwaysActivateControl: FormControl = new FormControl(true);
   public commandAliasses: string[] = [];
-
-  @ViewChild("userGroup", {read: UserGroupSelectComponent})
-  public userGroupSelect: UserGroupSelectComponent;
+  public userGroup: IUserGroup;
 
   constructor(@Inject(MAT_DIALOG_DATA) commandId: number,
               commandsClient: CommandsClient,
@@ -44,7 +42,7 @@ export class EditSystemCommandModalComponent implements AfterViewInit {
     this.commandCooldownControl.setValue(this.editedCommand.Cooldown);
     this.commandPriceControl.setValue(this.editedCommand.Price);
     this.moderatorCanAlwaysActivateControl.setValue(this.editedCommand.ModeratorCanAlwaysActivate);
-    this.userGroupSelect.selectedGroup = this.editedCommand.UserGroup;
+    this.userGroup = this.editedCommand.UserGroup;
     this.commandAliasses.length = 0;
     this.commandAliasses.push(...this.editedCommand.Aliasses);
   }
@@ -56,14 +54,13 @@ export class EditSystemCommandModalComponent implements AfterViewInit {
 
   public async save() {
     if (this.isFormOk) {
-      let command: ICommand = {} as ICommand;
+      let command: ICommand = {...this.editedCommand};
       let persistedCommand: ICommand;
 
-      Object.assign(command, this.editedCommand);
       command.Cooldown = this.commandCooldownControl.value;
       command.Price = this.commandPriceControl.value;
       command.Aliasses = this.commandAliasses;
-      command.UserGroup = this.userGroupSelect.selectedGroup;
+      command.UserGroup = this.userGroup;
       command.ModeratorCanAlwaysActivate = this.moderatorCanAlwaysActivateControl.value;
 
       persistedCommand = await this._commandsClient.put(this._commandId, command);

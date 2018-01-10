@@ -1,4 +1,4 @@
-import {SettingsRestClient} from "../../classes/SettingsRestClient";
+import {SettingsRestClient} from "../../classes/abstract/SettingsRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import ITimeTrackingSettings = Biliomi.ITimeTrackingSettings;
 import {BiliomiApiService} from "../../services/BiliomiApi.service";

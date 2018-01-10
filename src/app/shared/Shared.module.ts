@@ -12,7 +12,6 @@ import {TwitchUserLinkPipe} from "./pipes/TwitchUserLink.pipe";
 import {TimePipe} from "./pipes/Time.pipe";
 import {DatePipe} from "./pipes/Date.pipe";
 import {CommandFormComponent} from "./components/CommandForm.component";
-import {UserGroupSelectComponent} from "./components/UserGroupSelect.component";
 import {CaseToWordPipe} from "./pipes/CaseToWord.pipe";
 import {EditUserLinkPipe} from "./pipes/EditUserLink.pipe";
 import {EditTemplateButtonComponent} from "./components/EditTemplateButton.component";
@@ -21,11 +20,13 @@ import {UserAutoCompleteComponent} from "./components/UserAutoComplete.component
 import {TrimPipe} from "./modules/biliomi/pipes/Trim.pipe";
 import {NumberArrayPipe} from "./pipes/NumberArray.pipe";
 import {BooleanPipe} from "./pipes/Boolean.pipe";
-import {CommunityChipListComponent} from "./components/CommunityChipList.component";
 import {ObjectSortPipe} from "./pipes/ObjectSort.pipe";
 import {DataTableModule} from "./modules/data-table/DataTable.module";
 import {ConfirmDialogModule} from "./modules/confirm-dialog/ConfirmDialog.module";
 import {SaveButtonComponent} from "./components/SaveButton.component";
+import {UserGroupSelectorComponent} from "./components/UserGroupSelector.component";
+import {ChipListInputComponent} from "./components/ChipListInput.component";
+import {CommunityChipListComponent} from "./components/CommunityChipList.component";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -40,13 +41,14 @@ const SHARED_PIPES: Type<PipeTransform>[] = [
 ];
 
 const SHARED_COMPONENTS: Type<any>[] = [
+  ChipListInputComponent,
   CommandFormComponent,
-  UserGroupSelectComponent,
-  EditTemplateButtonComponent,
-  UserDisplayComponent,
-  UserAutoCompleteComponent,
   CommunityChipListComponent,
-  SaveButtonComponent
+  EditTemplateButtonComponent,
+  SaveButtonComponent,
+  UserAutoCompleteComponent,
+  UserDisplayComponent,
+  UserGroupSelectorComponent
 ];
 
 const SHARED_DIRECTIVES: Type<any>[] = [];

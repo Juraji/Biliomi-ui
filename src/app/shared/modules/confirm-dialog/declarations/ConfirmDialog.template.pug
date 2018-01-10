@@ -1,4 +1,4 @@
-p {{dialogData.message}}
+p(*ngFor="let line of dialogData.message") {{line}}
 
 mat-dialog-actions
     button(mat-raised-button, color="primary", (click)="confirm()")

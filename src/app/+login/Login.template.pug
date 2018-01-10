@@ -16,7 +16,7 @@ form#login-form((submit)="submitCredentials()")
       mat-form-field
         input#login-password(matInput, name="login-password", placeholder="Password", type="password", required="true",
         [formControl]="passwordControl", [type]="show ? 'text' : 'password'")
-        mat-icon(matSuffix (click)="show = !show") {{show ? 'visibility_off' : 'visibility'}}
+        mat-icon(matSuffix, (click)="show = !show") {{show ? 'visibility_off' : 'visibility'}}
         mat-hint You can set a password via Biliomi's console. Check Biliomi's wiki for more info.
         mat-error(*ngIf="passwordControl.hasError('required')") This field is required!
         mat-error(*ngIf="passwordControl.hasError('invalidEntry')") Password incorrect, try again.
