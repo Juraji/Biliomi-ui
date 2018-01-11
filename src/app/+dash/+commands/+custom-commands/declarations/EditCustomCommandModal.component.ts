@@ -1,9 +1,8 @@
-import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
+import {AfterViewInit, Component, Inject} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CustomCommandsClient} from "../../../../shared/modules/biliomi/clients/model/CustomCommands.client";
 import {FormControl, Validators} from "@angular/forms";
-import {ChipListInputComponent} from "../../../../shared/components/ChipListInput.component";
 import {ConfirmDialogService} from "../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
 import ICustomCommand = Biliomi.ICustomCommand;
 import IUserGroup = Biliomi.IUserGroup;

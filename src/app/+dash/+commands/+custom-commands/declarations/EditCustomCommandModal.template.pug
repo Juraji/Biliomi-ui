@@ -30,7 +30,7 @@ form(#customCommandEditForm="", (submit)="save()")
       mat-hint The price for this command in {{undefined | points | async}}.
       mat-error(*ngIf="commandPriceControl.hasError('required')") This field is required!
 
-    user-group-select(#userGroup="")
+    user-group-selector([(userGroup)]="userGroup")
 
     chip-list-input([(chips)]="commandAliases")
       | An alias is like a different name for a command, like shorter syntax for instance.
