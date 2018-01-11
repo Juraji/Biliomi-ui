@@ -90,6 +90,6 @@ export class BiliomiModule {
     return {
       ngModule: BiliomiModule,
       providers: BILIOMI_PROVIDERS
-    }
+    };
   }
 }

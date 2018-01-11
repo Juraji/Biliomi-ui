@@ -23,7 +23,7 @@ export class StrikeSelectorComponent {
   }
 
   @Input("placeholder")
-  private placeholderName: string;
+  public placeholderName: string;
 
   public get valid(): boolean {
     return this.selectedStrikeControl.valid;

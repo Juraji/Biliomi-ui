@@ -40,7 +40,7 @@ const NG_MATERIAL_MODULES: Type<any>[] = [
 ];
 
 const NG_MATERIAL_DECLARATIONS: Type<any>[] = [
-  ArrayPageSlicePipe,
+  ArrayPageSlicePipe
 ];
 
 @NgModule({
