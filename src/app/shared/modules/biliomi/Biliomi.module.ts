@@ -1,4 +1,4 @@
-import {NgModule, Type} from "@angular/core";
+import {ModuleWithProviders, NgModule, Type} from "@angular/core";
 import {HttpClientModule} from "@angular/common/http";
 import {BiliomiApiService} from "./services/BiliomiApi.service";
 import {ChannelStatusClient} from "./clients/ChannelStatus.client";
@@ -83,8 +83,13 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
 @NgModule({
   imports: [HttpClientModule],
   declarations: BILIOMI_EXPORTS,
-  exports: BILIOMI_EXPORTS,
-  providers: BILIOMI_PROVIDERS
+  exports: BILIOMI_EXPORTS
 })
 export class BiliomiModule {
+  public static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: BiliomiModule,
+      providers: BILIOMI_PROVIDERS
+    }
+  }
 }

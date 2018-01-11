@@ -1,4 +1,4 @@
-import {NgModule, PipeTransform, Type} from "@angular/core";
+import {ModuleWithProviders, NgModule, PipeTransform, Provider, Type} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {NgMaterialModule} from "./modules/ng-material/NgMaterial.module";
@@ -27,6 +27,7 @@ import {SaveButtonComponent} from "./components/SaveButton.component";
 import {UserGroupSelectorComponent} from "./components/UserGroupSelector.component";
 import {ChipListInputComponent} from "./components/ChipListInput.component";
 import {CommunityChipListComponent} from "./components/CommunityChipList.component";
+import {DirtyFormNavigationGuardModule} from "./modules/dirty-form-navigation-guard/DirtyFormNavigationGuard.module";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -53,13 +54,17 @@ const SHARED_COMPONENTS: Type<any>[] = [
 
 const SHARED_DIRECTIVES: Type<any>[] = [];
 
-const SHARED_PROVIDERS: Type<any>[] = [
+const SHARED_PROVIDERS: Provider[] = [
   // Services
   ConfigService,
   AuthService,
 
   // Guards
-  AuthenticatedGuard
+  AuthenticatedGuard,
+
+  // Childmodule providers, these implement forRoot for portability
+  ...BiliomiModule.forRoot().providers,
+  ...DirtyFormNavigationGuardModule.forRoot().providers
 ];
 
 const SHARED_MODULES: Type<any>[] = [
@@ -71,7 +76,8 @@ const SHARED_MODULES: Type<any>[] = [
   NgMaterialModule,
   BiliomiModule,
   DataTableModule,
-  ConfirmDialogModule
+  ConfirmDialogModule,
+  DirtyFormNavigationGuardModule
 ];
 
 @NgModule({
@@ -84,8 +90,13 @@ const SHARED_MODULES: Type<any>[] = [
     .concat(SHARED_PIPES)
     .concat(SHARED_COMPONENTS)
     .concat(SHARED_DIRECTIVES),
-  entryComponents: SHARED_COMPONENTS,
-  providers: SHARED_PROVIDERS
+  entryComponents: SHARED_COMPONENTS
 })
 export class SharedModule {
+  public static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SharedModule,
+      providers: SHARED_PROVIDERS
+    };
+  }
 }

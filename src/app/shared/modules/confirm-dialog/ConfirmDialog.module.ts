@@ -11,8 +11,8 @@ import {CommonModule} from "@angular/common";
     material.MatButtonModule
   ],
   declarations: [ConfirmDialogComponent],
-  providers: [ConfirmDialogService],
-  entryComponents: [ConfirmDialogComponent]
+  entryComponents: [ConfirmDialogComponent],
+  providers: [ConfirmDialogService] // ConfirmDialogService should be registered to for all DI's
 })
 export class ConfirmDialogModule {
 }

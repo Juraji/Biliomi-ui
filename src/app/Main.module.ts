@@ -5,6 +5,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {SharedModule} from "./shared/Shared.module";
 import {MainComponent} from "./Main.component";
 import {AuthenticatedGuard} from "./shared/router-guards/Authenticated.guard";
+import {DirtyFormGuard} from "./shared/modules/dirty-form-navigation-guard/router-guards/DirtyForm.guard";
 
 export const LOGIN_ROUTE: string = "/login";
 export const DASH_ROUTE: string = "/dash/home";
@@ -18,7 +19,8 @@ const ROOT_ROUTES: Routes = [
   {
     path: "dash",
     loadChildren: "./+dash/Dash.module#DashModule",
-    canActivate: [AuthenticatedGuard],
+    canActivate: [AuthenticatedGuard, DirtyFormGuard],
+    canActivateChild: [DirtyFormGuard],
     data: {breadCrumbName: "Dash"}
   },
   {
@@ -39,8 +41,8 @@ const ROOT_ROUTES: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(ROOT_ROUTES),
-    BrowserAnimationsModule,
-    SharedModule
+    SharedModule.forRoot(),
+    BrowserAnimationsModule
   ],
   bootstrap: [MainComponent]
 })
