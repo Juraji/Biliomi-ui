@@ -48,10 +48,10 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   public initSettingsFields() {
-    this.enabledControl.setValue(this._announcementSettingsClient.Enabled);
-    this.shuffleControl.setValue(this._announcementSettingsClient.Shuffle);
-    this.runIntervalControl.setValue(this._announcementSettingsClient.RunInterval);
-    this.minChatMessagesControl.setValue(this._announcementSettingsClient.MinChatMessages);
+    this.enabledControl.reset(this._announcementSettingsClient.Enabled);
+    this.shuffleControl.reset(this._announcementSettingsClient.Shuffle);
+    this.runIntervalControl.reset(this._announcementSettingsClient.RunInterval);
+    this.minChatMessagesControl.reset(this._announcementSettingsClient.MinChatMessages);
   }
 
   public saveSettings() {

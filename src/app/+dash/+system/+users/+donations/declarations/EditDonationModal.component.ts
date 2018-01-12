@@ -63,9 +63,9 @@ export class EditDonationModalComponent implements AfterViewInit {
       this.editedDonation.Note = "";
     }
 
-    this.donationControl.setValue(this.editedDonation.Donation);
-    this.dateControl.setValue(this.editedDonation.Date);
-    this.noteControl.setValue(this.editedDonation.Note);
+    this.donationControl.reset(this.editedDonation.Donation);
+    this.dateControl.reset(this.editedDonation.Date);
+    this.noteControl.reset(this.editedDonation.Note);
     this.userControl.user = this.editedDonation.User;
   }
 

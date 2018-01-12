@@ -44,7 +44,7 @@ export class CommunitiesComponent implements AfterViewInit {
   }
 
   public initFields() {
-    this.autoUpdateCommunitiesControl.setValue(this._communitiesSettingsClient.AutoUpdateCommunities);
+    this.autoUpdateCommunitiesControl.reset(this._communitiesSettingsClient.AutoUpdateCommunities);
     this.communities = this._communitiesSettingsClient.DefaultCommunities.slice();
   }
 

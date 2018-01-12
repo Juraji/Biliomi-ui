@@ -41,8 +41,8 @@ export class HostFormComponent {
 
       let response: IHostRecord = await this._hostRecordsClient.post(record);
       if (response != null) {
-        this.recordAutoHostControl.setValue(false);
-        this.recordDirectionControl.setValue(IDirection.INCOMING);
+        this.recordAutoHostControl.reset(false);
+        this.recordDirectionControl.reset(IDirection.INCOMING);
         this.recordUserControl.user = null;
         this.onRecordCreated.emit(response);
       }

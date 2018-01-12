@@ -64,12 +64,12 @@ export class AdventuresComponent implements OnInit {
 
   public async initSettingsFields() {
     await this._adventureSettingsClient.load(true);
-    this.joinTimeoutControl.setValue(this._adventureSettingsClient.JoinTimeout);
-    this.joinTimeoutControl.setValue(this._adventureSettingsClient.JoinTimeout);
-    this.minimumBetControl.setValue(this._adventureSettingsClient.MinimumBet);
-    this.maximumBetControl.setValue(this._adventureSettingsClient.MaximumBet);
-    this.cooldownControl.setValue(this._adventureSettingsClient.Cooldown);
-    this.winMultiplierControl.setValue(this._adventureSettingsClient.WinMultiplier);
+    this.joinTimeoutControl.reset(this._adventureSettingsClient.JoinTimeout);
+    this.joinTimeoutControl.reset(this._adventureSettingsClient.JoinTimeout);
+    this.minimumBetControl.reset(this._adventureSettingsClient.MinimumBet);
+    this.maximumBetControl.reset(this._adventureSettingsClient.MaximumBet);
+    this.cooldownControl.reset(this._adventureSettingsClient.Cooldown);
+    this.winMultiplierControl.reset(this._adventureSettingsClient.WinMultiplier);
   }
 
   public async saveSettings() {

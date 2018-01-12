@@ -85,7 +85,7 @@ export class TableFilterQueryComponent<T> {
   }
 
   public clearInput() {
-    this.filterQueryControl.setValue("");
+    this.filterQueryControl.reset("");
 
     let ds = this.dataSource;
     if (ds != null) {

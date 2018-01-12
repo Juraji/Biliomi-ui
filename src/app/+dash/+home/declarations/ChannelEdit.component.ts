@@ -38,8 +38,8 @@ export class ChannelEditComponent implements OnInit {
 
     await this.channelInfoClient.load(true);
     await this.gamesClient.load(true, gamesSort);
-    this.channelGameControl.setValue(this.channelInfoClient.CurrentGame.Name);
-    this.channelStatusControl.setValue(this.channelInfoClient.StatusWithoutTemplate);
+    this.channelGameControl.reset(this.channelInfoClient.CurrentGame.Name);
+    this.channelStatusControl.reset(this.channelInfoClient.StatusWithoutTemplate);
   }
 
   public async submitChannelEdit() {

@@ -22,7 +22,12 @@ export class UserGroupSelectorComponent implements OnInit {
   }
 
   public set userGroup(value: IUserGroup) {
-    this._userGroupControl.setValue(value);
+    if (value != null) {
+      this._userGroupsClient.load()
+        .then(() => this._userGroupControl.setValue(this._userGroupsClient.searchCacheById(value.Id)));
+    } else {
+      this._userGroupControl.reset(value);
+    }
   }
 
   @Input("required")

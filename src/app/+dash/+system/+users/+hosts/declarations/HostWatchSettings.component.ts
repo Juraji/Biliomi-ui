@@ -16,7 +16,7 @@ export class HostWatchSettingsComponent implements OnInit {
 
   public async ngOnInit() {
     await this._hostWatchSettingsClient.load(true);
-    this.hostRewardControl.setValue(this._hostWatchSettingsClient.Reward);
+    this.hostRewardControl.reset(this._hostWatchSettingsClient.Reward);
   }
 
   public get isFormOk(): boolean {

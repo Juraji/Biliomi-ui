@@ -63,10 +63,10 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
       this.editedCommand.Aliasses = [];
     }
 
-    this.commandCommandControl.setValue(this.editedCommand.Command);
-    this.commandMessageControl.setValue(this.editedCommand.Message);
-    this.commandCooldownControl.setValue(this.editedCommand.Cooldown);
-    this.commandPriceControl.setValue(this.editedCommand.Price);
+    this.commandCommandControl.reset(this.editedCommand.Command);
+    this.commandMessageControl.reset(this.editedCommand.Message);
+    this.commandCooldownControl.reset(this.editedCommand.Cooldown);
+    this.commandPriceControl.reset(this.editedCommand.Price);
     this.userGroup = this.editedCommand.UserGroup;
     this.commandAliases = this.editedCommand.Aliasses;
   }

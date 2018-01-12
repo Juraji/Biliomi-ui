@@ -51,7 +51,7 @@ export class AchievementsComponent implements OnInit {
   }
 
   public initSettingsFields() {
-    this.achievementsEnabledControl.setValue(this._achievementSettingsClient.AchievementsEnabled);
+    this.achievementsEnabledControl.reset(this._achievementSettingsClient.AchievementsEnabled);
   }
 
   public async saveSettings() {

@@ -23,9 +23,9 @@ export class SubscribersComponent implements OnInit {
 
   public async initSettingsFields() {
     await this._subscriberWatchSettingsClient.load(true);
-    this.subscriberRewardTier1Control.setValue(this._subscriberWatchSettingsClient.RewardTier1);
-    this.subscriberRewardTier2Control.setValue(this._subscriberWatchSettingsClient.RewardTier2);
-    this.subscriberRewardTier3Control.setValue(this._subscriberWatchSettingsClient.RewardTier3);
+    this.subscriberRewardTier1Control.reset(this._subscriberWatchSettingsClient.RewardTier1);
+    this.subscriberRewardTier2Control.reset(this._subscriberWatchSettingsClient.RewardTier2);
+    this.subscriberRewardTier3Control.reset(this._subscriberWatchSettingsClient.RewardTier3);
   }
 
   public get isSettingsFormOk(): boolean {

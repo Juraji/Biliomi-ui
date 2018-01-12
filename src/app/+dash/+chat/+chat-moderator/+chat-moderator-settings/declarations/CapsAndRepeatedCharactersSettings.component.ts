@@ -23,12 +23,12 @@ export class CapsAndRepeatedCharactersSettingsComponent implements OnInit {
   public async ngOnInit() {
     await this._chatModeratorSettingsClient.load(true);
 
-    this.excessiveCapsAllowedControl.setValue(this._chatModeratorSettingsClient.ExcessiveCapsAllowed);
-    this.capsTriggerControl.setValue(this._chatModeratorSettingsClient.CapsTrigger);
-    this.capsTriggerRatioControl.setValue(this._chatModeratorSettingsClient.CapsTriggerRatio * 100);
+    this.excessiveCapsAllowedControl.reset(this._chatModeratorSettingsClient.ExcessiveCapsAllowed);
+    this.capsTriggerControl.reset(this._chatModeratorSettingsClient.CapsTrigger);
+    this.capsTriggerRatioControl.reset(this._chatModeratorSettingsClient.CapsTriggerRatio * 100);
 
-    this.repeatedCharactersAllowedControl.setValue(this._chatModeratorSettingsClient.RepeatedCharactersAllowed);
-    this.repeatedCharacterTriggerControl.setValue(this._chatModeratorSettingsClient.RepeatedCharacterTrigger);
+    this.repeatedCharactersAllowedControl.reset(this._chatModeratorSettingsClient.RepeatedCharactersAllowed);
+    this.repeatedCharacterTriggerControl.reset(this._chatModeratorSettingsClient.RepeatedCharacterTrigger);
   }
 
   public get isFormOk(): boolean {

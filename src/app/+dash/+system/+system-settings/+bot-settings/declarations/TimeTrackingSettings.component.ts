@@ -18,8 +18,8 @@ export class TimeTrackingSettingsComponent implements OnInit {
 
   public async ngOnInit() {
     await this._timeTrackingSettingsClient.load(true);
-    this.trackOnlineTimeControl.setValue(this._timeTrackingSettingsClient.TrackOnline);
-    this.trackOfflineTimeControl.setValue(this._timeTrackingSettingsClient.TrackOffline);
+    this.trackOnlineTimeControl.reset(this._timeTrackingSettingsClient.TrackOnline);
+    this.trackOfflineTimeControl.reset(this._timeTrackingSettingsClient.TrackOffline);
   }
 
   private save() {

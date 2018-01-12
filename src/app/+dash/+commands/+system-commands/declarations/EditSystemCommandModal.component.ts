@@ -39,9 +39,9 @@ export class EditSystemCommandModalComponent implements AfterViewInit {
   }
 
   public initFields() {
-    this.commandCooldownControl.setValue(this.editedCommand.Cooldown);
-    this.commandPriceControl.setValue(this.editedCommand.Price);
-    this.moderatorCanAlwaysActivateControl.setValue(this.editedCommand.ModeratorCanAlwaysActivate);
+    this.commandCooldownControl.reset(this.editedCommand.Cooldown);
+    this.commandPriceControl.reset(this.editedCommand.Price);
+    this.moderatorCanAlwaysActivateControl.reset(this.editedCommand.ModeratorCanAlwaysActivate);
     this.userGroup = this.editedCommand.UserGroup;
     this.commandAliasses.length = 0;
     this.commandAliasses.push(...this.editedCommand.Aliasses);

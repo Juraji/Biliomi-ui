@@ -53,9 +53,9 @@ export class EditGameModalComponent implements AfterViewInit {
   }
 
   public initFields() {
-    this.gameNameControl.setValue(this.editedGame.Name);
-    this.firstPlayedOnControl.setValue(this.editedGame.FirstPlayedOn);
-    this.steamIdControl.setValue(this.editedGame.SteamId);
+    this.gameNameControl.reset(this.editedGame.Name);
+    this.firstPlayedOnControl.reset(this.editedGame.FirstPlayedOn);
+    this.steamIdControl.reset(this.editedGame.SteamId);
     this.communities = this.editedGame.Communities.slice();
   }
 

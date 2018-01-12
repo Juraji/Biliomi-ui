@@ -18,8 +18,8 @@ export class ChatSettingsComponent implements OnInit {
 
   public async ngOnInit() {
     await this._systemSettingsClient.load(true);
-    this.enableWhispersControl.setValue(this._systemSettingsClient.EnableWhispers);
-    this.muteBiliomiControl.setValue(this._systemSettingsClient.Muted);
+    this.enableWhispersControl.reset(this._systemSettingsClient.EnableWhispers);
+    this.muteBiliomiControl.reset(this._systemSettingsClient.Muted);
   }
 
   private save() {

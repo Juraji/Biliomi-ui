@@ -50,7 +50,7 @@ export class EditAnnouncementModalComponent implements OnInit {
       this.editedAnnouncement.Message = "";
     }
 
-    this.messageControl.setValue(this.editedAnnouncement.Message);
+    this.messageControl.reset(this.editedAnnouncement.Message);
   }
 
   public async save() {

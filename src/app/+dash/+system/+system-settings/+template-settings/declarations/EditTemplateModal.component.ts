@@ -38,7 +38,7 @@ export class EditTemplateModalComponent implements AfterViewInit {
   }
 
   public initFields() {
-    this.templateControl.setValue(this.editedTemplate.Template);
+    this.templateControl.reset(this.editedTemplate.Template);
   }
 
   // When pressing ALT+[1-9] the corresponding replacement key for this template is inserted at the caret or selection
@@ -56,7 +56,7 @@ export class EditTemplateModalComponent implements AfterViewInit {
         let selectionEnd = element.selectionEnd;
         let beforeSelection: string = element.value.substring(0, selectionStart).trim();
         let afterSelection: string = element.value.substring(selectionEnd, element.value.length).trim();
-        this.templateControl.setValue(beforeSelection + key + afterSelection);
+        this.templateControl.reset(beforeSelection + key + afterSelection);
         element.selectionStart = selectionStart + key.length;
         element.selectionEnd = selectionStart + key.length;
       }

@@ -19,8 +19,8 @@ export class LinkModerationSettingsComponent implements AfterViewInit {
 
   public async ngAfterViewInit() {
     await this._chatModeratorSettingsClient.load(true);
-    this.linksAllowedControl.setValue(this._chatModeratorSettingsClient.LinksAllowed);
-    this.linkPermitExpireTimeControl.setValue(this._chatModeratorSettingsClient.LinkPermitExpireTime);
+    this.linksAllowedControl.reset(this._chatModeratorSettingsClient.LinksAllowed);
+    this.linkPermitExpireTimeControl.reset(this._chatModeratorSettingsClient.LinkPermitExpireTime);
     this.linkWhitelist = this._chatModeratorSettingsClient.LinkWhitelist;
   }
 

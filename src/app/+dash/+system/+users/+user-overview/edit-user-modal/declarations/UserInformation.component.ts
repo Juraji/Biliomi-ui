@@ -51,18 +51,18 @@ export class UserInformationComponent implements AfterViewInit, AfterViewChecked
 
   public initFields() {
     this.editedUser = this._parentModal.editedUser;
-    this.userTitleControl.setValue(this.editedUser.Title);
-    this.userPointsControl.setValue(this.editedUser.Points);
-    this.userRecordedTimeControl.setValue(this.editedUser.RecordedTime);
-    this.userIsBlacklistedControl.setValue(this.editedUser.BlacklistedSince != null);
+    this.userTitleControl.reset(this.editedUser.Title);
+    this.userPointsControl.reset(this.editedUser.Points);
+    this.userRecordedTimeControl.reset(this.editedUser.RecordedTime);
+    this.userIsBlacklistedControl.reset(this.editedUser.BlacklistedSince != null);
     this.userGroup = this.editedUser.UserGroup;
 
     if (this.editedUser.Follower) {
-      this.userFollowDateControl.setValue(this.editedUser.FollowDate);
+      this.userFollowDateControl.reset(this.editedUser.FollowDate);
     }
 
     if (this.editedUser.Subscriber) {
-      this.userSubscribeDateControl.setValue(this.editedUser.SubscribeDate);
+      this.userSubscribeDateControl.reset(this.editedUser.SubscribeDate);
     }
   }
 

@@ -30,9 +30,7 @@ export class UserAutoCompleteComponent implements OnInit {
         .pop();
       this.usernameControl.setValue(user.DisplayName);
     } else {
-      this._selectedUser = null;
-      this.usernameControl.setValue("");
-      this.usernameControl.setErrors(null);
+      this.usernameControl.reset(user);
     }
   }
 

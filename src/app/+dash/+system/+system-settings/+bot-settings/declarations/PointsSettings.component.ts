@@ -24,14 +24,14 @@ export class PointsSettingsComponent implements OnInit {
 
   public async ngOnInit() {
     await this._pointsSettingsClient.load(true);
-    this.pointsNameSingularControl.setValue(this._pointsSettingsClient.PointsNameSingular);
-    this.pointsNamePluralControl.setValue(this._pointsSettingsClient.PointsNamePlural);
-    this.trackOnlineControl.setValue(this._pointsSettingsClient.TrackOnline);
-    this.trackOfflineControl.setValue(this._pointsSettingsClient.TrackOffline);
-    this.onlinePayoutIntervalControl.setValue(this._pointsSettingsClient.OnlinePayoutInterval);
-    this.offlinePayoutIntervalControl.setValue(this._pointsSettingsClient.OfflinePayoutInterval);
-    this.onlinePayoutAmountControl.setValue(this._pointsSettingsClient.OnlinePayoutAmount);
-    this.offlinePayoutAmountControl.setValue(this._pointsSettingsClient.OfflinePayoutAmount);
+    this.pointsNameSingularControl.reset(this._pointsSettingsClient.PointsNameSingular);
+    this.pointsNamePluralControl.reset(this._pointsSettingsClient.PointsNamePlural);
+    this.trackOnlineControl.reset(this._pointsSettingsClient.TrackOnline);
+    this.trackOfflineControl.reset(this._pointsSettingsClient.TrackOffline);
+    this.onlinePayoutIntervalControl.reset(this._pointsSettingsClient.OnlinePayoutInterval);
+    this.offlinePayoutIntervalControl.reset(this._pointsSettingsClient.OfflinePayoutInterval);
+    this.onlinePayoutAmountControl.reset(this._pointsSettingsClient.OnlinePayoutAmount);
+    this.offlinePayoutAmountControl.reset(this._pointsSettingsClient.OfflinePayoutAmount);
   }
 
   private get isFormOk(): boolean {

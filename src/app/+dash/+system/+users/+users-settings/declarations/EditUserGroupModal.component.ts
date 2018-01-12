@@ -40,9 +40,9 @@ export class EditUserGroupModalComponent implements AfterViewInit {
   }
 
   public initFields() {
-    this.groupNameControl.setValue(this.editedGroup.Name);
-    this.weightControl.setValue(this.editedGroup.Weight);
-    this.levelUpHoursControl.setValue(this.editedGroup.LevelUpHours);
+    this.groupNameControl.reset(this.editedGroup.Name);
+    this.weightControl.reset(this.editedGroup.Weight);
+    this.levelUpHoursControl.reset(this.editedGroup.LevelUpHours);
   }
 
   public get isFormOk(): boolean {

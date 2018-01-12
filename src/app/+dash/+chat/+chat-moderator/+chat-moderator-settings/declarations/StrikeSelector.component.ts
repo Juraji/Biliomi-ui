@@ -19,7 +19,7 @@ export class StrikeSelectorComponent {
   }
 
   public set strike(value: IModerationAction) {
-    this.selectedStrikeControl.setValue(value);
+    this.selectedStrikeControl.reset(value);
   }
 
   @Input("placeholder")
