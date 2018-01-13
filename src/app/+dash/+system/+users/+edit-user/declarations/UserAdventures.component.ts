@@ -20,7 +20,7 @@ export class UserAdventuresComponent {
 
     if (editUserComponent) {
       this.dataSource.clientParams.set("filter", new FilterBuilder()
-        .add("user.username", IRestFilterOperator.EQUALS, editUserComponent.user.Username)
+        .add("adventurer.username", IRestFilterOperator.EQUALS, editUserComponent.user.Username)
         .toString());
     }
   }
