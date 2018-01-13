@@ -8,6 +8,6 @@ export class EditUserLinkPipe implements PipeTransform {
       return username;
     }
 
-    return "/dash/system/users/overview/" + username;
+    return "/dash/system/users/edit/" + username.toLowerCase();
   }
 }

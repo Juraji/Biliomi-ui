@@ -11,12 +11,12 @@ const ROUTES: Routes = [
       {
         path: "chat-moderator-settings",
         loadChildren: "./+chat-moderator-settings/ChatModeratorSettings.module#ChatModeratorSettingsModule",
-        data: {breadCrumbName: "Settings"}
+        data: {crumbName: "Settings"}
       },
       {
         path: "chat-moderator-records",
         loadChildren: "./+chat-moderator-records/ChatModeratorRecords.module#ChatModeratorRecordsModule",
-        data: {breadCrumbName: "Records"}
+        data: {crumbName: "Records"}
       }
     ]
   }

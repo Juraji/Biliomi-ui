@@ -9,3 +9,4 @@ import "rxjs/operators/takeUntil";
 import "rxjs/add/operator/filter";
 import "rxjs/add/operator/toPromise";
 import "rxjs/add/operator/merge";
+import "rxjs/add/operator/map";

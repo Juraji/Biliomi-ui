@@ -4,8 +4,8 @@ import {DataTableComponent, TABLE_SETUP_STORAGE_PREFIX} from "../DataTable.compo
 import {XlsxExporter} from "../../xlsx-export/classes/XlsxExporter";
 import {IXlsxExportConfig} from "../../xlsx-export/classes/interfaces/Xlsx";
 import {Storage} from "../../../storage/Storage";
-import {MatDialog} from "@angular/material";
 import {TableSetupModalComponent} from "./TableSetupModal.component";
+import {DialogsService} from "../../dialogs/services/Dialogs.service";
 
 @Component({
   selector: "table-actions-row",
@@ -14,7 +14,7 @@ import {TableSetupModalComponent} from "./TableSetupModal.component";
 })
 export class TableActionsRowComponent<T> {
   private _parentTable: DataTableComponent<T>;
-  private _dialog: MatDialog;
+  private _dialog: DialogsService;
 
   public get parentTableId(): string {
     return this._parentTable.tableId;
@@ -36,7 +36,7 @@ export class TableActionsRowComponent<T> {
     return this._parentTable.disableFilter;
   }
 
-  constructor(@Optional() table: DataTableComponent<T>, dialog: MatDialog) {
+  constructor(@Optional() table: DataTableComponent<T>, dialog: DialogsService) {
     this._parentTable = table || {} as DataTableComponent<T>;
     this._dialog = dialog;
   }

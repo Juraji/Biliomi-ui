@@ -7,9 +7,8 @@ import {NavAuthBarComponent} from "./declarations/NavAuthBar.component";
 import {NavRemoteManagementComponent} from "./declarations/NavRemoteManagement.component";
 import {ChatComponent} from "./declarations/Chat.component";
 import {PowerManagementDialogComponent} from "./declarations/PowerManagementDialog.component";
-import {BreadCrumbsComponent} from "./declarations/BreadCrumbs.component";
 import {PageLoadingBarComponent} from "./declarations/PageLoadingBar.component";
-import {VoiceCommandsModule} from "./voice-commands/VoiceCommands.module";
+import {VoiceCommandsModule} from "./modules/voice-commands/VoiceCommands.module";
 
 const ROUTES: Routes = [
   {
@@ -19,27 +18,27 @@ const ROUTES: Routes = [
       {
         path: "home",
         loadChildren: "./+home/Home.module#HomeModule",
-        data: {breadCrumbName: "Home"}
+        data: {crumbName: "Home"}
       },
       {
         path: "commands",
         loadChildren: "./+commands/Commands.module#CommandsModule",
-        data: {breadCrumbName: "Commands"}
+        data: {crumbName: "Commands"}
       },
       {
         path: "system",
         loadChildren: "./+system/System.module#SystemModule",
-        data: {breadCrumbName: "System"}
+        data: {crumbName: "System"}
       },
       {
         path: "chat",
         loadChildren: "./+chat/Chat.module#ChatModule",
-        data: {breadCrumbName: "Chat"}
+        data: {crumbName: "Chat"}
       },
       {
         path: "games",
         loadChildren: "./+games/Games.module#GamesModule",
-        data: {breadCrumbName: "Games"}
+        data: {crumbName: "Games"}
       }
     ]
   }
@@ -57,7 +56,6 @@ const ROUTES: Routes = [
     NavAuthBarComponent,
     NavRemoteManagementComponent,
     PowerManagementDialogComponent,
-    BreadCrumbsComponent,
     PageLoadingBarComponent,
     ChatComponent
   ],

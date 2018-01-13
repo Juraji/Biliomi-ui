@@ -5,18 +5,15 @@ data-table(tableId="users-overview", [dataSource]="dataSource", [exportConfig]="
 
   ng-container(columnDef="Group")
     header-cell(*headerCellDef="", sortProperty="UserGroup.Name") Group
-    data-cell(*dataCellDef="let user")
-      | {{user.UserGroup.Name}}
+    data-cell(*dataCellDef="let user") {{user.UserGroup.Name}}
 
   ng-container(columnDef="Recorded Time")
     header-cell(*headerCellDef="", sortProperty="RecordedTime") Recorded time
-    data-cell(*dataCellDef="let user")
-      | {{user.RecordedTime | time:false:true}}
+    data-cell(*dataCellDef="let user") {{user.RecordedTime | time:false:true}}
 
   ng-container(columnDef="Points")
     header-cell(*headerCellDef="", sortProperty="Points") Points
-    data-cell(*dataCellDef="let user")
-      | {{user.Points | points | async}}
+    data-cell(*dataCellDef="let user") {{user.Points | points | async}}
 
   ng-container(columnDef="Follower")
     header-cell(*headerCellDef="", sortProperty="Follower") Follows
@@ -30,11 +27,10 @@ data-table(tableId="users-overview", [dataSource]="dataSource", [exportConfig]="
 
   ng-container(columnDef="Title")
     header-cell(*headerCellDef="", sortProperty="Title") Title
-    data-cell(*dataCellDef="let user")
-      | {{user.Title}}
+    data-cell(*dataCellDef="let user") {{user.Title}}
 
   ng-container(columnDef="#Edit", [buttonsColumn]="1")
     header-cell(*headerCellDef="")
     data-cell(*dataCellDef="let user")
-      a.mat-icon-button.pull-right(mat-button, (click)="editUser(user)", matTooltip="Edit user")
+      a.mat-icon-button.pull-right(mat-button, routerLink="/dash/system/users/edit/{{user.Username}}", matTooltip="Edit user")
         mat-icon edit

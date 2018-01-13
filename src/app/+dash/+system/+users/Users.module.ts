@@ -11,22 +11,27 @@ const ROUTES: Routes = [
       {
         path: "overview",
         loadChildren: "./+user-overview/UserOverview.module#UserOverviewModule",
-        data: {breadCrumbName: "Overview"}
+        data: {crumbName: "Overview"}
+      },
+      {
+        path: "edit",
+        loadChildren: "./+edit-user/EditUser.module#EditUserModule",
+        data: {crumbName: "Edit User", hideFromMenu: true}
       },
       {
         path: "users-settings",
         loadChildren: "./+users-settings/UsersSettings.module#UsersSettingsModule",
-        data: {breadCrumbName: "Settings"}
+        data: {crumbName: "Settings"}
       },
       {
         path: "hosts",
         loadChildren: "./+hosts/Hosts.module#HostsModule",
-        data: {breadCrumbName: "Hosts"}
+        data: {crumbName: "Hosts"}
       },
       {
         path: "donations",
         loadChildren: "./+donations/Donations.module#DonationsModule",
-        data: {breadCrumbName: "Donations"}
+        data: {crumbName: "Donations"}
       }
     ]
   }

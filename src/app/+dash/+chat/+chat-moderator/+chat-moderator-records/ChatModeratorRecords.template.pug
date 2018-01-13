@@ -14,12 +14,12 @@ data-table(tableId="chatmoderator-records", [dataSource]="recordsDataSource", [e
   ng-container(columnDef="Action")
     header-cell(*headerCellDef="", sortProperty="Action") Action
     data-cell(*dataCellDef="let record")
-      | {{record.Action | caseToWord:"SCREAMING_SNAKE_CASE"}}
+      | {{record.Action | caseToWord:"ENUM"}}
 
   ng-container(columnDef="Reason")
     header-cell(*headerCellDef="", sortProperty="Reason") Reason
     data-cell(*dataCellDef="let record")
-      | {{record.Reason| caseToWord:"SCREAMING_SNAKE_CASE"}}
+      | {{record.Reason| caseToWord:"ENUM"}}
 
   ng-container(columnDef="Message")
     header-cell(*headerCellDef="", sortProperty="Message") Message

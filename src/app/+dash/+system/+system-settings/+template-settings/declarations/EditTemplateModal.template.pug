@@ -1,5 +1,5 @@
 form(#templateEditForm="", (submit)="save()")
-  h2(matDialogTitle) Editing template: {{editedTemplate?.TemplateKey | caseToWord:"TITLE_CASE"}}
+  h2(matDialogTitle) Editing template: {{editedTemplate?.TemplateKey | caseToWord:"TITLE"}}
 
   mat-dialog-content
     p {{editedTemplate?.Description}}

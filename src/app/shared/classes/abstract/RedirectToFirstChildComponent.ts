@@ -11,7 +11,7 @@ export abstract class RedirectToFirstChildComponent implements OnInit, OnDestroy
 
   constructor(componentUrl: string, router: Router, activatedRoute: ActivatedRoute) {
     this._componentUrl = componentUrl;
-    this.childRoutes = activatedRoute.routeConfig.children;
+    this.childRoutes = activatedRoute.routeConfig.children.filter((child: Route) => !child.data.hideFromMenu);
     this._redirector = new RouterRedirector(router, this._componentUrl, this._componentUrl + "/" + this.childRoutes[0].path);
   }
 

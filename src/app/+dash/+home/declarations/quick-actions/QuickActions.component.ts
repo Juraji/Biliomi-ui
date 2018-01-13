@@ -2,10 +2,11 @@ import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {BiliomiApiService} from "../../../../shared/modules/biliomi/services/BiliomiApi.service";
 import {Storage} from "../../../../shared/storage/Storage";
-import {MatDialog, MatDialogRef} from "@angular/material";
+import {MatDialogRef} from "@angular/material";
 import {AddQuickActionModalComponent} from "./declarations/AddQuickActionModal.component";
 import {QuickAction} from "./classes/interfaces/QuickAction";
 import {QuickActionType} from "./classes/interfaces/QuickAction.enum";
+import {DialogsService} from "../../../../shared/modules/dialogs/services/Dialogs.service";
 
 export const QUICK_ACTIONS_STORAGE_KEY: string = "quickActions";
 
@@ -17,10 +18,10 @@ export const QUICK_ACTIONS_STORAGE_KEY: string = "quickActions";
 export class QuickActionsComponent {
   private _api: BiliomiApiService;
   private _router: Router;
-  private _dialog: MatDialog;
+  private _dialog: DialogsService;
   public quickActions: QuickAction[] = [];
 
-  constructor(api: BiliomiApiService, router: Router, dialog: MatDialog) {
+  constructor(api: BiliomiApiService, router: Router, dialog: DialogsService) {
     this._api = api;
     this._router = router;
     this._dialog = dialog;

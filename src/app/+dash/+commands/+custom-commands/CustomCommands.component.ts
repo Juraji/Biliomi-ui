@@ -1,5 +1,4 @@
 import {Component, OnInit} from "@angular/core";
-import {MatDialog} from "@angular/material";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CustomCommandsClient} from "../../../shared/modules/biliomi/clients/model/CustomCommands.client";
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
@@ -11,6 +10,7 @@ import {
   XLSX_FORMATTER_RELATIVE_TIME
 } from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
+import {DialogsService} from "../../../shared/modules/dialogs/services/Dialogs.service";
 import ICustomCommand = Biliomi.ICustomCommand;
 
 @Component({
@@ -18,7 +18,7 @@ import ICustomCommand = Biliomi.ICustomCommand;
   templateUrl: require("./CustomCommands.template.pug")
 })
 export class CustomCommandsComponent implements OnInit {
-  private _dialog: MatDialog;
+  private _dialog: DialogsService;
   private dataSource: RestTableDataSource<ICustomCommand> = new RestTableDataSource<ICustomCommand>();
 
   public exportConfig: IXlsxExportConfig = {
@@ -40,7 +40,7 @@ export class CustomCommandsComponent implements OnInit {
     "group": "Usergroup.Name"
   };
 
-  constructor(customCommandsClient: CustomCommandsClient, dialog: MatDialog) {
+  constructor(customCommandsClient: CustomCommandsClient, dialog: DialogsService) {
     this._dialog = dialog;
     this.dataSource.client = customCommandsClient;
   }
@@ -50,13 +50,13 @@ export class CustomCommandsComponent implements OnInit {
   }
 
   // noinspection JSMethodCanBeStatic
-  private commandHasArgs(command: ICustomCommand): boolean {
+  public commandHasArgs(command: ICustomCommand): boolean {
     return Object.keys(ARG_COMMAND_REPLACEMENTS)
       .filter((repl: string) => command.Message.indexOf(repl) > -1)
       .length > 0;
   }
 
-  private editCommand(command: ICustomCommand) {
+  public editCommand(command: ICustomCommand) {
     let dialogRef = this._dialog.open(EditCustomCommandModalComponent, {
       width: "600px",
       data: (command ? command.Id : null)

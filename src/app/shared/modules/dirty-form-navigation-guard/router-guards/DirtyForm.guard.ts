@@ -1,14 +1,14 @@
 import {Injectable} from "@angular/core";
 import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot} from "@angular/router";
-import {ConfirmDialogService} from "../../confirm-dialog/services/ConfirmDialog.service";
+import {DialogsService} from "../../dialogs/services/Dialogs.service";
 import {FormControlRegisterService} from "../services/FormControlRegister.service";
 
 @Injectable()
 export class DirtyFormGuard implements CanActivate, CanActivateChild {
   private _formControlRegisterService: FormControlRegisterService;
-  private _confirmDialogService: ConfirmDialogService;
+  private _confirmDialogService: DialogsService;
 
-  constructor(formControlRegisterService: FormControlRegisterService, confirmDialogService: ConfirmDialogService) {
+  constructor(formControlRegisterService: FormControlRegisterService, confirmDialogService: DialogsService) {
     this._formControlRegisterService = formControlRegisterService;
     this._confirmDialogService = confirmDialogService;
   }

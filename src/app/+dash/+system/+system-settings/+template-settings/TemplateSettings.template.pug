@@ -4,7 +4,7 @@ data-table(tableId="templates", [dataSource]="dataSource", [exportConfig]="expor
   ng-container(columnDef="TemplateKey")
     header-cell(*headerCellDef="", sortProperty="TemplateKey", [sortDefault]="'ASC'") Key
     data-cell(*dataCellDef="let template")
-      | {{template.TemplateKey | caseToWord:"TITLE_CASE"}}
+      | {{template.TemplateKey | caseToWord:"TITLE"}}
 
   ng-container(columnDef="Template")
     header-cell(*headerCellDef="") Template

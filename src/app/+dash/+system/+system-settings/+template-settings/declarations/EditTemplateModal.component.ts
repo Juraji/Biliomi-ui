@@ -71,7 +71,7 @@ export class EditTemplateModalComponent implements AfterViewInit {
 
     persistedTemplate = await this._templatesClient.put(this._templateId, template);
     if (persistedTemplate == null) {
-      let templateTitle = new CaseToWordPipe().transform(this.editedTemplate.TemplateKey, CaseType.TITLE_CASE);
+      let templateTitle = new CaseToWordPipe().transform(this.editedTemplate.TemplateKey, CaseType.TITLE);
       this._matSnackBar.open("Could not save template " + templateTitle + ", check your input.", "Ok");
     } else {
       this._dialogRef.close(true);

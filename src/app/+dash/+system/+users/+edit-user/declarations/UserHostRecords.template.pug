@@ -1,0 +1,17 @@
+data-table([dataSource]="dataSource", [disableFilter]="true")
+  ng-template(customTableActions)
+    button(mat-icon-button, (click)="hostUser()", matTooltip="Host now")
+      mat-icon queue_play_next
+
+  ng-container(columnDef="Direction")
+    header-cell(*headerCellDef="", sortProperty="Direction") Direction
+    data-cell(*dataCellDef="let record") {{record.Direction | caseToWord:"ENUM"}}
+
+  ng-container(columnDef="Date")
+    header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
+    data-cell(*dataCellDef="let record") {{record.Date | date}}
+
+  ng-container(columnDef="AutoHost")
+    header-cell(*headerCellDef="", sortProperty="AutoHost") Auto host
+    data-cell(*dataCellDef="let record")
+      mat-icon(*ngIf="record.AutoHost", color="primary") done

@@ -1,7 +1,7 @@
 import {Component} from "@angular/core";
 import {BiliomiEventsService} from "../../shared/modules/biliomi/services/BiliomiEvents.service";
-import {MatDialog} from "@angular/material";
 import {PowerManagementDialogComponent} from "./PowerManagementDialog.component";
+import {DialogsService} from "../../shared/modules/dialogs/services/Dialogs.service";
 
 @Component({
   selector: "nav-remote-management-component",
@@ -9,10 +9,10 @@ import {PowerManagementDialogComponent} from "./PowerManagementDialog.component"
   styleUrls: [require("./NavRemoteManagement.less").toString()]
 })
 export class NavRemoteManagementComponent {
-  private _dialog: MatDialog;
+  private _dialog: DialogsService;
   public eventsService: BiliomiEventsService;
 
-  constructor(eventsService: BiliomiEventsService, dialog: MatDialog) {
+  constructor(eventsService: BiliomiEventsService, dialog: DialogsService) {
     this.eventsService = eventsService;
     this._dialog = dialog;
   }

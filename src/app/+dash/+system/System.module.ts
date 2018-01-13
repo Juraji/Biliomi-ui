@@ -11,17 +11,17 @@ const ROUTES: Routes = [
   {
     path: "users",
     loadChildren: "./+users/Users.module#UsersModule",
-    data: {breadCrumbName: "Users"}
+    data: {crumbName: "Users"}
   },
   {
     path: "system-settings",
     loadChildren: "./+system-settings/SystemSettings.module#SystemSettingsModule",
-    data: {breadCrumbName: "System Settings"}
+    data: {crumbName: "System Settings"}
   },
   {
     path: "game-register",
     loadChildren: "./+game-register/GameRegister.module#GameRegisterModule",
-    data: {breadCrumbName: "Games"}
+    data: {crumbName: "Games"}
   }
 ];
 

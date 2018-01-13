@@ -1,10 +1,10 @@
 import {Pipe, PipeTransform} from "@angular/core";
 
 export enum CaseType {
-  TITLE_CASE = "TITLE_CASE",
-  CAMEL_CASE = "CAMEL_CASE",
-  SNAKE_CASE = "SNAKE_CASE",
-  SCREAMING_SNAKE_CASE = "SCREAMING_SNAKE_CASE"
+  TITLE = "TITLE",
+  CAMEL = "CAMEL",
+  SNAKE = "SNAKE",
+  ENUM = "ENUM"
 }
 
 @Pipe({name: "caseToWord"})
@@ -19,11 +19,11 @@ export class CaseToWordPipe implements PipeTransform {
     }
 
     switch (caseType) {
-      case CaseType.TITLE_CASE:
-      case CaseType.CAMEL_CASE:
+      case CaseType.TITLE:
+      case CaseType.CAMEL:
         return CaseToWordPipe._doTransform(value, upperCaseFirst, /([a-zA-Z])(?=[A-Z][a-z])/g, "$1 ");
-      case CaseType.SNAKE_CASE:
-      case CaseType.SCREAMING_SNAKE_CASE:
+      case CaseType.SNAKE:
+      case CaseType.ENUM:
         return CaseToWordPipe._doTransform(value, upperCaseFirst, /_/g, " ");
       default:
         throw new Error("Unknown case type");

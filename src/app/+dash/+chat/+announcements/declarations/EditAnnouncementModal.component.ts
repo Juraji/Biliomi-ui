@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
 import {AnnouncementsClient} from "../../../../shared/modules/biliomi/clients/model/Announcements.client";
-import {ConfirmDialogService} from "../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
+import {DialogsService} from "../../../../shared/modules/dialogs/services/Dialogs.service";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {FormControl, Validators} from "@angular/forms";
 import IAnnouncement = Biliomi.IAnnouncement;
@@ -15,7 +15,7 @@ export class EditAnnouncementModalComponent implements OnInit {
   private _announcementsClient: AnnouncementsClient;
   private _dialogRef: MatDialogRef<EditAnnouncementModalComponent>;
   private _matSnackBar: MatSnackBar;
-  private _dialog: ConfirmDialogService;
+  private _dialog: DialogsService;
 
   public editedAnnouncement: IAnnouncement;
   public messageControl: FormControl = new FormControl("", [Validators.required]);
@@ -28,7 +28,7 @@ export class EditAnnouncementModalComponent implements OnInit {
               announcementsClient: AnnouncementsClient,
               dialogRef: MatDialogRef<EditAnnouncementModalComponent>,
               matSnackBar: MatSnackBar,
-              dialog: ConfirmDialogService) {
+              dialog: DialogsService) {
     this._announcementId = announcementId;
     this._announcementsClient = announcementsClient;
     this._dialogRef = dialogRef;

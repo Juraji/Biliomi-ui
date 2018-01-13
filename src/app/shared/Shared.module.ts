@@ -22,12 +22,13 @@ import {NumberArrayPipe} from "./pipes/NumberArray.pipe";
 import {BooleanPipe} from "./pipes/Boolean.pipe";
 import {ObjectSortPipe} from "./pipes/ObjectSort.pipe";
 import {DataTableModule} from "./modules/data-table/DataTable.module";
-import {ConfirmDialogModule} from "./modules/confirm-dialog/ConfirmDialog.module";
+import {DialogsModule} from "./modules/dialogs/Dialogs.module";
 import {SaveButtonComponent} from "./components/SaveButton.component";
 import {UserGroupSelectorComponent} from "./components/UserGroupSelector.component";
 import {ChipListInputComponent} from "./components/ChipListInput.component";
 import {CommunityChipListComponent} from "./components/CommunityChipList.component";
 import {DirtyFormNavigationGuardModule} from "./modules/dirty-form-navigation-guard/DirtyFormNavigationGuard.module";
+import {BreadCrumbsModule} from "./modules/breadcrumbs/BreadCrumbs.module";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -64,7 +65,8 @@ const SHARED_PROVIDERS: Provider[] = [
 
   // Childmodule providers, these implement forRoot for portability
   ...BiliomiModule.forRoot().providers,
-  ...DirtyFormNavigationGuardModule.forRoot().providers
+  ...DirtyFormNavigationGuardModule.forRoot().providers,
+  ...BreadCrumbsModule.forRoot().providers
 ];
 
 const SHARED_MODULES: Type<any>[] = [
@@ -76,7 +78,8 @@ const SHARED_MODULES: Type<any>[] = [
   NgMaterialModule,
   BiliomiModule,
   DataTableModule,
-  ConfirmDialogModule,
+  DialogsModule,
+  BreadCrumbsModule,
   DirtyFormNavigationGuardModule
 ];
 

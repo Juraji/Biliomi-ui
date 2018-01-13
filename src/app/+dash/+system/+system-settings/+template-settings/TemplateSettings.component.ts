@@ -10,6 +10,7 @@ import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
 import {XLSX_FORMATTER_DICTIONARY_KEY_VALUE_PAIR} from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
 import ITemplate = Biliomi.ITemplate;
+import {DialogsService} from "../../../../shared/modules/dialogs/services/Dialogs.service";
 
 @Component({
   selector: "template-settings-component",
@@ -17,7 +18,7 @@ import ITemplate = Biliomi.ITemplate;
 })
 export class TemplateSettingsComponent implements OnInit {
   private _templatesClient: TemplatesClient;
-  private _dialog: MatDialog;
+  private _dialog: DialogsService;
   private _activatedRoute: ActivatedRoute;
   private _router: Router;
   private dataSource: RestTableDataSource<ITemplate> = new RestTableDataSource<ITemplate>();
@@ -42,7 +43,7 @@ export class TemplateSettingsComponent implements OnInit {
   };
 
   constructor(templatesClient: TemplatesClient,
-              dialog: MatDialog,
+              dialog: DialogsService,
               activatedRoute: ActivatedRoute,
               router: Router) {
     this._templatesClient = templatesClient;

@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
-import {MatDialog} from "@angular/material";
 import {CommandsClient} from "../../../shared/modules/biliomi/clients/model/Commands.client";
 import {EditSystemCommandModalComponent} from "./declarations/EditSystemCommandModal.component";
 import {
@@ -9,8 +8,9 @@ import {
   XLSX_FORMATTER_RELATIVE_TIME
 } from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
-import ICommand = Biliomi.ICommand;
 import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
+import {DialogsService} from "../../../shared/modules/dialogs/services/Dialogs.service";
+import ICommand = Biliomi.ICommand;
 
 @Component({
   // Since "default" is a pug keyword I chose to name the selector differently
@@ -18,7 +18,7 @@ import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes
   templateUrl: require("./SystemCommands.template.pug")
 })
 export class SystemCommandsComponent implements OnInit {
-  private _dialog: MatDialog;
+  private _dialog: DialogsService;
   private dataSource: RestTableDataSource<ICommand> = new RestTableDataSource<ICommand>();
 
   public exportConfig: IXlsxExportConfig = {
@@ -46,7 +46,7 @@ export class SystemCommandsComponent implements OnInit {
     "Group": "Usergroup.Name"
   };
 
-  constructor(commandsClient: CommandsClient, dialog: MatDialog) {
+  constructor(commandsClient: CommandsClient, dialog: DialogsService) {
     this._dialog = dialog;
     this.dataSource.client = commandsClient;
   }

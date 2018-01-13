@@ -11,12 +11,12 @@ const ROUTES: Routes = [
       {
         path: "custom-commands",
         loadChildren: "./+custom-commands/CustomCommands.module#CustomCommandsModule",
-        data: {breadCrumbName: "Custom Commands"}
+        data: {crumbName: "Custom Commands"}
       },
       {
         path: "system-commands",
         loadChildren: "./+system-commands/SystemCommands.module#SystemCommandsModule",
-        data: {breadCrumbName: "System Commands"}
+        data: {crumbName: "System Commands"}
       }
     ]
   }

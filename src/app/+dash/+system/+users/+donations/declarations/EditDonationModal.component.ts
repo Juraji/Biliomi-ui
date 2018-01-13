@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, Inject, ViewChild} from "@angular/core";
 import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
-import {ConfirmDialogService} from "../../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
+import {DialogsService} from "../../../../../shared/modules/dialogs/services/Dialogs.service";
 import {EditAnnouncementModalComponent} from "../../../../+chat/+announcements/declarations/EditAnnouncementModal.component";
 import {DonationsClient} from "../../../../../shared/modules/biliomi/clients/model/Donations.client";
 import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
@@ -19,7 +19,7 @@ export class EditDonationModalComponent implements AfterViewInit {
   private _donationsClient: DonationsClient;
   private _dialogRef: MatDialogRef<EditAnnouncementModalComponent>;
   private _matSnackBar: MatSnackBar;
-  private _dialog: ConfirmDialogService;
+  private _dialog: DialogsService;
 
   public editedDonation: IDonation;
   public donationControl: FormControl = new FormControl("", [Validators.required]);
@@ -39,7 +39,7 @@ export class EditDonationModalComponent implements AfterViewInit {
               donationsClient: DonationsClient,
               dialogRef: MatDialogRef<EditAnnouncementModalComponent>,
               matSnackBar: MatSnackBar,
-              dialog: ConfirmDialogService) {
+              dialog: DialogsService) {
     this._donationId = donationId;
     this._donationsClient = donationsClient;
     this._dialogRef = dialogRef;

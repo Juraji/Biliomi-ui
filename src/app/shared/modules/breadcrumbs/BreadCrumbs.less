@@ -1,0 +1,43 @@
+@import "../../../../style/toolkit/swatches";
+
+bread-crumbs {
+  .mat-toolbar {
+    height: 21px !important;
+  }
+
+  ul.crumb-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin: 0;
+      padding: 0 1em;
+      display: inline-block;
+      line-height: 36px;
+      text-align: center;
+
+      &:last-child a {
+        color: @primary-color;
+      }
+
+      &:not(:first-child):before {
+        margin: 0 0 0 -1.2em;
+        font-family: "Material Icons", serif;
+        content: "\e5cc";
+        color: rgba(255, 255, 255, 0.7);
+        vertical-align: top;
+        display: inline-block;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 26px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: currentColor;
+        text-decoration: none;
+      }
+    }
+  }
+}

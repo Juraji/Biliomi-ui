@@ -9,7 +9,7 @@ import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/
 import {BiliomiApiService} from "../../../../shared/modules/biliomi/services/BiliomiApi.service";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
-import {ConfirmDialogService} from "../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
+import {DialogsService} from "../../../../shared/modules/dialogs/services/Dialogs.service";
 import IHostRecord = Biliomi.IHostRecord;
 import IDirection = Biliomi.IDirection;
 
@@ -20,7 +20,7 @@ import IDirection = Biliomi.IDirection;
 export class HostsComponent {
   private _api: BiliomiApiService;
   private _hostRecordsClient: HostRecordsClient;
-  private _dialog: ConfirmDialogService;
+  private _dialog: DialogsService;
 
   public incomingRecordsDataSource: RestTableDataSource<IHostRecord> = new RestTableDataSource<IHostRecord>();
   public outgoingRecordsDataSource: RestTableDataSource<IHostRecord> = new RestTableDataSource<IHostRecord>();
@@ -40,7 +40,7 @@ export class HostsComponent {
     "username": "User.Username"
   };
 
-  constructor(api: BiliomiApiService, hostRecordsClient: HostRecordsClient, dialog: ConfirmDialogService) {
+  constructor(api: BiliomiApiService, hostRecordsClient: HostRecordsClient, dialog: DialogsService) {
     this._api = api;
     this._hostRecordsClient = hostRecordsClient;
     this._dialog = dialog;

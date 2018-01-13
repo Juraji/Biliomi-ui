@@ -2,9 +2,9 @@ import {Component, HostBinding, Optional} from "@angular/core";
 import {DataTableComponent} from "../DataTable.component";
 import {FormControl, Validators} from "@angular/forms";
 import {StringUtils} from "../../tools/StringUtils";
-import {MatDialog} from "@angular/material";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
 import {TableFilterNameMapping} from "../classes/interfaces/DataTable";
+import {DialogsService} from "../../dialogs/services/Dialogs.service";
 
 @Component({
   selector: "table-filter-query",
@@ -14,7 +14,7 @@ import {TableFilterNameMapping} from "../classes/interfaces/DataTable";
 export class TableFilterQueryComponent<T> {
   private _parentTable: DataTableComponent<T>;
   private _fieldFocus: boolean;
-  private _dialog: MatDialog;
+  private _dialog: DialogsService;
 
   public filterQueryControl: FormControl = new FormControl("", [Validators.pattern(/^([a-z. ]+\s+[!]?[=~<>]\s["]?[a-z0-9.\-_: ]+["]?(\s(and|or)\s)?)+$/i)]);
 
@@ -43,7 +43,7 @@ export class TableFilterQueryComponent<T> {
     }
   }
 
-  constructor(@Optional() table: DataTableComponent<T>, dialog: MatDialog) {
+  constructor(@Optional() table: DataTableComponent<T>, dialog: DialogsService) {
     this._parentTable = table;
     this._dialog = dialog;
   }

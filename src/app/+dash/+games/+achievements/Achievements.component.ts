@@ -7,7 +7,7 @@ import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/c
 import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
 import {FormControl} from "@angular/forms";
 import {AchievementSettingsClient} from "../../../shared/modules/biliomi/clients/settings/AchievementSettings.client";
-import {ConfirmDialogService} from "../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
+import {DialogsService} from "../../../shared/modules/dialogs/services/Dialogs.service";
 import IAchievementRecord = Biliomi.IAchievementRecord;
 
 @Component({
@@ -16,7 +16,7 @@ import IAchievementRecord = Biliomi.IAchievementRecord;
 })
 export class AchievementsComponent implements OnInit {
   private _achievementSettingsClient: AchievementSettingsClient;
-  private _dialog: ConfirmDialogService;
+  private _dialog: DialogsService;
 
   public achievementsEnabledControl: FormControl = new FormControl(true);
 
@@ -39,7 +39,7 @@ export class AchievementsComponent implements OnInit {
 
   constructor(achievementRecordsClient: AchievementRecordsClient,
               achievementSettingsClient: AchievementSettingsClient,
-              dialog: ConfirmDialogService) {
+              dialog: DialogsService) {
     this._achievementSettingsClient = achievementSettingsClient;
     this.achievementsDataSource.client = achievementRecordsClient;
     this._dialog = dialog;

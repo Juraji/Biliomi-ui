@@ -11,12 +11,12 @@ const ROUTES: Routes = [
   {
     path: "achievements",
     loadChildren: "./+achievements/Achievements.module#AchievementsModule",
-    data: {breadCrumbName: "Achievements"}
+    data: {crumbName: "Achievements"}
   },
   {
     path: "adventures",
     loadChildren: "./+adventures/Adventures.module#AdventuresModule",
-    data: {breadCrumbName: "Adventures"}
+    data: {crumbName: "Adventures"}
   }
 ];
 

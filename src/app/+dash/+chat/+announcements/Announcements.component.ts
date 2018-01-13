@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {AnnouncementsClient} from "../../../shared/modules/biliomi/clients/model/Announcements.client";
 import {AnnouncementSettingsClient} from "../../../shared/modules/biliomi/clients/settings/AnnouncementSettings.client";
-import {ConfirmDialogService} from "../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
+import {DialogsService} from "../../../shared/modules/dialogs/services/Dialogs.service";
 import {RestTableDataSource} from "../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
@@ -16,7 +16,7 @@ import IAnnouncement = Biliomi.IAnnouncement;
 })
 export class AnnouncementsComponent implements OnInit {
   private _announcementSettingsClient: AnnouncementSettingsClient;
-  private _dialog: ConfirmDialogService;
+  private _dialog: DialogsService;
 
   public announcementsDataSource: RestTableDataSource<IAnnouncement> = new RestTableDataSource<IAnnouncement>();
   public enabledControl: FormControl = new FormControl(false);
@@ -36,7 +36,7 @@ export class AnnouncementsComponent implements OnInit {
 
   constructor(announcementsClient: AnnouncementsClient,
               announcementSettingsClient: AnnouncementSettingsClient,
-              dialog: ConfirmDialogService) {
+              dialog: DialogsService) {
     this._announcementSettingsClient = announcementSettingsClient;
     this._dialog = dialog;
     this.announcementsDataSource.client = announcementsClient;

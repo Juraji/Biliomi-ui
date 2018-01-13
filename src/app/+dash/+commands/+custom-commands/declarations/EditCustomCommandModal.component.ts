@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {CustomCommandsClient} from "../../../../shared/modules/biliomi/clients/model/CustomCommands.client";
 import {FormControl, Validators} from "@angular/forms";
-import {ConfirmDialogService} from "../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
+import {DialogsService} from "../../../../shared/modules/dialogs/services/Dialogs.service";
 import ICustomCommand = Biliomi.ICustomCommand;
 import IUserGroup = Biliomi.IUserGroup;
 
@@ -16,7 +16,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
   private _customCommandsClient: CustomCommandsClient;
   private _commandId: number;
   private _matSnackBar: MatSnackBar;
-  private _dialog: ConfirmDialogService;
+  private _dialog: DialogsService;
 
   public editedCommand: ICustomCommand;
   public commandCommandControl: FormControl = new FormControl("", [Validators.required]);
@@ -37,7 +37,7 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
               customCommandsClient: CustomCommandsClient,
               dialogRef: MatDialogRef<EditCustomCommandModalComponent>,
               matSnackBar: MatSnackBar,
-              dialog: ConfirmDialogService) {
+              dialog: DialogsService) {
     this._customCommandsClient = customCommandsClient;
     this._dialogRef = dialogRef;
     this._commandId = commandId;

@@ -8,7 +8,7 @@ import {
 } from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
-import {ConfirmDialogService} from "../../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
+import {DialogsService} from "../../../../shared/modules/dialogs/services/Dialogs.service";
 import IModerationRecord = Biliomi.IModerationRecord;
 
 @Component({
@@ -16,7 +16,7 @@ import IModerationRecord = Biliomi.IModerationRecord;
   templateUrl: require("./ChatModeratorRecords.template.pug")
 })
 export class ChatModeratorRecordsComponent {
-  private _dialog: ConfirmDialogService;
+  private _dialog: DialogsService;
   private _moderationRecordsClient: ModerationRecordsClient;
   private recordsDataSource: RestTableDataSource<IModerationRecord> = new RestTableDataSource<IModerationRecord>();
 
@@ -36,7 +36,7 @@ export class ChatModeratorRecordsComponent {
     "Username": "User.Username"
   };
 
-  constructor(moderationRecordsClient: ModerationRecordsClient, dialog: ConfirmDialogService) {
+  constructor(moderationRecordsClient: ModerationRecordsClient, dialog: DialogsService) {
     this._dialog = dialog;
     this._moderationRecordsClient = moderationRecordsClient;
     this.recordsDataSource.client = moderationRecordsClient;

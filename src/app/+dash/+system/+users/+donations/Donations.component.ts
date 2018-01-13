@@ -1,12 +1,12 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {DonationsClient} from "../../../../shared/modules/biliomi/clients/model/Donations.client";
 import {RestTableDataSource} from "../../../../shared/modules/data-table/classes/RestTableDataSource";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {IXlsxExportConfig} from "../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
 import {XLSX_FORMATTER_DATE} from "../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {MatDialog} from "@angular/material";
 import {EditDonationModalComponent} from "./declarations/EditDonationModal.component";
+import {DialogsService} from "../../../../shared/modules/dialogs/services/Dialogs.service";
 import IDonation = Biliomi.IDonation;
 
 @Component({
@@ -14,7 +14,7 @@ import IDonation = Biliomi.IDonation;
   templateUrl: require("./Donations.template.pug")
 })
 export class DonationsComponent {
-  private _dialog: MatDialog;
+  private _dialog: DialogsService;
   public donationsDataSource: RestTableDataSource<IDonation> = new RestTableDataSource<IDonation>();
 
   public exportConfig: IXlsxExportConfig = {
@@ -33,7 +33,7 @@ export class DonationsComponent {
   };
 
   constructor(donationsClient: DonationsClient,
-              dialog: MatDialog) {
+              dialog: DialogsService) {
     this.donationsDataSource.client = donationsClient;
     this._dialog = dialog;
   }

@@ -4,9 +4,9 @@ import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/
 import {UserGroupsClient} from "../../../../../shared/modules/biliomi/clients/model/UserGroups.client";
 import {IXlsxExportConfig} from "../../../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {XLSX_FORMATTER_BOOLEAN_YES_NO} from "../../../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
-import {MatDialog} from "@angular/material";
 import {EditUserGroupModalComponent} from "./EditUserGroupModal.component";
 import {TableFilterNameMapping} from "../../../../../shared/modules/data-table/classes/interfaces/DataTable";
+import {DialogsService} from "../../../../../shared/modules/dialogs/services/Dialogs.service";
 import IUserGroup = Biliomi.IUserGroup;
 
 @Component({
@@ -14,7 +14,7 @@ import IUserGroup = Biliomi.IUserGroup;
   templateUrl: require("./UserGroups.template.pug")
 })
 export class UserGroupsComponent {
-  private _dialog: MatDialog;
+  private _dialog: DialogsService;
   private groupsDataSource: RestTableDataSource<IUserGroup> = new RestTableDataSource<IUserGroup>();
 
   public exportConfig: IXlsxExportConfig = {
@@ -33,7 +33,7 @@ export class UserGroupsComponent {
     "Level Up Hours": "LevelUpHours"
   };
 
-  constructor(userGroupsClient: UserGroupsClient, dialog: MatDialog) {
+  constructor(userGroupsClient: UserGroupsClient, dialog: DialogsService) {
     this._dialog = dialog;
     this.groupsDataSource.client = userGroupsClient;
   }

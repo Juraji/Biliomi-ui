@@ -11,22 +11,22 @@ const ROUTES: Routes = [
       {
         path: "bot",
         loadChildren: "./+bot-settings/BotSettings.module#BotSettingsModule",
-        data: {breadCrumbName: "Bot Settings"}
+        data: {crumbName: "Bot Settings"}
       },
       {
         path: "templates",
         loadChildren: "./+template-settings/TemplateSettings.module#TemplateSettingsModule",
-        data: {breadCrumbName: "Templates"}
+        data: {crumbName: "Templates"}
       },
       {
         path: "communites",
         loadChildren: "./+communities/Communities.module#CommunitiesModule",
-        data: {breadCrumbName: "Communities"}
+        data: {crumbName: "Communities"}
       },
       {
         path: "chat-logs",
         loadChildren: "./+chat-logs/ChatLogs.module#ChatLogsModule",
-        data: {breadCrumbName: "Chat Logs"}
+        data: {crumbName: "Chat Logs"}
       }
     ]
   }

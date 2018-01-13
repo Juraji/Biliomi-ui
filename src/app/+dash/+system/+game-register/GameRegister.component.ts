@@ -6,7 +6,7 @@ import {EditGameModalComponent} from "./declarations/EditGameModal.component";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
-import {ConfirmDialogService} from "../../../shared/modules/confirm-dialog/services/ConfirmDialog.service";
+import {DialogsService} from "../../../shared/modules/dialogs/services/Dialogs.service";
 import IGame = Biliomi.IGame;
 import ICommunity = Biliomi.ICommunity;
 
@@ -15,7 +15,7 @@ import ICommunity = Biliomi.ICommunity;
   templateUrl: require("./GameRegister.template.pug")
 })
 export class GameRegisterComponent {
-  private _dialog: ConfirmDialogService;
+  private _dialog: DialogsService;
   private _gamesClient: GamesClient;
   private gamesDataSource: RestTableDataSource<IGame> = new RestTableDataSource<IGame>();
 
@@ -40,7 +40,7 @@ export class GameRegisterComponent {
     "steam id": "SteamId"
   };
 
-  constructor(gamesClient: GamesClient, dialog: ConfirmDialogService) {
+  constructor(gamesClient: GamesClient, dialog: DialogsService) {
     this._dialog = dialog;
     this._gamesClient = gamesClient;
     this.gamesDataSource.client = gamesClient;
