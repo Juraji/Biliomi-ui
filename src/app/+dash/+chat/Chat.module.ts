@@ -22,6 +22,11 @@ const ROUTES: Routes = [
     path: "quotes",
     loadChildren: "./+quotes/Quotes.module#QuotesModule",
     data: {crumbName: "Quotes"}
+  },
+  {
+    path: "raids",
+    loadChildren: "./+raids/Raids.module#RaidsModule",
+    data: {crumbName: "Raids"}
   }
 ];
 

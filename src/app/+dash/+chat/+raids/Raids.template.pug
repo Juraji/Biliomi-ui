@@ -1,0 +1,39 @@
+p Check out raid records, throw a raid or register incoming raids.
+
+.columns
+  .col.span-8-of-12
+    data-table(tableId="raids", [dataSource]="dataSource", [exportConfig]="exportConfig", [filterMapping]="filterMapping")
+      ng-container(columnDef="Channel")
+        header-cell(*headerCellDef="", sortProperty="Channel.Username") Channel
+        data-cell(*dataCellDef="let record")
+          user-display([user]="record.Channel")
+
+      ng-container(columnDef="Direction")
+        header-cell(*headerCellDef="", sortProperty="Direction") Direction
+        data-cell(*dataCellDef="let record") {{record.Direction | caseToWord:"ENUM"}}
+
+      ng-container(columnDef="Date")
+        header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
+        data-cell(*dataCellDef="let record") {{record.Date | date}}
+
+      ng-container(columnDef="GameAtMoment")
+        header-cell(*headerCellDef="", sortProperty="GameAtMoment") Was Playing
+        data-cell(*dataCellDef="let record") {{record.GameAtMoment}}
+
+  .col.span-4-of-12
+    form(#raidForm="", (submit)="saveRaid()")
+      mat-card
+        mat-card-header
+          mat-card-title Register a new raid
+
+        mat-card-content
+          mat-radio-group#raid-record-direction(name="raid-record-direction", [formControl]="recordDirectionControl")
+            mat-radio-button(value="OUTGOING") Outgoing raid
+            mat-radio-button(value="INCOMING") Incoming raid
+
+          user-autocomplete(#userControl="", required="required")
+
+          p.text-muted Other record information will be generated when submitted.
+
+        mat-card-actions
+          save-button([disabled]="!isFormOk")

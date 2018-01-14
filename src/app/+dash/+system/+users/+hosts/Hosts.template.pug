@@ -2,47 +2,29 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
 
 .columns
   .col.span-8-of-12
-    mat-tab-group
-      mat-tab(label="Incoming Records")
-        data-table(tableId="incoming-hosts", [dataSource]="incomingRecordsDataSource", [filterMapping]="tableFilterMapping")
-          ng-container(columnDef="User")
-            header-cell(*headerCellDef="", sortProperty="User.Username") Username
-            data-cell(*dataCellDef="let record")
-              user-display([user]="record.User")
+    data-table(tableId="incoming-hosts", [dataSource]="dataSource", [filterMapping]="tableFilterMapping")
+      ng-container(columnDef="Direction")
+        header-cell(*headerCellDef="", sortProperty="Direction") Direction
+        data-cell(*dataCellDef="let record") {{record.Direction | caseToWord:"ENUM"}}
 
-          ng-container(columnDef="Date")
-            header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
-            data-cell(*dataCellDef="let record")
-              | {{record.Date | date}}
+      ng-container(columnDef="User")
+        header-cell(*headerCellDef="", sortProperty="User.Username") Username
+        data-cell(*dataCellDef="let record")
+          user-display([user]="record.User")
 
-          ng-container(columnDef="#Actions", [buttonsColumn]="2")
-            header-cell(*headerCellDef="") &nbsp;
-            data-cell(*dataCellDef="let record")
-              a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", matTooltip="Delete Record")
-                mat-icon delete_forever
-              a.mat-icon-button.pull-right(mat-button, (click)="hostNow(record)", matTooltip="Host Now")
-                mat-icon queue_play_next
+      ng-container(columnDef="Date")
+        header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
+        data-cell(*dataCellDef="let record")
+          | {{record.Date | date}}
 
-      mat-tab(label="Outgoing Records")
-        data-table(tableId="outgoing-hosts", [dataSource]="outgoingRecordsDataSource", [filterMapping]="tableFilterMapping")
-          ng-container(columnDef="User")
-            header-cell(*headerCellDef="", sortProperty="User.Username") Username
-            data-cell(*dataCellDef="let record")
-              user-display([user]="record.User")
-
-          ng-container(columnDef="Date")
-            header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
-            data-cell(*dataCellDef="let record")
-              | {{record.Date | date}}
-
-          ng-container(columnDef="#Actions", [buttonsColumn]="2")
-            header-cell(*headerCellDef="") &nbsp;
-            data-cell(*dataCellDef="let record")
-              a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", matTooltip="Delete Record")
-                mat-icon delete_forever
-              a.mat-icon-button.pull-right(mat-button, (click)="hostNow(record)", matTooltip="Host Now")
-                mat-icon queue_play_next
+      ng-container(columnDef="#Actions", [buttonsColumn]="2")
+        header-cell(*headerCellDef="") &nbsp;
+        data-cell(*dataCellDef="let record")
+          a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", matTooltip="Delete Record")
+            mat-icon delete_forever
+          a.mat-icon-button.pull-right(mat-button, (click)="hostNow(record)", matTooltip="Host Now")
+            mat-icon queue_play_next
 
   .col.span-4-of-12
-    host-form-component((onRecordCreated)="updateOnRecordChanged($event)")
+    host-form-component((onRecordCreated)="dataSource.update()")
     host-watch-settings

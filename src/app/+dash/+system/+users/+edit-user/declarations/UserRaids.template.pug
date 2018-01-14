@@ -1,0 +1,12 @@
+data-table([dataSource]="dataSource", [disableFilter]="true")
+  ng-container(columnDef="Direction")
+    header-cell(*headerCellDef="", sortProperty="Direction") Direction
+    data-cell(*dataCellDef="let record") {{record.Direction | caseToWord:"ENUM"}}
+
+  ng-container(columnDef="Date")
+    header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
+    data-cell(*dataCellDef="let record") {{record.Date | date}}
+
+  ng-container(columnDef="GameAtMoment")
+    header-cell(*headerCellDef="", sortProperty="GameAtMoment") Was Playing
+    data-cell(*dataCellDef="let record") {{record.GameAtMoment}}

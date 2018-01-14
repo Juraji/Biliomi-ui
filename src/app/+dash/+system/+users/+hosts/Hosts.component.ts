@@ -10,9 +10,6 @@ import {RestTableDataSource} from "../../../../shared/modules/data-table/classes
 import {TableFilterNameMapping} from "../../../../shared/modules/data-table/classes/interfaces/DataTable";
 import {DialogsService} from "../../../../shared/modules/dialogs/services/Dialogs.service";
 import IHostRecord = Biliomi.IHostRecord;
-import IDirection = Biliomi.IDirection;
-import {FilterBuilder} from "../../../../shared/modules/biliomi/classes/FilterBuilder";
-import IRestFilterOperator = Biliomi.IRestFilterOperator;
 
 @Component({
   selector: "hosts-page",
@@ -22,8 +19,7 @@ export class HostsComponent {
   private _hostRecordsClient: HostRecordsClient;
   private _dialog: DialogsService;
 
-  public incomingRecordsDataSource: RestTableDataSource<IHostRecord> = new RestTableDataSource<IHostRecord>();
-  public outgoingRecordsDataSource: RestTableDataSource<IHostRecord> = new RestTableDataSource<IHostRecord>();
+  public dataSource: RestTableDataSource<IHostRecord> = new RestTableDataSource<IHostRecord>();
 
   public exportConfig: IXlsxExportConfig = {
     fileName: "Biliomi - Host Records",
@@ -43,26 +39,7 @@ export class HostsComponent {
   constructor(hostRecordsClient: HostRecordsClient, dialog: DialogsService) {
     this._hostRecordsClient = hostRecordsClient;
     this._dialog = dialog;
-
-    this.incomingRecordsDataSource.client = hostRecordsClient;
-    this.incomingRecordsDataSource.clientParams
-      .set("filter", new FilterBuilder()
-        .add("direction", IRestFilterOperator.EQUALS, IDirection.INCOMING)
-        .toString());
-
-    this.outgoingRecordsDataSource.client = hostRecordsClient;
-    this.outgoingRecordsDataSource.clientParams
-      .set("filter", new FilterBuilder()
-        .add("direction", IRestFilterOperator.EQUALS, IDirection.OUTGOING)
-        .toString());
-  }
-
-  public updateOnRecordChanged(record: IHostRecord) {
-    if (record.Direction === IDirection.INCOMING) {
-      this.incomingRecordsDataSource.update();
-    } else {
-      this.outgoingRecordsDataSource.update();
-    }
+    this.dataSource.client = hostRecordsClient;
   }
 
   public hostNow(record: IHostRecord) {
@@ -77,7 +54,7 @@ export class HostsComponent {
       .subscribe(async () => {
         let result: boolean = await this._hostRecordsClient.delete(record.Id);
         if (result) {
-          this.updateOnRecordChanged(record);
+          this.dataSource.update();
         }
       });
   }

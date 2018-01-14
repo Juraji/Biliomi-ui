@@ -38,6 +38,7 @@ import {InvestmentRecordsClient} from "./clients/model/InvestmentRecords.client"
 import {InvestmentSettingsClient} from "./clients/settings/InvestmentSettings.client";
 import {KillRecordsClient} from "./clients/model/KillRecords.client";
 import {QuotesClient} from "./clients/model/Quotes.client";
+import {RaidRecordsClient} from "./clients/model/RaidRecords.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -66,6 +67,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   LatestSubscribersClient,
   ModerationRecordsClient,
   QuotesClient,
+  RaidRecordsClient,
   TemplatesClient,
   UserGroupsClient,
   UsersClient,
