@@ -7,6 +7,7 @@ import {UserHostRecordsComponent} from "./declarations/UserHostRecords.component
 import {UserAchievementsComponent} from "./declarations/UserAchievements.component";
 import {UserAdventuresComponent} from "./declarations/UserAdventures.component";
 import {UserDonationsComponent} from "./declarations/UserDonations.component";
+import {UserInvestmentsComponent} from "./declarations/UserInvestments.component";
 
 const ROUTES: Routes = [
   {
@@ -38,6 +39,11 @@ const ROUTES: Routes = [
         path: "adventures",
         component: UserAdventuresComponent,
         data: {crumbName: "Adventures"}
+      },
+      {
+        path: "investments",
+        component: UserInvestmentsComponent,
+        data: {crumbName: "Investments"}
       }
     ]
   }
@@ -54,7 +60,8 @@ const ROUTES: Routes = [
     UserHostRecordsComponent,
     UserDonationsComponent,
     UserAchievementsComponent,
-    UserAdventuresComponent
+    UserAdventuresComponent,
+    UserInvestmentsComponent
   ]
 })
 export class EditUserModule {

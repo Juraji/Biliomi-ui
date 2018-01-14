@@ -1,3 +1,5 @@
+p Total incoming: {{totalIncoming}}, total outgoing: {{totalOutgoing}}
+
 data-table([dataSource]="dataSource", [disableFilter]="true")
   ng-template(customTableActions)
     button(mat-icon-button, (click)="hostUser()", matTooltip="Host now")

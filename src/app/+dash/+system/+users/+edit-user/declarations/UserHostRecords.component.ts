@@ -7,6 +7,7 @@ import {EditUserComponent} from "../EditUser.component";
 import {FilterBuilder} from "../../../../../shared/modules/biliomi/classes/FilterBuilder";
 import IHostRecord = Biliomi.IHostRecord;
 import IRestFilterOperator = Biliomi.IRestFilterOperator;
+import IDirection = Biliomi.IDirection;
 
 @Component({
   selector: "user-host-records",
@@ -18,6 +19,18 @@ export class UserHostRecordsComponent {
   private _dialog: DialogsService;
 
   public dataSource: RestTableDataSource<IHostRecord> = new RestTableDataSource<IHostRecord>();
+
+  public get totalIncoming(): number {
+    return this.dataSource.currentData
+      .filter((r: IHostRecord) => r.Direction === IDirection.INCOMING)
+      .length;
+  }
+
+  public get totalOutgoing(): number {
+    return this.dataSource.currentData
+      .filter((r: IHostRecord) => r.Direction === IDirection.OUTGOING)
+      .length;
+  }
 
   constructor(@Optional() editUserComponent: EditUserComponent,
               hostRecordsClient: HostRecordsClient,

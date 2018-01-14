@@ -14,6 +14,10 @@ import IRestFilterOperator = Biliomi.IRestFilterOperator;
 export class UserDonationsComponent {
   public dataSource: RestTableDataSource<IDonation> = new RestTableDataSource<IDonation>();
 
+  public get totalDonations(): number {
+    return this.dataSource.currentData.length;
+  }
+
   constructor(@Optional() editUserComponent: EditUserComponent,
               donationsClient: DonationsClient) {
     this.dataSource.client = donationsClient;
