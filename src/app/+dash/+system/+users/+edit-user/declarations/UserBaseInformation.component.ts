@@ -1,9 +1,10 @@
-import {Component, Input, OnInit, ViewChild} from "@angular/core";
+import {Component, Input, OnInit, Optional, ViewChild} from "@angular/core";
 import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {UsersClient} from "../../../../../shared/modules/biliomi/clients/model/Users.client";
 import {FormControl, Validators} from "@angular/forms";
 import * as moment from "moment";
 import {SaveButtonComponent} from "../../../../../shared/components/SaveButton.component";
+import {EditUserComponent} from "../EditUser.component";
 import IUser = Biliomi.IUser;
 import IUserGroup = Biliomi.IUserGroup;
 
@@ -22,6 +23,7 @@ export class UserBaseInformationComponent implements OnInit {
   public isBlacklistedControl: FormControl = new FormControl(false);
   public followDateControl: FormControl = new FormControl();
   public subscribeDateControl: FormControl = new FormControl();
+  public editUserComponent: EditUserComponent;
 
   @ViewChild(SaveButtonComponent)
   public saveButton: SaveButtonComponent;
@@ -35,8 +37,9 @@ export class UserBaseInformationComponent implements OnInit {
     this._user = user;
   }
 
-  constructor(usersClient: UsersClient) {
+  constructor(@Optional() editUserComponent: EditUserComponent, usersClient: UsersClient) {
     this._usersClient = usersClient;
+    this.editUserComponent = editUserComponent;
 
     this.followDateControl.disable();
     this.subscribeDateControl.disable();

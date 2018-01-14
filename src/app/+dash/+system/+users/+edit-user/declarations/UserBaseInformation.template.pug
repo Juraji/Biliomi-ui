@@ -31,15 +31,16 @@ form(#userEditForm="", (submit)="save()")
         mat-datepicker(#subscribeDatePicker="", [disabled]="false")
         mat-hint Only for correction purposes. Biliomi keeps track of subscribers via Twitch.
 
-      mat-slide-toggle([hidden]="user?.Caster || user?.Moderator", [formControl]="isBlacklistedControl")
-        | Blacklist User
-      .checkbox-subscript
-        .checkbox-hint
-          | Blacklisted users are prohibited from posting commands.
-        .checkbox-error([hidden]="user?.BlacklistedSince == undefined")
-          | {{user?.DisplayName}} has been blacklisted since {{user?.BlacklistedSince| date}}
+      div(*ngIf="!editUserComponent.isCurrentUser")
+        mat-slide-toggle([hidden]="user?.Caster || user?.Moderator", [formControl]="isBlacklistedControl")
+          | Blacklist User
+        .checkbox-subscript
+          .checkbox-hint
+            | Blacklisted users are prohibited from posting commands.
+          .checkbox-error([hidden]="user?.BlacklistedSince == undefined")
+            | {{user?.DisplayName}} has been blacklisted since {{user?.BlacklistedSince| date}}
 
-      user-group-selector([(userGroup)]="userGroup")
+        user-group-selector([(userGroup)]="userGroup")
 
     mat-card-actions
       save-button([disabled]="!isFormOk")

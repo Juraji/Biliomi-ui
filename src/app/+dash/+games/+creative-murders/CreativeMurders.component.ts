@@ -30,7 +30,7 @@ export class CreativeMurdersComponent {
       {objectPath: "$.Killer.DisplayName", headerName: "Killer"},
       {objectPath: "$.Target.DisplayName", headerName: "Target"},
       {objectPath: "$.IsSuicide", headerName: "Suicide", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
-      {objectPath: "$.Date", headerName: "Date", formatter: XLSX_FORMATTER_DATE},
+      {objectPath: "$.Date", headerName: "Date", formatter: XLSX_FORMATTER_DATE}
     ]
   };
 

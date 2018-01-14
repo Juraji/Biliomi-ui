@@ -34,7 +34,7 @@ export class InvestmentsComponent implements OnInit {
       {objectPath: "$.Interest", headerName: "Interest"},
       {objectPath: "$.Project", headerName: "Project"},
       {objectPath: "$.Payout", headerName: "Payout"},
-      {objectPath: "$.Date", headerName: "Date", formatter: XLSX_FORMATTER_DATE},
+      {objectPath: "$.Date", headerName: "Date", formatter: XLSX_FORMATTER_DATE}
     ]
   };
 
