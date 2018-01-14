@@ -9,8 +9,7 @@ p Manage announcements en announcement settings
         button(mat-icon-button, (click)="editAnnouncement()", matTooltip="Add new announcement")
           mat-icon add
 
-
-      ng-container(columnDef="Id")
+      ng-container(columnDef="Id", [buttonsColumn]="1")
         header-cell(*headerCellDef="", sortProperty="Id", [sortDefault]="'ASC'") Id
         data-cell(*dataCellDef="let announcement")
           | {{announcement.Id}}
