@@ -4,6 +4,8 @@ import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/
 import {UserAutoCompleteComponent} from "../../../../../shared/components/UserAutoComplete.component";
 import * as moment from "moment";
 import {HostRecordsClient} from "../../../../../shared/modules/biliomi/clients/model/HostRecords.client";
+import {DialogsService} from "../../../../../shared/modules/dialogs/services/Dialogs.service";
+import {SaveButtonComponent} from "../../../../../shared/components/SaveButton.component";
 import IDirection = Biliomi.IDirection;
 import IHostRecord = Biliomi.IHostRecord;
 
@@ -13,8 +15,13 @@ import IHostRecord = Biliomi.IHostRecord;
 })
 export class HostFormComponent {
   private _hostRecordsClient: HostRecordsClient;
+  private _dialogs: DialogsService;
+
+  @ViewChild(SaveButtonComponent)
+  public saveButton: SaveButtonComponent;
 
   public recordAutoHostControl: FormControl = new FormControl(false);
+  public performHostControl: FormControl = new FormControl(false);
   public recordDirectionControl: FormControl = new FormControl(IDirection.OUTGOING);
 
   @ViewChild("recordUserControl", {read: UserAutoCompleteComponent})
@@ -23,8 +30,9 @@ export class HostFormComponent {
   @Output("onRecordCreated")
   public onRecordCreated: EventEmitter<IHostRecord> = new EventEmitter<IHostRecord>();
 
-  constructor(hostRecordsClient: HostRecordsClient) {
+  constructor(hostRecordsClient: HostRecordsClient, dialogs: DialogsService) {
     this._hostRecordsClient = hostRecordsClient;
+    this._dialogs = dialogs;
   }
 
   public get isFormOk(): boolean {
@@ -39,12 +47,27 @@ export class HostFormComponent {
       record.Direction = this.recordDirectionControl.value;
       record.AutoHost = this.recordAutoHostControl.value;
 
-      let response: IHostRecord = await this._hostRecordsClient.post(record);
-      if (response != null) {
-        this.recordAutoHostControl.reset(false);
-        this.recordDirectionControl.reset(IDirection.INCOMING);
-        this.recordUserControl.user = null;
-        this.onRecordCreated.emit(response);
+      console.log(record.Direction);
+      if (record.Direction === IDirection.OUTGOING && this.performHostControl.value) {
+        this._dialogs.confirm(`Are you sure you want to host ${record.User.DisplayName}?`)
+          .filter((confirmed: boolean) => confirmed)
+          .subscribe(async () => {
+            this.saveButton.state = await this._hostRecordsClient.performHost(record.User.Username);
+            this.onRecordCreated.emit(record);
+          });
+      } else {
+        let response: IHostRecord = await this._hostRecordsClient.post(record);
+        if (response != null) {
+          this.recordAutoHostControl.reset(false);
+          this.performHostControl.reset(false);
+          this.recordDirectionControl.reset(IDirection.OUTGOING);
+          this.recordUserControl.reset();
+          this.onRecordCreated.emit(response);
+          this.saveButton.state = true;
+          this.onRecordCreated.emit(response);
+        } else {
+          this.saveButton.state = false;
+        }
       }
     }
   }

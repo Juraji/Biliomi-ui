@@ -10,9 +10,9 @@ form(#hostRecordForm="", (submit)="submitHostRecord()")
         mat-radio-button(value="INCOMING") Incoming host
 
       mat-slide-toggle(*ngIf="recordDirectionControl.value == 'INCOMING'", [formControl]="recordAutoHostControl") Is Auto Host
+      mat-slide-toggle(*ngIf="recordDirectionControl.value == 'OUTGOING'", [formControl]="performHostControl") Perform /host
 
       user-autocomplete(#recordUserControl="", [required]="true")
 
     mat-card-actions
-      button(mat-raised-button, color="primary", [disabled]="!isFormOk", matTooltip="Save")
-        mat-icon done
+      save-button([disabled]="!isFormOk")

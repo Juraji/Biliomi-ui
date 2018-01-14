@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, OnInit, ViewChild} from "@angular/core";
 import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {UsersClient} from "../../../../../shared/modules/biliomi/clients/model/Users.client";
 import {FormControl, Validators} from "@angular/forms";
 import * as moment from "moment";
+import {SaveButtonComponent} from "../../../../../shared/components/SaveButton.component";
 import IUser = Biliomi.IUser;
 import IUserGroup = Biliomi.IUserGroup;
 
@@ -21,6 +22,9 @@ export class UserBaseInformationComponent implements OnInit {
   public isBlacklistedControl: FormControl = new FormControl(false);
   public followDateControl: FormControl = new FormControl();
   public subscribeDateControl: FormControl = new FormControl();
+
+  @ViewChild(SaveButtonComponent)
+  public saveButton: SaveButtonComponent;
 
   @Input("user")
   public get user(): IUser {
@@ -88,6 +92,7 @@ export class UserBaseInformationComponent implements OnInit {
       }
 
       persistedUser = await this._usersClient.put(this._user.Id, user);
+      this.saveButton.state = persistedUser != null;
       if (persistedUser != null) {
         this._user = persistedUser;
         this.initFields();

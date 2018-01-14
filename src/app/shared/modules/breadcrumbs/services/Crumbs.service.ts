@@ -1,5 +1,5 @@
 import {Injectable, OnDestroy} from "@angular/core";
-import {ActivatedRoute, NavigationEnd, PRIMARY_OUTLET, Router, RouterEvent} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, NavigationStart, PRIMARY_OUTLET, Router, RouterEvent} from "@angular/router";
 import {Subscription} from "rxjs/Subscription";
 import {Crumb} from "../classes/interfaces/BreadCrumb";
 import {RouterUtils} from "../../tools/RouterUtils";
@@ -39,19 +39,9 @@ export class CrumbsService implements OnDestroy {
   private _updateCrumbs() {
     let root: ActivatedRoute = this._activatedRoute.root;
     this._currentCrumbs = this._renderCrumbs(root);
-
-    if (this._currentCrumbs.findIndex((c: Crumb) => c.name.startsWith(":")) > -1) {
-      this._crumbVariables.forEach((value: string, key: string) => {
-        this._currentCrumbs.forEach((c: Crumb) => {
-          if (c.name.startsWith(":") && c.name.substr(1) === key) {
-            c.name = value;
-          }
-        });
-      });
-    }
   }
 
-  private _renderCrumbs(route: ActivatedRoute, url: string = "", breadCrumbs: Crumb[] = []): Crumb[] {
+  private _renderCrumbs(route: ActivatedRoute, breadCrumbs: Crumb[] = []): Crumb[] {
     const ROUTE_DATA_DISPLAY_NAME: string = "crumbName";
 
     // get the child routes
@@ -73,12 +63,17 @@ export class CrumbsService implements OnDestroy {
 
           // Do not add empty segments
           if (breadCrumbs.length === 0 || routeURL.length > 0) {
-            // append route URL to URL
-            url += `/${routeURL}`;
+            let url = RouterUtils.routeToUrl(child);
+
+            // Variable replacement
+            let name: string = child.snapshot.data[ROUTE_DATA_DISPLAY_NAME];
+            if (name.startsWith(":") && this._crumbVariables.has(name.substr(1))) {
+              name = this._crumbVariables.get(name.substr(1));
+            }
 
             // add breadcrumb
             breadCrumbs.push({
-              name: child.snapshot.data[ROUTE_DATA_DISPLAY_NAME],
+              name: name,
               params: (url.length !== 1 ? child.snapshot.params : undefined),
               queryParams: child.snapshot.queryParams,
               url: url
@@ -87,7 +82,7 @@ export class CrumbsService implements OnDestroy {
         }
 
         // recursive
-        return this._renderCrumbs(child, url, breadCrumbs);
+        return this._renderCrumbs(child, breadCrumbs);
       }
     }
 

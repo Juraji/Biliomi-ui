@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   public ngOnInit() {
     if (this._auth.isTokenViable) {
-      this._router.navigateByUrl(DASH_ROUTE);
+      this._router.navigateByUrl(DASH_ROUTE, {replaceUrl: true});
     }
   }
 

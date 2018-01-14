@@ -3,7 +3,6 @@ import {RestTableDataSource} from "../../../../../shared/modules/data-table/clas
 import {Biliomi} from "../../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {HostRecordsClient} from "../../../../../shared/modules/biliomi/clients/model/HostRecords.client";
 import {DialogsService} from "../../../../../shared/modules/dialogs/services/Dialogs.service";
-import {BiliomiApiService} from "../../../../../shared/modules/biliomi/services/BiliomiApi.service";
 import {EditUserComponent} from "../EditUser.component";
 import {FilterBuilder} from "../../../../../shared/modules/biliomi/classes/FilterBuilder";
 import IHostRecord = Biliomi.IHostRecord;
@@ -15,18 +14,17 @@ import IRestFilterOperator = Biliomi.IRestFilterOperator;
 })
 export class UserHostRecordsComponent {
   private _editUserComponent: EditUserComponent;
+  private _hostRecordsClient: HostRecordsClient;
   private _dialog: DialogsService;
-  private _api: BiliomiApiService;
 
   public dataSource: RestTableDataSource<IHostRecord> = new RestTableDataSource<IHostRecord>();
 
   constructor(@Optional() editUserComponent: EditUserComponent,
               hostRecordsClient: HostRecordsClient,
-              dialog: DialogsService,
-              api: BiliomiApiService) {
+              dialog: DialogsService) {
     this._editUserComponent = editUserComponent;
+    this._hostRecordsClient = hostRecordsClient;
     this._dialog = dialog;
-    this._api = api;
 
     this.dataSource.client = hostRecordsClient;
     if (editUserComponent) {
@@ -39,6 +37,6 @@ export class UserHostRecordsComponent {
   public hostUser() {
     this._dialog.confirm(`Are you sure you want to host ${this._editUserComponent.user.DisplayName}?`)
       .filter((confirmed: boolean) => confirmed)
-      .subscribe(() => this._api.postCommand("host", this._editUserComponent.user.Username));
+      .subscribe(() => this._hostRecordsClient.performHost(this._editUserComponent.user.Username));
   }
 }

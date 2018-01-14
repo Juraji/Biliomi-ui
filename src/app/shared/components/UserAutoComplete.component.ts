@@ -30,7 +30,7 @@ export class UserAutoCompleteComponent implements OnInit {
         .pop();
       this.usernameControl.setValue(user.DisplayName);
     } else {
-      this.usernameControl.reset(user);
+      this.usernameControl.reset();
     }
   }
 
@@ -73,6 +73,10 @@ export class UserAutoCompleteComponent implements OnInit {
         this.usernameControl.setErrors({unknownUser: true});
       }
     });
+  }
+
+  public reset() {
+    this.user = null;
   }
 
   public async performApiSearch() {

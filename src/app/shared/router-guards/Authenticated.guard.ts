@@ -21,7 +21,7 @@ export class AuthenticatedGuard implements CanActivate, CanActivateChild {
     if (this._auth.isTokenViable) {
       return this.userTypeCanActivate(route);
     } else {
-      this._router.navigateByUrl(LOGIN_ROUTE);
+      this._router.navigateByUrl(LOGIN_ROUTE, {replaceUrl: true});
       return false;
     }
   }
