@@ -1,10 +1,10 @@
 .table-notices
   //button(*ngIf="!tableDataSource.hasData", mat-button, disabled="disabled") No data
 .table-actions
-  button(mat-icon-button, [matMenuTriggerFor]="tableMenu")
+  button(*ngIf="tableExportConfig && parentTableId", mat-icon-button, [matMenuTriggerFor]="tableMenu")
     mat-icon more_vert
   mat-menu(#tableMenu="matMenu")
-    button(*ngIf="tableExportConfig != undefined", mat-menu-item, (click)="exportData()")
+    button(*ngIf="tableExportConfig", mat-menu-item, (click)="exportData()")
       mat-icon cloud_download
       span Export
     button(*ngIf="parentTableId", mat-menu-item, (click)="tableSetup()")

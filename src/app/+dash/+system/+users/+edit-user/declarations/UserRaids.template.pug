@@ -1,4 +1,10 @@
 data-table([dataSource]="dataSource", [disableFilter]="true")
+  ng-template(customTableActions)
+    button(mat-icon-button, (click)="registerRecord('OUTGOING')", matTooltip="Register outgoing record")
+      mat-icon open_in_new
+    button(mat-icon-button, (click)="registerRecord('INCOMING')", matTooltip="Register incoming record")
+      mat-icon input
+
   ng-container(columnDef="Direction")
     header-cell(*headerCellDef="", sortProperty="Direction") Direction
     data-cell(*dataCellDef="let record") {{record.Direction | caseToWord:"ENUM"}}

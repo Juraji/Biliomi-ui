@@ -1,4 +1,4 @@
-import {Directive, ElementRef, HostBinding} from "@angular/core";
+import {Directive, ElementRef} from "@angular/core";
 import {BaseCell} from "../classes/abstract/BaseCell";
 import {ColumnDefDirective} from "./ColumnDef.directive";
 
@@ -10,12 +10,6 @@ import {ColumnDefDirective} from "./ColumnDef.directive";
   }
 })
 export class HeaderCellDirective extends BaseCell {
-
-  @HostBinding("style.width.px")
-  public get targetWidth(): number {
-    return this._targetWidth;
-  }
-
   constructor(columnDef: ColumnDefDirective, elementRef: ElementRef) {
     super(columnDef, elementRef);
   }

@@ -1,10 +1,15 @@
 import {ColumnDefDirective} from "../../directives/ColumnDef.directive";
-import {ElementRef} from "@angular/core";
+import {ElementRef, HostBinding} from "@angular/core";
 
 export const BUTTON_WIDTH: number = 40;
 
 export abstract class BaseCell {
-  protected readonly _targetWidth: number;
+  private readonly _targetWidth: number;
+
+  @HostBinding("style.width.px")
+  public get targetWidth(): number {
+    return this._targetWidth;
+  }
 
   constructor(columnDef: ColumnDefDirective, elementRef: ElementRef) {
     elementRef.nativeElement.classList.add(`column-${columnDef.cssFriendlyName}`);
