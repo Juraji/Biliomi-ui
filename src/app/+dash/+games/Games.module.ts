@@ -17,6 +17,11 @@ const ROUTES: Routes = [
     path: "adventures",
     loadChildren: "./+adventures/Adventures.module#AdventuresModule",
     data: {crumbName: "Adventures"}
+  },
+  {
+    path: "investments",
+    loadChildren: "./+investments/Investments.module#InvestmentsModule",
+    data: {crumbName: "Investments"}
   }
 ];
 

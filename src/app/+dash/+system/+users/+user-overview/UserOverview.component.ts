@@ -28,11 +28,7 @@ export class UserOverviewComponent {
       {objectPath: "$.UserGroup.Name", headerName: "User Group"},
       {objectPath: "$.Title", headerName: "Title"},
       {objectPath: "$.RecordedTime", headerName: "Recorded Time", formatter: XLSX_FORMATTER_RELATIVE_TIME},
-      {
-        objectPath: "$.Points",
-        headerName: () => this._pointsSettingsClient.PointsNamePlural,
-        formatter: (points: number) => this._pointsSettingsClient.appendPointsName(points)
-      },
+      {objectPath: "$.Points", headerName: () => this._pointsSettingsClient.PointsNamePlural},
       {objectPath: "$.Caster", headerName: "Caster", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
       {objectPath: "$.Moderator", headerName: "Moderator", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},
       {objectPath: "$.Follower", headerName: "Follower", formatter: XLSX_FORMATTER_BOOLEAN_YES_NO},

@@ -81,7 +81,7 @@ export class AdventuresComponent implements OnInit {
       this._adventureSettingsClient.WinMultiplier = this.winMultiplierControl.value;
 
       let result = this._adventureSettingsClient.save();
-      if (!result) {
+      if (result) {
         this.initSettingsFields();
       }
     }

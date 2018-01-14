@@ -34,6 +34,8 @@ import {AnnouncementsClient} from "./clients/model/Announcements.client";
 import {AnnouncementSettingsClient} from "./clients/settings/AnnouncementSettings.client";
 import {DonationsClient} from "./clients/model/Donations.client";
 import {CommandHistoryRecordsClient} from "./clients/model/CommandHistoryRecords.client";
+import {InvestmentRecordsClient} from "./clients/model/InvestmentRecords.client";
+import {InvestmentSettingsClient} from "./clients/settings/InvestmentSettings.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -56,6 +58,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   DonationsClient,
   GamesClient,
   HostRecordsClient,
+  InvestmentRecordsClient,
   LatestFollowersClient,
   LatestSubscribersClient,
   ModerationRecordsClient,
@@ -71,6 +74,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   CommunitiesSettingsClient,
   FollowerWatchSettingsClient,
   HostWatchSettingsClient,
+  InvestmentSettingsClient,
   PointsSettingsClient,
   SubscriberWatchSettingsClient,
   SystemSettingsClient,

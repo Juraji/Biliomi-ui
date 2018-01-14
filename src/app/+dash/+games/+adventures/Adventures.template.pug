@@ -2,8 +2,6 @@ p Check out your viewer's latest adventures and change adventure settings
 
 .columns
   .col.span-8-of-12
-    p Adventures
-
     data-table(tableId="adventures", [dataSource]="adventureRecordsDataSource", [exportConfig]="exportConfig", [filterMapping]="filterMapping")
       ng-container(columnDef="Username")
         header-cell(*headerCellDef="", sortProperty="Adventurer.Username") Username
@@ -30,9 +28,7 @@ p Check out your viewer's latest adventures and change adventure settings
         data-cell(*dataCellDef="let record") {{record.Date | date}}
 
   .col.span-4-of-12
-    p &nbsp;
-
-    form(#achievementSettingsForm="", (submit)="saveSettings()")
+    form(#adventuresSettingsForm="", (submit)="saveSettings()")
       mat-card
         mat-card-header
           mat-card-title Adventure Settings

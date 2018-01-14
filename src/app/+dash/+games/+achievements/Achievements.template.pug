@@ -2,8 +2,6 @@ p Check out your viewer's latest achievements and change achievement settings
 
 .columns
   .col.span-8-of-12
-    p Achievements
-
     data-table(tableId="achievements", [dataSource]="achievementsDataSource", [exportConfig]="exportConfig", [filterMapping]="filterMapping")
       ng-container(columnDef="Username")
         header-cell(*headerCellDef="", sortProperty="User.Username") Username
@@ -27,8 +25,6 @@ p Check out your viewer's latest achievements and change achievement settings
             mat-icon(color="warn") delete_forever
 
   .col.span-4-of-12
-    p &nbsp;
-
     form(#achievementSettingsForm="", (submit)="saveSettings()")
       mat-card
         mat-card-header
@@ -38,6 +34,9 @@ p Check out your viewer's latest achievements and change achievement settings
         mat-card-content
           mat-slide-toggle([formControl]="achievementsEnabledControl")
             | Enable Achievements
+
+          p.text-muted.
+            Achievements are predefined. You can turn them on or off, but there is no way to physically change them.
 
         mat-card-actions
           save-button([stateEmitter]="_achievementSettingsClient.afterSave")

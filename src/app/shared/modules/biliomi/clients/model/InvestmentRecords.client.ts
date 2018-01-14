@@ -2,11 +2,11 @@ import {Injectable} from "@angular/core";
 import {ModelRestClient} from "../../classes/abstract/ModelRestClient";
 import {Biliomi} from "../../classes/interfaces/Biliomi";
 import {BiliomiApiService} from "../../services/BiliomiApi.service";
-import ICommandHistoryRecord = Biliomi.ICommandHistoryRecord;
+import IInvestmentRecord = Biliomi.IInvestmentRecord;
 
 @Injectable()
-export class CommandHistoryRecordsClient extends ModelRestClient<ICommandHistoryRecord> {
+export class InvestmentRecordsClient extends ModelRestClient<IInvestmentRecord> {
   constructor(api: BiliomiApiService) {
-    super(api, "/core/commandhistoryrecords");
+    super(api, "/games/investmentrecords");
   }
 }
