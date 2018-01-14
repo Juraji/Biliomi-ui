@@ -10,10 +10,11 @@ import IUser = Biliomi.IUser;
   templateUrl: require("./UserAutoComplete.template.pug")
 })
 export class UserAutoCompleteComponent implements OnInit {
-  private usersClient: UsersClient;
-  private usernameControl: FormControl = new FormControl("");
   private _selectedUser: IUser;
   private _required: boolean;
+
+  public usersClient: UsersClient;
+  public usernameControl: FormControl = new FormControl("");
 
   @Output("userChange")
   public userChange: EventEmitter<IUser> = new EventEmitter<IUser>();
@@ -61,8 +62,8 @@ export class UserAutoCompleteComponent implements OnInit {
     this.usersClient = usersClient;
   }
 
-  public ngOnInit() {
-    this.usersClient.load(true);
+  public async ngOnInit() {
+    await this.usersClient.load(true);
     this.usernameControl.valueChanges.subscribe((username: string) => {
       this._selectedUser = this.usersClient
         .searchCache(username)

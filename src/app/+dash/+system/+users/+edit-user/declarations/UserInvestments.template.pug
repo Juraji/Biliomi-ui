@@ -1,9 +1,3 @@
-p.
-  Total investments: {{totalInvestments}},
-  total succeeded: {{totalInvestmentsSuccess}},
-  total invested: {{totalInvested | points | async}},
-  total payout: {{totalPayouts | points | async}}
-
 data-table([dataSource]="dataSource", [disableFilter]="true")
   ng-container(columnDef="Invested")
     header-cell(*headerCellDef="", sortProperty="Invested") Invested

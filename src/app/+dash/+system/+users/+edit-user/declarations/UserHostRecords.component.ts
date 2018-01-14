@@ -20,18 +20,6 @@ export class UserHostRecordsComponent {
 
   public dataSource: RestTableDataSource<IHostRecord> = new RestTableDataSource<IHostRecord>();
 
-  public get totalIncoming(): number {
-    return this.dataSource.currentData
-      .filter((r: IHostRecord) => r.Direction === IDirection.INCOMING)
-      .length;
-  }
-
-  public get totalOutgoing(): number {
-    return this.dataSource.currentData
-      .filter((r: IHostRecord) => r.Direction === IDirection.OUTGOING)
-      .length;
-  }
-
   constructor(@Optional() editUserComponent: EditUserComponent,
               hostRecordsClient: HostRecordsClient,
               dialog: DialogsService) {

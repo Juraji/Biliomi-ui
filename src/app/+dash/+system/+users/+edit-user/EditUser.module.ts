@@ -9,6 +9,7 @@ import {UserAdventuresComponent} from "./declarations/UserAdventures.component";
 import {UserDonationsComponent} from "./declarations/UserDonations.component";
 import {UserInvestmentsComponent} from "./declarations/UserInvestments.component";
 import {UserCreativeMurdersComponent} from "./declarations/UserCreativeMurders.component";
+import {UserQuotesComponent} from "./declarations/UserQuotes.component";
 
 const ROUTES: Routes = [
   {
@@ -50,6 +51,11 @@ const ROUTES: Routes = [
         path: "investments",
         component: UserInvestmentsComponent,
         data: {crumbName: "Investments"}
+      },
+      {
+        path: "quotes",
+        component: UserQuotesComponent,
+        data: {crumbName: "Quotes"}
       }
     ]
   }
@@ -68,7 +74,8 @@ const ROUTES: Routes = [
     UserAchievementsComponent,
     UserAdventuresComponent,
     UserCreativeMurdersComponent,
-    UserInvestmentsComponent
+    UserInvestmentsComponent,
+    UserQuotesComponent
   ]
 })
 export class EditUserModule {

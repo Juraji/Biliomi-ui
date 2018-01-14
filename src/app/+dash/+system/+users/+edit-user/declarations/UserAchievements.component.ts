@@ -14,10 +14,6 @@ import IRestFilterOperator = Biliomi.IRestFilterOperator;
 export class UserAchievementsComponent {
   public dataSource: RestTableDataSource<IAchievementRecord> = new RestTableDataSource<IAchievementRecord>();
 
-  public get totalAchievements(): number {
-    return this.dataSource.currentData.length;
-  }
-
   constructor(@Optional() editUserComponent: EditUserComponent,
               achievementRecordsClient: AchievementRecordsClient) {
     this.dataSource.client = achievementRecordsClient;

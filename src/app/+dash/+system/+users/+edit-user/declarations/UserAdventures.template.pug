@@ -1,10 +1,3 @@
-p.
-  Total adventures: {{totalAdventures}},
-  survived: {{totalAdventuresSurvived}},
-  survived by tamagotchi: {{totalAdventuresSurvivedByTamagotchi}},
-  total bet: {{totalBet | points | async}},
-  total payout: {{totalPayouts | points | async}}
-
 data-table([dataSource]="dataSource", [disableFilter]="true")
   ng-container(columnDef="Bet")
     header-cell(*headerCellDef="", sortProperty="Bet") Bet

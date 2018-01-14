@@ -14,37 +14,6 @@ import IRestFilterOperator = Biliomi.IRestFilterOperator;
 export class UserAdventuresComponent {
   public dataSource: RestTableDataSource<IAdventureRecord> = new RestTableDataSource<IAdventureRecord>();
 
-  public get totalAdventures(): number {
-    return this.dataSource.currentData
-      .filter((r: IAdventureRecord) => !r.ByTamagotchi)
-      .length;
-  }
-
-  public get totalAdventuresSurvived(): number {
-    return this.dataSource.currentData
-      .filter((r: IAdventureRecord) => !r.ByTamagotchi && r.Payout > 0)
-      .length;
-  }
-
-  public get totalAdventuresSurvivedByTamagotchi(): number {
-    return this.dataSource.currentData
-      .filter((r: IAdventureRecord) => r.ByTamagotchi && r.Payout > 0)
-      .length;
-  }
-
-  public get totalBet(): number {
-    return this.dataSource.currentData
-      .filter((r: IAdventureRecord) => !r.ByTamagotchi)
-      .map((r: IAdventureRecord) => r.Bet)
-      .reduce((l: number, r: number) => l + r, 0);
-  }
-
-  public get totalPayouts(): number {
-    return this.dataSource.currentData
-      .map((r: IAdventureRecord) => r.Payout)
-      .reduce((l: number, r: number) => l + r, 0);
-  }
-
   constructor(@Optional() editUserComponent: EditUserComponent,
               adventureRecordsClient: AdventureRecordsClient) {
     this.dataSource.client = adventureRecordsClient;

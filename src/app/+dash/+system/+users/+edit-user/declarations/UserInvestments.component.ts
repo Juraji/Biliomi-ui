@@ -14,28 +14,6 @@ import IRestFilterOperator = Biliomi.IRestFilterOperator;
 export class UserInvestmentsComponent {
   public dataSource: RestTableDataSource<IInvestmentRecord> = new RestTableDataSource<IInvestmentRecord>();
 
-  public get totalInvestments(): number {
-    return this.dataSource.currentData.length;
-  }
-
-  public get totalInvestmentsSuccess(): number {
-    return this.dataSource.currentData
-      .filter((r: IInvestmentRecord) => r.Payout > 0)
-      .length;
-  }
-
-  public get totalInvested(): number {
-    return this.dataSource.currentData
-      .map((r: IInvestmentRecord) => r.Invested)
-      .reduce((l: number, r: number) => l + r, 0);
-  }
-
-  public get totalPayouts(): number {
-    return this.dataSource.currentData
-      .map((r: IInvestmentRecord) => r.Payout)
-      .reduce((l: number, r: number) => l + r, 0);
-  }
-
   constructor(@Optional() editUserComponent: EditUserComponent,
               investmentRecordsClient: InvestmentRecordsClient) {
     this.dataSource.client = investmentRecordsClient;

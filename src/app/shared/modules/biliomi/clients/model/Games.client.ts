@@ -22,4 +22,8 @@ export class GamesClient extends CachedModelRestClient<IGame> {
       this._api.postCommand("channel", "game", game.Name);
     }
   }
+
+  public getGameByName(gameName: string): Promise<IGame> {
+
+  }
 }
