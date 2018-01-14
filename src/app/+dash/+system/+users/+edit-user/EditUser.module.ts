@@ -8,6 +8,7 @@ import {UserAchievementsComponent} from "./declarations/UserAchievements.compone
 import {UserAdventuresComponent} from "./declarations/UserAdventures.component";
 import {UserDonationsComponent} from "./declarations/UserDonations.component";
 import {UserInvestmentsComponent} from "./declarations/UserInvestments.component";
+import {UserCreativeMurdersComponent} from "./declarations/UserCreativeMurders.component";
 
 const ROUTES: Routes = [
   {
@@ -41,6 +42,11 @@ const ROUTES: Routes = [
         data: {crumbName: "Adventures"}
       },
       {
+        path: "creative-murders",
+        component: UserCreativeMurdersComponent,
+        data: {crumbName: "Creative Murders"}
+      },
+      {
         path: "investments",
         component: UserInvestmentsComponent,
         data: {crumbName: "Investments"}
@@ -61,6 +67,7 @@ const ROUTES: Routes = [
     UserDonationsComponent,
     UserAchievementsComponent,
     UserAdventuresComponent,
+    UserCreativeMurdersComponent,
     UserInvestmentsComponent
   ]
 })

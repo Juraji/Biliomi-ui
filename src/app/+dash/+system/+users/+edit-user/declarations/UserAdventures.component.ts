@@ -51,7 +51,7 @@ export class UserAdventuresComponent {
 
     if (editUserComponent) {
       this.dataSource.clientParams.set("filter", new FilterBuilder()
-        .add("adventurer.username", IRestFilterOperator.EQUALS, editUserComponent.user.Username)
+        .add("adventurer.id", IRestFilterOperator.EQUALS, editUserComponent.user.Id)
         .toString());
     }
   }

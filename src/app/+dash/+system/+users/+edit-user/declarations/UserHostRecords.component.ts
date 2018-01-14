@@ -42,7 +42,7 @@ export class UserHostRecordsComponent {
     this.dataSource.client = hostRecordsClient;
     if (editUserComponent) {
       this.dataSource.clientParams.set("filter", new FilterBuilder()
-        .add("user.username", IRestFilterOperator.EQUALS, editUserComponent.user.Username)
+        .add("user.id", IRestFilterOperator.EQUALS, editUserComponent.user.Id)
         .toString());
     }
   }

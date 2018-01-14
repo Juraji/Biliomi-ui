@@ -1,0 +1,21 @@
+p Check on your viewer's creative ways to murder one and another.
+
+data-table(tableId="killrecords", [dataSource]="dataSource", [exportConfig]="exportConfig", [filterMapping]="filterMapping")
+  ng-container(columnDef="Killer")
+    header-cell(*headerCellDef="", sortProperty="Killer.Username") Killer
+    data-cell(*dataCellDef="let record")
+      user-display([user]="record.Killer")
+
+  ng-container(columnDef="Target")
+    header-cell(*headerCellDef="", sortProperty="Target.Username") Target
+    data-cell(*dataCellDef="let record")
+      user-display(*ngIf="!record.IsSuicide", [user]="record.Target")
+
+  ng-container(columnDef="IsSuicide")
+    header-cell(*headerCellDef="", sortProperty="IsSuicide") Suicide
+    data-cell(*dataCellDef="let record")
+      mat-icon(*ngIf="record.IsSuicide", color="primary") done
+
+  ng-container(columnDef="Date")
+    header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
+    data-cell(*dataCellDef="let record") {{record.Date | date}}

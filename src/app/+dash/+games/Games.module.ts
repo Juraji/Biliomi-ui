@@ -19,6 +19,11 @@ const ROUTES: Routes = [
     data: {crumbName: "Adventures"}
   },
   {
+    path: "creative-murders",
+    loadChildren: "./+creative-murders/CreativeMurders.module#CreativeMurdersModule",
+    data: {crumbName: "Creative Murders"}
+  },
+  {
     path: "investments",
     loadChildren: "./+investments/Investments.module#InvestmentsModule",
     data: {crumbName: "Investments"}

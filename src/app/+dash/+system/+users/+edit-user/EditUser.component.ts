@@ -4,8 +4,10 @@ import {UsersClient} from "../../../../shared/modules/biliomi/clients/model/User
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {Subscription} from "rxjs/Subscription";
 import {CrumbsService} from "../../../../shared/modules/breadcrumbs/services/Crumbs.service";
-import IUser = Biliomi.IUser;
 import {RouterUtils} from "../../../../shared/modules/tools/RouterUtils";
+import {AuthService} from "../../../../shared/services/Auth.service";
+import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
+import IUser = Biliomi.IUser;
 
 @Component({
   selector: "edit-user",
@@ -15,6 +17,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   private _activatedRoute: ActivatedRoute;
   private _breadCrumbs: CrumbsService;
   private _usersClient: UsersClient;
+  private _authService: AuthService;
   private _paramSub: Subscription;
   private _childRoutes: Routes;
   private _router: Router;
@@ -28,14 +31,20 @@ export class EditUserComponent implements OnInit, OnDestroy {
     return this._childRoutes;
   }
 
+  public get isCurrentUser(): boolean {
+    return StringUtils.equalsIgnoreCase(this._authService.username, this.user.Username);
+  }
+
   constructor(activatedRoute: ActivatedRoute,
               router: Router,
               usersClient: UsersClient,
-              breadCrumbs: CrumbsService) {
+              breadCrumbs: CrumbsService,
+              authService: AuthService) {
     this._activatedRoute = activatedRoute;
     this._router = router;
     this._usersClient = usersClient;
     this._breadCrumbs = breadCrumbs;
+    this._authService = authService;
 
     this._childRoutes = activatedRoute.routeConfig.children;
   }

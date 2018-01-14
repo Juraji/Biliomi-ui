@@ -2,6 +2,7 @@ mat-spinner(*ngIf="user == undefined")
 
 div(*ngIf="user != undefined")
   h2 {{user?.DisplayName}}
+    small.text-muted(*ngIf="isCurrentUser") &nbsp;(You)
   ul.list-unstyled
     li.text-primary(*ngIf="user.Caster") Channel Owner
     li.text-secondary(*ngIf="user.Moderator") Moderator
@@ -10,7 +11,7 @@ div(*ngIf="user != undefined")
 
   .columns
     .col.span-4-of-12
-      nav(mat-tab-nav-bar)
+      nav(mat-tab-nav-bar, [disableRipple]="true")
         a(mat-tab-link, [active]="true") Base Information
 
       user-base-information([user]="user")

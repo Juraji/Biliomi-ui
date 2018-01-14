@@ -42,7 +42,7 @@ export class UserInvestmentsComponent {
 
     if (editUserComponent) {
       this.dataSource.clientParams.set("filter", new FilterBuilder()
-        .add("invester.username", IRestFilterOperator.EQUALS, editUserComponent.user.Username)
+        .add("invester.id", IRestFilterOperator.EQUALS, editUserComponent.user.Id)
         .toString());
     }
   }
