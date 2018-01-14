@@ -17,6 +17,11 @@ const ROUTES: Routes = [
         path: "system-commands",
         loadChildren: "./+system-commands/SystemCommands.module#SystemCommandsModule",
         data: {crumbName: "System Commands"}
+      },
+      {
+        path: "command-history",
+        loadChildren: "./+command-history/CommandHistory.module#CommandHistoryModule",
+        data: {crumbName: "Command History"}
       }
     ]
   }

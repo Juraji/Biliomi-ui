@@ -18,7 +18,9 @@ export class UsersClient extends CachedModelRestClient<IUser> {
 
   public async getUserByUsername(username: string): Promise<IUser> {
     let user = await this._api.get<IUser>("/core/users/byusername/" + username);
-    this._cache.append(user);
+    if (super.searchCacheById(user.Id) == null) {
+      this._cache.append(user);
+    }
     return user;
   }
 }
