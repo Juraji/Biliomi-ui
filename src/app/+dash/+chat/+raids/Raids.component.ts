@@ -9,8 +9,10 @@ import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/int
 import {SaveButtonComponent} from "../../../shared/components/SaveButton.component";
 import {FormControl} from "@angular/forms";
 import {DialogsService} from "../../../shared/modules/dialogs/services/Dialogs.service";
+import {DatePipe} from "../../../shared/pipes/Date.pipe";
 import IRaidRecord = Biliomi.IRaidRecord;
 import IDirection = Biliomi.IDirection;
+import {CaseToWordPipe, CaseType} from "../../../shared/pipes/CaseToWord.pipe";
 
 @Component({
   selector: "raids",
@@ -69,5 +71,18 @@ export class RaidsComponent {
           }
         });
     }
+  }
+
+  public deleteRecord(record: IRaidRecord) {
+    let date = new DatePipe().transform(record.Date);
+    let direction = new CaseToWordPipe().transform(record.Direction, CaseType.ENUM);
+    this._dialogs.confirm(`Are you sure you want to delete this ${direction} raid record on ${date} by ${record.Channel.DisplayName}?`)
+      .filter((confirmed: boolean) => confirmed)
+      .subscribe(async () => {
+        let success = await this._raidRecordsClient.delete(record.Id);
+        if (success) {
+          this.dataSource.update();
+        }
+      });
   }
 }

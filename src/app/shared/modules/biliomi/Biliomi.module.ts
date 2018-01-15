@@ -39,6 +39,8 @@ import {InvestmentSettingsClient} from "./clients/settings/InvestmentSettings.cl
 import {KillRecordsClient} from "./clients/model/KillRecords.client";
 import {QuotesClient} from "./clients/model/Quotes.client";
 import {RaidRecordsClient} from "./clients/model/RaidRecords.client";
+import {RouletteRecordsClient} from "./clients/model/RouletteRecords.client";
+import {RouletteSettingsClient} from "./clients/settings/RouletteSettings.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -68,6 +70,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   ModerationRecordsClient,
   QuotesClient,
   RaidRecordsClient,
+  RouletteRecordsClient,
   TemplatesClient,
   UserGroupsClient,
   UsersClient,
@@ -82,6 +85,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   HostWatchSettingsClient,
   InvestmentSettingsClient,
   PointsSettingsClient,
+  RouletteSettingsClient,
   SubscriberWatchSettingsClient,
   SystemSettingsClient,
   TimeTrackingSettingsClient,

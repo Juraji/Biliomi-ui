@@ -28,6 +28,12 @@ p Check out latest investments and change investment settings
         header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
         data-cell(*dataCellDef="let record") {{record.Date | date}}
 
+      ng-container(columnDef="#Actions", [buttonsColumn]="1")
+        header-cell(*headerCellDef="") &nbsp;
+        data-cell(*dataCellDef="let record")
+          a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", matTooltip="Delete Record")
+            mat-icon delete_forever
+
   .col.span-4-of-12
     form(#investmentsSettingsForm="", (submit)="saveSettings()")
       mat-card

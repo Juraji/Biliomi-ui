@@ -7,6 +7,7 @@ import {FormControl, Validators} from "@angular/forms";
 import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
 import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
+import {DialogsService} from "../../../shared/modules/dialogs/services/Dialogs.service";
 import IInvestmentRecord = Biliomi.IInvestmentRecord;
 
 @Component({
@@ -15,6 +16,7 @@ import IInvestmentRecord = Biliomi.IInvestmentRecord;
 })
 export class InvestmentsComponent implements OnInit {
   private _investmentSettingsClient: InvestmentSettingsClient;
+  private _dialogs: DialogsService;
 
   public dataSource: RestTableDataSource<IInvestmentRecord> = new RestTableDataSource<IInvestmentRecord>();
   public investmentDurationControl: FormControl = new FormControl(0, [Validators.required, Validators.min(60000)]);
@@ -39,8 +41,10 @@ export class InvestmentsComponent implements OnInit {
   };
 
   constructor(investmentRecordsClient: InvestmentRecordsClient,
-              investmentSettingsClient: InvestmentSettingsClient) {
+              investmentSettingsClient: InvestmentSettingsClient,
+              dialogs: DialogsService) {
     this.dataSource.client = investmentRecordsClient;
+    this._dialogs = dialogs;
     this._investmentSettingsClient = investmentSettingsClient;
   }
 
@@ -73,5 +77,16 @@ export class InvestmentsComponent implements OnInit {
         this.initSettingsFields();
       }
     }
+  }
+
+  public deleteRecord(record: IInvestmentRecord) {
+    this._dialogs.confirm(`Arou you sure you want to delete this roulette record for ${record.Invester.DisplayName}?`)
+      .filter((confirmed: boolean) => confirmed)
+      .subscribe(() => {
+        let success = this.dataSource.client.delete(record.Id);
+        if (success) {
+          this.dataSource.update();
+        }
+      });
   }
 }

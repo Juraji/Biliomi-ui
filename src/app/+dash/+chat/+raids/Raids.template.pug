@@ -20,6 +20,12 @@ p Check out raid records, throw a raid or register incoming raids.
         header-cell(*headerCellDef="", sortProperty="GameAtMoment") Was Playing
         data-cell(*dataCellDef="let record") {{record.GameAtMoment}}
 
+      ng-container(columnDef="#Actions", [buttonsColumn]="1")
+        header-cell(*headerCellDef="") &nbsp;
+        data-cell(*dataCellDef="let record")
+          a.mat-icon-button.pull-right(mat-button, color="warn", (click)="deleteRecord(record)", matTooltip="Delete Record")
+            mat-icon delete_forever
+
   .col.span-4-of-12
     form(#raidForm="", (submit)="saveRaid()")
       mat-card
