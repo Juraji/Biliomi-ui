@@ -4,7 +4,7 @@
       | Items per page
 
     mat-form-field.paginator-page-size-select(*ngIf="_displayedPageSizeOptions.length > 1")
-      mat-select([value]="_pageSize", (change)="changePageSize($event.value)")
+      mat-select([value]="_pageSize", (change)="changePageSize($event.value)", ngDefaultControl)
         mat-option(*ngFor="let opt of _displayedPageSizeOptions", [value]="opt") {{opt}}
 
   .paginator-range-actions

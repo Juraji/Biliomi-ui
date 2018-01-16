@@ -14,7 +14,7 @@ form(#userGroupEditForm="", (submit)="save()")
       mat-error(*ngIf="groupNameControl.hasError('pattern')") Please only user alphabetic characters without spaces!
 
     mat-form-field(*ngIf="editedGroup?.Weight >= 10")
-      mat-select#group-weight(name="group-weight", placeholder="Weight", required="true", [formControl]="weightControl")
+      mat-select#group-weight(name="group-weight", placeholder="Weight", required="true", [formControl]="weightControl", ngDefaultControl)
         mat-option(*ngFor="let weight of 1000 | numberArray:10", [value]="weight") {{weight}}
       mat-hint The group weight, higher values mean more restriction.
       mat-error(*ngIf="weightControl.hasError('required')") This field is required!

@@ -9,7 +9,7 @@ form(#addActionForm="", (submit)="saveAction()")
       mat-error(*ngIf="nameControl.hasError('required')") This field is required!
 
     mat-form-field
-      mat-select(placeholder="Action Type", required="true", [formControl]="typeControl")
+      mat-select(placeholder="Action Type", required="true", [formControl]="typeControl", ngDefaultControl)
         mat-option(value="COMMAND") Execute Command
         mat-option(value="PAGE") Navigate to page
         mat-option(value="URL") Navigate to url
