@@ -13,10 +13,9 @@ const formControlBinding: any = {
 
 @Directive({
   selector: "[formControl]",
-  providers: [formControlBinding], exportAs: "ngForm",
-  host: {
-    "class": "dirty-form-guard"
-  }
+  providers: [formControlBinding],
+  exportAs: "ngForm",
+  host: {"class": "dirty-form-guard"}
 })
 export class GuardedFormControlDirective extends FormControlDirective implements OnInit, OnDestroy {
   private _formControlRegisterService: FormControlRegisterService;
