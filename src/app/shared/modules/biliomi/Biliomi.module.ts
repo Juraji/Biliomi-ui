@@ -41,6 +41,9 @@ import {QuotesClient} from "./clients/model/Quotes.client";
 import {RaidRecordsClient} from "./clients/model/RaidRecords.client";
 import {RouletteRecordsClient} from "./clients/model/RouletteRecords.client";
 import {RouletteSettingsClient} from "./clients/settings/RouletteSettings.client";
+import {SpotifySettingsClient} from "./clients/settings/SpotifySettings.client";
+import {TwitterSettingsClient} from "./clients/settings/TwitterSettings.client";
+import {SteamSettingsClient} from "./clients/settings/SteamSettings.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -86,9 +89,12 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   InvestmentSettingsClient,
   PointsSettingsClient,
   RouletteSettingsClient,
+  SpotifySettingsClient,
+  SteamSettingsClient,
   SubscriberWatchSettingsClient,
   SystemSettingsClient,
   TimeTrackingSettingsClient,
+  TwitterSettingsClient,
 
   // Non-REST clients
   ChannelStatusClient,

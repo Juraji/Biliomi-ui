@@ -24,6 +24,11 @@ const ROUTES: Routes = [
         data: {crumbName: "Communities"}
       },
       {
+        path: "integrations",
+        loadChildren: "./+integrations/Integrations.module#IntegrationsModule",
+        data: {crumbName: "Integrations"}
+      },
+      {
         path: "chat-logs",
         loadChildren: "./+chat-logs/ChatLogs.module#ChatLogsModule",
         data: {crumbName: "Chat Logs"}

@@ -1,4 +1,4 @@
-// Generated using typescript-generator version 1.29.366 on 2018-01-04 19:45:01.
+// Generated using typescript-generator version 1.29.366 on 2018-01-21 11:10:37.
 
 export namespace Biliomi {
 
@@ -341,13 +341,15 @@ export namespace Biliomi {
   }
 
   export interface ISpotifySettings extends ISettings {
-    maxDuration: number;
     SongrequestsEnabled: boolean;
     SongRequestPlaylistId: string;
+    MaxDuration: number;
+    _IntegrationEnabled: boolean;
   }
 
   export interface ISteamSettings extends ISettings {
     AutoUpdateChannelGame: boolean;
+    _IntegrationEnabled: boolean;
   }
 
   export interface IStreamLabsDonationEvent extends IEvent {
@@ -448,6 +450,7 @@ export namespace Biliomi {
 
   export interface ITwitterSettings extends ISettings {
     TrackedKeywords: string[];
+    _IntegrationEnabled: boolean;
   }
 
   export interface IUser {

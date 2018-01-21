@@ -73,5 +73,5 @@ p Check out your viewer's latest adventures and change adventure settings
 
         mat-card-actions
           save-button([disabled]="!isSettingsFormOk", [stateEmitter]="_adventureSettingsClient.afterSave")
-          button(mat-button, type="button", (click)="initSettingsFields()", matTooltip="Refresh data")
+          button(mat-button, type="button", (click)="initFields()", matTooltip="Refresh data")
             mat-icon refresh
