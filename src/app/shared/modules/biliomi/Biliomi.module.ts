@@ -44,6 +44,7 @@ import {RouletteSettingsClient} from "./clients/settings/RouletteSettings.client
 import {SpotifySettingsClient} from "./clients/settings/SpotifySettings.client";
 import {TwitterSettingsClient} from "./clients/settings/TwitterSettings.client";
 import {SteamSettingsClient} from "./clients/settings/SteamSettings.client";
+import {VersionInfoClient} from "./clients/VersionInfo.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -98,8 +99,9 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
 
   // Non-REST clients
   ChannelStatusClient,
-  ViewersClient,
-  HostersClient
+  HostersClient,
+  VersionInfoClient,
+  ViewersClient
 ];
 
 @NgModule({

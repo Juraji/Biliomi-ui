@@ -2,9 +2,8 @@ form(#twitterSettingsForm="", (submit)="save()")
   mat-card
     mat-card-header
       mat-card-title Twitter Integration
-
-    mat-card-content(*ngIf="!_twitterSettingsClient._IntegrationEnabled")
-      | Twitter integration is disabled, run Biliomi in install or update mode to set it up via the installation process.
+      mat-card-subtitle(*ngIf="!_twitterSettingsClient._IntegrationEnabled")
+        | Twitter integration is disabled, run Biliomi in install or update mode to set it up via the installation process.
 
     mat-card-content(*ngIf="_twitterSettingsClient._IntegrationEnabled")
       chip-list-input([(chips)]="trackedWords", placeholder="Tracked Words")

@@ -2,9 +2,8 @@ form(#spotifySettingsForm="", (submit)="save()")
   mat-card
     mat-card-header
       mat-card-title Spotify Integration
-
-    mat-card-content(*ngIf="!_spotifySettingsClient._IntegrationEnabled")
-      | Spotify integration is disabled, run Biliomi in install or update mode to set it up via the installation process.
+      mat-card-subtitle(*ngIf="!_spotifySettingsClient._IntegrationEnabled")
+        | Spotify integration is disabled, run Biliomi in install or update mode to set it up via the installation process.
 
     mat-card-content(*ngIf="_spotifySettingsClient._IntegrationEnabled")
       mat-slide-toggle([formControl]="songrequestsEnabledControl") Enable Spotify Song Requests

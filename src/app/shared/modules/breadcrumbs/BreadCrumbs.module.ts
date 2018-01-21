@@ -1,15 +1,16 @@
 import {ModuleWithProviders, NgModule} from "@angular/core";
-import {BreadCrumbsComponent} from "./BreadCrumbs.component";
-import {CrumbsService} from "./services/Crumbs.service";
 import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
-import {MatToolbarModule} from "@angular/material";
+import {MatToolbarModule, MatTooltipModule} from "@angular/material";
+import {BreadCrumbsComponent} from "./BreadCrumbs.component";
+import {CrumbsService} from "./services/Crumbs.service";
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltipModule
   ],
   declarations: [BreadCrumbsComponent],
   exports: [BreadCrumbsComponent]
