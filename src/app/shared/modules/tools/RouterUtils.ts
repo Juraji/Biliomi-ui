@@ -1,4 +1,4 @@
-import {ActivatedRoute, ActivatedRouteSnapshot, UrlSegment} from "@angular/router";
+import {ActivatedRoute, ActivatedRouteSnapshot, Route, Routes, UrlSegment} from "@angular/router";
 
 export class RouterUtils {
   public static routeEndsWith(activatedRoute: ActivatedRoute, url: string) {
