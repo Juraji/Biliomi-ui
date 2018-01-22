@@ -1,9 +1,9 @@
 import {Component} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 import {
   COMPONENT_TEMPLATE,
   RedirectToFirstChildComponent
 } from "../../../shared/classes/abstract/RedirectToFirstChildComponent";
-import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: "chat-moderator",
@@ -11,7 +11,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class ChatModeratorComponent extends RedirectToFirstChildComponent {
 
-  constructor(router: Router, activatedRoute: ActivatedRoute) {
-    super("/dash/chat/chat-moderator", router, activatedRoute);
+  constructor(activatedRoute: ActivatedRoute) {
+    super(activatedRoute);
   }
 }

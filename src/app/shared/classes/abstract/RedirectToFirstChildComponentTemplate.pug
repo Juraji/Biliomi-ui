@@ -1,4 +1,1 @@
-nav(mat-tab-nav-bar)
-  a(mat-tab-link, *ngFor="let child of childRoutes", [routerLink]="child.path", routerLinkActive #rla="routerLinkActive", [active]="rla.isActive") {{child.data.crumbName}}
-
-router-outlet
+route-tabs([routes]="childRoutes", [relativeTo]="activatedRoute")

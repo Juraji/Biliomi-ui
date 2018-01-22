@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {
   COMPONENT_TEMPLATE,
   RedirectToFirstChildComponent
@@ -12,7 +12,7 @@ import {
 })
 export class CommandsComponent extends RedirectToFirstChildComponent {
 
-  constructor(router: Router, activatedRoute: ActivatedRoute) {
-    super("/dash/commands", router, activatedRoute);
+  constructor(activatedRoute: ActivatedRoute) {
+    super(activatedRoute);
   }
 }

@@ -1,25 +1,22 @@
-import {ActivatedRoute, Route, Router} from "@angular/router";
-import {RouterRedirector} from "../RouterRedirector";
-import {OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute, Route} from "@angular/router";
 
 export const COMPONENT_TEMPLATE: string = require("./RedirectToFirstChildComponentTemplate.pug");
 
-export abstract class RedirectToFirstChildComponent implements OnInit, OnDestroy {
-  private _componentUrl: string;
-  private _redirector: RouterRedirector;
-  public childRoutes: Route[] = [];
+export abstract class RedirectToFirstChildComponent {
+  private _activatedRoute: ActivatedRoute;
+  private _childRoutes: Route[] = [];
 
-  constructor(componentUrl: string, router: Router, activatedRoute: ActivatedRoute) {
-    this._componentUrl = componentUrl;
-    this.childRoutes = activatedRoute.routeConfig.children.filter((child: Route) => !child.data.hideFromMenu);
-    this._redirector = new RouterRedirector(router, this._componentUrl, this._componentUrl + "/" + this.childRoutes[0].path);
+
+  public get activatedRoute(): ActivatedRoute {
+    return this._activatedRoute;
   }
 
-  public ngOnInit() {
-    this._redirector.start();
+  public get childRoutes(): Route[] {
+    return this._childRoutes;
   }
 
-  public ngOnDestroy() {
-    this._redirector.stop();
+  constructor(activatedRoute: ActivatedRoute) {
+    this._activatedRoute = activatedRoute;
+    this._childRoutes = activatedRoute.routeConfig.children.filter((child: Route) => !child.data.hideFromMenu);
   }
 }

@@ -2,7 +2,7 @@ p Check out the latest followers and change the behaviour of Biliomi when new fo
 
 .columns
   .col.span-8-of-12
-    data-table(tableId="incoming-hosts", [dataSource]="dataSource", [filterMapping]="tableFilterMapping")
+    data-table(tableId="incoming-hosts", [dataSource]="dataSource", [filterMapping]="tableFilterMapping", [exportConfig]="exportConfig")
       ng-container(columnDef="Direction")
         header-cell(*headerCellDef="", sortProperty="Direction") Direction
         data-cell(*dataCellDef="let record") {{record.Direction | caseToWord:"ENUM"}}

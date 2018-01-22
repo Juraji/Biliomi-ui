@@ -32,6 +32,11 @@ const ROUTES: Routes = [
         path: "donations",
         loadChildren: "./+donations/Donations.module#DonationsModule",
         data: {crumbName: "Donations"}
+      },
+      {
+        path: "greetings",
+        loadChildren: "./+greetings/Greetings.module#GreetingsModule",
+        data: {crumbName: "Greetings"}
       }
     ]
   }

@@ -45,6 +45,8 @@ import {SpotifySettingsClient} from "./clients/settings/SpotifySettings.client";
 import {TwitterSettingsClient} from "./clients/settings/TwitterSettings.client";
 import {SteamSettingsClient} from "./clients/settings/SteamSettings.client";
 import {VersionInfoClient} from "./clients/VersionInfo.client";
+import {UserGreetingSettingsClient} from "./clients/settings/UserGreetingSettings.client";
+import {UserGreetingsClient} from "./clients/model/UserGreetings.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -76,6 +78,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   RaidRecordsClient,
   RouletteRecordsClient,
   TemplatesClient,
+  UserGreetingsClient,
   UserGroupsClient,
   UsersClient,
 
@@ -96,6 +99,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   SystemSettingsClient,
   TimeTrackingSettingsClient,
   TwitterSettingsClient,
+  UserGreetingSettingsClient,
 
   // Non-REST clients
   ChannelStatusClient,

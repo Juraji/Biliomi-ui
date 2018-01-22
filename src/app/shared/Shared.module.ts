@@ -29,6 +29,7 @@ import {ChipListInputComponent} from "./components/ChipListInput.component";
 import {CommunityChipListComponent} from "./components/CommunityChipList.component";
 import {DirtyFormNavigationGuardModule} from "./modules/dirty-form-navigation-guard/DirtyFormNavigationGuard.module";
 import {BreadCrumbsModule} from "./modules/breadcrumbs/BreadCrumbs.module";
+import {RouteTabsComponent} from "./components/RouteTabs.component";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -50,7 +51,8 @@ const SHARED_COMPONENTS: Type<any>[] = [
   SaveButtonComponent,
   UserAutoCompleteComponent,
   UserDisplayComponent,
-  UserGroupSelectorComponent
+  UserGroupSelectorComponent,
+  RouteTabsComponent
 ];
 
 const SHARED_DIRECTIVES: Type<any>[] = [];

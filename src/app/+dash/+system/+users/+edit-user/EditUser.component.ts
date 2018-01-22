@@ -1,10 +1,9 @@
 import {Component, OnDestroy, OnInit} from "@angular/core";
-import {ActivatedRoute, ParamMap, Router, Routes} from "@angular/router";
+import {ActivatedRoute, ParamMap, Routes} from "@angular/router";
 import {UsersClient} from "../../../../shared/modules/biliomi/clients/model/Users.client";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {Subscription} from "rxjs/Subscription";
 import {CrumbsService} from "../../../../shared/modules/breadcrumbs/services/Crumbs.service";
-import {RouterUtils} from "../../../../shared/modules/tools/RouterUtils";
 import {AuthService} from "../../../../shared/services/Auth.service";
 import {StringUtils} from "../../../../shared/modules/tools/StringUtils";
 import IUser = Biliomi.IUser;
@@ -20,7 +19,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
   private _authService: AuthService;
   private _paramSub: Subscription;
   private _childRoutes: Routes;
-  private _router: Router;
   private _user: IUser;
 
   public get user(): IUser {
@@ -36,12 +34,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   constructor(activatedRoute: ActivatedRoute,
-              router: Router,
               usersClient: UsersClient,
               breadCrumbs: CrumbsService,
               authService: AuthService) {
     this._activatedRoute = activatedRoute;
-    this._router = router;
     this._usersClient = usersClient;
     this._breadCrumbs = breadCrumbs;
     this._authService = authService;
@@ -56,7 +52,6 @@ export class EditUserComponent implements OnInit, OnDestroy {
       .subscribe(async (username: string) => {
         this._user = await this._usersClient.getUserByUsername(username.toLowerCase());
         this._breadCrumbs.updateVariables({username: this._user.DisplayName});
-        this._router.navigateByUrl(RouterUtils.routeToUrl(this._activatedRoute, "hosts"), {replaceUrl: true});
       });
   }
 
