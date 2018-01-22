@@ -8,7 +8,6 @@ import {FormControl} from "@angular/forms";
 })
 export class SteamSettingsComponent implements OnInit {
   private _steamSettingsClient: SteamSettingsClient;
-
   private autoUpdateChannelGameControl: FormControl = new FormControl(false);
 
   constructor(steamSettingsClient: SteamSettingsClient) {
@@ -19,7 +18,7 @@ export class SteamSettingsComponent implements OnInit {
     this.initFields();
   }
 
-  private async initFields() {
+  public async initFields() {
     await this._steamSettingsClient.load(true);
     this.autoUpdateChannelGameControl.reset(this._steamSettingsClient.AutoUpdateChannelGame);
   }

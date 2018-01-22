@@ -6,7 +6,6 @@ export abstract class RedirectToFirstChildComponent {
   private _activatedRoute: ActivatedRoute;
   private _childRoutes: Route[] = [];
 
-
   public get activatedRoute(): ActivatedRoute {
     return this._activatedRoute;
   }

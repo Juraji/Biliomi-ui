@@ -26,7 +26,7 @@ export class GreetingsComponent implements OnInit {
     sheetName: "User Greetings",
     columns: [
       {objectPath: "$.User.DisplayName", headerName: "Username"},
-      {objectPath: "$.Message", headerName: "Message"},
+      {objectPath: "$.Message", headerName: "Message"}
     ]
   };
 
@@ -58,6 +58,8 @@ export class GreetingsComponent implements OnInit {
 
   public async initSettingsFields() {
     await this._greetingSettingsClient.load(true);
+    this.enableGreetingsControl.reset(this._greetingSettingsClient.EnableGreetings);
+    this.greetingTimeoutControl.reset(this._greetingSettingsClient.GreetingTimeout);
   }
 
   public editUserGreeting(greeting: IUserGreeting) {
