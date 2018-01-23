@@ -19,10 +19,11 @@ import ITwitchHostInEvent = Biliomi.ITwitchHostInEvent;
 import IIrcChatMessageEvent = Biliomi.IIrcChatMessageEvent;
 import IChannelStateEvent = Biliomi.IChannelStateEvent;
 
+import "./Dash.less";
+
 @Component({
   selector: "dash-page",
-  templateUrl: require("./Dash.template.pug"),
-  styleUrls: [require("./Dash.less").toString()]
+  templateUrl: require("./Dash.template.pug")
 })
 export class DashComponent implements OnInit, OnDestroy {
 

@@ -1,10 +1,11 @@
 import {Component} from "@angular/core";
 import {ChannelStatusClient} from "../../../shared/modules/biliomi/clients/ChannelStatus.client";
 
+import "./ChannelInfo.less";
+
 @Component({
   selector: "channel-info-component",
-  templateUrl: require("./ChannelInfo.template.pug"),
-  styleUrls: [require("./ChannelInfo.less").toString()]
+  templateUrl: require("./ChannelInfo.template.pug")
 })
 export class ChannelInfoComponent {
   private channelInfoClient: ChannelStatusClient;

@@ -5,6 +5,8 @@ import {DataTableComponent} from "../DataTable.component";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
 import {SortHeaderState} from "../classes/interfaces/SortHeaderState.enum";
 
+import "./SortProperty.less";
+
 const SORT_ANIMATION_TRANSITION: string = `${AnimationDurations.ENTERING} ${AnimationCurves.STANDARD_CURVE}`;
 const SORT_ANIMATIONS: AnimationTriggerMetadata[] = [
   trigger("indicator", [
@@ -46,7 +48,6 @@ const SORT_ANIMATIONS: AnimationTriggerMetadata[] = [
 @Component({
   selector: "header-cell[sortProperty]",
   templateUrl: require("./SortProperty.template.pug"),
-  styleUrls: [require("./SortProperty.less").toString()],
   animations: SORT_ANIMATIONS
 })
 export class SortPropertyDirective<T> implements OnInit {

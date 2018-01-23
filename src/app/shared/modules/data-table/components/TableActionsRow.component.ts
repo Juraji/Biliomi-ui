@@ -7,10 +7,11 @@ import {Storage} from "../../../storage/Storage";
 import {TableSetupModalComponent} from "./TableSetupModal.component";
 import {DialogsService} from "../../dialogs/services/Dialogs.service";
 
+import "./TableActionsRow.less";
+
 @Component({
   selector: "table-actions-row",
-  templateUrl: require("./TableActionsRow.template.pug"),
-  styleUrls: [require("./TableActionsRow.less").toString()]
+  templateUrl: require("./TableActionsRow.template.pug")
 })
 export class TableActionsRowComponent<T> {
   private _parentTable: DataTableComponent<T>;

@@ -2,10 +2,11 @@ import {Component, OnInit} from "@angular/core";
 import {CrumbsService} from "./services/Crumbs.service";
 import {VersionInfoClient} from "../biliomi/clients/VersionInfo.client";
 
+import "./BreadCrumbs.less";
+
 @Component({
   selector: "bread-crumbs",
-  templateUrl: require("./BreadCrumbs.template.pug"),
-  styleUrls: [require("./BreadCrumbs.less").toString()]
+  templateUrl: require("./BreadCrumbs.template.pug")
 })
 export class BreadCrumbsComponent implements OnInit {
   private _crumbsService: CrumbsService;

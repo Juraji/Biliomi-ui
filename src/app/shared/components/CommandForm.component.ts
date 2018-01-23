@@ -7,10 +7,11 @@ import {ErrorStateMatcher} from "@angular/material";
 import {SaveButtonComponent} from "./SaveButton.component";
 import ICommand = Biliomi.ICommand;
 
+import "./CommandForm.less";
+
 @Component({
   selector: "command-form",
-  templateUrl: require("./CommandForm.template.pug"),
-  styleUrls: [require("./CommandForm.less").toString()]
+  templateUrl: require("./CommandForm.template.pug")
 })
 export class CommandFormComponent {
   private _api: BiliomiApiService;

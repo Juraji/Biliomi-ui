@@ -2,10 +2,11 @@ import {Component, EventEmitter, Input, ViewChild} from "@angular/core";
 import {MatButton} from "@angular/material";
 import {Subscription} from "rxjs/Subscription";
 
+import "./SaveButton.less";
+
 @Component({
   selector: "save-button",
-  templateUrl: require("./SaveButton.template.pug"),
-  styleUrls: [require("./SaveButton.less").toString()]
+  templateUrl: require("./SaveButton.template.pug")
 })
 export class SaveButtonComponent {
   private _button: MatButton;

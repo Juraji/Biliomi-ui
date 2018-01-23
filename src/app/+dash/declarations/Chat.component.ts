@@ -4,10 +4,11 @@ import {AuthService} from "../../shared/services/Auth.service";
 import {StringUtils} from "../../shared/modules/tools/StringUtils";
 import {TWITCH_URIS} from "../../shared/classes/constants/Uris";
 
+import "./Chat.less";
+
 @Component({
   selector: "chat-component",
-  templateUrl: require("./Chat.template.pug"),
-  styleUrls: [require("./Chat.less").toString()]
+  templateUrl: require("./Chat.template.pug")
 })
 export class ChatComponent implements OnInit {
   private _auth: AuthService;

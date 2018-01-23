@@ -1,6 +1,6 @@
 import {ActivatedRoute, Route} from "@angular/router";
 
-export const COMPONENT_TEMPLATE: string = require("./RedirectToFirstChildComponentTemplate.pug");
+export const REDIRECT_COMPONENT_TEMPLATE: string = require("./RedirectToFirstChildComponentTemplate.pug");
 
 export abstract class RedirectToFirstChildComponent {
   private _activatedRoute: ActivatedRoute;

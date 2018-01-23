@@ -8,12 +8,13 @@ import {QuickAction} from "./classes/interfaces/QuickAction";
 import {QuickActionType} from "./classes/interfaces/QuickAction.enum";
 import {DialogsService} from "../../../../shared/modules/dialogs/services/Dialogs.service";
 
+import "./QuickActions.less";
+
 export const QUICK_ACTIONS_STORAGE_KEY: string = "quickActions";
 
 @Component({
   selector: "quick-actions",
-  templateUrl: require("./QuickActions.template.pug"),
-  styleUrls: [require("./QuickActions.less").toString()]
+  templateUrl: require("./QuickActions.template.pug")
 })
 export class QuickActionsComponent {
   private _api: BiliomiApiService;

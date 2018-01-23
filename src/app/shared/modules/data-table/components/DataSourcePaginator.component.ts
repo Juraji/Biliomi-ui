@@ -6,16 +6,15 @@ import {Subscription} from "rxjs/Subscription";
 import {RestTableDataSource} from "../classes/RestTableDataSource";
 import {Supplier} from "../../tools/FunctionalInterface";
 
+import "./DataSourcePaginator.less";
+
 const DEFAULT_PAGE_SIZE: number = 10;
 const DEFAULT_PAGE_SIZE_OPTIONS: Supplier<number[]> = () => [10, 20, 50, 100, 200];
 
 @Component({
   selector: "data-source-paginator",
   templateUrl: require("./DataSourcePaginator.template.pug"),
-  styleUrls: [require("./DataSourcePaginator.less").toString()],
-  host: {
-    "class": "data-source-paginator"
-  },
+  host: {"class": "data-source-paginator"},
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false

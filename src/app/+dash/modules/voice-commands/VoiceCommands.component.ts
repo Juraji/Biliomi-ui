@@ -2,10 +2,11 @@ import {Component, HostBinding, OnDestroy} from "@angular/core";
 import {VoiceCommandsService} from "./services/VoiceCommands.service";
 import {VCMessagesService} from "./services/VCMessages.service";
 
+import "./VoiceCommands.less";
+
 @Component({
   selector: "voice-commands",
-  templateUrl: require("./VoiceCommands.template.pug"),
-  styleUrls: [require("./VoiceCommands.less").toString()]
+  templateUrl: require("./VoiceCommands.template.pug")
 })
 export class VoiceCommandsComponent implements OnDestroy {
   public voiceCommandsService: VoiceCommandsService;

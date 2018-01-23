@@ -3,10 +3,11 @@ import {ChannelStatusClient} from "../../shared/modules/biliomi/clients/ChannelS
 import {ViewersClient} from "../../shared/modules/biliomi/clients/Viewers.client";
 import {HostersClient} from "../../shared/modules/biliomi/clients/Hosters.client";
 
+import "./NavChannelStatus.less";
+
 @Component({
   selector: "nav-channel-info-component",
-  templateUrl: require("./NavChannelStatus.template.pug"),
-  styleUrls: [require("./NavChannelStatus.less").toString()]
+  templateUrl: require("./NavChannelStatus.template.pug")
 })
 export class NavChannelStatusComponent {
   private channelInfoClient: ChannelStatusClient;

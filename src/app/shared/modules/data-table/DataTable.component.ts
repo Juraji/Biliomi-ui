@@ -25,13 +25,14 @@ import {
   TableFilterNameMapping
 } from "./classes/interfaces/DataTable";
 
+import "./DataTable.less";
+
 export const TABLE_SETUP_STORAGE_PREFIX: string = "tableSetup.";
 
 @Component({
   selector: "data-table",
   exportAs: "cdkTable",
   templateUrl: require("./DataTable.template.pug"),
-  styleUrls: [require("./DataTable.less").toString()],
   host: {"class": "data-table"},
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,

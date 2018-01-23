@@ -4,10 +4,11 @@ import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Bil
 import ILogInfo = Biliomi.ILogInfo;
 import {MatSidenav} from "@angular/material";
 
+import "./ChatLogs.less";
+
 @Component({
   selector: "chat-logs-component",
-  templateUrl: require("./ChatLogs.template.pug"),
-  styleUrls: [require("./ChatLogs.less").toString()]
+  templateUrl: require("./ChatLogs.template.pug")
 })
 export class ChatLogsComponent implements OnInit {
   private _chatLogsClient: ChatLogsClient;

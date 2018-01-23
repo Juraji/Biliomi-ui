@@ -8,10 +8,11 @@ import {DASH_ROUTE} from "../Main.module";
 import IAuthRequest = Biliomi.IRestAuthorizationRequest;
 import IAuthResponse = Biliomi.IRestAuthorizationResponse;
 
+import "./Login.less";
+
 @Component({
   selector: "login-page",
-  templateUrl: require("./Login.template.pug"),
-  styleUrls: [require("./Login.less").toString()]
+  templateUrl: require("./Login.template.pug")
 })
 export class LoginComponent implements OnInit {
   private _api: BiliomiApiService;

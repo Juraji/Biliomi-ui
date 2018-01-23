@@ -3,10 +3,11 @@ import {BiliomiEventsService} from "../../shared/modules/biliomi/services/Biliom
 import {PowerManagementDialogComponent} from "./PowerManagementDialog.component";
 import {DialogsService} from "../../shared/modules/dialogs/services/Dialogs.service";
 
+import "./NavRemoteManagement.less";
+
 @Component({
   selector: "nav-remote-management-component",
-  templateUrl: require("./NavRemoteManagement.template.pug"),
-  styleUrls: [require("./NavRemoteManagement.less").toString()]
+  templateUrl: require("./NavRemoteManagement.template.pug")
 })
 export class NavRemoteManagementComponent {
   private _dialog: DialogsService;

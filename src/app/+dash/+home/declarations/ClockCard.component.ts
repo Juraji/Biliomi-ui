@@ -3,10 +3,11 @@ import {Dictionary} from "../../../shared/modules/tools/FunctionalInterface";
 import * as moment from "moment-timezone";
 import Moment = moment.Moment;
 
+import "./ClockCard.less";
+
 @Component({
   selector: "clock-card-component",
-  templateUrl: require("./ClockCard.template.pug"),
-  styleUrls: [require("./ClockCard.less").toString()]
+  templateUrl: require("./ClockCard.template.pug")
 })
 export class ClockCardComponent implements AfterViewInit {
   private timeZoneText: string;

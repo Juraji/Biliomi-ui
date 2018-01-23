@@ -1,14 +1,15 @@
 import {Component} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {
-  COMPONENT_TEMPLATE,
+  REDIRECT_COMPONENT_TEMPLATE,
   RedirectToFirstChildComponent
 } from "../../shared/classes/abstract/RedirectToFirstChildComponent";
 
+import "./Commands.less";
+
 @Component({
   selector: "commands-page",
-  templateUrl: COMPONENT_TEMPLATE,
-  styleUrls: [require("./Commands.less").toString()]
+  templateUrl: REDIRECT_COMPONENT_TEMPLATE
 })
 export class CommandsComponent extends RedirectToFirstChildComponent {
 

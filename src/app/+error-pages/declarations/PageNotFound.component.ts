@@ -1,9 +1,10 @@
 import {Component} from "@angular/core";
 
+import "./PageNotFound.less";
+
 @Component({
   selector: "page-not-found-page",
-  templateUrl: require("./PageNotFound.template.pug"),
-  styleUrls: [require("./PageNotFound.less").toString()]
+  templateUrl: require("./PageNotFound.template.pug")
 })
 export class PageNotFoundComponent {
 

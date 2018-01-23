@@ -6,10 +6,11 @@ import {RestTableDataSource} from "../classes/RestTableDataSource";
 import {TableFilterNameMapping} from "../classes/interfaces/DataTable";
 import {DialogsService} from "../../dialogs/services/Dialogs.service";
 
+import "./TableFilterQuery.less";
+
 @Component({
   selector: "table-filter-query",
-  templateUrl: require("./TableFilterQuery.template.pug"),
-  styleUrls: [require("./TableFilterQuery.less").toString()]
+  templateUrl: require("./TableFilterQuery.template.pug")
 })
 export class TableFilterQueryComponent<T> {
   private _parentTable: DataTableComponent<T>;
