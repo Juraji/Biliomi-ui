@@ -32,6 +32,11 @@ const ROUTES: Routes = [
     path: "roulette",
     loadChildren: "./+roulette/Roulette.module#RouletteModule",
     data: {crumbName: "Roulette"}
+  },
+  {
+    path: "tamagotchis",
+    loadChildren: "./+tamagotchis/Tamagotchis.module#TamagotchisModule",
+    data: {crumbName: "Tamagotchis"}
   }
 ];
 

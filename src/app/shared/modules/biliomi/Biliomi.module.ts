@@ -47,6 +47,9 @@ import {SteamSettingsClient} from "./clients/settings/SteamSettings.client";
 import {VersionInfoClient} from "./clients/VersionInfo.client";
 import {UserGreetingSettingsClient} from "./clients/settings/UserGreetingSettings.client";
 import {UserGreetingsClient} from "./clients/model/UserGreetings.client";
+import {TamagotchisClient} from "./clients/model/Tamagotchis.client";
+import {TamagotchiSettingsClient} from "./clients/settings/TamagotchiSettings.client";
+import {TamagotchiToysClient} from "./clients/model/TamagotchiToys.client";
 
 const BILIOMI_EXPORTS: Type<any>[] = [
   // Pipes
@@ -77,6 +80,8 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   QuotesClient,
   RaidRecordsClient,
   RouletteRecordsClient,
+  TamagotchisClient,
+  TamagotchiToysClient,
   TemplatesClient,
   UserGreetingsClient,
   UserGroupsClient,
@@ -97,6 +102,7 @@ const BILIOMI_PROVIDERS: Type<any>[] = [
   SteamSettingsClient,
   SubscriberWatchSettingsClient,
   SystemSettingsClient,
+  TamagotchiSettingsClient,
   TimeTrackingSettingsClient,
   TwitterSettingsClient,
   UserGreetingSettingsClient,

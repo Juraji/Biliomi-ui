@@ -1,0 +1,41 @@
+p Check out current Tamagotchis and change settings.
+
+.columns
+  .col.span-8-of-12
+    data-table(tableId="tamagotchis", [dataSource]="dataSource", [exportConfig]="exportConfig", [filterMapping]="filterMapping")
+      ng-container(columnDef="Owner.Username")
+        header-cell(*headerCellDef="", sortProperty="Owner.Username") Owner
+        data-cell(*dataCellDef="let tamagotchi")
+          user-display([user]="tamagotchi.Owner")
+
+      ng-container(columnDef="Name")
+        header-cell(*headerCellDef="", sortProperty="Name") Name
+        data-cell(*dataCellDef="let tamagotchi")
+          | {{tamagotchi.Name}}
+          .tg-stat Food:
+            mat-progress-bar(mode="determinate", [value]="getFoodPercentage(tamagotchi)")
+
+      ng-container(columnDef="Species")
+        header-cell(*headerCellDef="", sortProperty="Name") Species
+        data-cell(*dataCellDef="let tamagotchi")
+          | {{tamagotchi.Species}}
+          .tg-stat Mood:
+            mat-progress-bar(mode="determinate", [value]="getMoodPercentage(tamagotchi)")
+
+      ng-container(columnDef="Gender")
+        header-cell(*headerCellDef="", sortProperty="Gender") Gender
+        data-cell(*dataCellDef="let tamagotchi")
+          | {{tamagotchi.Gender | caseToWord:'ENUM'}}
+          .tg-stat Hygiene:
+            mat-progress-bar(mode="determinate", [value]="getHygienePercentage(tamagotchi)")
+
+      ng-container(columnDef="Affection")
+        header-cell(*headerCellDef="", sortProperty="Affection") Affection
+        data-cell(*dataCellDef="let tamagotchi") {{tamagotchi.Affection}}
+
+      ng-container(columnDef="DateOfBirth")
+        header-cell(*headerCellDef="", sortProperty="DateOfBirth") DOB
+        data-cell(*dataCellDef="let tamagotchi") {{tamagotchi.DateOfBirth | date}}
+
+  .col.span-4-of-12
+    tamagotchi-settings
