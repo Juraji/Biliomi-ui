@@ -1,8 +1,9 @@
-form.command-form((submit)="executeCommand()")
+form.command-form
   mat-form-field.command-args
     input(matInput="", [placeholder]="placeholder", [formControl]="argFormControl", [errorStateMatcher]="argFieldMatcher")
     mat-hint(*ngIf="helpText != undefined") {{helpText}}
     mat-error(*ngIf="argFormControl.hasError('required')") This field is required!
     mat-error(*ngIf="argFormControl.hasError('failed')") Excuting command failed, try again.
 
+  button(mat-raised-button, [actionButton]="executeCommand.bind(this)")
   save-button([disabled]="argFormControl.invalid", tooltip="Execute Command")

@@ -18,4 +18,8 @@ export class FormControlRegisterService {
   public clear() {
     this._controls = [];
   }
+
+  public resetControls() {
+    this._controls.forEach((c: FormControl) => c.reset(c.value));
+  }
 }

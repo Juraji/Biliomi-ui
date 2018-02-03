@@ -44,7 +44,7 @@ export class CommandFormComponent {
 
   public async executeCommand() {
     if (this.argsRequired && this.argFormControl.invalid) {
-      return;
+      return null;
     }
 
     let success = await this._api.postCommand(this.command.Command, this.argFormControl.value);
@@ -54,5 +54,7 @@ export class CommandFormComponent {
     } else {
       this.argFormControl.setErrors({failed: true});
     }
+
+    return success;
   }
 }

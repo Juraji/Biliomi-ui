@@ -23,13 +23,13 @@ import {BooleanPipe} from "./pipes/Boolean.pipe";
 import {ObjectSortPipe} from "./pipes/ObjectSort.pipe";
 import {DataTableModule} from "./modules/data-table/DataTable.module";
 import {DialogsModule} from "./modules/dialogs/Dialogs.module";
-import {SaveButtonComponent} from "./components/SaveButton.component";
 import {UserGroupSelectorComponent} from "./components/UserGroupSelector.component";
 import {ChipListInputComponent} from "./components/ChipListInput.component";
 import {CommunityChipListComponent} from "./components/CommunityChipList.component";
 import {DirtyFormNavigationGuardModule} from "./modules/dirty-form-navigation-guard/DirtyFormNavigationGuard.module";
 import {BreadCrumbsModule} from "./modules/breadcrumbs/BreadCrumbs.module";
 import {RouteTabsComponent} from "./components/RouteTabs.component";
+import {ActionButtonDirective} from "./directives/ActionButton.directive";
 
 const SHARED_PIPES: Type<PipeTransform>[] = [
   TwitchUserLinkPipe,
@@ -48,14 +48,15 @@ const SHARED_COMPONENTS: Type<any>[] = [
   CommandFormComponent,
   CommunityChipListComponent,
   EditTemplateButtonComponent,
-  SaveButtonComponent,
   UserAutoCompleteComponent,
   UserDisplayComponent,
   UserGroupSelectorComponent,
   RouteTabsComponent
 ];
 
-const SHARED_DIRECTIVES: Type<any>[] = [];
+const SHARED_DIRECTIVES: Type<any>[] = [
+  ActionButtonDirective
+];
 
 const SHARED_PROVIDERS: Provider[] = [
   // Services
