@@ -2,7 +2,6 @@ import {Injectable, NgZone} from "@angular/core";
 import {Router} from "@angular/router";
 import {MatDialogRef} from "@angular/material";
 import {BiliomiApiService} from "../../../../shared/modules/biliomi/services/BiliomiApi.service";
-import {Observable} from "rxjs/Observable";
 import {VCMessagesService} from "./VCMessages.service";
 import {FilterBuilder} from "../../../../shared/modules/biliomi/classes/FilterBuilder";
 import {Biliomi} from "../../../../shared/modules/biliomi/classes/interfaces/Biliomi";
@@ -119,14 +118,13 @@ export class VoiceCommandsService {
     }, this, [lastResult]);
   }
 
-  private openConfirmModal(message: string): Observable<boolean> {
+  private openConfirmModal(message: string): Promise<boolean> {
     return this._dialog.confirm(
       message,
       "voice-command-confirm",
       "Say \"panel confirm\"",
       "Say \"panel cancel\""
-    )
-      .filter((confirmed: boolean) => confirmed);
+    );
   }
 
   private confirmOrCancelModal(action: string) {
@@ -145,12 +143,14 @@ export class VoiceCommandsService {
     }
   }
 
-  private executorPoints(amountString: string) {
+  private async executorPoints(amountString: string) {
     let amount = parseInt(amountString, 10);
 
     if (!isNaN(amount)) {
-      this.openConfirmModal("Did you want to give everyone " + amount + " points?")
-        .subscribe(() => this._api.postCommand("managepoints", "everyone", amount));
+      let confirmed = await this.openConfirmModal("Did you want to give everyone " + amount + " points?");
+      if (confirmed) {
+        this._api.postCommand("managepoints", "everyone", amount);
+      }
     }
   }
 
@@ -170,8 +170,10 @@ export class VoiceCommandsService {
     }
 
     let foundCommand: ICommand = commands.Entities.shift();
-    this.openConfirmModal("Execute command " + foundCommand.Command + " ?")
-      .subscribe(() => this._api.postCommand(foundCommand.Command));
+    let confirmed = await this.openConfirmModal("Execute command " + foundCommand.Command + " ?");
+    if (confirmed) {
+      this._api.postCommand(foundCommand.Command);
+    }
   }
 
   private executorNavigate(pageName: string) {

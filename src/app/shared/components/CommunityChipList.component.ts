@@ -8,7 +8,7 @@ import ICommunity = Biliomi.ICommunity;
 
 @Component({
   selector: "community-chip-list",
-  templateUrl: require("./CommunityChipList.template.pug")
+  templateUrl: require("./CommunityChipList.template.html")
 })
 export class CommunityChipListComponent extends ChipListInputComponent implements AfterViewInit {
   private _matSnackBar: MatSnackBar;

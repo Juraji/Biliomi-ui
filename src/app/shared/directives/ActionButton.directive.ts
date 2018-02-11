@@ -1,9 +1,10 @@
-import {Directive, HostBinding, HostListener, Input, Self} from "@angular/core";
-import {Supplier} from "../modules/tools/FunctionalInterface";
+import {Directive, HostBinding, HostListener, Input} from "@angular/core";
+import {Callable} from "../modules/tools/FunctionalInterface";
 import {FormControlRegisterService} from "../modules/dirty-form-navigation-guard/services/FormControlRegister.service";
-import {MatButton} from "@angular/material";
 
 import "./ActionButton.less";
+
+type ActionCallback = Callable<boolean | Promise<boolean>>;
 
 @Directive({
   selector: "button[actionButton]",
@@ -12,12 +13,16 @@ import "./ActionButton.less";
   }
 })
 export class ActionButtonDirective {
-  private _action: Supplier<boolean | Promise<boolean>>;
+  private _action: ActionCallback;
   private _formControlRegisterService: FormControlRegisterService;
   private _state: boolean;
 
   @Input("actionButton")
-  public set action(fn: Supplier<boolean | Promise<boolean>>) {
+  public get actionButton(): ActionCallback {
+    return this._action;
+  }
+
+  public set actionButton(fn: ActionCallback) {
     this._action = fn;
   }
 
@@ -37,12 +42,18 @@ export class ActionButtonDirective {
 
   @HostListener("click")
   public async performAction() {
-    let intermediate = this._action.apply(null);
-    let result = (intermediate instanceof Promise ? await intermediate : intermediate);
+    let result = false;
 
-    if (result === true) {
-      // Reset registered form controls when state is ok
-      this._formControlRegisterService.resetControls();
+    try {
+      let intermediate = this._action.apply(null);
+      result = (intermediate instanceof Promise ? await intermediate : intermediate);
+
+      if (result === true) {
+        // Reset registered form controls when state is ok
+        this._formControlRegisterService.resetControls();
+      }
+    } catch (e) {
+      console.log(e);
     }
 
     if (result != null) {
@@ -50,7 +61,7 @@ export class ActionButtonDirective {
       let t = setTimeout(() => {
         this._state = null;
         clearTimeout(t);
-      }, 1e30);
+      }, 2e3);
     }
   }
 }

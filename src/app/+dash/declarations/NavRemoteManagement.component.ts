@@ -7,7 +7,7 @@ import "./NavRemoteManagement.less";
 
 @Component({
   selector: "nav-remote-management-component",
-  templateUrl: require("./NavRemoteManagement.template.pug")
+  templateUrl: require("./NavRemoteManagement.template.html")
 })
 export class NavRemoteManagementComponent {
   private _dialog: DialogsService;

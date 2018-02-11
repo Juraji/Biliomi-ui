@@ -9,7 +9,7 @@ import IRestFilterOperator = Biliomi.IRestFilterOperator;
 
 @Component({
   selector: "user-achievements",
-  templateUrl: require("./UserAchievements.template.pug")
+  templateUrl: require("./UserAchievements.template.html")
 })
 export class UserAchievementsComponent {
   public dataSource: RestTableDataSource<IAchievementRecord> = new RestTableDataSource<IAchievementRecord>();

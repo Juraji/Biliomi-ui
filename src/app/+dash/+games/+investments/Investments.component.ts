@@ -12,7 +12,7 @@ import IInvestmentRecord = Biliomi.IInvestmentRecord;
 
 @Component({
   selector: "investments",
-  templateUrl: require("./Investments.template.pug")
+  templateUrl: require("./Investments.template.html")
 })
 export class InvestmentsComponent implements OnInit {
   private _investmentSettingsClient: InvestmentSettingsClient;
@@ -79,14 +79,17 @@ export class InvestmentsComponent implements OnInit {
     }
   }
 
-  public deleteRecord(record: IInvestmentRecord) {
-    this._dialogs.confirm(`Arou you sure you want to delete this roulette record for ${record.Invester.DisplayName}?`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(() => {
-        let success = this.dataSource.client.delete(record.Id);
-        if (success) {
-          this.dataSource.update();
-        }
-      });
+  public async deleteRecord(record: IInvestmentRecord) {
+    let confirmed = await this._dialogs.confirm(`Arou you sure you want to delete this roulette record for ${record.Invester.DisplayName}?`);
+    if (confirmed) {
+      let success = this.dataSource.client.delete(record.Id);
+      if (success) {
+        this.dataSource.update();
+      }
+
+      return success;
+    }
+
+    return null;
   }
 }

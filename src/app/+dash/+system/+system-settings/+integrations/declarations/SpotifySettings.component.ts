@@ -4,7 +4,7 @@ import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: "spotify-settings",
-  templateUrl: require("./SpotifySettings.template.pug")
+  templateUrl: require("./SpotifySettings.template.html")
 })
 export class SpotifySettingsComponent implements OnInit {
   private _spotifySettingsClient: SpotifySettingsClient;
@@ -43,6 +43,10 @@ export class SpotifySettingsComponent implements OnInit {
       if (success) {
         this.initFields();
       }
+
+      return success != null;
     }
+
+    return null;
   }
 }

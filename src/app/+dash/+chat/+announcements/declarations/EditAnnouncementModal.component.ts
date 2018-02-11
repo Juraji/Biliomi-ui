@@ -8,7 +8,7 @@ import IAnnouncement = Biliomi.IAnnouncement;
 
 @Component({
   selector: "edit-announcement-modal",
-  templateUrl: require("./EditAnnouncementModal.template.pug")
+  templateUrl: require("./EditAnnouncementModal.template.html")
 })
 export class EditAnnouncementModalComponent implements OnInit {
   private _announcementId: number;
@@ -74,18 +74,18 @@ export class EditAnnouncementModalComponent implements OnInit {
     }
   }
 
-  public deleteAnnouncement() {
+  public async deleteAnnouncement() {
     if (this._announcementId != null) {
-      this._dialog.confirm("Are you sure you want to delete this announcement?")
-        .filter((confirmed: boolean) => confirmed)
-        .subscribe(async () => {
-          let success: boolean = await this._announcementsClient.delete(this._announcementId);
-          if (success == null) {
-            this._matSnackBar.open("Could not delete announcement, does it still exist?", "Ok");
-          } else {
-            this._dialogRef.close(true);
-          }
-        });
+      let confirmed = await this._dialog.confirm("Are you sure you want to delete this announcement?");
+
+      if (confirmed) {
+        let success: boolean = await this._announcementsClient.delete(this._announcementId);
+        if (success == null) {
+          this._matSnackBar.open("Could not delete announcement, does it still exist?", "Ok");
+        } else {
+          this._dialogRef.close(true);
+        }
+      }
     }
   }
 

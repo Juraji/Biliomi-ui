@@ -1,0 +1,83 @@
+
+<p>Check out your viewer's latest adventures and change adventure settings</p>
+<div class="columns">
+  <div class="col span-8-of-12">
+    <data-table tableId="adventures" [dataSource]="adventureRecordsDataSource" [exportConfig]="exportConfig" [filterMapping]="filterMapping">
+      <ng-container columnDef="Username">
+        <header-cell *headerCellDef sortProperty="Adventurer.Username">Username</header-cell>
+        <data-cell *dataCellDef="let record">
+          <user-display [user]="record.Adventurer"></user-display>
+        </data-cell>
+      </ng-container>
+      <ng-container columnDef="Bet">
+        <header-cell *headerCellDef sortProperty="Bet">Bet</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Bet | points | async}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="Payout">
+        <header-cell *headerCellDef sortProperty="Payout">Payout</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Payout | points | async}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="ByTamagotchi">
+        <header-cell *headerCellDef sortProperty="ByTamagotchi">By Tamagotchi</header-cell>
+        <data-cell *dataCellDef="let record">
+          <mat-icon *ngIf="record.ByTamagotchi" color="primary">done</mat-icon>
+        </data-cell>
+      </ng-container>
+      <ng-container columnDef="Date">
+        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+      </ng-container>
+    </data-table>
+  </div>
+  <div class="col span-4-of-12">
+    <form>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Adventure Settings</mat-card-title>
+          <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field>
+            <input id="adventure-cooldown" matInput type="number" name="adventure-cooldown" placeholder="Adventure Cooldown" required [formControl]="cooldownControl"/>
+            <mat-hint>The cooldown in between adventures, in milliseconds</mat-hint>
+            <mat-error *ngIf="cooldownControl.hasError('required')">This field is required!</mat-error>
+            <mat-error *ngIf="cooldownControl.hasError('min')">Please enter a valid amount (above 0).</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input id="adventure-join-timout" matInput type="number" name="adventure-join-timout" placeholder="Join Timeout" required [formControl]="joinTimeoutControl"/>
+            <mat-hint>The time for other players to join the adventure after initialization, in milliseconds</mat-hint>
+            <mat-error *ngIf="joinTimeoutControl.hasError('required')">This field is required!</mat-error>
+            <mat-error *ngIf="joinTimeoutControl.hasError('min')">Please enter a valid amount (above 0).</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input id="adventure-minimum-bet" matInput type="number" name="adventure-minimum-bet" placeholder="Minimum Bet" required [formControl]="minimumBetControl"/>
+            <mat-hint>The minimum bet in order to join an adventure</mat-hint>
+            <mat-error *ngIf="minimumBetControl.hasError('required')">This field is required!</mat-error>
+            <mat-error *ngIf="minimumBetControl.hasError('min')">Please enter a valid amount (above 0).</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input id="adventure-maximum-bet" matInput type="number" name="adventure-maximum-bet" placeholder="Maximum Bet" required [formControl]="maximumBetControl"/>
+            <mat-hint>The maximum bet in order to join an adventure</mat-hint>
+            <mat-error *ngIf="maximumBetControl.hasError('required')">This field is required!</mat-error>
+            <mat-error *ngIf="maximumBetControl.hasError('min')">Please enter a valid amount (above 0).</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <input id="adventure-win-multiplier" matInput type="number" name="adventure-win-multiplier" placeholder="Win payout multiplier" required [formControl]="winMultiplierControl"/>
+            <mat-hint>
+              The amount against which the bet gets miltiplied and returned to the user,with the betted amount, when a user survives.</mat-hint>
+            <mat-error *ngIf="winMultiplierControl.hasError('required')">This field is required!</mat-error>
+            <mat-error *ngIf="winMultiplierControl.hasError('min')">Please enter a valid amount (above 0).</mat-error>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" matTooltip="Save" [actionButton]="saveSettings.bind(this)" [disabled]="!isSettingsFormOk">
+            <mat-icon>done</mat-icon>
+          </button>
+          <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>

@@ -12,7 +12,7 @@ import "./Login.less";
 
 @Component({
   selector: "login-page",
-  templateUrl: require("./Login.template.pug")
+  templateUrl: require("./Login.template.html")
 })
 export class LoginComponent implements OnInit {
   private _api: BiliomiApiService;

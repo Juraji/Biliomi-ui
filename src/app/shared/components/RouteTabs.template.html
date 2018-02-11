@@ -1,0 +1,5 @@
+
+<mat-tab-group (selectedIndexChange)="navigateToTab($event)">
+  <mat-tab *ngFor="let route of routes" [label]="route.data.crumbName"></mat-tab>
+</mat-tab-group>
+<router-outlet></router-outlet>

@@ -9,7 +9,7 @@ import ICommunity = Biliomi.ICommunity;
 
 @Component({
   selector: "edit-game-modal",
-  templateUrl: require("./EditGameModal.template.pug")
+  templateUrl: require("./EditGameModal.template.html")
 })
 export class EditGameModalComponent implements AfterViewInit {
   private _gameId: number;

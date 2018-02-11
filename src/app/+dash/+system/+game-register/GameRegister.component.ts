@@ -12,7 +12,7 @@ import ICommunity = Biliomi.ICommunity;
 
 @Component({
   selector: "game-register",
-  templateUrl: require("./GameRegister.template.pug")
+  templateUrl: require("./GameRegister.template.html")
 })
 export class GameRegisterComponent {
   private _dialog: DialogsService;
@@ -46,10 +46,11 @@ export class GameRegisterComponent {
     this.gamesDataSource.client = gamesClient;
   }
 
-  public setAsCurrentGame(game: IGame) {
-    this._dialog.confirm(`Are you sure you want to set "${game.Name}" as the current game?`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(() => this._gamesClient.setAsCurrentGame(game));
+  public async setAsCurrentGame(game: IGame) {
+    let confirmed = await this._dialog.confirm(`Are you sure you want to set "${game.Name}" as the current game?`);
+    if (confirmed) {
+      this._gamesClient.setAsCurrentGame(game);
+    }
   }
 
   public editGame(game: IGame) {

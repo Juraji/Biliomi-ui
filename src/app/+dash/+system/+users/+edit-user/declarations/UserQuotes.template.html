@@ -1,0 +1,11 @@
+
+<data-table [dataSource]="dataSource" [disableFilter]="true">
+  <ng-container columnDef="Message">
+    <header-cell *headerCellDef sortProperty="Message">Message</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Message}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Date">
+    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+  </ng-container>
+</data-table>

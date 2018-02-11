@@ -1,8 +1,0 @@
-data-table([dataSource]="dataSource", [disableFilter]="true")
-  ng-container(columnDef="Achievement")
-    header-cell(*headerCellDef="", sortProperty="Achievement") Achievement
-    data-cell(*dataCellDef="let record") {{record.Achievement}}
-
-  ng-container(columnDef="Date")
-    header-cell(*headerCellDef="", sortProperty="Date", [sortDefault]="'DESC'") Date
-    data-cell(*dataCellDef="let record") {{record.Date | date}}

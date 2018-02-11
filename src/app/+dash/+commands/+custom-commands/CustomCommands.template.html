@@ -1,0 +1,43 @@
+
+<p>Custom commands are messages bound to chat commands.<br/></p>
+<data-table tableId="custom-commands" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
+  <ng-template customTableActions>
+    <button mat-icon-button (click)="editCommand()" matTooltip="Add new command">
+      <mat-icon>add</mat-icon>
+    </button>
+  </ng-template>
+  <ng-container columnDef="Command">
+    <header-cell *headerCellDef sortProperty="Command" sortDefault="ASC">Command</header-cell>
+    <data-cell *dataCellDef="let command">
+      <command-form [command]="command"></command-form>
+    </data-cell>
+  </ng-container>
+  <ng-container columnDef="User Group">
+    <header-cell *headerCellDef sortProperty="UserGroup.Name">Group</header-cell>
+    <data-cell *dataCellDef="let command">{{command.UserGroup.Name}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Cooldown">
+    <header-cell *headerCellDef sortProperty="Cooldown">Cooldown</header-cell>
+    <data-cell *dataCellDef="let command">{{command.Cooldown | time}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Price">
+    <header-cell *headerCellDef sortProperty="Price">Price</header-cell>
+    <data-cell *dataCellDef="let command">{{command.Price | points | async}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Aliasses">
+    <header-cell *headerCellDef>Aliasses</header-cell>
+    <data-cell *dataCellDef="let command">
+      <ul class="list-unstyled">
+        <li *ngFor="let alias of command.Aliasses">&#33;{{alias}}</li>
+      </ul>
+    </data-cell>
+  </ng-container>
+  <ng-container columnDef="#Edit" [buttonsColumn]="1">
+    <header-cell *headerCellDef></header-cell>
+    <data-cell *dataCellDef="let command">
+      <a class="mat-icon-button pull-right" mat-button (click)="editCommand(command)" matTooltip="Edit command">
+        <mat-icon>edit</mat-icon>
+      </a>
+    </data-cell>
+  </ng-container>
+</data-table>

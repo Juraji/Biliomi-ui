@@ -7,7 +7,7 @@ import IUserGroup = Biliomi.IUserGroup;
 
 @Component({
   selector: "edit-user-group-modal",
-  templateUrl: require("./EditUserGroupModal.template.pug")
+  templateUrl: require("./EditUserGroupModal.template.html")
 })
 export class EditUserGroupModalComponent implements AfterViewInit {
   private _groupId: number;

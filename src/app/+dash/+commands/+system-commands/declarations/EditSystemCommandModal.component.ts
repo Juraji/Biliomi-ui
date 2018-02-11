@@ -8,7 +8,7 @@ import IUserGroup = Biliomi.IUserGroup;
 
 @Component({
   selector: "edit-default-command-modal-component",
-  templateUrl: require("./EditSystemCommandModal.template.pug")
+  templateUrl: require("./EditSystemCommandModal.template.html")
 })
 export class EditSystemCommandModalComponent implements AfterViewInit {
   private _dialogRef: MatDialogRef<EditSystemCommandModalComponent>;

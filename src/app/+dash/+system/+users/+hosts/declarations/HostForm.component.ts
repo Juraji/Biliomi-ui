@@ -5,20 +5,16 @@ import {UserAutoCompleteComponent} from "../../../../../shared/components/UserAu
 import * as moment from "moment";
 import {HostRecordsClient} from "../../../../../shared/modules/biliomi/clients/model/HostRecords.client";
 import {DialogsService} from "../../../../../shared/modules/dialogs/services/Dialogs.service";
-import {SaveButtonComponent} from "../../../../../shared/components/SaveButton.component";
 import IDirection = Biliomi.IDirection;
 import IHostRecord = Biliomi.IHostRecord;
 
 @Component({
   selector: "host-form-component",
-  templateUrl: require("./HostForm.template.pug")
+  templateUrl: require("./HostForm.template.html")
 })
 export class HostFormComponent {
   private _hostRecordsClient: HostRecordsClient;
   private _dialogs: DialogsService;
-
-  @ViewChild(SaveButtonComponent)
-  public saveButton: SaveButtonComponent;
 
   public recordAutoHostControl: FormControl = new FormControl(false);
   public performHostControl: FormControl = new FormControl(false);
@@ -39,7 +35,7 @@ export class HostFormComponent {
     return this.recordUserControl.valid;
   }
 
-  public async submitHostRecord() {
+  public async submitHostRecord(): Promise<boolean> {
     if (this.isFormOk) {
       let record: IHostRecord = {} as IHostRecord;
       record.User = this.recordUserControl.user;
@@ -49,12 +45,12 @@ export class HostFormComponent {
 
       console.log(record.Direction);
       if (record.Direction === IDirection.OUTGOING && this.performHostControl.value) {
-        this._dialogs.confirm(`Are you sure you want to host ${record.User.DisplayName}?`)
-          .filter((confirmed: boolean) => confirmed)
-          .subscribe(async () => {
-            this.saveButton.state = await this._hostRecordsClient.performHost(record.User.Username);
-            this.onRecordCreated.emit(record);
-          });
+        let confirmed = await this._dialogs.confirm(`Are you sure you want to host ${record.User.DisplayName}?`);
+        if (confirmed) {
+          this.onRecordCreated.emit(record);
+          return this._hostRecordsClient.performHost(record.User.Username);
+        }
+
       } else {
         let response: IHostRecord = await this._hostRecordsClient.post(record);
         if (response != null) {
@@ -63,12 +59,14 @@ export class HostFormComponent {
           this.recordDirectionControl.reset(IDirection.OUTGOING);
           this.recordUserControl.reset();
           this.onRecordCreated.emit(response);
-          this.saveButton.state = true;
-          this.onRecordCreated.emit(response);
+
+          return true;
         } else {
-          this.saveButton.state = false;
+          return false;
         }
       }
     }
+
+    return null;
   }
 }

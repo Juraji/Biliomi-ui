@@ -11,7 +11,7 @@ import IUserGroup = Biliomi.IUserGroup;
 
 @Component({
   selector: "user-groups",
-  templateUrl: require("./UserGroups.template.pug")
+  templateUrl: require("./UserGroups.template.html")
 })
 export class UserGroupsComponent {
   private _dialog: DialogsService;

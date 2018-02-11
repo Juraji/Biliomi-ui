@@ -12,7 +12,7 @@ import {
 
 @Component({
   selector: "creative-murders",
-  templateUrl: require("./CreativeMurders.template.pug")
+  templateUrl: require("./CreativeMurders.template.html")
 })
 export class CreativeMurdersComponent {
   public dataSource: RestTableDataSource<IKillRecord> = new RestTableDataSource<IKillRecord>();

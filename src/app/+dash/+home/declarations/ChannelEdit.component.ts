@@ -6,7 +6,7 @@ import {SortBuilder} from "../../../shared/modules/biliomi/classes/SortBuilder";
 
 @Component({
   selector: "channel-edit-component",
-  templateUrl: require("./ChannelEdit.template.pug")
+  templateUrl: require("./ChannelEdit.template.html")
 })
 export class ChannelEditComponent implements OnInit {
   public channelInfoClient: ChannelStatusClient;

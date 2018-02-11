@@ -5,7 +5,7 @@ import IModerationAction = Biliomi.IModerationAction;
 
 @Component({
   selector: "strike-selector",
-  templateUrl: require("./StrikeSelector.template.pug")
+  templateUrl: require("./StrikeSelector.template.html")
 })
 export class StrikeSelectorComponent {
   private selectedStrikeControl: FormControl = new FormControl(IModerationAction.WARN, [Validators.required]);

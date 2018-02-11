@@ -9,7 +9,7 @@ import IRestFilterOperator = Biliomi.IRestFilterOperator;
 
 @Component({
   selector: "user-creative-murders",
-  templateUrl: require("./UserCreativeMurders.template.pug")
+  templateUrl: require("./UserCreativeMurders.template.html")
 })
 export class UserCreativeMurdersComponent {
   private dataSource: RestTableDataSource<IKillRecord> = new RestTableDataSource<IKillRecord>();

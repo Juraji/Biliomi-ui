@@ -1,0 +1,32 @@
+
+<form #addActionForm (submit)="saveAction()">
+  <h2 matDialogTitle>New Quick Action</h2>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input id="action-name" matInput name="action-name" placeholder="Name" required [formControl]="nameControl"/>
+      <mat-hint>A unique name for this action.</mat-hint>
+      <mat-error *ngIf="nameControl.hasError('required')">This field is required!</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Action Type" required [formControl]="typeControl" ngDefaultControl>
+        <mat-option value="COMMAND">Execute Command</mat-option>
+        <mat-option value="PAGE">Navigate to page</mat-option>
+        <mat-option value="URL">Navigate to url</mat-option>
+      </mat-select>
+      <mat-hint>The type of action to perform when clicked</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <input id="action-execute" matInput name="action-execute" placeholder="Executes" required [formControl]="executeControl"/>
+      <mat-hint><span *ngIf="typeControl.value == 'COMMAND'">The command to execute, without !.</span><span *ngIf="typeControl.value == 'PAGE'">The relative page url to navigate to.</span><span *ngIf="typeControl.value == 'URL'">The external url to navigate to.</span></mat-hint>
+      <mat-error *ngIf="executeControl.hasError('required')">This field is required!</mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="!isFormOk" matTooltip="Save">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button mat-raised-button type="button" color="warn" (click)="cancelEdit()" matTooltip="Cancel edit">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </mat-dialog-actions>
+</form>

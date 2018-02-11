@@ -7,7 +7,7 @@ import "./NavChannelStatus.less";
 
 @Component({
   selector: "nav-channel-info-component",
-  templateUrl: require("./NavChannelStatus.template.pug")
+  templateUrl: require("./NavChannelStatus.template.html")
 })
 export class NavChannelStatusComponent {
   private channelInfoClient: ChannelStatusClient;

@@ -9,7 +9,7 @@ import ITemplate = Biliomi.ITemplate;
 
 @Component({
   selector: "edit-template-modal-component",
-  templateUrl: require("./EditTemplateModal.template.pug")
+  templateUrl: require("./EditTemplateModal.template.html")
 })
 export class EditTemplateModalComponent implements AfterViewInit {
   private _templateId: number;

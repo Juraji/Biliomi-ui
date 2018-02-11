@@ -1,4 +1,4 @@
-import {EventEmitter, Injectable} from "@angular/core";
+import {EventEmitter, Injectable, NgZone} from "@angular/core";
 import {Biliomi} from "../classes/interfaces/Biliomi";
 import {UriUtils} from "../../tools/UriUtils";
 import {StringUtils} from "../../tools/StringUtils";
@@ -11,11 +11,13 @@ import IRestAuthorizationResponse = Biliomi.IRestAuthorizationResponse;
 @Injectable()
 export class BiliomiEventsService {
   private _api: BiliomiApiService;
+  private _ngZone: NgZone;
   private _eventSource: EventSource;
   private _outboundEvents: EventEmitter<IEvent>;
 
-  constructor(api: BiliomiApiService) {
+  constructor(api: BiliomiApiService, ngZone: NgZone) {
     this._api = api;
+    this._ngZone = ngZone;
     this._outboundEvents = new EventEmitter<IEvent>();
   }
 
@@ -44,13 +46,15 @@ export class BiliomiEventsService {
     this._eventSource = null;
   }
 
-  public subscribe(onEvent: Consumer<IEvent>, filter?: string[], onError?: Consumer<any>, onComplete?: Runnable): Subscription {
+  public subscribe(onEvent: Consumer<IEvent>, ...filter: string[]): Subscription {
+    let listener = (e: IEvent) => this._ngZone.runTask(() => onEvent(e));
+
     if (filter != null) {
       return this._outboundEvents
         .filter((e: IEvent) => filter.indexOf(e.EventType) > -1)
-        .subscribe(onEvent, onError, onComplete);
+        .subscribe(listener);
     } else {
-      return this._outboundEvents.subscribe(onEvent, onError, onComplete);
+      return this._outboundEvents.subscribe(listener);
     }
   }
 

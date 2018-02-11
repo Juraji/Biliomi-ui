@@ -1,0 +1,32 @@
+
+<p>Check out the usage history for commands</p>
+<data-table tableId="command-history" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
+  <ng-container columnDef="Command">
+    <header-cell *headerCellDef sortProperty="Command">Command</header-cell>
+    <data-cell *dataCellDef="let record">&#33;{{record.Command}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="TriggeredBy">
+    <header-cell *headerCellDef sortProperty="TriggeredBy">TriggeredBy</header-cell>
+    <data-cell *dataCellDef="let record">&#33;{{record.TriggeredBy}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Arguments">
+    <header-cell *headerCellDef sortProperty="Arguments">Arguments</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Arguments}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Date">
+    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="User">
+    <header-cell *headerCellDef sortProperty="User">User</header-cell>
+    <data-cell *dataCellDef="let record">
+      <user-display [user]="record.User"></user-display>
+    </data-cell>
+  </ng-container>
+  <ng-container columnDef="Success">
+    <header-cell *headerCellDef sortProperty="Success">Success</header-cell>
+    <data-cell *dataCellDef="let record">
+      <mat-icon *ngIf="record.Success" color="primary">check</mat-icon>
+    </data-cell>
+  </ng-container>
+</data-table>

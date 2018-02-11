@@ -12,7 +12,7 @@ import IUserGreeting = Biliomi.IUserGreeting;
 
 @Component({
   selector: "greetings",
-  templateUrl: require("./Greetings.template.pug")
+  templateUrl: require("./Greetings.template.html")
 })
 export class GreetingsComponent implements OnInit {
   private _greetingSettingsClient: UserGreetingSettingsClient;
@@ -73,8 +73,12 @@ export class GreetingsComponent implements OnInit {
     if (this.isFormOk) {
       this._greetingSettingsClient.EnableGreetings = this.enableGreetingsControl.value;
       this._greetingSettingsClient.GreetingTimeout = this.greetingTimeoutControl.value;
-      await this._greetingSettingsClient.save();
+      let result = await this._greetingSettingsClient.save();
       this.initSettingsFields();
+
+      return result != null;
     }
+
+    return null;
   }
 }

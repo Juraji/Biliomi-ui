@@ -1,0 +1,51 @@
+
+<div class="columns">
+  <div class="col span-8-of-12">
+    <p>View and manage donations</p>
+    <data-table tableId="donations" [dataSource]="donationsDataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
+      <ng-template customTableActions>
+        <button mat-icon-button (click)="editDonation()" matTooltip="Add new donation">
+          <mat-icon>add</mat-icon>
+        </button>
+      </ng-template>
+      <ng-container columnDef="Username">
+        <header-cell *headerCellDef sortProperty="User.Username" [sortDefault]="'ASC'">Username</header-cell>
+        <data-cell *dataCellDef="let donation">
+          <user-display [user]="donation.User"></user-display>
+        </data-cell>
+      </ng-container>
+      <ng-container columnDef="Donation">
+        <header-cell *headerCellDef sortProperty="Donation">Donation</header-cell>
+        <data-cell *dataCellDef="let donation">{{donation.Donation}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="Note">
+        <header-cell *headerCellDef sortProperty="Note">Note</header-cell>
+        <data-cell *dataCellDef="let donation">{{donation.Note}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="Date">
+        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+        <data-cell *dataCellDef="let donation">{{donation.Date | date}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="#Edit" [buttonsColumn]="1">
+        <header-cell *headerCellDef></header-cell>
+        <data-cell *dataCellDef="let donation"><a class="mat-icon-button pull-right" mat-button (click)="editDonation(donation)" matTooltip="Edit donation">
+            <mat-icon>edit</mat-icon></a></data-cell>
+      </ng-container>
+    </data-table>
+  </div>
+  <div class="col span-4-of-12">
+    <p>&nbsp;</p>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Donations Settings</mat-card-title>
+        <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="mat-button-row mat-button-row-blocks">
+          <edit-template-button templateKey="IncomingDonationNotice">Edit Automated Donations Notice</edit-template-button>
+          <edit-template-button templateKey="ManualDonationNotice">Edit Manual Donations Notice</edit-template-button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

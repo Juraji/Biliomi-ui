@@ -4,7 +4,7 @@ import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: "host-watch-settings",
-  templateUrl: require("./HostWatchSettings.template.pug")
+  templateUrl: require("./HostWatchSettings.template.html")
 })
 export class HostWatchSettingsComponent implements OnInit {
   private _hostWatchSettingsClient: HostWatchSettingsClient;
@@ -23,8 +23,10 @@ export class HostWatchSettingsComponent implements OnInit {
     return this.hostRewardControl.valid;
   }
 
-  public saveSettings() {
+  public async saveSettings() {
     this._hostWatchSettingsClient.Reward = this.hostRewardControl.value;
-    this._hostWatchSettingsClient.save();
+    let result = await this._hostWatchSettingsClient.save();
+
+    return result != null;
   }
 }

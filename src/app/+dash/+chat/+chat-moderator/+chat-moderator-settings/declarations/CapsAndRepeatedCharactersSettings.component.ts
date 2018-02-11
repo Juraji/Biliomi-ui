@@ -4,7 +4,7 @@ import {ChatModeratorSettingsClient} from "../../../../../shared/modules/biliomi
 
 @Component({
   selector: "caps-and-repeated-characters-settings",
-  templateUrl: require("./CapsAndRepeatedCharactersSettings.template.pug")
+  templateUrl: require("./CapsAndRepeatedCharactersSettings.template.html")
 })
 export class CapsAndRepeatedCharactersSettingsComponent implements OnInit {
   private _chatModeratorSettingsClient: ChatModeratorSettingsClient;
@@ -36,14 +36,18 @@ export class CapsAndRepeatedCharactersSettingsComponent implements OnInit {
       && (this.repeatedCharactersAllowedControl.value || this.repeatedCharacterTriggerControl.valid);
   }
 
-  public saveSettings() {
+  public async saveSettings(): Promise<boolean> {
     if (this.isFormOk) {
       this._chatModeratorSettingsClient.ExcessiveCapsAllowed = this.excessiveCapsAllowedControl.value;
       this._chatModeratorSettingsClient.CapsTrigger = this.capsTriggerControl.value;
       this._chatModeratorSettingsClient.CapsTriggerRatio = this.capsTriggerRatioControl.value / 100;
       this._chatModeratorSettingsClient.RepeatedCharactersAllowed = this.repeatedCharactersAllowedControl.value;
       this._chatModeratorSettingsClient.RepeatedCharacterTrigger = this.repeatedCharacterTriggerControl.value;
-      this._chatModeratorSettingsClient.save();
+      let result = await this._chatModeratorSettingsClient.save();
+
+      return result != null;
     }
+
+    return null;
   }
 }

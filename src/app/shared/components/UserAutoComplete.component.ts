@@ -7,7 +7,7 @@ import IUser = Biliomi.IUser;
 
 @Component({
   selector: "user-autocomplete",
-  templateUrl: require("./UserAutoComplete.template.pug")
+  templateUrl: require("./UserAutoComplete.template.html")
 })
 export class UserAutoCompleteComponent implements OnInit {
   private _selectedUser: IUser;

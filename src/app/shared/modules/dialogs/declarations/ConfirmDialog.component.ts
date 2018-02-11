@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 
 @Component({
   selector: "confirm-modal",
-  templateUrl: require("./ConfirmDialog.template.pug")
+  templateUrl: require("./ConfirmDialog.template.html")
 })
 export class ConfirmDialogComponent {
   private _dialogData: IConfirmDialogData;

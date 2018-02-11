@@ -6,7 +6,7 @@ import {Observable} from "rxjs/Observable";
 @Injectable()
 export class DialogsService extends MatDialog {
 
-  public confirm(message: string | string[], dialogId?: string, confirmButtonText?: string, cancelButtonText?: string): Observable<boolean> {
+  public confirm(message: string | string[], dialogId?: string, confirmButtonText?: string, cancelButtonText?: string): Promise<boolean> {
     let dialogRef: MatDialogRef<ConfirmDialogComponent> = this.open(ConfirmDialogComponent, {
       id: dialogId,
       data: {
@@ -16,10 +16,8 @@ export class DialogsService extends MatDialog {
       } as IConfirmDialogData
     });
 
-    return dialogRef.afterClosed();
-  }
-
-  public confirmToPromise(message: string, confirmButtonText?: string, cancelButtonText?: string): Promise<boolean> {
-    return this.confirm(message, confirmButtonText, cancelButtonText).toPromise();
+    return dialogRef
+      .afterClosed()
+      .toPromise();
   }
 }

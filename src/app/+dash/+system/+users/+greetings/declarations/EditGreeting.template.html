@@ -1,0 +1,26 @@
+
+<form #editGreetingForm (submit)="save()">
+  <h2 matDialogTitle *ngIf="editedGreeting != undefined">Editing greeting for {{editedGreeting?.User.DisplayName}}</h2>
+  <mat-dialog-content>
+    <mat-spinner *ngIf="editedGreeting == undefined"></mat-spinner>
+    <mat-form-field>
+      <input id="greeting-message" matInput name="greeting-message" placeholder="message" required [formControl]="greetingControl"/>
+      <mat-hint>The message which will be posted in the chat when Biliomi registers {{editedGreeting?.User.DisplayName}} as a viewer.</mat-hint>
+      <mat-error *ngIf="greetingControl.hasError('required')">This field is required!</mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button color="primary" [disabled]="!isFormOk" matTooltip="Save">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button mat-raised-button type="button" color="warn" (click)="cancelEdit()" matTooltip="Cancel edit">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
+      <mat-icon>backspace</mat-icon>
+    </button>
+    <button mat-button type="button" (click)="deleteGreeting()" [disabled]="editedCommand?.Id == undefined" matTooltip="Delete command">
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+  </mat-dialog-actions>
+</form>

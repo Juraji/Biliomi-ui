@@ -47,7 +47,7 @@ const SORT_ANIMATIONS: AnimationTriggerMetadata[] = [
 
 @Component({
   selector: "header-cell[sortProperty]",
-  templateUrl: require("./SortProperty.template.pug"),
+  templateUrl: require("./SortProperty.template.html"),
   animations: SORT_ANIMATIONS
 })
 export class SortPropertyDirective<T> implements OnInit {

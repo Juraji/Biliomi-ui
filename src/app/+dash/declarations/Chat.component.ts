@@ -8,7 +8,7 @@ import "./Chat.less";
 
 @Component({
   selector: "chat-component",
-  templateUrl: require("./Chat.template.pug")
+  templateUrl: require("./Chat.template.html")
 })
 export class ChatComponent implements OnInit {
   private _auth: AuthService;

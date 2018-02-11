@@ -14,7 +14,7 @@ export const QUICK_ACTIONS_STORAGE_KEY: string = "quickActions";
 
 @Component({
   selector: "quick-actions",
-  templateUrl: require("./QuickActions.template.pug")
+  templateUrl: require("./QuickActions.template.html")
 })
 export class QuickActionsComponent {
   private _api: BiliomiApiService;

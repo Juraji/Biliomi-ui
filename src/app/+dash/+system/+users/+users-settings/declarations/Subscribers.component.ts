@@ -4,7 +4,7 @@ import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: "subscribers-settings",
-  templateUrl: require("./Subscribers.template.pug")
+  templateUrl: require("./Subscribers.template.html")
 })
 export class SubscribersComponent implements OnInit {
   private _subscriberWatchSettingsClient: SubscriberWatchSettingsClient;
@@ -34,12 +34,16 @@ export class SubscribersComponent implements OnInit {
       && this.subscriberRewardTier3Control.valid;
   }
 
-  public saveSettings() {
+  public async saveSettings() {
     if (this.isSettingsFormOk) {
       this._subscriberWatchSettingsClient.RewardTier1 = this.subscriberRewardTier1Control.value;
       this._subscriberWatchSettingsClient.RewardTier2 = this.subscriberRewardTier2Control.value;
       this._subscriberWatchSettingsClient.RewardTier3 = this.subscriberRewardTier3Control.value;
-      this._subscriberWatchSettingsClient.save();
+      let result = await this._subscriberWatchSettingsClient.save();
+
+      return result != null;
     }
+
+    return null;
   }
 }

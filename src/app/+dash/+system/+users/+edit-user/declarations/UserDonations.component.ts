@@ -9,7 +9,7 @@ import IRestFilterOperator = Biliomi.IRestFilterOperator;
 
 @Component({
   selector: "user-donations",
-  templateUrl: require("./UserDonations.template.pug")
+  templateUrl: require("./UserDonations.template.html")
 })
 export class UserDonationsComponent {
   public dataSource: RestTableDataSource<IDonation> = new RestTableDataSource<IDonation>();

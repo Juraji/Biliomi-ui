@@ -1,0 +1,65 @@
+
+<p>Check out raid records, throw a raid or register incoming raids.</p>
+<div class="columns">
+  <div class="col span-8-of-12">
+    <data-table tableId="raids" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="filterMapping">
+      <ng-container columnDef="Channel">
+        <header-cell *headerCellDef sortProperty="Channel.Username">Channel</header-cell>
+        <data-cell *dataCellDef="let record">
+          <user-display [user]="record.Channel"></user-display>
+        </data-cell>
+      </ng-container>
+      <ng-container columnDef="Direction">
+        <header-cell *headerCellDef sortProperty="Direction">Direction</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Direction | caseToWord:"ENUM"}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="Date">
+        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="GameAtMoment">
+        <header-cell *headerCellDef sortProperty="GameAtMoment">Was Playing</header-cell>
+        <data-cell *dataCellDef="let record">{{record.GameAtMoment}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="#Actions" [buttonsColumn]="1">
+        <header-cell *headerCellDef>&nbsp;</header-cell>
+        <data-cell *dataCellDef="let record"><a class="mat-icon-button pull-right" mat-button color="warn" (click)="deleteRecord(record)" matTooltip="Delete Record">
+            <mat-icon>delete_forever</mat-icon></a></data-cell>
+      </ng-container>
+    </data-table>
+  </div>
+  <div class="col span-4-of-12">
+    <form>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Register a new raid</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-radio-group id="raid-record-direction" name="raid-record-direction" [formControl]="recordDirectionControl">
+            <mat-radio-button value="OUTGOING">Outgoing raid</mat-radio-button>
+            <mat-radio-button value="INCOMING">Incoming raid</mat-radio-button>
+          </mat-radio-group>
+          <user-autocomplete #userControl required></user-autocomplete>
+          <p class="text-muted">Other record information will be generated when submitted.</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [disabled]="!isFormOk" [actionButton]="saveRaid.bind(this)">
+            <mat-icon>done</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Raids Settings</mat-card-title>
+          <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="mat-button-row mat-button-row-blocks">
+            <edit-template-button templateKey="RaidMessage">Edit Raid Message</edit-template-button>
+            <edit-template-button templateKey="IncomingRaidMessage">Edit Incoming Raid Message</edit-template-button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+</div>

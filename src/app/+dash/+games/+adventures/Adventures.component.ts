@@ -14,7 +14,7 @@ import IAdventureRecord = Biliomi.IAdventureRecord;
 
 @Component({
   selector: "adventures",
-  templateUrl: require("./Adventures.template.pug")
+  templateUrl: require("./Adventures.template.html")
 })
 export class AdventuresComponent implements OnInit {
   private _adventureSettingsClient: AdventureSettingsClient;
@@ -72,7 +72,7 @@ export class AdventuresComponent implements OnInit {
     this.winMultiplierControl.reset(this._adventureSettingsClient.WinMultiplier);
   }
 
-  public async saveSettings() {
+  public async saveSettings(): Promise<boolean> {
     if (this.isSettingsFormOk) {
       this._adventureSettingsClient.JoinTimeout = this.joinTimeoutControl.value;
       this._adventureSettingsClient.MinimumBet = this.minimumBetControl.value;
@@ -84,6 +84,10 @@ export class AdventuresComponent implements OnInit {
       if (result) {
         this.initSettingsFields();
       }
+
+      return result != null;
     }
+
+    return null;
   }
 }

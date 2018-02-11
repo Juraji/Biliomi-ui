@@ -6,16 +6,16 @@ import {FormControlRegisterService} from "../services/FormControlRegister.servic
 @Injectable()
 export class DirtyFormGuard implements CanActivate, CanActivateChild {
   private _formControlRegisterService: FormControlRegisterService;
-  private _confirmDialogService: DialogsService;
+  private _dialogsService: DialogsService;
 
   constructor(formControlRegisterService: FormControlRegisterService, confirmDialogService: DialogsService) {
     this._formControlRegisterService = formControlRegisterService;
-    this._confirmDialogService = confirmDialogService;
+    this._dialogsService = confirmDialogService;
   }
 
   public async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     if (this._formControlRegisterService.hasDirtyControls()) {
-      let navigationConfirmed = await this._confirmDialogService.confirmToPromise("You've made changes on a form, are you sure you want to leave?");
+      let navigationConfirmed = await this._dialogsService.confirm("You've made changes on a form, are you sure you want to leave?");
 
       if (navigationConfirmed) {
         this._formControlRegisterService.clear();

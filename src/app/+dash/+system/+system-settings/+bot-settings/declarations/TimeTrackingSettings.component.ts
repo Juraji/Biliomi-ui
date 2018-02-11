@@ -4,7 +4,7 @@ import {FormControl} from "@angular/forms";
 
 @Component({
   selector: "time-tracking-settings-component",
-  templateUrl: require("./TimeTrackingSettings.template.pug")
+  templateUrl: require("./TimeTrackingSettings.template.html")
 })
 export class TimeTrackingSettingsComponent implements OnInit {
   private _timeTrackingSettingsClient: TimeTrackingSettingsClient;
@@ -22,9 +22,11 @@ export class TimeTrackingSettingsComponent implements OnInit {
     this.trackOfflineTimeControl.reset(this._timeTrackingSettingsClient.TrackOffline);
   }
 
-  private save() {
+  public async save() {
     this._timeTrackingSettingsClient.TrackOnline = this.trackOnlineTimeControl.value;
     this._timeTrackingSettingsClient.TrackOffline = this.trackOfflineTimeControl.value;
-    this._timeTrackingSettingsClient.save();
+    let result = await this._timeTrackingSettingsClient.save();
+
+    return result != null;
   }
 }

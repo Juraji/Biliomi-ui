@@ -1,8 +1,0 @@
-mat-toolbar.mat-elevation-z4
-  ul.crumb-list
-    li(*ngFor="let crumb of _crumbsService.currentCrumbs")
-      a([routerLink]="[crumb.url, crumb.params]", [queryParams]="crumb.queryParams") {{crumb.name}}
-  div.flex-spacer
-  ul.version-info(*ngIf="_versionInfoClient.Version")
-    li: a([matTooltip]="_versionInfoClient.BuildDate") {{_versionInfoClient.Version}}
-

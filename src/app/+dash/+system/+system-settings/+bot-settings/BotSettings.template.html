@@ -1,0 +1,30 @@
+
+<div class="columns">
+  <div class="col span-6-of-12">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Channel Edit Settings</mat-card-title>
+        <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Biliomi can format your channel title for you.<br/>
+          Click the button below to see how.
+        </p>
+        <div class="mat-button-row mat-button-row-blocks">
+          <edit-template-button templateKey="ChannelTitle">Edit Channel Title Template</edit-template-button>
+        </div>
+        <p>When a private message response is set Biliomi will automatically respond to users whispering to Biliomi.<br/>
+          If you do not want this, simply empty the template and save.
+        </p>
+        <div class="mat-button-row mat-button-row-blocks">
+          <edit-template-button templateKey="PMResponse">Edit Private Message Response</edit-template-button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <chat-settings-component></chat-settings-component>
+    <time-tracking-settings-component></time-tracking-settings-component>
+  </div>
+  <div class="col span-6-of-12">
+    <points-settings-component></points-settings-component>
+  </div>
+</div>

@@ -6,7 +6,7 @@ import {QuickAction} from "../classes/interfaces/QuickAction";
 
 @Component({
   selector: "add-quick-action-modal",
-  templateUrl: require("./AddQuickActionModal.template.pug")
+  templateUrl: require("./AddQuickActionModal.template.html")
 })
 export class AddQuickActionModalComponent {
   private _dialogRef: MatDialogRef<AddQuickActionModalComponent>;

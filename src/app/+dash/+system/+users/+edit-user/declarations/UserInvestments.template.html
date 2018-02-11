@@ -1,0 +1,23 @@
+
+<data-table [dataSource]="dataSource" [disableFilter]="true">
+  <ng-container columnDef="Invested">
+    <header-cell *headerCellDef sortProperty="Invested">Invested</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Invested | points | async}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Interest">
+    <header-cell *headerCellDef sortProperty="Interest">Interest</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Interest * 100}}%</data-cell>
+  </ng-container>
+  <ng-container columnDef="Project">
+    <header-cell *headerCellDef sortProperty="Project">Project</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Project}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Payout">
+    <header-cell *headerCellDef sortProperty="Payout">Payout</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Payout | points | async}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Date">
+    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+  </ng-container>
+</data-table>

@@ -9,7 +9,7 @@ import IRestFilterOperator = Biliomi.IRestFilterOperator;
 
 @Component({
   selector: "user-roulette-records",
-  templateUrl: require("./UserRouletteRecords.template.pug")
+  templateUrl: require("./UserRouletteRecords.template.html")
 })
 export class UserRouletteRecordsComponent {
   public dataSource: RestTableDataSource<IRouletteRecord> = new RestTableDataSource<IRouletteRecord>();

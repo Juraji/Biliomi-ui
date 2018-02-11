@@ -13,7 +13,7 @@ import IUser = Biliomi.IUser;
 
 @Component({
   selector: "user-overview",
-  templateUrl: require("./UserOverview.template.pug")
+  templateUrl: require("./UserOverview.template.html")
 })
 export class UserOverviewComponent {
   private _pointsSettingsClient: PointsSettingsClient;

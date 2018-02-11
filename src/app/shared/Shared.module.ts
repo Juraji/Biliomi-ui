@@ -11,7 +11,6 @@ import {HttpClientModule} from "@angular/common/http";
 import {TwitchUserLinkPipe} from "./pipes/TwitchUserLink.pipe";
 import {TimePipe} from "./pipes/Time.pipe";
 import {DatePipe} from "./pipes/Date.pipe";
-import {CommandFormComponent} from "./components/CommandForm.component";
 import {CaseToWordPipe} from "./pipes/CaseToWord.pipe";
 import {EditUserLinkPipe} from "./pipes/EditUserLink.pipe";
 import {EditTemplateButtonComponent} from "./components/EditTemplateButton.component";
@@ -45,7 +44,6 @@ const SHARED_PIPES: Type<PipeTransform>[] = [
 
 const SHARED_COMPONENTS: Type<any>[] = [
   ChipListInputComponent,
-  CommandFormComponent,
   CommunityChipListComponent,
   EditTemplateButtonComponent,
   UserAutoCompleteComponent,

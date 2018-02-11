@@ -1,0 +1,40 @@
+
+<data-table tableId="users-overview" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
+  <ng-container columnDef="Username">
+    <header-cell *headerCellDef sortProperty="Username" [sortDefault]="'ASC'">Username</header-cell>
+    <data-cell *dataCellDef="let user" [ngClass]="getUsernameColorClass(user)">{{user.DisplayName}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Group">
+    <header-cell *headerCellDef sortProperty="UserGroup.Name">Group</header-cell>
+    <data-cell *dataCellDef="let user">{{user.UserGroup.Name}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Recorded Time">
+    <header-cell *headerCellDef sortProperty="RecordedTime">Recorded time</header-cell>
+    <data-cell *dataCellDef="let user">{{user.RecordedTime | time:false:true}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Points">
+    <header-cell *headerCellDef sortProperty="Points">Points</header-cell>
+    <data-cell *dataCellDef="let user">{{user.Points | points | async}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Follower">
+    <header-cell *headerCellDef sortProperty="Follower">Follows</header-cell>
+    <data-cell *dataCellDef="let user">
+      <mat-icon *ngIf="user.Follower" color="primary">check</mat-icon>
+    </data-cell>
+  </ng-container>
+  <ng-container columnDef="Subscriber">
+    <header-cell *headerCellDef sortProperty="Subscriber">Subscribed</header-cell>
+    <data-cell *dataCellDef="let user">
+      <mat-icon *ngIf="user.Subscriber" color="primary">check</mat-icon>
+    </data-cell>
+  </ng-container>
+  <ng-container columnDef="Title">
+    <header-cell *headerCellDef sortProperty="Title">Title</header-cell>
+    <data-cell *dataCellDef="let user">{{user.Title}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="#Edit" [buttonsColumn]="1">
+    <header-cell *headerCellDef></header-cell>
+    <data-cell *dataCellDef="let user"><a class="mat-icon-button pull-right" mat-button routerLink="/dash/system/users/edit/{{user.Username}}" matTooltip="Edit user">
+        <mat-icon>edit</mat-icon></a></data-cell>
+  </ng-container>
+</data-table>

@@ -4,7 +4,7 @@ import {FormControl} from "@angular/forms";
 
 @Component({
   selector: "steam-settings",
-  templateUrl: require("./SteamSettings.template.pug")
+  templateUrl: require("./SteamSettings.template.html")
 })
 export class SteamSettingsComponent implements OnInit {
   private _steamSettingsClient: SteamSettingsClient;
@@ -29,5 +29,7 @@ export class SteamSettingsComponent implements OnInit {
     if (success) {
       this.initFields();
     }
+
+    return success != null;
   }
 }

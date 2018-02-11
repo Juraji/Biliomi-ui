@@ -6,7 +6,7 @@ import "./BreadCrumbs.less";
 
 @Component({
   selector: "bread-crumbs",
-  templateUrl: require("./BreadCrumbs.template.pug")
+  templateUrl: require("./BreadCrumbs.template.html")
 })
 export class BreadCrumbsComponent implements OnInit {
   private _crumbsService: CrumbsService;

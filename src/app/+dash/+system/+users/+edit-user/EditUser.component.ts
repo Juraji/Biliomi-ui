@@ -10,7 +10,7 @@ import IUser = Biliomi.IUser;
 
 @Component({
   selector: "edit-user",
-  templateUrl: require("./EditUser.template.pug")
+  templateUrl: require("./EditUser.template.html")
 })
 export class EditUserComponent implements OnInit, OnDestroy {
   private _activatedRoute: ActivatedRoute;

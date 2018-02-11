@@ -1,0 +1,15 @@
+
+<data-table [dataSource]="dataSource" [disableFilter]="true">
+  <ng-container columnDef="Donation">
+    <header-cell *headerCellDef sortProperty="Donation">Donation</header-cell>
+    <data-cell *dataCellDef="let donation">{{donation.Donation}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Note">
+    <header-cell *headerCellDef sortProperty="Note">Note</header-cell>
+    <data-cell *dataCellDef="let donation">{{donation.Note}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Date">
+    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+    <data-cell *dataCellDef="let donation">{{donation.Date | date}}</data-cell>
+  </ng-container>
+</data-table>

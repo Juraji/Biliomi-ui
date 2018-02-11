@@ -14,7 +14,7 @@ import {DialogsService} from "../../../../shared/modules/dialogs/services/Dialog
 
 @Component({
   selector: "template-settings-component",
-  templateUrl: require("./TemplateSettings.template.pug")
+  templateUrl: require("./TemplateSettings.template.html")
 })
 export class TemplateSettingsComponent implements OnInit {
   private _templatesClient: TemplatesClient;

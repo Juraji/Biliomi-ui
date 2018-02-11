@@ -6,7 +6,7 @@ import IModerationAction = Biliomi.IModerationAction;
 
 @Component({
   selector: "strikes-and-excemption-settings",
-  templateUrl: require("./StrikesAndExcemptionSettings.template.pug")
+  templateUrl: require("./StrikesAndExcemptionSettings.template.html")
 })
 export class StrikesAndExcemptionSettingsComponent implements AfterViewInit {
   private _chatModeratorSettingsClient: ChatModeratorSettingsClient;
@@ -29,12 +29,14 @@ export class StrikesAndExcemptionSettingsComponent implements AfterViewInit {
     this.thirdStrike = this._chatModeratorSettingsClient.ThirdStrike;
   }
 
-  public saveSettings() {
+  public async saveSettings() {
     this._chatModeratorSettingsClient.ExemptedGroup = this.exemptedGroup;
 
     this._chatModeratorSettingsClient.FirstStrike = this.firstStrike;
     this._chatModeratorSettingsClient.SecondStrike = this.secondStrike;
     this._chatModeratorSettingsClient.ThirdStrike = this.thirdStrike;
-    this._chatModeratorSettingsClient.save();
+    let result = await this._chatModeratorSettingsClient.save();
+
+    return result != null;
   }
 }

@@ -4,7 +4,7 @@ import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: "page-loading-bar",
-  templateUrl: require("./PageLoadingBar.template.pug")
+  templateUrl: require("./PageLoadingBar.template.html")
 })
 export class PageLoadingBarComponent implements OnInit, OnDestroy {
   private _router: Router;

@@ -3,7 +3,7 @@ import {TwitterSettingsClient} from "../../../../../shared/modules/biliomi/clien
 
 @Component({
   selector: "twitter-settings",
-  templateUrl: require("./TwitterSettings.template.pug")
+  templateUrl: require("./TwitterSettings.template.html")
 })
 export class TwitterSettingsComponent implements OnInit {
   private _twitterSettingsClient: TwitterSettingsClient;
@@ -29,5 +29,7 @@ export class TwitterSettingsComponent implements OnInit {
     if (success) {
       this.initFields();
     }
+
+    return success != null;
   }
 }

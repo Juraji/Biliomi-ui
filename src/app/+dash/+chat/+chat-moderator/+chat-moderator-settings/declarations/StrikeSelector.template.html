@@ -1,0 +1,11 @@
+
+<mat-form-field>
+  <mat-select [placeholder]="placeholderName" required [formControl]="selectedStrikeControl" ngDefaultControl>
+    <mat-option value="WARN">Warning</mat-option>
+    <mat-option value="PURGE">Purge</mat-option>
+    <mat-option value="TIMEOUT">Time out</mat-option>
+    <mat-option value="BAN">Ban</mat-option>
+  </mat-select>
+  <mat-hint>Select a moderation action</mat-hint>
+  <mat-error *ngIf="selectedStrikeControl.hasError('required')">This field is required!</mat-error>
+</mat-form-field>

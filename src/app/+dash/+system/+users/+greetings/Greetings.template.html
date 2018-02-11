@@ -1,0 +1,54 @@
+
+<p>Check out and edit user greetings or set up user greetings</p>
+<div class="columns">
+  <div class="col span-8-of-12">
+    <data-table tableId="user-greetings" [dataSource]="dataSource" [filterMapping]="tableFilterMapping" [exportConfig]="exportConfig">
+      <ng-container columnDef="User">
+        <header-cell *headerCellDef sortProperty="User.Username" [sortDefault]="'ASC'">Username</header-cell>
+        <data-cell *dataCellDef="let record">
+          <user-display [user]="record.User"></user-display>
+        </data-cell>
+      </ng-container>
+      <ng-container columnDef="Message">
+        <header-cell *headerCellDef sortProperty="Message">Message</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Message}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="#Actions" [buttonsColumn]="1">
+        <header-cell *headerCellDef>&nbsp;</header-cell>
+        <data-cell *dataCellDef="let record"><a class="mat-icon-button pull-right" mat-button (click)="editUserGreeting(record)" matTooltip="Edit greeting">
+            <mat-icon>edit</mat-icon></a></data-cell>
+      </ng-container>
+    </data-table>
+  </div>
+  <div class="col span-4-of-12">
+    <form>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Greeting Settings</mat-card-title>
+          <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-slide-toggle [formControl]="enableGreetingsControl">Enable greetings</mat-slide-toggle>
+          <mat-form-field *ngIf="enableGreetingsControl.value">
+            <input id="greeting-timeout" matInput type="number" name="greeting-timeout" placeholder="Greeting Timout" required [formControl]="greetingTimeoutControl"/>
+            <mat-hint>
+              This is the timeout applied to greetings, such that Biliomi will not greet a viewer when he/she rejoins the chat
+              within that period. (Twitch can be very twitchy on reporting current viewers, optimally set this to a bit more than your average stream length).
+              ({{greetingTimeoutControl.value | time}})
+            </mat-hint>
+            <mat-error *ngIf="greetingTimeoutControl.hasError('required')">This field is required!</mat-error>
+            <mat-error *ngIf="greetingTimeoutControl.hasError('min')">Negative time is impossible!</mat-error>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button [disabled]="!isFormOk" [actionButton]="saveSettings.bind(this)">
+            <mat-icon>done</mat-icon>
+          </button>
+          <button mat-raised-button color="primary" type="button" (click)="ngOnInit()" matTooltip="Refresh data">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>

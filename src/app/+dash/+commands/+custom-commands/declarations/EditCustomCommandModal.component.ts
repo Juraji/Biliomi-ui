@@ -9,7 +9,7 @@ import IUserGroup = Biliomi.IUserGroup;
 
 @Component({
   selector: "edit-custom-command-modal-component",
-  templateUrl: require("./EditCustomCommandModal.template.pug")
+  templateUrl: require("./EditCustomCommandModal.template.html")
 })
 export class EditCustomCommandModalComponent implements AfterViewInit {
   private _dialogRef: MatDialogRef<EditCustomCommandModalComponent>;
@@ -97,18 +97,17 @@ export class EditCustomCommandModalComponent implements AfterViewInit {
     }
   }
 
-  public deleteCommand() {
+  public async deleteCommand() {
     if (this._commandId != null) {
-      this._dialog.confirm(`Are you sure you want to delete !${this.editedCommand.Command}?`)
-        .filter((confirmed: boolean) => confirmed)
-        .subscribe(async () => {
-          let success: boolean = await this._customCommandsClient.delete(this._commandId);
-          if (success == null) {
-            this._matSnackBar.open(`Could not delete !${this.editedCommand.Command}, does it still exist?`, "Ok");
-          } else {
-            this._dialogRef.close(true);
-          }
-        });
+      let confirmed = await this._dialog.confirm(`Are you sure you want to delete !${this.editedCommand.Command}?`);
+      if (confirmed) {
+        let success: boolean = await this._customCommandsClient.delete(this._commandId);
+        if (success == null) {
+          this._matSnackBar.open(`Could not delete !${this.editedCommand.Command}, does it still exist?`, "Ok");
+        } else {
+          this._dialogRef.close(true);
+        }
+      }
     }
   }
 

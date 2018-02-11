@@ -1,0 +1,27 @@
+
+<form>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Host Watch Settings</mat-card-title>
+      <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <input id="host-reward" matInput type="number" name="host-reward" placeholder="Host Reward" required [formControl]="hostRewardControl"/>
+        <mat-hint>The amount of points to payout to hosters. Set to 0 for no payouts.</mat-hint>
+        <mat-error *ngIf="hostRewardControl.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="hostRewardControl.hasError('min')">Please enter a valid amount (min 0).</mat-error>
+      </mat-form-field>
+      <div class="mat-button-row mat-button-row-blocks">
+        <edit-template-button templateKey="IncomingHostNotice">Edit Incoming Host Notice</edit-template-button>
+      </div>
+    </mat-card-content>
+    <mat-card-actions></mat-card-actions>
+    <button mat-raised-button color="primary" [disabled]="!isFormOk" [actionButton]="saveSettings.bind(this)">
+      <mat-icon>done</mat-icon>
+    </button>
+    <button mat-button type="button" (click)="ngOnInit()" matTooltip="Refresh data">
+      <mat-icon>refresh</mat-icon>
+    </button>
+  </mat-card>
+</form>

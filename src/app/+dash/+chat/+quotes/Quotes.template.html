@@ -1,0 +1,59 @@
+
+<p>Check up on the latest registered quotes or add a new one</p>
+<div class="columns">
+  <div class="col span-8-of-12">
+    <data-table tableId="quotes" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="filterMapping">
+      <ng-container columnDef="User">
+        <header-cell *headerCellDef sortProperty="User.Username">Username</header-cell>
+        <data-cell *dataCellDef="let record">
+          <user-display [user]="record.User"></user-display>
+        </data-cell>
+      </ng-container>
+      <ng-container columnDef="Message">
+        <header-cell *headerCellDef sortProperty="Message">Message</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Message}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="Date">
+        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="GameAtMoment">
+        <header-cell *headerCellDef sortProperty="GameAtMoment.Name">During Game</header-cell>
+        <data-cell *dataCellDef="let record">{{record.GameAtMoment.Name}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="#Actions" [buttonsColumn]="1">
+        <header-cell *headerCellDef>&nbsp;</header-cell>
+        <data-cell *dataCellDef="let record">
+          <a class="mat-icon-button pull-right" mat-button color="warn" (click)="deleteRecord(record)" matTooltip="Delete Record">
+            <mat-icon>delete_forever</mat-icon>
+          </a>
+        </data-cell>
+      </ng-container>
+    </data-table>
+  </div>
+  <div class="col span-4-of-12">
+    <form>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Register Quote</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-form-field>
+            <input id="quote-message" matInput name="quote-message" placeholder="Message" required [formControl]="messageControl"/>
+            <mat-hint>The quote message</mat-hint>
+            <mat-error *ngIf="messageControl.hasError('required')">This field is required!</mat-error>
+          </mat-form-field>
+          <user-autocomplete #userControl required></user-autocomplete>
+          <p class="text-muted">
+            The new quote will be stated in the chat and the current game and date/time will be used.
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [disabled]="!isFormOk" [actionButton]="registerNewQuote.bind(this)">
+            <mat-icon>done</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>

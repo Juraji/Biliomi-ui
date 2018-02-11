@@ -6,17 +6,16 @@ import {UserAutoCompleteComponent} from "../../../shared/components/UserAutoComp
 import {TableFilterNameMapping} from "../../../shared/modules/data-table/classes/interfaces/DataTable";
 import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/constants/XlsxValueFormatters";
 import {IXlsxExportConfig} from "../../../shared/modules/xlsx-export/classes/interfaces/Xlsx";
-import {SaveButtonComponent} from "../../../shared/components/SaveButton.component";
 import {FormControl} from "@angular/forms";
 import {DialogsService} from "../../../shared/modules/dialogs/services/Dialogs.service";
 import {DatePipe} from "../../../shared/pipes/Date.pipe";
+import {CaseToWordPipe, CaseType} from "../../../shared/pipes/CaseToWord.pipe";
 import IRaidRecord = Biliomi.IRaidRecord;
 import IDirection = Biliomi.IDirection;
-import {CaseToWordPipe, CaseType} from "../../../shared/pipes/CaseToWord.pipe";
 
 @Component({
   selector: "raids",
-  templateUrl: require("./Raids.template.pug")
+  templateUrl: require("./Raids.template.html")
 })
 export class RaidsComponent {
   private _raidRecordsClient: RaidRecordsClient;
@@ -27,9 +26,6 @@ export class RaidsComponent {
 
   @ViewChild("userControl")
   public userControl: UserAutoCompleteComponent;
-
-  @ViewChild(SaveButtonComponent)
-  public saveButton: SaveButtonComponent;
 
   public tableFilterMapping: TableFilterNameMapping = {
     "channel": "Channel.Username",
@@ -57,32 +53,37 @@ export class RaidsComponent {
     return this.userControl.valid;
   }
 
-  public async saveRaid() {
+  public async saveRaid(): Promise<boolean> {
     if (this.isFormOk) {
       let direction = this.recordDirectionControl.value;
       let user = this.userControl.user;
-      this._dialogs.confirm(`Are you sure you want to record an ${direction.toLowerCase()} raid from ${user.DisplayName}?`)
-        .filter((confirmed: boolean) => confirmed)
-        .subscribe(async () => {
-          let success = await this._raidRecordsClient.registerRaid(direction, user.Username);
-          this.saveButton.state = success;
-          if (success) {
-            this.dataSource.update();
-          }
-        });
-    }
-  }
 
-  public deleteRecord(record: IRaidRecord) {
-    let date = new DatePipe().transform(record.Date);
-    let direction = new CaseToWordPipe().transform(record.Direction, CaseType.ENUM);
-    this._dialogs.confirm(`Are you sure you want to delete this ${direction} raid record on ${date} by ${record.Channel.DisplayName}?`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(async () => {
-        let success = await this._raidRecordsClient.delete(record.Id);
+      let confirmed = await this._dialogs.confirm(`Are you sure you want to record an ${direction.toLowerCase()} raid from ${user.DisplayName}?`);
+
+      if (confirmed) {
+        let success = await this._raidRecordsClient.registerRaid(direction, user.Username);
         if (success) {
           this.dataSource.update();
         }
-      });
+
+        return success;
+      }
+    }
+
+    return null;
+  }
+
+  public async deleteRecord(record: IRaidRecord) {
+    let date = new DatePipe().transform(record.Date);
+    let direction = new CaseToWordPipe().transform(record.Direction, CaseType.ENUM);
+
+    let confirmed = await this._dialogs.confirm(`Are you sure you want to delete this ${direction} raid record on ${date} by ${record.Channel.DisplayName}?`);
+
+    if (confirmed) {
+      let success = await this._raidRecordsClient.delete(record.Id);
+      if (success) {
+        this.dataSource.update();
+      }
+    }
   }
 }

@@ -12,7 +12,7 @@ import IAnnouncement = Biliomi.IAnnouncement;
 
 @Component({
   selector: "announcements",
-  templateUrl: require("./Announcements.template.pug")
+  templateUrl: require("./Announcements.template.html")
 })
 export class AnnouncementsComponent implements OnInit {
   private _announcementSettingsClient: AnnouncementSettingsClient;
@@ -54,7 +54,7 @@ export class AnnouncementsComponent implements OnInit {
     this.minChatMessagesControl.reset(this._announcementSettingsClient.MinChatMessages);
   }
 
-  public saveSettings() {
+  public async saveSettings(): Promise<boolean> {
     this._announcementSettingsClient.Enabled = this.enabledControl.value;
     this._announcementSettingsClient.Shuffle = this.shuffleControl.value;
     this._announcementSettingsClient.RunInterval = this.runIntervalControl.value;
@@ -64,6 +64,8 @@ export class AnnouncementsComponent implements OnInit {
     if (result != null) {
       this.initSettingsFields();
     }
+
+    return result != null;
   }
 
   public editAnnouncement(announcement: IAnnouncement) {

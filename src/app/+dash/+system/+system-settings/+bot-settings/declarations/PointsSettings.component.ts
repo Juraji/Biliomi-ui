@@ -4,7 +4,7 @@ import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: "points-settings-component",
-  templateUrl: require("./PointsSettings.template.pug")
+  templateUrl: require("./PointsSettings.template.html")
 })
 export class PointsSettingsComponent implements OnInit {
   private _pointsSettingsClient: PointsSettingsClient;
@@ -34,14 +34,14 @@ export class PointsSettingsComponent implements OnInit {
     this.offlinePayoutAmountControl.reset(this._pointsSettingsClient.OfflinePayoutAmount);
   }
 
-  private get isFormOk(): boolean {
+  public get isFormOk(): boolean {
     return this.pointsNameSingularControl.valid
       && this.pointsNamePluralControl.valid
       && (this.trackOnlineControl.value === false || (this.onlinePayoutIntervalControl.valid && this.onlinePayoutAmountControl.valid))
       && (this.trackOfflineControl.value === false || (this.offlinePayoutIntervalControl.valid && this.offlinePayoutAmountControl.valid));
   }
 
-  private save() {
+  public async save() {
     if (this.isFormOk) {
       this._pointsSettingsClient.PointsNameSingular = this.pointsNameSingularControl.value;
       this._pointsSettingsClient.PointsNamePlural = this.pointsNamePluralControl.value;
@@ -51,7 +51,11 @@ export class PointsSettingsComponent implements OnInit {
       this._pointsSettingsClient.OfflinePayoutInterval = this.offlinePayoutIntervalControl.value;
       this._pointsSettingsClient.OnlinePayoutAmount = this.onlinePayoutAmountControl.value;
       this._pointsSettingsClient.OfflinePayoutAmount = this.offlinePayoutAmountControl.value;
-      this._pointsSettingsClient.save();
+      let result = await this._pointsSettingsClient.save();
+
+      return result != null;
     }
+
+    return null;
   }
 }

@@ -5,7 +5,7 @@ import {RestTableDataSource} from "../classes/RestTableDataSource";
 
 @Component({
   selector: "data-source-progress-bar",
-  templateUrl: require("./DataSourceProgressBar.template.pug")
+  templateUrl: require("./DataSourceProgressBar.template.html")
 })
 export class DataSourceProgressBarComponent<T> {
   private _parentTable: DataTableComponent<T>;

@@ -33,6 +33,7 @@
     "@angular/router": "5.1.1",
     "@types/xlsx": "0.0.36",
     "file-saver": "^1.3.3",
+    "glob": "^7.1.2",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
     "reflect-metadata": "^0.1.10",

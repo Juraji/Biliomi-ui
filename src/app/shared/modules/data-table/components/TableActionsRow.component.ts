@@ -11,7 +11,7 @@ import "./TableActionsRow.less";
 
 @Component({
   selector: "table-actions-row",
-  templateUrl: require("./TableActionsRow.template.pug")
+  templateUrl: require("./TableActionsRow.template.html")
 })
 export class TableActionsRowComponent<T> {
   private _parentTable: DataTableComponent<T>;

@@ -1,0 +1,30 @@
+
+<form>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Strikes and Group Excemption</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Messages by users in the excempted group (or higher) are not evaluated by the chat moderator.<br/>
+        For example if you set the excempted group to Viewer all users will be excempted from moderation.
+      </p>
+      <user-group-selector [(userGroup)]="exemptedGroup"></user-group-selector>
+      <!--user-group-select(#exemptedGroupControl, placeholder="Excempted User Group")-->
+      <hr/>
+      <p>Biliomi keeps moderation strikes per user for the duration of an hour.<br/>
+        The first moderation action will perform strike 1, the second Strike 2 and 3 and beyond will execute Strike 3.
+      </p>
+      <strike-selector [(strike)]="firstStrike"></strike-selector>
+      <strike-selector [(strike)]="secondStrike"></strike-selector>
+      <strike-selector [(strike)]="thirdStrike"></strike-selector>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [actionButton]="saveSettings.bind(this)">
+        <mat-icon>done</mat-icon>
+      </button>
+      <button mat-button type="button" (click)="ngAfterViewInit()" matTooltip="Refresh data">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

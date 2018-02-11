@@ -1,0 +1,22 @@
+
+<data-table [dataSource]="dataSource" [disableFilter]="true">
+  <ng-template customTableActions>
+    <button mat-icon-button (click)="hostUser()" matTooltip="Host now">
+      <mat-icon>queue_play_next</mat-icon>
+    </button>
+  </ng-template>
+  <ng-container columnDef="Direction">
+    <header-cell *headerCellDef sortProperty="Direction">Direction</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Direction | caseToWord:"ENUM"}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Date">
+    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="AutoHost">
+    <header-cell *headerCellDef sortProperty="AutoHost">Auto host</header-cell>
+    <data-cell *dataCellDef="let record">
+      <mat-icon *ngIf="record.AutoHost" color="primary">done</mat-icon>
+    </data-cell>
+  </ng-container>
+</data-table>

@@ -8,7 +8,7 @@ import IUserGreeting = Biliomi.IUserGreeting;
 
 @Component({
   selector: "edit-greeting",
-  templateUrl: require("./EditGreeting.template.pug")
+  templateUrl: require("./EditGreeting.template.html")
 })
 export class EditGreetingComponent implements OnInit {
   private _dialogRef: MatDialogRef<EditGreetingComponent>;
@@ -61,17 +61,16 @@ export class EditGreetingComponent implements OnInit {
     }
   }
 
-  public deleteGreeting() {
-    this._dialogs.confirm(`Are you sure you want to delete the greeting for ${this.editedGreeting.User.DisplayName}?`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(async () => {
-        let success: boolean = await this._greetingsClient.delete(this._greetingId);
-        if (success) {
-          this._dialogRef.close(true);
-        } else {
-          this._snackbar.open(`Failed to delete the greeting for ${this.editedGreeting.User.DisplayName}, does it still exist?`, "Ok");
-        }
-      });
+  public async deleteGreeting() {
+    let confirmed = await this._dialogs.confirm(`Are you sure you want to delete the greeting for ${this.editedGreeting.User.DisplayName}?`);
+    if (confirmed) {
+      let success: boolean = await this._greetingsClient.delete(this._greetingId);
+      if (success) {
+        this._dialogRef.close(true);
+      } else {
+        this._snackbar.open(`Failed to delete the greeting for ${this.editedGreeting.User.DisplayName}, does it still exist?`, "Ok");
+      }
+    }
   }
 
   public cancelEdit() {

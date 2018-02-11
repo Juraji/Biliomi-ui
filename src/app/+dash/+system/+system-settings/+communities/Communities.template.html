@@ -1,0 +1,51 @@
+
+<p>Manage Twitch communities known by Biliomi</p>
+<div class="columns">
+  <div class="col span-8-of-12">
+    <p>Known Communities</p>
+    <data-table tableId="known-communites" [dataSource]="communitiesDataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
+      <ng-container columnDef="Name">
+        <header-cell *headerCellDef sortProperty="Name" [sortDefault]="'ASC'">Name</header-cell>
+        <data-cell *dataCellDef="let community">{{community.Name}}</data-cell>
+      </ng-container>
+      <ng-container columnDef="Owner">
+        <header-cell *headerCellDef sortProperty="Owner.Username">Owner</header-cell>
+        <data-cell *dataCellDef="let community">
+          <user-display [user]="community.Owner"></user-display>
+        </data-cell>
+      </ng-container>
+      <ng-container columnDef="Twitch Id">
+        <header-cell *headerCellDef sortProperty="TwitchId">Twitch Id</header-cell>
+        <data-cell *dataCellDef="let community">{{community.TwitchId}}</data-cell>
+      </ng-container>
+    </data-table>
+  </div>
+  <div class="col span-4-of-12">
+    <p>&nbsp;</p>
+    <form>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Communities Settings</mat-card-title>
+          <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>Biliomi will automatically update your communities when you change the current game via Biliomi.<br/>
+            You can set communities per game <a class="text-primary" routerLink="/dash/system/game-register">here</a>, or set default communities below. The latter will be applied to
+            games without set communites.
+            
+          </p>
+          <mat-slide-toggle [formControl]="autoUpdateCommunitiesControl">Automatically update communities</mat-slide-toggle>
+          <community-chip-list [(communities)]="communities" placeholder="Default Communities">Select up to 3 communities. Press [space] while typing to confirm input.</community-chip-list>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="primary" [actionButton]="saveSettings.bind(this)">
+            <mat-icon>done</mat-icon>
+          </button>
+          <button mat-button type="button" (click)="ngAfterViewInit()" matTooltip="Refresh data">
+            <mat-icon>refresh</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+</div>

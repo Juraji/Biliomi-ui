@@ -6,7 +6,7 @@ import IUserGroup = Biliomi.IUserGroup;
 
 @Component({
   selector: "user-group-selector",
-  templateUrl: require("./UserGroupSelector.template.pug")
+  templateUrl: require("./UserGroupSelector.template.html")
 })
 export class UserGroupSelectorComponent implements OnInit {
   private _userGroupsClient: UserGroupsClient;

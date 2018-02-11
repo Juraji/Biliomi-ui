@@ -2,7 +2,7 @@ import {Component, Input} from "@angular/core";
 
 @Component({
   selector: "edit-template-button",
-  templateUrl: require("./EditTemplateButton.template.pug")
+  templateUrl: require("./EditTemplateButton.template.html")
 })
 export class EditTemplateButtonComponent {
 

@@ -19,7 +19,7 @@ import "./Tamagotchis.less";
 
 @Component({
   selector: "tamagotchis",
-  templateUrl: require("./Tamagotchis.template.pug")
+  templateUrl: require("./Tamagotchis.template.html")
 })
 export class TamagotchisComponent implements OnInit {
   private _tamagotchiSettingsClient: TamagotchiSettingsClient;

@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, ViewEncapsulation} from "@angular/co
 
 @Component({
   selector: "header-row",
-  templateUrl: require("./Row.template.pug"),
+  templateUrl: require("./Row.template.html"),
   host: {
     "class": "header-row",
     "role": "row"

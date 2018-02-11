@@ -8,12 +8,11 @@ import {XLSX_FORMATTER_DATE} from "../../../shared/modules/xlsx-export/classes/c
 import {DialogsService} from "../../../shared/modules/dialogs/services/Dialogs.service";
 import {UserAutoCompleteComponent} from "../../../shared/components/UserAutoComplete.component";
 import {FormControl, Validators} from "@angular/forms";
-import {SaveButtonComponent} from "../../../shared/components/SaveButton.component";
 import IQuote = Biliomi.IQuote;
 
 @Component({
   selector: "quotes",
-  templateUrl: require("./Quotes.template.pug")
+  templateUrl: require("./Quotes.template.html")
 })
 export class QuotesComponent {
   private _dialogs: DialogsService;
@@ -24,9 +23,6 @@ export class QuotesComponent {
   @ViewChild("userControl")
   public userControl: UserAutoCompleteComponent;
   public messageControl: FormControl = new FormControl("", [Validators.required]);
-
-  @ViewChild(SaveButtonComponent)
-  public saveButton: SaveButtonComponent;
 
   public tableFilterMapping: TableFilterNameMapping = {
     "username": "User.Username",
@@ -55,30 +51,37 @@ export class QuotesComponent {
       && this.userControl.valid;
   }
 
-  public async registerNewQuote() {
+  public async registerNewQuote(): Promise<boolean> {
     if (this.isFormOk) {
-      this._dialogs.confirm(["The current game and date will be used and the quote will be stated in the chat.", "Are you sure?"])
-        .filter((confirmed: boolean) => confirmed)
-        .subscribe(async () => {
-          let success = await this._quotesClient.performAddQuote(this.userControl.user.Username, this.messageControl.value);
-          this.saveButton.state = success;
-          if (success) {
-            this.dataSource.update();
-            this.messageControl.reset();
-            this.userControl.reset();
-          }
-        });
-    }
-  }
+      let confirmed = await this._dialogs.confirm(["The current game and date will be used and the quote will be stated in the chat.", "Are you sure?"]);
 
-  public deleteRecord(record: IQuote) {
-    this._dialogs.confirm(`Are you sure you want to delete this quote by ${record.User.DisplayName}?`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(async () => {
-        let success = await this._quotesClient.delete(record.Id);
+      if (confirmed) {
+        let success = await this._quotesClient.performAddQuote(this.userControl.user.Username, this.messageControl.value);
         if (success) {
           this.dataSource.update();
+          this.messageControl.reset();
+          this.userControl.reset();
         }
-      });
+
+        return success;
+      }
+    }
+
+    return null;
+  }
+
+  public async deleteRecord(record: IQuote): Promise<boolean> {
+    let confirmed = await this._dialogs.confirm(`Are you sure you want to delete this quote by ${record.User.DisplayName}?`);
+
+    if (confirmed) {
+      let success = await this._quotesClient.delete(record.Id);
+      if (success) {
+        this.dataSource.update();
+      }
+
+      return success;
+    }
+
+    return null;
   }
 }

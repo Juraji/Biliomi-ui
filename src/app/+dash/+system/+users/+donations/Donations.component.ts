@@ -11,7 +11,7 @@ import IDonation = Biliomi.IDonation;
 
 @Component({
   selector: "donations",
-  templateUrl: require("./Donations.template.pug")
+  templateUrl: require("./Donations.template.html")
 })
 export class DonationsComponent {
   private _dialog: DialogsService;

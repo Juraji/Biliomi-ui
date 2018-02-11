@@ -12,7 +12,7 @@ import IAchievementRecord = Biliomi.IAchievementRecord;
 
 @Component({
   selector: "achievements",
-  templateUrl: require("./Achievements.template.pug")
+  templateUrl: require("./Achievements.template.html")
 })
 export class AchievementsComponent implements OnInit {
   private _achievementSettingsClient: AchievementSettingsClient;
@@ -54,22 +54,23 @@ export class AchievementsComponent implements OnInit {
     this.achievementsEnabledControl.reset(this._achievementSettingsClient.AchievementsEnabled);
   }
 
-  public async saveSettings() {
+  public async saveSettings(): Promise<boolean> {
     this._achievementSettingsClient.AchievementsEnabled = this.achievementsEnabledControl.value;
     let result = await this._achievementSettingsClient.save();
-    if (result == null) {
+    if (result != null) {
       this.initSettingsFields();
     }
+
+    return result != null;
   }
 
-  public deleteRecord(record: IAchievementRecord) {
-    this._dialog.confirm(`Are you sure you want to delete this achievement for ${record.User.DisplayName}`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(async () => {
-        let success: boolean = await this.achievementsDataSource.client.delete(record.Id);
-        if (success) {
-          this.achievementsDataSource.update();
-        }
-      });
+  public async deleteRecord(record: IAchievementRecord) {
+    let confirmed = await this._dialog.confirm(`Are you sure you want to delete this achievement for ${record.User.DisplayName}`);
+    if (confirmed) {
+      let success: boolean = await this.achievementsDataSource.client.delete(record.Id);
+      if (success) {
+        this.achievementsDataSource.update();
+      }
+    }
   }
 }

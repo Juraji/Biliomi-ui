@@ -4,7 +4,7 @@ import {ChatModeratorSettingsClient} from "../../../../../shared/modules/biliomi
 
 @Component({
   selector: "link-moderation-settings",
-  templateUrl: require("./LinkModerationSettings.template.pug")
+  templateUrl: require("./LinkModerationSettings.template.html")
 })
 export class LinkModerationSettingsComponent implements AfterViewInit {
   private _chatModeratorSettingsClient: ChatModeratorSettingsClient;
@@ -28,12 +28,16 @@ export class LinkModerationSettingsComponent implements AfterViewInit {
     return (this.linksAllowedControl.value || this.linkPermitExpireTimeControl.valid);
   }
 
-  public saveSettings() {
+  public async saveSettings() {
     if (this.isFormOk) {
       this._chatModeratorSettingsClient.LinksAllowed = this.linksAllowedControl.value;
       this._chatModeratorSettingsClient.LinkPermitExpireTime = this.linkPermitExpireTimeControl.value;
       this._chatModeratorSettingsClient.LinkWhitelist = this.linkWhitelist;
-      this._chatModeratorSettingsClient.save();
+      let result = await this._chatModeratorSettingsClient.save();
+
+      return result != null;
     }
+
+    return null;
   }
 }

@@ -13,7 +13,7 @@ import IHostRecord = Biliomi.IHostRecord;
 
 @Component({
   selector: "hosts-page",
-  templateUrl: require("./Hosts.template.pug")
+  templateUrl: require("./Hosts.template.html")
 })
 export class HostsComponent {
   private _hostRecordsClient: HostRecordsClient;
@@ -42,20 +42,20 @@ export class HostsComponent {
     this.dataSource.client = hostRecordsClient;
   }
 
-  public hostNow(record: IHostRecord) {
-    this._dialog.confirm(`Are you sure you want to host ${record.User.DisplayName}?`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(() => this._hostRecordsClient.performHost(record.User.Username));
+  public async hostNow(record: IHostRecord) {
+    let confirmed = await this._dialog.confirm(`Are you sure you want to host ${record.User.DisplayName}?`);
+    if (confirmed) {
+      this._hostRecordsClient.performHost(record.User.Username)
+    }
   }
 
   public async deleteRecord(record: IHostRecord) {
-    this._dialog.confirm(`Are you sure you want to delete this record for ${record.User.DisplayName}?`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(async () => {
-        let result: boolean = await this._hostRecordsClient.delete(record.Id);
-        if (result) {
-          this.dataSource.update();
-        }
-      });
+    let confirmed = await this._dialog.confirm(`Are you sure you want to delete this record for ${record.User.DisplayName}?`);
+    if (confirmed) {
+      let result: boolean = await this._hostRecordsClient.delete(record.Id);
+      if (result) {
+        this.dataSource.update();
+      }
+    }
   }
 }

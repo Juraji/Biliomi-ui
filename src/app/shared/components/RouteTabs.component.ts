@@ -4,7 +4,7 @@ import {RouterUtils} from "../modules/tools/RouterUtils";
 
 @Component({
   selector: "route-tabs",
-  templateUrl: require("./RouteTabs.template.pug")
+  templateUrl: require("./RouteTabs.template.html")
 })
 export class RouteTabsComponent implements OnInit {
   private _relativeTo: ActivatedRoute;

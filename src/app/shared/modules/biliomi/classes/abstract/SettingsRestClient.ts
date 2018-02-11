@@ -10,17 +10,11 @@ export abstract class SettingsRestClient<T> {
   private _loadPromise: Promise<void>;
   private _updateInterval: number;
   private _updateSub: Subscription;
-  private _afterSave: EventEmitter<boolean>;
 
   constructor(api: BiliomiApiService, baseResourceUri: string, updateInterval?: number) {
     this._api = api;
     this._baseResourceUri = baseResourceUri;
     this._updateInterval = updateInterval;
-    this._afterSave = new EventEmitter<boolean>();
-  }
-
-  public get afterSave(): EventEmitter<boolean> {
-    return this._afterSave;
   }
 
   protected get api(): BiliomiApiService {
@@ -54,8 +48,6 @@ export abstract class SettingsRestClient<T> {
     if (data != null) {
       Object.assign(this, data);
     }
-
-    this._afterSave.next(data != null);
 
     return data;
   }

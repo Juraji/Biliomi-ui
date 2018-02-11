@@ -4,7 +4,7 @@ import {FormControl} from "@angular/forms";
 
 @Component({
   selector: "chat-settings-component",
-  templateUrl: require("./ChatSettings.template.pug")
+  templateUrl: require("./ChatSettings.template.html")
 })
 export class ChatSettingsComponent implements OnInit {
   private _systemSettingsClient: SystemSettingsClient;
@@ -22,9 +22,11 @@ export class ChatSettingsComponent implements OnInit {
     this.muteBiliomiControl.reset(this._systemSettingsClient.Muted);
   }
 
-  private save() {
+  public async save(): Promise<boolean> {
     this._systemSettingsClient.EnableWhispers = this.enableWhispersControl.value;
     this._systemSettingsClient.Muted = this.muteBiliomiControl.value;
-    this._systemSettingsClient.save();
+    let result = await this._systemSettingsClient.save();
+
+    return result != null;
   }
 }

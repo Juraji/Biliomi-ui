@@ -1,0 +1,4 @@
+
+<div class="alert-text" *ngIf="vcMessagesService.hasMessage">{{vcMessagesService.currentMessage}}</div><a class="mat-icon-button" mat-button (click)="startStopListening()">
+  <mat-icon class="text-ok" *ngIf="voiceCommandsService.isListening" matTooltip="Voice commands active">mic</mat-icon>
+  <mat-icon *ngIf="!voiceCommandsService.isListening" matTooltip="Voice commands disabled">mic_off</mat-icon></a>

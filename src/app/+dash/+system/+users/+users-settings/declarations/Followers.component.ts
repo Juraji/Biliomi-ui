@@ -4,7 +4,7 @@ import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: "followers-settings",
-  templateUrl: require("./Followers.template.pug")
+  templateUrl: require("./Followers.template.html")
 })
 export class FollowersComponent implements OnInit {
   private _followerWatchSettingsClient: FollowerWatchSettingsClient;
@@ -31,7 +31,10 @@ export class FollowersComponent implements OnInit {
   public saveSettings() {
     if (this.isSettingsFormOk) {
       this._followerWatchSettingsClient.Reward = this.followerRewardControl.value;
-      this._followerWatchSettingsClient.save();
+      let result = this._followerWatchSettingsClient.save();
+      return result != null;
     }
+
+    return null;
   }
 }

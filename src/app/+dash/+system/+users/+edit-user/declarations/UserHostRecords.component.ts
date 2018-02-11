@@ -7,11 +7,10 @@ import {EditUserComponent} from "../EditUser.component";
 import {FilterBuilder} from "../../../../../shared/modules/biliomi/classes/FilterBuilder";
 import IHostRecord = Biliomi.IHostRecord;
 import IRestFilterOperator = Biliomi.IRestFilterOperator;
-import IDirection = Biliomi.IDirection;
 
 @Component({
   selector: "user-host-records",
-  templateUrl: require("./UserHostRecords.template.pug")
+  templateUrl: require("./UserHostRecords.template.html")
 })
 export class UserHostRecordsComponent {
   private _editUserComponent: EditUserComponent;
@@ -35,9 +34,10 @@ export class UserHostRecordsComponent {
     }
   }
 
-  public hostUser() {
-    this._dialog.confirm(`Are you sure you want to host ${this._editUserComponent.user.DisplayName}?`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(() => this._hostRecordsClient.performHost(this._editUserComponent.user.Username));
+  public async hostUser() {
+    let confirmed = await this._dialog.confirm(`Are you sure you want to host ${this._editUserComponent.user.DisplayName}?`);
+    if (confirmed) {
+      this._hostRecordsClient.performHost(this._editUserComponent.user.Username)
+    }
   }
 }

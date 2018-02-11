@@ -1,0 +1,49 @@
+
+<form>
+  <mat-card>
+    <mat-card-content>
+      <mat-form-field>
+        <input id="user-title" matInput name="user-title" placeholder="Title" [formControl]="titleControl"/>
+        <mat-hint>Some commands prepend this value to the user's username.</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input id="user-points" matInput type="number" name="user-points" [placeholder]="undefined | points | async" required [formControl]="pointsControl"/>
+        <mat-hint>User {{undefined | points | async}}</mat-hint>
+        <mat-error *ngIf="pointsControl.hasError('required')">This field is required!</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input id="user-recorded-time" matInput type="number" name="user-recorded-time" placeholder="Recorded Time ({{recordedTimeControl.value | time}})" required [formControl]="recordedTimeControl"/>
+        <mat-hint>The time, Biliomi measured, for which this user has been in the channel in milliseconds.</mat-hint>
+        <mat-error *ngIf="recordedTimeControl.hasError('required')">This field is required!</mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="user?.Follower">
+        <input id="user-follow-date" matInput name="user-follow-date" placeholder="Follows Since" [formControl]="followDateControl" [matDatepicker]="followDatePicker"/>
+        <mat-datepicker-toggle matSuffix [for]="followDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #followDatePicker [disabled]="false"></mat-datepicker>
+        <mat-hint>Only for correction purposes. Biliomi keeps track of followers via Twitch.</mat-hint>
+      </mat-form-field>
+      <mat-form-field *ngIf="user?.Subscriber">
+        <input id="user-subscribe-date" matInput name="user-subscribe-date" placeholder="Subscribed Since" [formControl]="subscribeDateControl" [matDatepicker]="subscribeDatePicker"/>
+        <mat-datepicker-toggle matSuffix [for]="subscribeDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #subscribeDatePicker [disabled]="false"></mat-datepicker>
+        <mat-hint>Only for correction purposes. Biliomi keeps track of subscribers via Twitch.</mat-hint>
+      </mat-form-field>
+      <div *ngIf="!editUserComponent.isCurrentUser">
+        <mat-slide-toggle [hidden]="user?.Caster || user?.Moderator" [formControl]="isBlacklistedControl">Blacklist User</mat-slide-toggle>
+        <div class="checkbox-subscript">
+          <div class="checkbox-hint">Blacklisted users are prohibited from posting commands.</div>
+          <div class="checkbox-error" [hidden]="user?.BlacklistedSince == undefined">{{user?.DisplayName}} has been blacklisted since {{user?.BlacklistedSince| date}}</div>
+        </div>
+        <user-group-selector [(userGroup)]="userGroup"></user-group-selector>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!isFormOk" [actionButton]="save.bind(this)">
+        <mat-icon>done</mat-icon>
+      </button>
+      <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -4,7 +4,7 @@ import {StringUtils} from "../modules/tools/StringUtils";
 
 @Component({
   selector: "chip-list-input",
-  templateUrl: require("./ChipListInput.template.pug")
+  templateUrl: require("./ChipListInput.template.html")
 })
 export class ChipListInputComponent {
   private _chips: string[] = [];

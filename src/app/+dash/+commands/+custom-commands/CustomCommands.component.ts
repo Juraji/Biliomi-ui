@@ -15,7 +15,7 @@ import ICustomCommand = Biliomi.ICustomCommand;
 
 @Component({
   selector: "custom-commands-component",
-  templateUrl: require("./CustomCommands.template.pug")
+  templateUrl: require("./CustomCommands.template.html")
 })
 export class CustomCommandsComponent implements OnInit {
   private _dialog: DialogsService;

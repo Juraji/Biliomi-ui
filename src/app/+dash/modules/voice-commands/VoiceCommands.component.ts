@@ -6,7 +6,7 @@ import "./VoiceCommands.less";
 
 @Component({
   selector: "voice-commands",
-  templateUrl: require("./VoiceCommands.template.pug")
+  templateUrl: require("./VoiceCommands.template.html")
 })
 export class VoiceCommandsComponent implements OnDestroy {
   public voiceCommandsService: VoiceCommandsService;

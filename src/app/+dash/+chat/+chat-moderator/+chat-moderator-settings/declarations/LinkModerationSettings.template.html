@@ -1,0 +1,29 @@
+
+<form>
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Link Moderation</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-slide-toggle [formControl]="linksAllowedControl">Allow Link Posting</mat-slide-toggle>
+      <mat-form-field>
+        <input id="chat-moderator-link-permit-expire-time" matInput type="number" name="chat-moderator-link-permit-expire-time" placeholder="Permit Duration" required [formControl]="linkPermitExpireTimeControl"/>
+        <mat-hint>The amount of milliseconds for which a link permit lasts.</mat-hint>
+        <mat-error *ngIf="linkPermitExpireTimeControl.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="linkPermitExpireTimeControl.hasError('min')">Please enter a valid amount (min 60000 = 1 minute).</mat-error>
+      </mat-form-field>
+      <chip-list-input [(chips)]="linkWhitelist" placeholder="Whitelisted Links">
+        Simply start typing urls separated by spaces to add them to the list. Links are checked by occurence of whitelisted links.
+        So http://shadywebsite.com?url=http://juraji.nl would also be seen as an ok link. You might want to be very specific about whitelisting links.
+      </chip-list-input>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="!isFormOk" [actionButton]="saveSettings.bind(this)">
+        <mat-icon>done</mat-icon>
+      </button>
+      <button mat-button type="button" (click)="ngAfterViewInit()" matTooltip="Refresh data">
+        <mat-icon>refresh</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

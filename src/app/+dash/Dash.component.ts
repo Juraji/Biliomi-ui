@@ -13,17 +13,18 @@ import {BILIOMI_EVENTS} from "../shared/modules/biliomi/classes/constants/Biliom
 import {RouterRedirector} from "../shared/classes/RouterRedirector";
 import {Storage} from "../shared/storage/Storage";
 import {ChannelStatusClient} from "../shared/modules/biliomi/clients/ChannelStatus.client";
+
+import "./Dash.less";
 import ITwitchFollowEvent = Biliomi.ITwitchFollowEvent;
 import ITwitchSubscriberEvent = Biliomi.ITwitchSubscriberEvent;
 import ITwitchHostInEvent = Biliomi.ITwitchHostInEvent;
 import IIrcChatMessageEvent = Biliomi.IIrcChatMessageEvent;
 import IChannelStateEvent = Biliomi.IChannelStateEvent;
-
-import "./Dash.less";
+import IEvent = Biliomi.IEvent;
 
 @Component({
   selector: "dash-page",
-  templateUrl: require("./Dash.template.pug")
+  templateUrl: require("./Dash.template.html")
 })
 export class DashComponent implements OnInit, OnDestroy {
 
@@ -52,7 +53,8 @@ export class DashComponent implements OnInit, OnDestroy {
     this._channelStatusClient = channelStatusClient;
 
     // Subscribe to Api errors in order to display them in a snackbar
-    this._api.postRequestErrorInterceptor.subscribe((e: HttpErrorResponse) => this._onHttpError(e));
+    this._subscriptionBucket.add(this._api.postRequestErrorInterceptor
+      .subscribe((e: HttpErrorResponse) => this._onHttpError(e)));
   }
 
   public ngOnInit() {
@@ -67,11 +69,11 @@ export class DashComponent implements OnInit, OnDestroy {
     this._biliomiEventsService.connect();
 
     this._subscriptionBucket
-      .add(this._biliomiEventsService.subscribe((e: IChannelStateEvent) => this._onBiliomiChannelStateEvent(e), [BILIOMI_EVENTS.CHANNEL_STATE_EVENT]))
-      .add(this._biliomiEventsService.subscribe((e: ITwitchFollowEvent) => this._onBiliomiTwitchFollowEvent(e), [BILIOMI_EVENTS.TWITCH_FOLLOW_EVENT]))
-      .add(this._biliomiEventsService.subscribe((e: ITwitchSubscriberEvent) => this._onBiliomiTwitchSubscriberEvent(e), [BILIOMI_EVENTS.TWITCH_SUBSCRIBER_EVENT]))
-      .add(this._biliomiEventsService.subscribe((e: ITwitchHostInEvent) => this._onBiliomiTwitchHostInEvent(e), [BILIOMI_EVENTS.TWITCH_HOST_IN_EVENT]))
-      .add(this._biliomiEventsService.subscribe((e: IIrcChatMessageEvent) => this._onBiliomiMessageEvent(e), [BILIOMI_EVENTS.IRC_CHAT_MESSAGE_EVENT]));
+      .add(this._biliomiEventsService.subscribe((e: IChannelStateEvent) => this._onBiliomiChannelStateEvent(e), BILIOMI_EVENTS.CHANNEL_STATE_EVENT))
+      .add(this._biliomiEventsService.subscribe((e: ITwitchFollowEvent) => this._onBiliomiTwitchFollowEvent(e), BILIOMI_EVENTS.TWITCH_FOLLOW_EVENT))
+      .add(this._biliomiEventsService.subscribe((e: ITwitchSubscriberEvent) => this._onBiliomiTwitchSubscriberEvent(e), BILIOMI_EVENTS.TWITCH_SUBSCRIBER_EVENT))
+      .add(this._biliomiEventsService.subscribe((e: ITwitchHostInEvent) => this._onBiliomiTwitchHostInEvent(e), BILIOMI_EVENTS.TWITCH_HOST_IN_EVENT))
+      .add(this._biliomiEventsService.subscribe((e: IIrcChatMessageEvent) => this._onBiliomiMessageEvent(e), BILIOMI_EVENTS.IRC_CHAT_MESSAGE_EVENT));
   }
 
   public ngOnDestroy() {
@@ -91,7 +93,7 @@ export class DashComponent implements OnInit, OnDestroy {
 
   // Global event subscriber methods
   private _onHttpError(e: HttpErrorResponse) {
-    this._matSnackBar.open("An error occurred while comunicating with Biliomi! (" + e.message + ")", "Ok", {duration: 1e4});
+    this._matSnackBar.open(`An error occurred while comunicating with Biliomi! (${e.message})`, "Ok", {duration: 1e4});
   }
 
   private _onBiliomiChannelStateEvent(e: IChannelStateEvent) {
@@ -101,21 +103,21 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   private _onBiliomiTwitchFollowEvent(e: ITwitchFollowEvent) {
-    this._matSnackBar.open("New follower: " + e.User.DisplayName + "!", "Ok");
+    this._matSnackBar.open(`New follower: ${e.User.DisplayName}!`, "Ok");
   }
 
   private _onBiliomiTwitchSubscriberEvent(e: ITwitchSubscriberEvent) {
     let prefix: string = (e.IsResub ? "Recurring subscriber" : "New subscriber");
-    this._matSnackBar.open(prefix + ": " + e.User.DisplayName + "! (plan: " + e.SubPlan + ")", "Ok");
+    this._matSnackBar.open(`${prefix}: ${e.User.DisplayName}! (plan: ${e.SubPlan})`, "Ok");
   }
 
   private _onBiliomiTwitchHostInEvent(e: ITwitchHostInEvent) {
-    this._matSnackBar.open("Incoming host: " + e.ChannelName + "!", "Ok");
+    this._matSnackBar.open(`Incoming host: ${e.ChannelName}!`, "Ok");
   }
 
   private _onBiliomiMessageEvent(e: IIrcChatMessageEvent) {
     if (StringUtils.containsIgnoreCase(e.Message, this._auth.username)) {
-      this._matSnackBar.open("You've been mentioned in the chat by " + e.Username + ".", "Ok", {duration: 1e4});
+      this._matSnackBar.open(`You've been mentioned in the chat by ${e.Username}.`, "Ok", {duration: 1e4});
     }
   }
 }

@@ -2,7 +2,7 @@ import * as FileSaver from "file-saver";
 import * as XLSX from "xlsx";
 import {IXlsxColumnDefinition, IXlsxExportConfig, IXlsXRowObject} from "./interfaces/Xlsx";
 import {JSONPath} from "../../tools/JSONPath";
-import {Supplier} from "../../tools/FunctionalInterface";
+import {Callable} from "../../tools/FunctionalInterface";
 
 const AUTO_COLUMN_WIDTH_MARGIN: number = 5;
 // Possible booktypes are: xlsx, xlsm, xlsb, xls, biff8, biff5, biff2, xlml, ods, fods, csv, txt, sylk, html, dif, rtf, prn.
@@ -151,7 +151,7 @@ export class XlsxExporter {
     return buf;
   }
 
-  private static _mapSheetHeaderName(headerName: string | Supplier<string>) {
+  private static _mapSheetHeaderName(headerName: string | Callable<string>) {
     return (typeof headerName === "function" ? headerName() : headerName);
   }
 }

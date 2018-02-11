@@ -5,7 +5,7 @@ import "./ChannelInfo.less";
 
 @Component({
   selector: "channel-info-component",
-  templateUrl: require("./ChannelInfo.template.pug")
+  templateUrl: require("./ChannelInfo.template.html")
 })
 export class ChannelInfoComponent {
   private channelInfoClient: ChannelStatusClient;

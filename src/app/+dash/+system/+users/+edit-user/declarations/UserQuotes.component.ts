@@ -9,7 +9,7 @@ import IRestFilterOperator = Biliomi.IRestFilterOperator;
 
 @Component({
   selector: "user-quotes",
-  templateUrl: require("./UserQuotes.template.pug")
+  templateUrl: require("./UserQuotes.template.html")
 })
 export class UserQuotesComponent {
   public dataSource: RestTableDataSource<IQuote> = new RestTableDataSource<IQuote>();

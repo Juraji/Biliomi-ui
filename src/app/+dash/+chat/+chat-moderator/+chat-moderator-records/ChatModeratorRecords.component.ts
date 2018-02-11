@@ -13,7 +13,7 @@ import IModerationRecord = Biliomi.IModerationRecord;
 
 @Component({
   selector: "chat-moderator-records",
-  templateUrl: require("./ChatModeratorRecords.template.pug")
+  templateUrl: require("./ChatModeratorRecords.template.html")
 })
 export class ChatModeratorRecordsComponent {
   private _dialog: DialogsService;
@@ -42,12 +42,12 @@ export class ChatModeratorRecordsComponent {
     this.recordsDataSource.client = moderationRecordsClient;
   }
 
-  public deleteRecord(record: IModerationRecord) {
-    this._dialog.confirm(`Are you sure you want to delete this record for ${record.User.DisplayName}?`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(async () => {
-        await this._moderationRecordsClient.delete(record.Id);
-        this.recordsDataSource.update();
-      });
+  public async deleteRecord(record: IModerationRecord) {
+    let confirmed = await this._dialog.confirm(`Are you sure you want to delete this record for ${record.User.DisplayName}?`);
+
+    if (confirmed) {
+      await this._moderationRecordsClient.delete(record.Id);
+      this.recordsDataSource.update();
+    }
   }
 }

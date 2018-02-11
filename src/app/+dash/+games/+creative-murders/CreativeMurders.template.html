@@ -1,0 +1,26 @@
+
+<p>Check on your viewer's creative ways to murder one and another.</p>
+<data-table tableId="killrecords" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="filterMapping">
+  <ng-container columnDef="Killer">
+    <header-cell *headerCellDef sortProperty="Killer.Username">Killer</header-cell>
+    <data-cell *dataCellDef="let record">
+      <user-display [user]="record.Killer"></user-display>
+    </data-cell>
+  </ng-container>
+  <ng-container columnDef="Target">
+    <header-cell *headerCellDef sortProperty="Target.Username">Target</header-cell>
+    <data-cell *dataCellDef="let record">
+      <user-display *ngIf="!record.IsSuicide" [user]="record.Target"></user-display>
+    </data-cell>
+  </ng-container>
+  <ng-container columnDef="IsSuicide">
+    <header-cell *headerCellDef sortProperty="IsSuicide">Suicide</header-cell>
+    <data-cell *dataCellDef="let record">
+      <mat-icon *ngIf="record.IsSuicide" color="primary">done</mat-icon>
+    </data-cell>
+  </ng-container>
+  <ng-container columnDef="Date">
+    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+  </ng-container>
+</data-table>

@@ -4,7 +4,7 @@ import {TableColumnsSetup} from "../classes/interfaces/DataTable";
 
 @Component({
   selector: "table-setup-modal",
-  templateUrl: require("./TableSetupModal.template.pug")
+  templateUrl: require("./TableSetupModal.template.html")
 })
 export class TableSetupModalComponent {
   private _columnsSetup: TableColumnsSetup;

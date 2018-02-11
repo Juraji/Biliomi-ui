@@ -32,7 +32,7 @@ export const TABLE_SETUP_STORAGE_PREFIX: string = "tableSetup.";
 @Component({
   selector: "data-table",
   exportAs: "cdkTable",
-  templateUrl: require("./DataTable.template.pug"),
+  templateUrl: require("./DataTable.template.html"),
   host: {"class": "data-table"},
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,

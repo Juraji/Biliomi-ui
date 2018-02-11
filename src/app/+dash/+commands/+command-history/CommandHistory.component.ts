@@ -6,7 +6,7 @@ import ICommandHistoryRecord = Biliomi.ICommandHistoryRecord;
 
 @Component({
   selector: "command-history",
-  templateUrl: require("./CommandHistory.template.pug")
+  templateUrl: require("./CommandHistory.template.html")
 })
 export class CommandHistoryComponent {
   public dataSource: RestTableDataSource<ICommandHistoryRecord> = new RestTableDataSource<ICommandHistoryRecord>();

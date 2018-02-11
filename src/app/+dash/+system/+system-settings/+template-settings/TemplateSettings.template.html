@@ -1,0 +1,21 @@
+
+<p>Templates are used by Biliomi all over the place, from raid-messages to tweets.</p>
+<data-table tableId="templates" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
+  <ng-container columnDef="TemplateKey">
+    <header-cell *headerCellDef sortProperty="TemplateKey" [sortDefault]="'ASC'">Key</header-cell>
+    <data-cell *dataCellDef="let template">{{template.TemplateKey | caseToWord:"TITLE"}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Template">
+    <header-cell *headerCellDef>Template</header-cell>
+    <data-cell *dataCellDef="let template">{{template.Template}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="Description">
+    <header-cell *headerCellDef>Description</header-cell>
+    <data-cell *dataCellDef="let template">{{template.Description}}</data-cell>
+  </ng-container>
+  <ng-container columnDef="#Edit" [buttonsColumn]="1">
+    <header-cell *headerCellDef></header-cell>
+    <data-cell *dataCellDef="let template"><a class="mat-icon-button pull-right" mat-button (click)="editTemplate(template)" matTooltip="Edit template">
+        <mat-icon>edit</mat-icon></a></data-cell>
+  </ng-container>
+</data-table>

@@ -4,7 +4,7 @@ import {FormControl, Validators} from "@angular/forms";
 
 @Component({
   selector: "tamagotchi-settings",
-  templateUrl: require("./TamagotchiSettings.template.pug")
+  templateUrl: require("./TamagotchiSettings.template.html")
 })
 export class TamagotchiSettingsComponent implements OnInit {
   private _tamagotchiSettingsClient: TamagotchiSettingsClient;
@@ -59,8 +59,12 @@ export class TamagotchiSettingsComponent implements OnInit {
       this._tamagotchiSettingsClient.NameMaxLength = this.nameMaxLengthControl.value;
       this._tamagotchiSettingsClient.BotTamagotchiEnabled = this.botTamagotchiEnabledControl.value;
 
-      await this._tamagotchiSettingsClient.save();
+      let result = await this._tamagotchiSettingsClient.save();
       this.initFields();
+
+      return result != null;
     }
+
+    return null;
   }
 }

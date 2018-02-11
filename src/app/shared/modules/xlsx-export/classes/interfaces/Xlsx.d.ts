@@ -1,4 +1,4 @@
-import {Supplier} from "../../../tools/FunctionalInterface";
+import {Callable} from "../../../tools/FunctionalInterface";
 
 type XlsxFormatterFunction = (cellValue: any, parentObject: any) => any;
 type IXlsXRowObject = { [p: string]: any };
@@ -18,7 +18,7 @@ interface IXlsxColumnDefinition {
   // JSONPath-like value selector (e.g. $.Property.List[0].Property)
   objectPath: string;
   // Display name for the column header, defaults to objectPath
-  headerName: string | Supplier<string>;
+  headerName: string | Callable<string>;
   // A postprocessor to be applied to resulting values, not called when value is NULL
   formatter?: XlsxFormatterFunction;
   // replace cellValue when value is NULL

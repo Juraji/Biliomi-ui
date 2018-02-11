@@ -10,7 +10,7 @@ import ICommunity = Biliomi.ICommunity;
 
 @Component({
   selector: "communities",
-  templateUrl: require("./Communities.template.pug")
+  templateUrl: require("./Communities.template.html")
 })
 export class CommunitiesComponent implements AfterViewInit {
   private _communitiesSettingsClient: CommunitiesSettingsClient;
@@ -51,7 +51,12 @@ export class CommunitiesComponent implements AfterViewInit {
   public async saveSettings() {
     this._communitiesSettingsClient.AutoUpdateCommunities = this.autoUpdateCommunitiesControl.value;
     this._communitiesSettingsClient.DefaultCommunities = this.communities;
-    await this._communitiesSettingsClient.save();
-    this.initFields();
+    let result = await this._communitiesSettingsClient.save();
+
+    if (result) {
+      this.initFields();
+    }
+
+    return result != null;
   }
 }

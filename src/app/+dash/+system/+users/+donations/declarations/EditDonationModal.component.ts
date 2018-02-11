@@ -12,7 +12,7 @@ import IDonation = Biliomi.IDonation;
 
 @Component({
   selector: "edit-donation-modal",
-  templateUrl: require("./EditDonationModal.template.pug")
+  templateUrl: require("./EditDonationModal.template.html")
 })
 export class EditDonationModalComponent implements AfterViewInit {
   private _donationId: number;
@@ -69,22 +69,21 @@ export class EditDonationModalComponent implements AfterViewInit {
     this.userControl.user = this.editedDonation.User;
   }
 
-  public saveAndStateInChat() {
+  public async saveAndStateInChat() {
     if (this.isFormOk) {
-      this._dialog.confirm(["Notifying in the chat will use the !donation add command in order to save the donation.",
-        " Doing this will discard any set note and generate a new date, are you sure?"])
-        .filter((confirmed: boolean) => confirmed)
-        .subscribe(async () => {
-          let username: string = (await this.userControl.user).Username;
-          let donation: string = this.donationControl.value;
-          let success = await this._donationsClient.saveAsCommand(username, donation);
+      let confirmed = await this._dialog.confirm(["Notifying in the chat will use the !donation add command in order to save the donation.",
+        " Doing this will discard any set note and generate a new date, are you sure?"]);
+      if (confirmed) {
+        let username: string = (await this.userControl.user).Username;
+        let donation: string = this.donationControl.value;
+        let success = await this._donationsClient.saveAsCommand(username, donation);
 
-          if (success) {
-            this._dialogRef.close(true);
-          } else {
-            this._matSnackBar.open("Failed executing command for donation", "Ok");
-          }
-        });
+        if (success) {
+          this._dialogRef.close(true);
+        } else {
+          this._matSnackBar.open("Failed executing command for donation", "Ok");
+        }
+      }
     }
   }
 
@@ -112,19 +111,18 @@ export class EditDonationModalComponent implements AfterViewInit {
     }
   }
 
-  public deleteDonation() {
+  public async deleteDonation() {
     if (this._donationId != null) {
       let dateString = new DatePipe().transform(this.editedDonation.Date);
-      this._dialog.confirm(`Are you sure you want to delete the donation by ${this.editedDonation.User.DisplayName} on ${dateString}?`)
-        .filter((confirmed: boolean) => confirmed)
-        .subscribe(async () => {
-          let success: boolean = await this._donationsClient.delete(this._donationId);
-          if (success) {
-            this._dialogRef.close(true);
-          } else {
-            this._matSnackBar.open("Could not delete donation, does it still exist?", "Ok");
-          }
-        });
+      let confirmed = await this._dialog.confirm(`Are you sure you want to delete the donation by ${this.editedDonation.User.DisplayName} on ${dateString}?`);
+      if (confirmed) {
+        let success: boolean = await this._donationsClient.delete(this._donationId);
+        if (success) {
+          this._dialogRef.close(true);
+        } else {
+          this._matSnackBar.open("Could not delete donation, does it still exist?", "Ok");
+        }
+      }
     }
   }
 

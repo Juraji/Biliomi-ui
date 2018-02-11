@@ -32,22 +32,20 @@ module.exports = {
         ]
       },
       {
-        test: /\.pug$/,
+        test: /\.html/,
         exclude: helpers.root("src", "app"),
         use: [
-          {loader: "html-loader"},
-          {loader: "pug-html-loader"}
+          {loader: "html-loader"}
         ]
       },
       {
-        test: /\.pug$/,
+        test: /\.html$/,
         include: helpers.root("src", "app"),
         use: [
           {
             loader: "file-loader",
             options: {name: "assets/html/[name].[hash].html"}
-          },
-          {loader: "pug-html-loader"}
+          }
         ]
       },
       {
@@ -85,7 +83,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       filename: "index.html",
-      template: helpers.root("src") + "/BiliomiUI.template.pug",
+      template: helpers.root("src") + "/BiliomiUI.template.html",
       favicon: helpers.root("src") + "/images/favicon.ico",
       appleTouchIcon: helpers.root("src") + "/src/images/biliomi-icon-cropped-small.gif",
       inject: "body",

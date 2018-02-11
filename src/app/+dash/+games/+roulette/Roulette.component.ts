@@ -15,7 +15,7 @@ import IRouletteRecord = Biliomi.IRouletteRecord;
 
 @Component({
   selector: "roulette",
-  templateUrl: require("./Roulette.template.pug")
+  templateUrl: require("./Roulette.template.html")
 })
 export class RouletteComponent implements OnInit {
   private _rouletteRecordsClient: RouletteRecordsClient;
@@ -69,9 +69,12 @@ export class RouletteComponent implements OnInit {
   public async saveSettings() {
     if (this.isSettingsFormOk) {
       this._rouletteSettingsClient.TimeoutOnDeathEnabled = this.enableTimeoutControl.value;
-      if (this.timeoutControl.valid) {
-        this._rouletteSettingsClient.TimeoutOnDeath = this.timeoutControl.value;
-      }
+      this._rouletteSettingsClient.TimeoutOnDeath = this.timeoutControl.value;
+      let result = await this._rouletteSettingsClient.save();
+
+      return result != null;
     }
+
+    return null;
   }
 }

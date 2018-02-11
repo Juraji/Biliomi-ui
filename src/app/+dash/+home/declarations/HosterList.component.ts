@@ -4,7 +4,7 @@ import {HostersClient} from "../../../shared/modules/biliomi/clients/Hosters.cli
 
 @Component({
   selector: "hoster-list-component",
-  templateUrl: require("./HosterList.template.pug")
+  templateUrl: require("./HosterList.template.html")
 })
 export class HosterListComponent {
   private hostersClient: HostersClient;

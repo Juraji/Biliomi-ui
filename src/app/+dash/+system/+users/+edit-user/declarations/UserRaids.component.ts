@@ -12,7 +12,7 @@ import IDirection = Biliomi.IDirection;
 
 @Component({
   selector: "user-raids",
-  templateUrl: require("./UserRaids.template.pug")
+  templateUrl: require("./UserRaids.template.html")
 })
 export class UserRaidsComponent {
   private _raidRecordsClient: RaidRecordsClient;
@@ -36,14 +36,13 @@ export class UserRaidsComponent {
     }
   }
 
-  public registerRecord(direction: IDirection) {
-    this._dialogs.confirm(`Are you sure you want to register an ${direction.toLowerCase()} raid for ${this._user.DisplayName}?`)
-      .filter((confirmed: boolean) => confirmed)
-      .subscribe(async () => {
-        let success = await this._raidRecordsClient.registerRaid(direction, this._user.Username);
-        if (success) {
-          this.dataSource.update();
-        }
-      });
+  public async registerRecord(direction: IDirection) {
+    let confirmed = await this._dialogs.confirm(`Are you sure you want to register an ${direction.toLowerCase()} raid for ${this._user.DisplayName}?`);
+    if (confirmed) {
+      let success = await this._raidRecordsClient.registerRaid(direction, this._user.Username);
+      if (success) {
+        this.dataSource.update();
+      }
+    }
   }
 }

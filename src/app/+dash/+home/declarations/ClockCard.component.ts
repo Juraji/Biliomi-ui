@@ -7,7 +7,7 @@ import "./ClockCard.less";
 
 @Component({
   selector: "clock-card-component",
-  templateUrl: require("./ClockCard.template.pug")
+  templateUrl: require("./ClockCard.template.html")
 })
 export class ClockCardComponent implements AfterViewInit {
   private timeZoneText: string;

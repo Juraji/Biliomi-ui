@@ -10,7 +10,7 @@ import "./TableFilterQuery.less";
 
 @Component({
   selector: "table-filter-query",
-  templateUrl: require("./TableFilterQuery.template.pug")
+  templateUrl: require("./TableFilterQuery.template.html")
 })
 export class TableFilterQueryComponent<T> {
   private _parentTable: DataTableComponent<T>;

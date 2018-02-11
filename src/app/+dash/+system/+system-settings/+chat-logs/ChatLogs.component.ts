@@ -8,7 +8,7 @@ import "./ChatLogs.less";
 
 @Component({
   selector: "chat-logs-component",
-  templateUrl: require("./ChatLogs.template.pug")
+  templateUrl: require("./ChatLogs.template.html")
 })
 export class ChatLogsComponent implements OnInit {
   private _chatLogsClient: ChatLogsClient;

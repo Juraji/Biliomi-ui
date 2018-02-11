@@ -4,7 +4,7 @@ import {ViewersClient} from "../../../shared/modules/biliomi/clients/Viewers.cli
 
 @Component({
   selector: "chatter-list-component",
-  templateUrl: require("./ChatterList.template.pug")
+  templateUrl: require("./ChatterList.template.html")
 })
 export class ChatterListComponent {
   private viewersClient: ViewersClient;

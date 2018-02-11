@@ -1,0 +1,22 @@
+
+<div class="table-notices">
+  <!--button(*ngIf="!tableDataSource.hasData", mat-button, disabled) No data-->
+</div>
+<div class="table-actions">
+  <button *ngIf="tableExportConfig &amp;&amp; parentTableId" mat-icon-button [matMenuTriggerFor]="tableMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #tableMenu="matMenu">
+    <button *ngIf="tableExportConfig" mat-menu-item (click)="exportData()">
+      <mat-icon>cloud_download</mat-icon><span>Export</span>
+    </button>
+    <button *ngIf="parentTableId" mat-menu-item (click)="tableSetup()">
+      <mat-icon>settings</mat-icon><span>Table Setup</span>
+    </button>
+  </mat-menu>
+  <button mat-icon-button (click)="dataSource.update()" matTooltip="Refresh">
+    <mat-icon>refresh</mat-icon>
+  </button>
+  <ng-container *ngIf="customActionsDef" [ngTemplateOutlet]="customActionsDef"></ng-container>
+  <table-filter-query *ngIf="!disableFilter"></table-filter-query>
+</div>
