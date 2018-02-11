@@ -45,7 +45,7 @@ export class HostsComponent {
   public async hostNow(record: IHostRecord) {
     let confirmed = await this._dialog.confirm(`Are you sure you want to host ${record.User.DisplayName}?`);
     if (confirmed) {
-      this._hostRecordsClient.performHost(record.User.Username)
+      this._hostRecordsClient.performHost(record.User.Username);
     }
   }
 

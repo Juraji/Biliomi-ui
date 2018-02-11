@@ -37,7 +37,7 @@ export class UserHostRecordsComponent {
   public async hostUser() {
     let confirmed = await this._dialog.confirm(`Are you sure you want to host ${this._editUserComponent.user.DisplayName}?`);
     if (confirmed) {
-      this._hostRecordsClient.performHost(this._editUserComponent.user.Username)
+      this._hostRecordsClient.performHost(this._editUserComponent.user.Username);
     }
   }
 }
