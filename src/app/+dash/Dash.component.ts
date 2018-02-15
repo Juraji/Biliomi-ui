@@ -8,7 +8,6 @@ import {BiliomiEventsService} from "../shared/modules/biliomi/services/BiliomiEv
 import {Biliomi} from "../shared/modules/biliomi/classes/interfaces/Biliomi";
 import {StringUtils} from "../shared/modules/tools/StringUtils";
 import {AuthService} from "../shared/services/Auth.service";
-import {SubscriptionBucket} from "../shared/classes/SubscriptionBucket";
 import {BILIOMI_EVENTS} from "../shared/modules/biliomi/classes/constants/BiliomiApiVariables";
 import {RouterRedirector} from "../shared/classes/RouterRedirector";
 import {Storage} from "../shared/storage/Storage";
@@ -21,6 +20,7 @@ import ITwitchHostInEvent = Biliomi.ITwitchHostInEvent;
 import IIrcChatMessageEvent = Biliomi.IIrcChatMessageEvent;
 import IChannelStateEvent = Biliomi.IChannelStateEvent;
 import IEvent = Biliomi.IEvent;
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: "dash-page",
@@ -35,7 +35,7 @@ export class DashComponent implements OnInit, OnDestroy {
   private _auth: AuthService;
   private _matSnackBar: MatSnackBar;
   private _biliomiEventsService: BiliomiEventsService;
-  private _subscriptionBucket: SubscriptionBucket = new SubscriptionBucket();
+  private _eventSubscriptions: Subscription;
   private _redirector: RouterRedirector;
   private _channelStatusClient: ChannelStatusClient;
 
@@ -51,14 +51,15 @@ export class DashComponent implements OnInit, OnDestroy {
     this._matSnackBar = matSnackBar;
     this._biliomiEventsService = biliomiEventsService;
     this._channelStatusClient = channelStatusClient;
+    this._eventSubscriptions = new Subscription();
 
     // Subscribe to Api errors in order to display them in a snackbar
-    this._subscriptionBucket.add(this._api.postRequestErrorInterceptor
+    this._eventSubscriptions.add(this._api.postRequestErrorInterceptor
       .subscribe((e: HttpErrorResponse) => this._onHttpError(e)));
   }
 
   public ngOnInit() {
-    this._subscriptionBucket.add(this._router.events
+    this._eventSubscriptions.add(this._router.events
       .filter((e: RouterEvent) => e instanceof NavigationEnd)
       .subscribe(() => this.sideNav.opened = false));
 
@@ -68,7 +69,7 @@ export class DashComponent implements OnInit, OnDestroy {
     // Connect to Biliomi's events service and hook the appropriate subscribers
     this._biliomiEventsService.connect();
 
-    this._subscriptionBucket
+    this._eventSubscriptions
       .add(this._biliomiEventsService.subscribe((e: IChannelStateEvent) => this._onBiliomiChannelStateEvent(e), BILIOMI_EVENTS.CHANNEL_STATE_EVENT))
       .add(this._biliomiEventsService.subscribe((e: ITwitchFollowEvent) => this._onBiliomiTwitchFollowEvent(e), BILIOMI_EVENTS.TWITCH_FOLLOW_EVENT))
       .add(this._biliomiEventsService.subscribe((e: ITwitchSubscriberEvent) => this._onBiliomiTwitchSubscriberEvent(e), BILIOMI_EVENTS.TWITCH_SUBSCRIBER_EVENT))
@@ -77,7 +78,7 @@ export class DashComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this._subscriptionBucket.unsubscribeAll();
+    this._eventSubscriptions.unsubscribe();
     this._biliomiEventsService.disconnect();
     this._redirector.stop();
   }
