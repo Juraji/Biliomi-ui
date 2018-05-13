@@ -6,14 +6,6 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const commonConfig = require("./webpack.common.conf");
 const helpers = require("./dev-scripts/paths.helpers");
 
-const uglifyJsPluginOptions = {
-    sourceMap: false,
-    beautify: false,
-    comments: false,
-    compress: {warnings: false, screw_ie8: true},
-    mangle: {screw_ie8: true, keep_fnames: false}
-};
-
 module.exports = WebpackMerge(commonConfig, {
     mode: "production",
 
@@ -26,9 +18,6 @@ module.exports = WebpackMerge(commonConfig, {
 
     optimization: {
         minimize: true,
-        minimizer: [
-            new Webpack.optimize.UglifyJsPlugin(uglifyJsPluginOptions)
-        ]
     },
 
     plugins: [
