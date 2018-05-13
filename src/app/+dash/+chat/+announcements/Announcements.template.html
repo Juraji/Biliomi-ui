@@ -1,59 +1,68 @@
-
 <p>Manage announcements en announcement settings</p>
 <div class="columns">
-  <div class="col span-8-of-12">
-    <p>Announcements</p>
-    <data-table tableId="announcements" [dataSource]="announcementsDataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
-      <ng-template customTableActions>
-        <button mat-icon-button (click)="editAnnouncement()" matTooltip="Add new announcement">
-          <mat-icon>add</mat-icon>
-        </button>
-      </ng-template>
-      <ng-container columnDef="Id" [buttonsColumn]="1">
-        <header-cell *headerCellDef sortProperty="Id" [sortDefault]="'ASC'">Id</header-cell>
-        <data-cell *dataCellDef="let announcement">{{announcement.Id}}</data-cell>
-      </ng-container>
-      <ng-container columnDef="Message">
-        <header-cell *headerCellDef sortProperty="Message">Message</header-cell>
-        <data-cell *dataCellDef="let announcement">{{announcement.Message}}</data-cell>
-      </ng-container>
-      <ng-container columnDef="#Edit" [buttonsColumn]="1">
-        <header-cell *headerCellDef></header-cell>
-        <data-cell *dataCellDef="let announcement"><a class="mat-icon-button pull-right" mat-button (click)="editAnnouncement(announcement)" matTooltip="Edit announcement">
-            <mat-icon>edit</mat-icon></a></data-cell>
-      </ng-container>
-    </data-table>
-  </div>
-  <div class="col span-4-of-12">
-    <p>&nbsp;</p>
-    <form>
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Announcement Settings</mat-card-title>
-          <mat-card-subtitle>&nbsp;</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-slide-toggle [formControl]="enabledControl">Enable Announcements</mat-slide-toggle>
-          <mat-slide-toggle [formControl]="shuffleControl">Shuffle Announcements</mat-slide-toggle>
-          <mat-form-field>
-            <input id="announcements-run-interval" matInput name="announcements-run-interval" type="number" placeholder="Interval" [formControl]="runIntervalControl"/>
-            <mat-hint>The interval at which announcements should be posted in milliseconds.</mat-hint>
-            <mat-error *ngIf="runIntervalControl.hasError('min')">A minimum of 10 seconds is required (10000 milliseconds).</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input id="announcements-min-chat-messages" matInput name="announcements-min-chat-messages" type="number" placeholder="Interval" [formControl]="minChatMessagesControl"/>
-            <mat-hint>The amount of messages other users should have posted before posting an announcement</mat-hint>
-          </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary" matTooltip="Save" [actionButton]="saveSettings.bind(this)">
-            <mat-icon>done</mat-icon>
-          </button>
-          <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
-            <mat-icon>refresh</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </form>
-  </div>
+    <div class="col span-8-of-12">
+        <p>Announcements</p>
+        <data-table tableId="announcements" [dataSource]="announcementsDataSource" [exportConfig]="exportConfig"
+                    [filterMapping]="tableFilterMapping">
+            <ng-template customTableActions>
+                <button mat-icon-button (click)="editAnnouncement()" matTooltip="Add new announcement">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </ng-template>
+            <ng-container columnDef="Id" [buttonsColumn]="1">
+                <header-cell *headerCellDef sortProperty="Id" [sortDefault]="'ASC'">Id</header-cell>
+                <data-cell *dataCellDef="let announcement">{{announcement.Id}}</data-cell>
+            </ng-container>
+            <ng-container columnDef="Message">
+                <header-cell *headerCellDef sortProperty="Message">Message</header-cell>
+                <data-cell *dataCellDef="let announcement">{{announcement.Message}}</data-cell>
+            </ng-container>
+            <ng-container columnDef="#Edit" [buttonsColumn]="1">
+                <header-cell *headerCellDef></header-cell>
+                <data-cell *dataCellDef="let announcement"><a class="mat-icon-button pull-right" mat-button
+                                                              (click)="editAnnouncement(announcement)"
+                                                              matTooltip="Edit announcement">
+                    <mat-icon>edit</mat-icon>
+                </a></data-cell>
+            </ng-container>
+        </data-table>
+    </div>
+    <div class="col span-4-of-12">
+        <p>&nbsp;</p>
+        <form>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Announcement Settings</mat-card-title>
+                    <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-slide-toggle [formControl]="enabledControl">Enable Announcements</mat-slide-toggle>
+                    <mat-slide-toggle [formControl]="shuffleControl">Shuffle Announcements</mat-slide-toggle>
+                    <mat-form-field>
+                        <input id="announcements-run-interval" matInput name="announcements-run-interval" type="number"
+                               placeholder="Interval" [formControl]="runIntervalControl"/>
+                        <mat-hint>The interval at which announcements should be posted in milliseconds.</mat-hint>
+                        <mat-error *ngIf="runIntervalControl.hasError('min')">A minimum of 10 seconds is required (10000
+                            milliseconds).
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input id="announcements-min-chat-messages" matInput name="announcements-min-chat-messages"
+                               type="number" placeholder="Interval" [formControl]="minChatMessagesControl"/>
+                        <mat-hint>The amount of messages other users should have posted before posting an announcement
+                        </mat-hint>
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" matTooltip="Save"
+                            [actionButton]="saveSettings.bind(this)">
+                        <mat-icon>done</mat-icon>
+                    </button>
+                    <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
 </div>

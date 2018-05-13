@@ -1,57 +1,60 @@
-
 <mat-sidenav-container>
-  <mat-toolbar color="primary">
-    <mat-toolbar-row><a class="mat-icon-button" mat-button (click)="sideNav.toggle()" matTooltip="Toggle menu">
-        <mat-icon>menu</mat-icon></a><a class="mat-icon-button" mat-button routerLink="/dash/home" matTooltip="Go to Home">
-        <mat-icon>home</mat-icon></a><span class="spacer"></span>
-      <nav-channel-info-component></nav-channel-info-component>
-      <div class="flex-spacer"></div>
-      <voice-commands></voice-commands><a class="mat-icon-button" mat-button (click)="toggleDisplayTwitchChat()" matTooltip="Toggle Chat">
-        <mat-icon *ngIf="displayTwitchChat">chat</mat-icon>
-        <mat-icon *ngIf="!displayTwitchChat">chat_bubble_outline</mat-icon></a>
-      <nav-remote-management-component></nav-remote-management-component>
-      <nav-auth-bar-component></nav-auth-bar-component>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <bread-crumbs></bread-crumbs>
-  <page-loading-bar></page-loading-bar>
-  <div class="main-content-wrapper columns">
-    <div class="content-column" id="content-column" [ngClass]="{'full-width': !displayTwitchChat}">
-      <router-outlet></router-outlet>
+    <mat-toolbar color="primary">
+        <mat-toolbar-row><a class="mat-icon-button" mat-button (click)="sideNav.toggle()" matTooltip="Toggle menu">
+            <mat-icon>menu</mat-icon>
+        </a><a class="mat-icon-button" mat-button routerLink="/dash/home" matTooltip="Go to Home">
+            <mat-icon>home</mat-icon>
+        </a><span class="spacer"></span>
+            <nav-channel-info-component></nav-channel-info-component>
+            <div class="flex-spacer"></div>
+            <voice-commands></voice-commands>
+            <a class="mat-icon-button" mat-button (click)="toggleDisplayTwitchChat()" matTooltip="Toggle Chat">
+                <mat-icon *ngIf="displayTwitchChat">chat</mat-icon>
+                <mat-icon *ngIf="!displayTwitchChat">chat_bubble_outline</mat-icon>
+            </a>
+            <nav-remote-management-component></nav-remote-management-component>
+            <nav-auth-bar-component></nav-auth-bar-component>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <bread-crumbs></bread-crumbs>
+    <page-loading-bar></page-loading-bar>
+    <div class="main-content-wrapper columns">
+        <div class="content-column" id="content-column" [ngClass]="{'full-width': !displayTwitchChat}">
+            <router-outlet></router-outlet>
+        </div>
+        <div class="content-column" id="chat-column" *ngIf="displayTwitchChat">
+            <chat-component></chat-component>
+        </div>
     </div>
-    <div class="content-column" id="chat-column" *ngIf="displayTwitchChat">
-      <chat-component></chat-component>
-    </div>
-  </div>
-  <mat-sidenav #sideNav>
-    <nav>
-      <h3>Biliomi</h3>
-      <ul>
-        <li><a routerLink="/dash/home">Dash</a></li>
-        <li><a routerLink="/dash/commands">Commands</a></li>
-      </ul>
-      <h3>System</h3>
-      <ul>
-        <li><a routerLink="/dash/system/users">Users</a></li>
-        <li><a routerLink="/dash/system/system-settings">System Settings</a></li>
-        <li><a routerLink="/dash/system/game-register">Games</a></li>
-      </ul>
-      <h3>Chat</h3>
-      <ul>
-        <li><a routerLink="/dash/chat/chat-moderator">Chat Moderator</a></li>
-        <li><a routerLink="/dash/chat/announcements">Announcements</a></li>
-        <li><a routerLink="/dash/chat/quotes">Quotes</a></li>
-        <li><a routerLink="/dash/chat/raids">Raids</a></li>
-      </ul>
-      <h3>Games</h3>
-      <ul>
-        <li><a routerLink="/dash/games/achievements">Achievements</a></li>
-        <li><a routerLink="/dash/games/adventures">Adventures</a></li>
-        <li><a routerLink="/dash/games/creative-murders">Creative Murders</a></li>
-        <li><a routerLink="/dash/games/investments">Investments</a></li>
-        <li><a routerLink="/dash/games/roulette">Roulette</a></li>
-        <li><a routerLink="/dash/games/tamagotchis">Tamagotchis</a></li>
-      </ul>
-    </nav>
-  </mat-sidenav>
+    <mat-sidenav #sideNav>
+        <nav>
+            <h3>Biliomi</h3>
+            <ul>
+                <li><a routerLink="/dash/home">Dash</a></li>
+                <li><a routerLink="/dash/commands">Commands</a></li>
+            </ul>
+            <h3>System</h3>
+            <ul>
+                <li><a routerLink="/dash/system/users">Users</a></li>
+                <li><a routerLink="/dash/system/system-settings">System Settings</a></li>
+                <li><a routerLink="/dash/system/game-register">Games</a></li>
+            </ul>
+            <h3>Chat</h3>
+            <ul>
+                <li><a routerLink="/dash/chat/chat-moderator">Chat Moderator</a></li>
+                <li><a routerLink="/dash/chat/announcements">Announcements</a></li>
+                <li><a routerLink="/dash/chat/quotes">Quotes</a></li>
+                <li><a routerLink="/dash/chat/raids">Raids</a></li>
+            </ul>
+            <h3>Games</h3>
+            <ul>
+                <li><a routerLink="/dash/games/achievements">Achievements</a></li>
+                <li><a routerLink="/dash/games/adventures">Adventures</a></li>
+                <li><a routerLink="/dash/games/creative-murders">Creative Murders</a></li>
+                <li><a routerLink="/dash/games/investments">Investments</a></li>
+                <li><a routerLink="/dash/games/roulette">Roulette</a></li>
+                <li><a routerLink="/dash/games/tamagotchis">Tamagotchis</a></li>
+            </ul>
+        </nav>
+    </mat-sidenav>
 </mat-sidenav-container>

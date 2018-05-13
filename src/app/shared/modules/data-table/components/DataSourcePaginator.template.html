@@ -1,22 +1,23 @@
-
 <div class="paginator-container">
-  <div class="paginator-page-size" *ngIf="!lockPaging">
-    <div class="paginator-page-size-label">Items per page</div>
-    <mat-form-field class="paginator-page-size-select" *ngIf="_displayedPageSizeOptions.length &gt; 1">
-      <mat-select [value]="_pageSize" (change)="changePageSize($event.value)" ngDefaultControl>
-        <mat-option *ngFor="let opt of _displayedPageSizeOptions" [value]="opt">{{opt}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <div class="paginator-range-actions">
-    <div class="paginator-range-label">{{rangeLabel}}</div>
-    <ng-container *ngIf="!lockPaging">
-      <button class="paginator-navigation-previous" mat-icon-button type="button" (click)="previousPage()" [disabled]="!hasPreviousPage" matTooltip="Previous page" [matTooltipPosition]="'above'">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
-      <button class="paginator-navigation-next" mat-icon-button type="button" (click)="nextPage()" [disabled]="!hasNextPage" matTooltip="Next page" [matTooltipPosition]="'above'">
-        <mat-icon>chevron_right</mat-icon>
-      </button>
-    </ng-container>
-  </div>
+    <div class="paginator-page-size" *ngIf="!lockPaging">
+        <div class="paginator-page-size-label">Items per page</div>
+        <mat-form-field class="paginator-page-size-select" *ngIf="_displayedPageSizeOptions.length &gt; 1">
+            <mat-select [(value)]="pageSize" ngDefaultControl>
+                <mat-option *ngFor="let opt of _displayedPageSizeOptions" [value]="opt">{{opt}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="paginator-range-actions">
+        <div class="paginator-range-label">{{rangeLabel}}</div>
+        <ng-container *ngIf="!lockPaging">
+            <button class="paginator-navigation-previous" mat-icon-button type="button" (click)="previousPage()"
+                    [disabled]="!hasPreviousPage" matTooltip="Previous page" [matTooltipPosition]="'above'">
+                <mat-icon>chevron_left</mat-icon>
+            </button>
+            <button class="paginator-navigation-next" mat-icon-button type="button" (click)="nextPage()"
+                    [disabled]="!hasNextPage" matTooltip="Next page" [matTooltipPosition]="'above'">
+                <mat-icon>chevron_right</mat-icon>
+            </button>
+        </ng-container>
+    </div>
 </div>

@@ -1,15 +1,16 @@
-
 <form #tableSetupForm (submit)="saveTableSetup()">
-  <h2 matDialogTitle>Table Setup</h2>
-  <mat-dialog-content>
-    <p>Select which columns to display:</p>
-    <ng-container *ngFor="let column of _columnsSetup">
-      <mat-slide-toggle *ngIf="!column.id.startsWith('#')" [(ngModel)]="column.visible" [ngModelOptions]="{standalone: true}">{{column.id}}</mat-slide-toggle>
-    </ng-container>
-  </mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-raised-button color="primary" matTooltip="Save">
-      <mat-icon>done</mat-icon>
-    </button>
-  </mat-dialog-actions>
+    <h2 matDialogTitle>Table Setup</h2>
+    <mat-dialog-content>
+        <p>Select which columns to display:</p>
+        <ng-container *ngFor="let column of _columnsSetup">
+            <mat-slide-toggle *ngIf="!column.id.startsWith('#')" [(ngModel)]="column.visible"
+                              [ngModelOptions]="{standalone: true}">{{column.id}}
+            </mat-slide-toggle>
+        </ng-container>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" matTooltip="Save">
+            <mat-icon>done</mat-icon>
+        </button>
+    </mat-dialog-actions>
 </form>

@@ -22,77 +22,77 @@
  */
 export class JSONPath {
 
-  /**
-   * Execute JSONPath
-   * @param {string} path JSONPath directive
-   * @param rootObject The object to disect
-   * @param suppressErrors Suppress errors like undefined values
-   * @return {Object} The resulting value
-   */
-  public static execute(path: string, rootObject: any, suppressErrors: boolean = true): any {
-    try {
-      return JSONPath._execute(path, rootObject);
-    } catch (e) {
-      if (suppressErrors) {
-        return null;
-      } else {
-        throw new Error("Error while executing JSONPath: \"" + path + "\", message: " + e.message);
-      }
-    }
-  }
-
-  private static _execute(path: string, rootObject: any): any {
-    if (rootObject == null) {
-      throw new Error("Can not apply JSONPath to undefined");
+    /**
+     * Execute JSONPath
+     * @param {string} path JSONPath directive
+     * @param rootObject The object to disect
+     * @param suppressErrors Suppress errors like undefined values
+     * @return {Object} The resulting value
+     */
+    public static execute(path: string, rootObject: any, suppressErrors: boolean = true): any {
+        try {
+            return JSONPath._execute(path, rootObject);
+        } catch (e) {
+            if (suppressErrors) {
+                return null;
+            } else {
+                throw new Error("Error while executing JSONPath: \"" + path + "\", message: " + e.message);
+            }
+        }
     }
 
-    let pathArray: string[] = path.split(".");
-    let value: any = null;
-    let key: string;
-
-    for (let key of pathArray) {
-      if (key === "$") {
-        // Root object
-        value = rootObject;
-      } else if (key.endsWith("]")) {
-        // [] operator
-        let match = /^(.+)\[([0-9*:]+)]$/.exec(key);
-
-        if (match == null) {
-          throw new Error("Invalid [] operator.");
+    private static _execute(path: string, rootObject: any): any {
+        if (rootObject == null) {
+            throw new Error("Can not apply JSONPath to undefined");
         }
 
-        if (match[2] === "*") {
-          // [*] wildcard
-          value = value[match[1]];
-        } else if (match[2].indexOf(":") > -1) {
-          // [start:end] slice operator
-          let startEnd = match[2].split(":");
+        let pathArray: string[] = path.split(".");
+        let value: any = null;
+        let key: string;
 
-          if (startEnd[0].length === 0 && startEnd[1].length === 0) {
-            throw new Error("Invalid [start:end] operator.");
-          }
+        for (let key of pathArray) {
+            if (key === "$") {
+                // Root object
+                value = rootObject;
+            } else if (key.endsWith("]")) {
+                // [] operator
+                let match = /^(.+)\[([0-9*:]+)]$/.exec(key);
 
-          if (startEnd[0].length === 0) {
-            startEnd[0] = "0";
-          }
+                if (match == null) {
+                    throw new Error("Invalid [] operator.");
+                }
 
-          value = value[match[1]].slice(startEnd[0], startEnd[1]);
-        } else {
-          // [0-9+] index operator
-          value = value[match[1]][match[2]];
+                if (match[2] === "*") {
+                    // [*] wildcard
+                    value = value[match[1]];
+                } else if (match[2].indexOf(":") > -1) {
+                    // [start:end] slice operator
+                    let startEnd = match[2].split(":");
+
+                    if (startEnd[0].length === 0 && startEnd[1].length === 0) {
+                        throw new Error("Invalid [start:end] operator.");
+                    }
+
+                    if (startEnd[0].length === 0) {
+                        startEnd[0] = "0";
+                    }
+
+                    value = value[match[1]].slice(startEnd[0], startEnd[1]);
+                } else {
+                    // [0-9+] index operator
+                    value = value[match[1]][match[2]];
+                }
+            } else {
+                if (Array.isArray(value)) {
+                    // Array property merge
+                    value = value.map((o: any) => o[key]);
+                } else {
+                    // Simple property
+                    value = value[key];
+                }
+            }
         }
-      } else {
-        if (Array.isArray(value)) {
-          // Array property merge
-          value = value.map((o: any) => o[key]);
-        } else {
-          // Simple property
-          value = value[key];
-        }
-      }
+
+        return value;
     }
-
-    return value;
-  }
 }

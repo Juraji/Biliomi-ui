@@ -1,2 +1,5 @@
-<a class="mat-button" mat-button [href]="authService.channelName | twitchUserLink" matTooltip="Go to Twitch.tv" target="_blank">Hi {{authService.username}}</a><a class="mat-icon-button" mat-button (click)="authService.logout()" matTooltip="Log out">
-  <mat-icon>exit_to_app</mat-icon></a>
+<a class="mat-button" mat-button [href]="authService.channelName | twitchUserLink" matTooltip="Go to Twitch.tv"
+   target="_blank">Hi {{authService.username}}</a><a class="mat-icon-button" mat-button (click)="authService.logout()"
+                                                     matTooltip="Log out">
+    <mat-icon>exit_to_app</mat-icon>
+</a>

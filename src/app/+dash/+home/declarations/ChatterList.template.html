@@ -1,19 +1,20 @@
-
 <mat-card>
-  <mat-card-header>
-    <mat-icon matCardAvatar>chat</mat-icon>
-    <mat-card-title>Chatters</mat-card-title>
-    <mat-card-subtitle>{{viewersClient.count}}</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-content>
-    <ul class="list-unstyled">
-      <li class="text-muted" *ngIf="viewersClient.count == 0">No viewers</li>
-      <li class="router-link" *ngFor="let viewer of viewersClient.viewers | arrayPageSlice:matPageEvent" [routerLink]="viewer.Username | editUserLink">
-        <user-display [user]="viewer"></user-display>
-      </li>
-    </ul>
-  </mat-card-content>
-  <mat-card-actions *ngIf="viewersClient.count &gt; 10">
-    <mat-paginator class="hide-items-label" [length]="viewersClient.count" pageSize="10" (page)="matPageEvent = $event"></mat-paginator>
-  </mat-card-actions>
+    <mat-card-header>
+        <mat-icon matCardAvatar>chat</mat-icon>
+        <mat-card-title>Chatters</mat-card-title>
+        <mat-card-subtitle>{{viewersClient.count}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <ul class="list-unstyled">
+            <li class="text-muted" *ngIf="viewersClient.count == 0">No viewers</li>
+            <li class="router-link" *ngFor="let viewer of viewersClient.viewers | arrayPageSlice:matPageEvent"
+                [routerLink]="viewer.Username | editUserLink">
+                <user-display [user]="viewer"></user-display>
+            </li>
+        </ul>
+    </mat-card-content>
+    <mat-card-actions *ngIf="viewersClient.count &gt; 10">
+        <mat-paginator class="hide-items-label" [length]="viewersClient.count" pageSize="10"
+                       (page)="matPageEvent = $event"></mat-paginator>
+    </mat-card-actions>
 </mat-card>

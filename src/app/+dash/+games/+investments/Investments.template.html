@@ -1,77 +1,92 @@
-
 <p>Check out latest investments and change investment settings</p>
 <div class="columns">
-  <div class="col span-8-of-12">
-    <data-table tableId="adventures" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="filterMapping">
-      <ng-container columnDef="Invester">
-        <header-cell *headerCellDef sortProperty="Invester.Username">Username</header-cell>
-        <data-cell *dataCellDef="let record">
-          <user-display [user]="record.Invester"></user-display>
-        </data-cell>
-      </ng-container>
-      <ng-container columnDef="Invested">
-        <header-cell *headerCellDef sortProperty="Invested">Invested</header-cell>
-        <data-cell *dataCellDef="let record">{{record.Invested | points | async}}</data-cell>
-      </ng-container>
-      <ng-container columnDef="Interest">
-        <header-cell *headerCellDef sortProperty="Interest">Interest</header-cell>
-        <data-cell *dataCellDef="let record">{{record.Interest * 100}}%</data-cell>
-      </ng-container>
-      <ng-container columnDef="Project">
-        <header-cell *headerCellDef sortProperty="Project">Project</header-cell>
-        <data-cell *dataCellDef="let record">{{record.Project}}</data-cell>
-      </ng-container>
-      <ng-container columnDef="Payout">
-        <header-cell *headerCellDef sortProperty="Payout">Payout</header-cell>
-        <data-cell *dataCellDef="let record">{{record.Payout | points | async}}</data-cell>
-      </ng-container>
-      <ng-container columnDef="Date">
-        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
-        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
-      </ng-container>
-      <ng-container columnDef="#Actions" [buttonsColumn]="1">
-        <header-cell *headerCellDef>&nbsp;</header-cell>
-        <data-cell *dataCellDef="let record"><a class="mat-icon-button pull-right" mat-button color="warn" (click)="deleteRecord(record)" matTooltip="Delete Record">
-            <mat-icon>delete_forever</mat-icon></a></data-cell>
-      </ng-container>
-    </data-table>
-  </div>
-  <div class="col span-4-of-12">
-    <form>
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Investments Settings</mat-card-title>
-          <mat-card-subtitle>&nbsp;</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-form-field>
-            <input id="investment-duration" matInput type="number" name="investment-duration" placeholder="Investment Duration" required [formControl]="investmentDurationControl"/>
-            <mat-hint>The time it takes for an investment to complete in milliseconds ({{investmentDurationControl.value | time}})</mat-hint>
-            <mat-error *ngIf="investmentDurationControl.hasError('required')">This field is required!</mat-error>
-            <mat-error *ngIf="investmentDurationControl.hasError('min')">Please enter a valid amount (above 60000).</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input id="investment-min-interest" matInput type="number" name="investment-min-interest" placeholder="Minimum Interest" required [formControl]="minInterestControl"/>
-            <mat-hint>The minimum interest percentage in decimal, so 20% would be 0.2</mat-hint>
-            <mat-error *ngIf="minInterestControl.hasError('required')">This field is required!</mat-error>
-            <mat-error *ngIf="minInterestControl.hasError('min') || minInterestControl.hasError('max')">Please enter a valid amount (between 0.01 and 1).</mat-error>
-          </mat-form-field>
-          <mat-form-field>
-            <input id="investment-max-interest" matInput type="number" name="investment-max-interest" placeholder="Maximum Interest" required [formControl]="maxInterestControl"/>
-            <mat-hint>The maximum interest percentage in decimal, so 20% would be 0.2</mat-hint>
-            <mat-error *ngIf="maxInterestControl.hasError('required')">This field is required!</mat-error>
-            <mat-error *ngIf="maxInterestControl.hasError('min') || maxInterestControl.hasError('max')">Please enter a valid amount (between 0.01 and 1).</mat-error>
-          </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary" [disabled]="!isSettingsFormOk" [actionButton]="saveSettings.bind(this)">
-            <mat-icon></mat-icon>
-          </button>
-          <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
-            <mat-icon>refresh</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </form>
-  </div>
+    <div class="col span-8-of-12">
+        <data-table tableId="adventures" [dataSource]="dataSource" [exportConfig]="exportConfig"
+                    [filterMapping]="filterMapping">
+            <ng-container columnDef="Invester">
+                <header-cell *headerCellDef sortProperty="Invester.Username">Username</header-cell>
+                <data-cell *dataCellDef="let record">
+                    <user-display [user]="record.Invester"></user-display>
+                </data-cell>
+            </ng-container>
+            <ng-container columnDef="Invested">
+                <header-cell *headerCellDef sortProperty="Invested">Invested</header-cell>
+                <data-cell *dataCellDef="let record">{{record.Invested | points | async}}</data-cell>
+            </ng-container>
+            <ng-container columnDef="Interest">
+                <header-cell *headerCellDef sortProperty="Interest">Interest</header-cell>
+                <data-cell *dataCellDef="let record">{{record.Interest * 100}}%</data-cell>
+            </ng-container>
+            <ng-container columnDef="Project">
+                <header-cell *headerCellDef sortProperty="Project">Project</header-cell>
+                <data-cell *dataCellDef="let record">{{record.Project}}</data-cell>
+            </ng-container>
+            <ng-container columnDef="Payout">
+                <header-cell *headerCellDef sortProperty="Payout">Payout</header-cell>
+                <data-cell *dataCellDef="let record">{{record.Payout | points | async}}</data-cell>
+            </ng-container>
+            <ng-container columnDef="Date">
+                <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+                <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+            </ng-container>
+            <ng-container columnDef="#Actions" [buttonsColumn]="1">
+                <header-cell *headerCellDef>&nbsp;</header-cell>
+                <data-cell *dataCellDef="let record"><a class="mat-icon-button pull-right" mat-button color="warn"
+                                                        (click)="deleteRecord(record)" matTooltip="Delete Record">
+                    <mat-icon>delete_forever</mat-icon>
+                </a></data-cell>
+            </ng-container>
+        </data-table>
+    </div>
+    <div class="col span-4-of-12">
+        <form>
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Investments Settings</mat-card-title>
+                    <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-form-field>
+                        <input id="investment-duration" matInput type="number" name="investment-duration"
+                               placeholder="Investment Duration" required [formControl]="investmentDurationControl"/>
+                        <mat-hint>The time it takes for an investment to complete in milliseconds
+                            ({{investmentDurationControl.value | time}})
+                        </mat-hint>
+                        <mat-error *ngIf="investmentDurationControl.hasError('required')">This field is required!
+                        </mat-error>
+                        <mat-error *ngIf="investmentDurationControl.hasError('min')">Please enter a valid amount (above
+                            60000).
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input id="investment-min-interest" matInput type="number" name="investment-min-interest"
+                               placeholder="Minimum Interest" required [formControl]="minInterestControl"/>
+                        <mat-hint>The minimum interest percentage in decimal, so 20% would be 0.2</mat-hint>
+                        <mat-error *ngIf="minInterestControl.hasError('required')">This field is required!</mat-error>
+                        <mat-error *ngIf="minInterestControl.hasError('min') || minInterestControl.hasError('max')">
+                            Please enter a valid amount (between 0.01 and 1).
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input id="investment-max-interest" matInput type="number" name="investment-max-interest"
+                               placeholder="Maximum Interest" required [formControl]="maxInterestControl"/>
+                        <mat-hint>The maximum interest percentage in decimal, so 20% would be 0.2</mat-hint>
+                        <mat-error *ngIf="maxInterestControl.hasError('required')">This field is required!</mat-error>
+                        <mat-error *ngIf="maxInterestControl.hasError('min') || maxInterestControl.hasError('max')">
+                            Please enter a valid amount (between 0.01 and 1).
+                        </mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" [disabled]="!isSettingsFormOk"
+                            [actionButton]="saveSettings.bind(this)">
+                        <mat-icon></mat-icon>
+                    </button>
+                    <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
 </div>

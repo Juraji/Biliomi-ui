@@ -1,21 +1,22 @@
-
 <mat-spinner *ngIf="user == undefined"></mat-spinner>
 <div *ngIf="user != undefined">
-  <h2>{{user?.DisplayName}}<small class="text-muted" *ngIf="isCurrentUser">&nbsp;(You)</small></h2>
-  <div class="columns">
-    <div class="col span-4-of-12">
-      <ul class="list-unstyled">
-        <li class="text-primary" *ngIf="user.Caster">Channel Owner</li>
-        <li class="text-secondary" *ngIf="user.Moderator">Moderator</li>
-        <li *ngIf="user.Follower">Follower since {{user.FollowDate | date}}</li>
-        <li *ngIf="user.Subscriber">Subscriber since {{user.SubscribeDate | date}}</li>
-        <li>Points: {{user.Points | points | async}}</li>
-        <li>Records time: {{user.RecordedTime | time}}</li>
-      </ul>
-      <user-base-information [user]="user"></user-base-information>
+    <h2>{{user?.DisplayName}}
+        <small class="text-muted" *ngIf="isCurrentUser">&nbsp;(You)</small>
+    </h2>
+    <div class="columns">
+        <div class="col span-4-of-12">
+            <ul class="list-unstyled">
+                <li class="text-primary" *ngIf="user.Caster">Channel Owner</li>
+                <li class="text-secondary" *ngIf="user.Moderator">Moderator</li>
+                <li *ngIf="user.Follower">Follower since {{user.FollowDate | date}}</li>
+                <li *ngIf="user.Subscriber">Subscriber since {{user.SubscribeDate | date}}</li>
+                <li>Points: {{user.Points | points | async}}</li>
+                <li>Records time: {{user.RecordedTime | time}}</li>
+            </ul>
+            <user-base-information [user]="user"></user-base-information>
+        </div>
+        <div class="col span-8-of-12">
+            <route-tabs [routes]="childRoutes" [relativeTo]="_activatedRoute"></route-tabs>
+        </div>
     </div>
-    <div class="col span-8-of-12">
-      <route-tabs [routes]="childRoutes" [relativeTo]="_activatedRoute"></route-tabs>
-    </div>
-  </div>
 </div>

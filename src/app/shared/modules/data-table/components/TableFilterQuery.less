@@ -1,4 +1,4 @@
-table-filter-query{
+table-filter-query {
   width: 80px;
   transition: width .3s ease-in-out;
 
@@ -6,37 +6,36 @@ table-filter-query{
     width: 30%;
   }
 
-  mat-form-field {
-    margin-bottom: 0;
+  form {
+    margin-right: .8em;
 
-    .mat-form-field-wrapper {
-      padding-bottom: 0;
-      margin-top: 5px;
+    mat-form-field.mat-form-field-appearance-legacy {
+      margin-bottom: 0;
 
-      .mat-form-field-infix {
-        border-top: none;
+      &.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+        margin-top: .3em;
       }
 
-      .mat-form-field-underline {
-        bottom: .25em;
+      > .mat-form-field-wrapper {
+        padding-bottom: 0;
+
+        .mat-form-field-infix {
+          border-top: .25em solid transparent;
+        }
+
+        .mat-form-field-underline {
+          bottom: 0;
+        }
+
+        .mat-form-field-suffix > .mat-icon {
+          font-size: 100%;
+          vertical-align: middle;
+        }
+
+        .mat-error {
+          margin-top: 1.1em;
+        }
       }
-    }
-
-    .mat-input-suffix > mat-icon {
-      cursor: pointer;
-      user-select: none;
-      position: absolute;
-      right: 0;
-      top: 6px;
-      font-size: 100% !important;
-
-      &:nth-child(2) {
-        right: 1.2em;
-      }
-    }
-
-    .mat-error {
-      margin-top: 12px;
     }
   }
 }

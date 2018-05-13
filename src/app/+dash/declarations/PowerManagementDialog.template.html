@@ -1,16 +1,15 @@
-
 <h2 matDialogTitle>Manage</h2>
 <mat-dialog-content>
-  <p>Restart or shutdown Biliomi.</p>
+    <p>Restart or shutdown Biliomi.</p>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button (click)="restartBiliomi()" matTooltip="Restart Biliomi">
-    <mat-icon>refresh</mat-icon>
-  </button>
-  <button mat-raised-button (click)="shutdownBiliomi()" matTooltip="Shut down Biliomi">
-    <mat-icon>power_settings_new</mat-icon>
-  </button>
-  <button mat-raised-button color="warn" (click)="close()" matTooltip="Cancel">
-    <mat-icon>arrow_back</mat-icon>
-  </button>
+    <button mat-raised-button (click)="restartBiliomi()" matTooltip="Restart Biliomi">
+        <mat-icon>refresh</mat-icon>
+    </button>
+    <button mat-raised-button (click)="shutdownBiliomi()" matTooltip="Shut down Biliomi">
+        <mat-icon>power_settings_new</mat-icon>
+    </button>
+    <button mat-raised-button color="warn" (click)="close()" matTooltip="Cancel">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
 </mat-dialog-actions>

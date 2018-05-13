@@ -1,31 +1,33 @@
-
 <p>Biliomi keeps a record of moderation actions performed by the chat moderator.</p>
-<data-table tableId="chatmoderator-records" [dataSource]="recordsDataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
-  <ng-container columnDef="User">
-    <header-cell *headerCellDef sortProperty="User.Username">Username</header-cell>
-    <data-cell *dataCellDef="let record">
-      <user-display [user]="record.User"></user-display>
-    </data-cell>
-  </ng-container>
-  <ng-container columnDef="Date">
-    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Action">
-    <header-cell *headerCellDef sortProperty="Action">Action</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Action | caseToWord:"ENUM"}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Reason">
-    <header-cell *headerCellDef sortProperty="Reason">Reason</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Reason| caseToWord:"ENUM"}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Message">
-    <header-cell *headerCellDef sortProperty="Message">Message</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Message | trim:50}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="#Actions" [buttonsColumn]="1">
-    <header-cell *headerCellDef></header-cell>
-    <data-cell *dataCellDef="let record"><a class="mat-icon-button pull-right" mat-button color="warn" (click)="deleteRecord(record)" matTooltip="Delete Record">
-        <mat-icon>delete_forever</mat-icon></a></data-cell>
-  </ng-container>
+<data-table tableId="chatmoderator-records" [dataSource]="recordsDataSource" [exportConfig]="exportConfig"
+            [filterMapping]="tableFilterMapping">
+    <ng-container columnDef="User">
+        <header-cell *headerCellDef sortProperty="User.Username">Username</header-cell>
+        <data-cell *dataCellDef="let record">
+            <user-display [user]="record.User"></user-display>
+        </data-cell>
+    </ng-container>
+    <ng-container columnDef="Date">
+        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Action">
+        <header-cell *headerCellDef sortProperty="Action">Action</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Action | caseToWord:"ENUM"}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Reason">
+        <header-cell *headerCellDef sortProperty="Reason">Reason</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Reason| caseToWord:"ENUM"}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Message">
+        <header-cell *headerCellDef sortProperty="Message">Message</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Message | trim:50}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="#Actions" [buttonsColumn]="1">
+        <header-cell *headerCellDef></header-cell>
+        <data-cell *dataCellDef="let record"><a class="mat-icon-button pull-right" mat-button color="warn"
+                                                (click)="deleteRecord(record)" matTooltip="Delete Record">
+            <mat-icon>delete_forever</mat-icon>
+        </a></data-cell>
+    </ng-container>
 </data-table>

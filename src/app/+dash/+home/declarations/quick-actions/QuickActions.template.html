@@ -1,22 +1,24 @@
-
 <div class="mat-button-row pull-right">
-  <button class="pull-right" mat-mini-fab color="primary" (click)="addQuickAction()" matTooltip="Add new command">
-    <mat-icon>add</mat-icon>
-  </button>
+    <button class="pull-right" mat-mini-fab color="primary" (click)="addQuickAction()" matTooltip="Add new command">
+        <mat-icon>add</mat-icon>
+    </button>
 </div>
 <mat-card>
-  <mat-card-header>
-    <mat-icon matCardAvatar>grade</mat-icon>
-    <mat-card-title>Quick Actions</mat-card-title>
-    <mat-card-subtitle>&nbsp;</mat-card-subtitle>
-  </mat-card-header>
-  <mat-card-actions>
-    <p *ngIf="quickActions.length == 0">No quick actions defined</p>
-    <div class="action-button-block" *ngFor="let action of quickActions">
-      <button class="action-button" mat-raised-button color="primary" (click)="executeAction(action)">{{action.name}}</button>
-      <button class="delete-action-button mat-icon-button" mat-button color="warn" (click)="deleteQuickAction(action)" [title]="'Remove action ' + action.name">
-        <mat-icon>delete_forever</mat-icon>
-      </button>
-    </div>
-  </mat-card-actions>
+    <mat-card-header>
+        <mat-icon matCardAvatar>grade</mat-icon>
+        <mat-card-title>Quick Actions</mat-card-title>
+        <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+        <p *ngIf="quickActions.length == 0">No quick actions defined</p>
+        <div class="action-button-block" *ngFor="let action of quickActions">
+            <button class="action-button" mat-raised-button color="primary" (click)="executeAction(action)">
+                {{action.name}}
+            </button>
+            <button class="delete-action-button mat-icon-button" mat-button color="warn"
+                    (click)="deleteQuickAction(action)" [title]="'Remove action ' + action.name">
+                <mat-icon>delete_forever</mat-icon>
+            </button>
+        </div>
+    </mat-card-actions>
 </mat-card>

@@ -1,49 +1,50 @@
-
 <p>Check out current Tamagotchis and change settings.</p>
 <div class="columns">
-  <div class="col span-8-of-12">
-    <data-table tableId="tamagotchis" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="filterMapping">
-      <ng-container columnDef="Owner.Username">
-        <header-cell *headerCellDef sortProperty="Owner.Username">Owner</header-cell>
-        <data-cell *dataCellDef="let tamagotchi">
-          <user-display [user]="tamagotchi.Owner"></user-display>
-        </data-cell>
-      </ng-container>
-      <ng-container columnDef="Name">
-        <header-cell *headerCellDef sortProperty="Name">Name</header-cell>
-        <data-cell *dataCellDef="let tamagotchi">{{tamagotchi.Name}}
-          <div class="tg-stat">Food:
-            <mat-progress-bar mode="determinate" [value]="getFoodPercentage(tamagotchi)"></mat-progress-bar>
-          </div>
-        </data-cell>
-      </ng-container>
-      <ng-container columnDef="Species">
-        <header-cell *headerCellDef sortProperty="Name">Species</header-cell>
-        <data-cell *dataCellDef="let tamagotchi">{{tamagotchi.Species}}
-          <div class="tg-stat">Mood:
-            <mat-progress-bar mode="determinate" [value]="getMoodPercentage(tamagotchi)"></mat-progress-bar>
-          </div>
-        </data-cell>
-      </ng-container>
-      <ng-container columnDef="Gender">
-        <header-cell *headerCellDef sortProperty="Gender">Gender</header-cell>
-        <data-cell *dataCellDef="let tamagotchi">{{tamagotchi.Gender | caseToWord:'ENUM'}}
-          <div class="tg-stat">Hygiene:
-            <mat-progress-bar mode="determinate" [value]="getHygienePercentage(tamagotchi)"></mat-progress-bar>
-          </div>
-        </data-cell>
-      </ng-container>
-      <ng-container columnDef="Affection">
-        <header-cell *headerCellDef sortProperty="Affection">Affection</header-cell>
-        <data-cell *dataCellDef="let tamagotchi">{{tamagotchi.Affection}}</data-cell>
-      </ng-container>
-      <ng-container columnDef="DateOfBirth">
-        <header-cell *headerCellDef sortProperty="DateOfBirth">DOB</header-cell>
-        <data-cell *dataCellDef="let tamagotchi">{{tamagotchi.DateOfBirth | date}}</data-cell>
-      </ng-container>
-    </data-table>
-  </div>
-  <div class="col span-4-of-12">
-    <tamagotchi-settings></tamagotchi-settings>
-  </div>
+    <div class="col span-8-of-12">
+        <data-table tableId="tamagotchis" [dataSource]="dataSource" [exportConfig]="exportConfig"
+                    [filterMapping]="filterMapping">
+            <ng-container columnDef="Owner.Username">
+                <header-cell *headerCellDef sortProperty="Owner.Username">Owner</header-cell>
+                <data-cell *dataCellDef="let tamagotchi">
+                    <user-display [user]="tamagotchi.Owner"></user-display>
+                </data-cell>
+            </ng-container>
+            <ng-container columnDef="Name">
+                <header-cell *headerCellDef sortProperty="Name">Name</header-cell>
+                <data-cell *dataCellDef="let tamagotchi">{{tamagotchi.Name}}
+                    <div class="tg-stat">Food:
+                        <mat-progress-bar mode="determinate" [value]="getFoodPercentage(tamagotchi)"></mat-progress-bar>
+                    </div>
+                </data-cell>
+            </ng-container>
+            <ng-container columnDef="Species">
+                <header-cell *headerCellDef sortProperty="Name">Species</header-cell>
+                <data-cell *dataCellDef="let tamagotchi">{{tamagotchi.Species}}
+                    <div class="tg-stat">Mood:
+                        <mat-progress-bar mode="determinate" [value]="getMoodPercentage(tamagotchi)"></mat-progress-bar>
+                    </div>
+                </data-cell>
+            </ng-container>
+            <ng-container columnDef="Gender">
+                <header-cell *headerCellDef sortProperty="Gender">Gender</header-cell>
+                <data-cell *dataCellDef="let tamagotchi">{{tamagotchi.Gender | caseToWord:'ENUM'}}
+                    <div class="tg-stat">Hygiene:
+                        <mat-progress-bar mode="determinate"
+                                          [value]="getHygienePercentage(tamagotchi)"></mat-progress-bar>
+                    </div>
+                </data-cell>
+            </ng-container>
+            <ng-container columnDef="Affection">
+                <header-cell *headerCellDef sortProperty="Affection">Affection</header-cell>
+                <data-cell *dataCellDef="let tamagotchi">{{tamagotchi.Affection}}</data-cell>
+            </ng-container>
+            <ng-container columnDef="DateOfBirth">
+                <header-cell *headerCellDef sortProperty="DateOfBirth">DOB</header-cell>
+                <data-cell *dataCellDef="let tamagotchi">{{tamagotchi.DateOfBirth | date}}</data-cell>
+            </ng-container>
+        </data-table>
+    </div>
+    <div class="col span-4-of-12">
+        <tamagotchi-settings></tamagotchi-settings>
+    </div>
 </div>

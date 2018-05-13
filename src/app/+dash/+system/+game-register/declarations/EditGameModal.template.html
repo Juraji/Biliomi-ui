@@ -1,35 +1,41 @@
-
 <form #editGameForm (submit)="save()">
-  <h2 matDialogTitle><span *ngIf="!editedGame?.Name">New game</span><span *ngIf="editedGame?.Name">Editing game: {{editedGame.Name}}</span></h2>
-  <mat-dialog-content>
-    <mat-spinner *ngIf="editedGame == undefined"></mat-spinner>
-    <mat-form-field>
-      <input id="game-name" matInput name="game-name" placeholder="Title" required [formControl]="gameNameControl"/>
-      <mat-hint>The game title.</mat-hint>
-      <mat-error *ngIf="gameNameControl.hasError('required')">This field is required!</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input id="game-first-played-on" matInput name="game-first-played-on" placeholder="First Played On" required [formControl]="firstPlayedOnControl" [matDatepicker]="picker"/>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker [disabled]="false"></mat-datepicker>
-      <mat-hint>The first time you played this game.</mat-hint>
-      <mat-error *ngIf="firstPlayedOnControl.hasError('required')">This field is required!</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input id="game-steam-id" matInput name="game-steam-id" placeholder="Steam Id" type="number" [formControl]="steamIdControl"/>
-      <mat-hint>The Steam Id for this game</mat-hint>
-    </mat-form-field>
-    <community-chip-list [(communities)]="communities" placeholder="Automatic Communities">Select up to 3 communities to set on your channel when you set this game via Biliomi.<br/>Press [space] while typing to confirm input.</community-chip-list>
-  </mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-raised-button color="primary" [disabled]="!isFormOk" matTooltip="Save">
-      <mat-icon>done</mat-icon>
-    </button>
-    <button mat-raised-button type="button" color="warn" (click)="cancelEdit()" matTooltip="Cancel edit">
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-    <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
-      <mat-icon>backspace</mat-icon>
-    </button>
-  </mat-dialog-actions>
+    <h2 matDialogTitle><span *ngIf="!editedGame?.Name">New game</span><span *ngIf="editedGame?.Name">Editing game: {{editedGame.Name}}</span>
+    </h2>
+    <mat-dialog-content>
+        <mat-spinner *ngIf="editedGame == undefined"></mat-spinner>
+        <mat-form-field>
+            <input id="game-name" matInput name="game-name" placeholder="Title" required
+                   [formControl]="gameNameControl"/>
+            <mat-hint>The game title.</mat-hint>
+            <mat-error *ngIf="gameNameControl.hasError('required')">This field is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input id="game-first-played-on" matInput name="game-first-played-on" placeholder="First Played On" required
+                   [formControl]="firstPlayedOnControl" [matDatepicker]="picker"/>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker [disabled]="false"></mat-datepicker>
+            <mat-hint>The first time you played this game.</mat-hint>
+            <mat-error *ngIf="firstPlayedOnControl.hasError('required')">This field is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input id="game-steam-id" matInput name="game-steam-id" placeholder="Steam Id" type="number"
+                   [formControl]="steamIdControl"/>
+            <mat-hint>The Steam Id for this game</mat-hint>
+        </mat-form-field>
+        <community-chip-list [(communities)]="communities" placeholder="Automatic Communities">Select up to 3
+            communities to set on your channel when you set this game via Biliomi.<br/>Press [space] while typing to
+            confirm input.
+        </community-chip-list>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" [disabled]="!isFormOk" matTooltip="Save">
+            <mat-icon>done</mat-icon>
+        </button>
+        <button mat-raised-button type="button" color="warn" (click)="cancelEdit()" matTooltip="Cancel edit">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
+            <mat-icon>backspace</mat-icon>
+        </button>
+    </mat-dialog-actions>
 </form>

@@ -1,12 +1,12 @@
-import {Injectable} from "@angular/core";
-import {ModelRestClient} from "../../classes/abstract/ModelRestClient";
-import {Biliomi} from "../../classes/interfaces/Biliomi";
+import { Injectable } from "@angular/core";
+import { ModelRestClient } from "../../classes/abstract/ModelRestClient";
+import { Biliomi } from "../../classes/interfaces/Biliomi";
+import { BiliomiApiService } from "../../services/BiliomiApi.service";
 import IAnnouncement = Biliomi.IAnnouncement;
-import {BiliomiApiService} from "../../services/BiliomiApi.service";
 
 @Injectable()
 export class AnnouncementsClient extends ModelRestClient<IAnnouncement> {
-  constructor(api: BiliomiApiService) {
-    super(api, "/chat/announcements");
-  }
+    constructor(api: BiliomiApiService) {
+        super(api, "/chat/announcements");
+    }
 }

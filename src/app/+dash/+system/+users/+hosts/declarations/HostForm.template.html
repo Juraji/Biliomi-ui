@@ -1,23 +1,28 @@
-
 <form>
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Record hosts</mat-card-title>
-      <mat-card-subtitle>&nbsp;</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-radio-group id="host-records-direction" name="host-records-direction" [formControl]="recordDirectionControl">
-        <mat-radio-button value="OUTGOING">Outgoing host</mat-radio-button>
-        <mat-radio-button value="INCOMING">Incoming host</mat-radio-button>
-      </mat-radio-group>
-      <mat-slide-toggle *ngIf="recordDirectionControl.value == 'INCOMING'" [formControl]="recordAutoHostControl">Is Auto Host</mat-slide-toggle>
-      <mat-slide-toggle *ngIf="recordDirectionControl.value == 'OUTGOING'" [formControl]="performHostControl">Perform /host</mat-slide-toggle>
-      <user-autocomplete #recordUserControl [required]="true"></user-autocomplete>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" [disabled]="!isFormOk" [actionButton]="submitHostRecord.bind(this)">
-        <mat-icon>done</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Record hosts</mat-card-title>
+            <mat-card-subtitle>&nbsp;</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-radio-group id="host-records-direction" name="host-records-direction"
+                             [formControl]="recordDirectionControl">
+                <mat-radio-button value="OUTGOING">Outgoing host</mat-radio-button>
+                <mat-radio-button value="INCOMING">Incoming host</mat-radio-button>
+            </mat-radio-group>
+            <mat-slide-toggle *ngIf="recordDirectionControl.value == 'INCOMING'" [formControl]="recordAutoHostControl">
+                Is Auto Host
+            </mat-slide-toggle>
+            <mat-slide-toggle *ngIf="recordDirectionControl.value == 'OUTGOING'" [formControl]="performHostControl">
+                Perform /host
+            </mat-slide-toggle>
+            <user-autocomplete #recordUserControl [required]="true"></user-autocomplete>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" [disabled]="!isFormOk"
+                    [actionButton]="submitHostRecord.bind(this)">
+                <mat-icon>done</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
 </form>

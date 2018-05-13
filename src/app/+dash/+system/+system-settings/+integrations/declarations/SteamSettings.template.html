@@ -1,20 +1,23 @@
-
 <form>
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Steam Integration</mat-card-title>
-      <mat-card-subtitle *ngIf="!_steamSettingsClient._IntegrationEnabled">Steam integration is disabled, run Biliomi in install or update mode to set it up via the installation process.</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content *ngIf="_steamSettingsClient._IntegrationEnabled">
-      <mat-slide-toggle [formControl]="autoUpdateChannelGameControl">Enable Automatically Update Channel Game From Steam</mat-slide-toggle>
-    </mat-card-content>
-    <mat-card-actions *ngIf="_steamSettingsClient._IntegrationEnabled">
-      <button mat-raised-button color="primary" [actionButton]="save.bind(this)">
-        <mat-icon>done</mat-icon>
-      </button>
-      <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
-        <mat-icon>refresh</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Steam Integration</mat-card-title>
+            <mat-card-subtitle *ngIf="!_steamSettingsClient._IntegrationEnabled">Steam integration is disabled, run
+                Biliomi in install or update mode to set it up via the installation process.
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content *ngIf="_steamSettingsClient._IntegrationEnabled">
+            <mat-slide-toggle [formControl]="autoUpdateChannelGameControl">Enable Automatically Update Channel Game From
+                Steam
+            </mat-slide-toggle>
+        </mat-card-content>
+        <mat-card-actions *ngIf="_steamSettingsClient._IntegrationEnabled">
+            <button mat-raised-button color="primary" [actionButton]="save.bind(this)">
+                <mat-icon>done</mat-icon>
+            </button>
+            <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
 </form>

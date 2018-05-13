@@ -1,16 +1,16 @@
-import {Component} from "@angular/core";
-import {ChannelStatusClient} from "../../../shared/modules/biliomi/clients/ChannelStatus.client";
+import { Component } from "@angular/core";
+import { ChannelStatusClient } from "../../../shared/modules/biliomi/clients/ChannelStatus.client";
 
 import "./ChannelInfo.less";
 
 @Component({
-  selector: "channel-info-component",
-  templateUrl: require("./ChannelInfo.template.html")
+    selector: "channel-info-component",
+    templateUrl: require("./ChannelInfo.template.html")
 })
 export class ChannelInfoComponent {
-  private channelInfoClient: ChannelStatusClient;
+    private channelInfoClient: ChannelStatusClient;
 
-  constructor(channelInfoClient: ChannelStatusClient) {
-    this.channelInfoClient = channelInfoClient;
-  }
+    constructor(channelInfoClient: ChannelStatusClient) {
+        this.channelInfoClient = channelInfoClient;
+    }
 }

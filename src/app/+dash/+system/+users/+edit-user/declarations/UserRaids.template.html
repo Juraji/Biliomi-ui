@@ -1,23 +1,22 @@
-
 <data-table [dataSource]="dataSource" [disableFilter]="true">
-  <ng-template customTableActions>
-    <button mat-icon-button (click)="registerRecord('OUTGOING')" matTooltip="Register outgoing record">
-      <mat-icon>open_in_new</mat-icon>
-    </button>
-    <button mat-icon-button (click)="registerRecord('INCOMING')" matTooltip="Register incoming record">
-      <mat-icon>input</mat-icon>
-    </button>
-  </ng-template>
-  <ng-container columnDef="Direction">
-    <header-cell *headerCellDef sortProperty="Direction">Direction</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Direction | caseToWord:"ENUM"}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Date">
-    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="GameAtMoment">
-    <header-cell *headerCellDef sortProperty="GameAtMoment">Was Playing</header-cell>
-    <data-cell *dataCellDef="let record">{{record.GameAtMoment}}</data-cell>
-  </ng-container>
+    <ng-template customTableActions>
+        <button mat-icon-button (click)="registerRecord('OUTGOING')" matTooltip="Register outgoing record">
+            <mat-icon>open_in_new</mat-icon>
+        </button>
+        <button mat-icon-button (click)="registerRecord('INCOMING')" matTooltip="Register incoming record">
+            <mat-icon>input</mat-icon>
+        </button>
+    </ng-template>
+    <ng-container columnDef="Direction">
+        <header-cell *headerCellDef sortProperty="Direction">Direction</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Direction | caseToWord:"ENUM"}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Date">
+        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="GameAtMoment">
+        <header-cell *headerCellDef sortProperty="GameAtMoment">Was Playing</header-cell>
+        <data-cell *dataCellDef="let record">{{record.GameAtMoment}}</data-cell>
+    </ng-container>
 </data-table>

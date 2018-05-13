@@ -1,14 +1,14 @@
-import {Component} from "@angular/core";
-import {AuthService} from "../../shared/services/Auth.service";
+import { Component } from "@angular/core";
+import { AuthService } from "../../shared/services/Auth.service";
 
 @Component({
-  selector: "nav-auth-bar-component",
-  templateUrl: require("./NavAuthBar.template.html")
+    selector: "nav-auth-bar-component",
+    templateUrl: require("./NavAuthBar.template.html")
 })
 export class NavAuthBarComponent {
-  private authService: AuthService;
+    private authService: AuthService;
 
-  constructor(authService: AuthService) {
-    this.authService = authService;
-  }
+    constructor(authService: AuthService) {
+        this.authService = authService;
+    }
 }

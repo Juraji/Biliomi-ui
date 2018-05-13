@@ -1,16 +1,19 @@
-
 <mat-card>
-  <mat-card-header><img matCardAvatar [src]="channelInfoClient.LogoUri"/>
-    <mat-card-title>{{channelInfoClient.ChannelName}}</mat-card-title>
-    <mat-card-subtitle [ngClass]="{'text-ok': channelInfoClient.IsOnline, 'text-not-ok': !channelInfoClient.IsOnline}">{{channelInfoClient.IsOnline ? "online" : "offline"}}</mat-card-subtitle>
-  </mat-card-header>
-  <div class="aspect-ratio-wrapper" matCardImage>
-    <div class="aspect-ratio-content"><img class="stream-preview" [src]="channelInfoClient.PreviewUri || channelInfoClient.LogoUri"/></div>
-  </div>
-  <mat-card-content>
-    <ul class="list-unstyled">
-      <li><span class="text-muted">Game:</span> {{channelInfoClient.CurrentGame.Name}}</li>
-      <li><span class="text-muted">Status:</span> {{channelInfoClient.Status}}</li>
-    </ul>
-  </mat-card-content>
+    <mat-card-header><img matCardAvatar [src]="channelInfoClient.LogoUri"/>
+        <mat-card-title>{{channelInfoClient.ChannelName}}</mat-card-title>
+        <mat-card-subtitle
+                [ngClass]="{'text-ok': channelInfoClient.IsOnline, 'text-not-ok': !channelInfoClient.IsOnline}">
+            {{channelInfoClient.IsOnline ? "online" : "offline"}}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <div class="aspect-ratio-wrapper" matCardImage>
+        <div class="aspect-ratio-content"><img class="stream-preview"
+                                               [src]="channelInfoClient.PreviewUri || channelInfoClient.LogoUri"/></div>
+    </div>
+    <mat-card-content>
+        <ul class="list-unstyled">
+            <li><span class="text-muted">Game:</span> {{channelInfoClient.CurrentGame.Name}}</li>
+            <li><span class="text-muted">Status:</span> {{channelInfoClient.Status}}</li>
+        </ul>
+    </mat-card-content>
 </mat-card>

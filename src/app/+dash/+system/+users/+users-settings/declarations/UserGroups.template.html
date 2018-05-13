@@ -1,33 +1,40 @@
-
-<p>Biliomi uses user groups in order to apply execution rights on commands.<br/><small class="text-muted">
-    It does so by group weights, if the users's group weight is lower than a command's weight
-    the user will be authorized to execute the command.
-    </small></p>
-<data-table tableId="user-groups" [dataSource]="groupsDataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
-  <ng-template customTableActions>
-    <button mat-icon-button (click)="editGroup()" matTooltip="Add new group">
-      <mat-icon>add</mat-icon>
-    </button>
-  </ng-template>
-  <ng-container columnDef="Name">
-    <header-cell *headerCellDef sortProperty="Name">Name</header-cell>
-    <data-cell *dataCellDef="let group">{{group.Name}}<small class="text-muted" *ngIf="group.DefaultGroup">&nbsp;(Default group)</small></data-cell>
-  </ng-container>
-  <ng-container columnDef="Default">
-    <header-cell *headerCellDef sortProperty="DefaultGroup" [sortDefault]="'DESC'">Default</header-cell>
-    <data-cell *dataCellDef="let group">{{group.DefaultGroup | boolean}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Weight">
-    <header-cell *headerCellDef sortProperty="Weight" [sortDefault]="'ASC'">Weight</header-cell>
-    <data-cell *dataCellDef="let group">{{group.Weight}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="LevelUpHours">
-    <header-cell *headerCellDef sortProperty="LevelUpHours">Level Up Hours</header-cell>
-    <data-cell *dataCellDef="let group"><span *ngIf="group.LevelUpHours == null">n.a.</span><span *ngIf="group.LevelUpHours &gt; 0">{{group.LevelUpHours | time:false:true:true}}</span></data-cell>
-  </ng-container>
-  <ng-container columnDef="#Edit" [buttonsColumn]="1">
-    <header-cell *headerCellDef></header-cell>
-    <data-cell *dataCellDef="let group"><a class="mat-icon-button pull-right" mat-button (click)="editGroup(group)" matTooltip="Edit group" [disabled]="group.DefaultGroup">
-        <mat-icon>edit</mat-icon></a></data-cell>
-  </ng-container>
+<p>Biliomi uses user groups in order to apply execution rights on commands.<br/>
+    <small class="text-muted">
+        It does so by group weights, if the users's group weight is lower than a command's weight
+        the user will be authorized to execute the command.
+    </small>
+</p>
+<data-table tableId="user-groups" [dataSource]="groupsDataSource" [exportConfig]="exportConfig"
+            [filterMapping]="tableFilterMapping">
+    <ng-template customTableActions>
+        <button mat-icon-button (click)="editGroup()" matTooltip="Add new group">
+            <mat-icon>add</mat-icon>
+        </button>
+    </ng-template>
+    <ng-container columnDef="Name">
+        <header-cell *headerCellDef sortProperty="Name">Name</header-cell>
+        <data-cell *dataCellDef="let group">{{group.Name}}
+            <small class="text-muted" *ngIf="group.DefaultGroup">&nbsp;(Default group)</small>
+        </data-cell>
+    </ng-container>
+    <ng-container columnDef="Default">
+        <header-cell *headerCellDef sortProperty="DefaultGroup" [sortDefault]="'DESC'">Default</header-cell>
+        <data-cell *dataCellDef="let group">{{group.DefaultGroup | boolean}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Weight">
+        <header-cell *headerCellDef sortProperty="Weight" [sortDefault]="'ASC'">Weight</header-cell>
+        <data-cell *dataCellDef="let group">{{group.Weight}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="LevelUpHours">
+        <header-cell *headerCellDef sortProperty="LevelUpHours">Level Up Hours</header-cell>
+        <data-cell *dataCellDef="let group"><span *ngIf="group.LevelUpHours == null">n.a.</span><span
+                *ngIf="group.LevelUpHours &gt; 0">{{group.LevelUpHours | time:false:true:true}}</span></data-cell>
+    </ng-container>
+    <ng-container columnDef="#Edit" [buttonsColumn]="1">
+        <header-cell *headerCellDef></header-cell>
+        <data-cell *dataCellDef="let group"><a class="mat-icon-button pull-right" mat-button (click)="editGroup(group)"
+                                               matTooltip="Edit group" [disabled]="group.DefaultGroup">
+            <mat-icon>edit</mat-icon>
+        </a></data-cell>
+    </ng-container>
 </data-table>

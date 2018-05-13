@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
-  selector: "chat-moderator-settings",
-  templateUrl: require("./ChatModeratorSettings.template.html")
+    selector: "chat-moderator-settings",
+    templateUrl: require("./ChatModeratorSettings.template.html")
 })
 export class ChatModeratorSettingsComponent {
 }

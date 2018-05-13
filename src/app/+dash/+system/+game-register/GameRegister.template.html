@@ -1,37 +1,42 @@
-
 <p>Manage games known by Biliomi</p>
-<data-table tableId="game-register" [dataSource]="gamesDataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
-  <ng-template customTableActions>
-    <button mat-icon-button (click)="editGame()" matTooltip="Add new game">
-      <mat-icon>add</mat-icon>
-    </button>
-  </ng-template>
-  <ng-container columnDef="Title">
-    <header-cell *headerCellDef sortProperty="Name" [sortDefault]="'ASC'">Title</header-cell>
-    <data-cell *dataCellDef="let game">{{game.Name}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="First Played">
-    <header-cell *headerCellDef sortProperty="FirstPlayedOn">First Played</header-cell>
-    <data-cell *dataCellDef="let game">{{game.FirstPlayedOn | date}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Steam Id">
-    <header-cell *headerCellDef sortProperty="SteamId">Steam Id</header-cell>
-    <data-cell *dataCellDef="let game">{{game.SteamId}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Communities">
-    <header-cell *headerCellDef>Communities</header-cell>
-    <data-cell *dataCellDef="let game">
-      <ul class="list-unstyled">
-        <li *ngFor="let community of game.Communities | objectSort:'Name'">{{community.Name}}<small class="text-muted">&nbsp;by&nbsp;</small>
-          <user-display [user]="community.Owner"></user-display>
-        </li>
-      </ul>
-    </data-cell>
-  </ng-container>
-  <ng-container columnDef="#Actions" [buttonsColumn]="2">
-    <header-cell *headerCellDef></header-cell>
-    <data-cell *dataCellDef="let game"><a class="mat-icon-button pull-right" mat-button (click)="editGame(game)" matTooltip="Edit game">
-        <mat-icon>edit</mat-icon></a><a class="mat-icon-button pull-right" mat-button (click)="setAsCurrentGame(game)" matTooltip="Set as current game">
-        <mat-icon>videogame_asset</mat-icon></a></data-cell>
-  </ng-container>
+<data-table tableId="game-register" [dataSource]="gamesDataSource" [exportConfig]="exportConfig"
+            [filterMapping]="tableFilterMapping">
+    <ng-template customTableActions>
+        <button mat-icon-button (click)="editGame()" matTooltip="Add new game">
+            <mat-icon>add</mat-icon>
+        </button>
+    </ng-template>
+    <ng-container columnDef="Title">
+        <header-cell *headerCellDef sortProperty="Name" [sortDefault]="'ASC'">Title</header-cell>
+        <data-cell *dataCellDef="let game">{{game.Name}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="First Played">
+        <header-cell *headerCellDef sortProperty="FirstPlayedOn">First Played</header-cell>
+        <data-cell *dataCellDef="let game">{{game.FirstPlayedOn | date}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Steam Id">
+        <header-cell *headerCellDef sortProperty="SteamId">Steam Id</header-cell>
+        <data-cell *dataCellDef="let game">{{game.SteamId}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Communities">
+        <header-cell *headerCellDef>Communities</header-cell>
+        <data-cell *dataCellDef="let game">
+            <ul class="list-unstyled">
+                <li *ngFor="let community of game.Communities | objectSort:'Name'">{{community.Name}}
+                    <small class="text-muted">&nbsp;by&nbsp;</small>
+                    <user-display [user]="community.Owner"></user-display>
+                </li>
+            </ul>
+        </data-cell>
+    </ng-container>
+    <ng-container columnDef="#Actions" [buttonsColumn]="2">
+        <header-cell *headerCellDef></header-cell>
+        <data-cell *dataCellDef="let game"><a class="mat-icon-button pull-right" mat-button (click)="editGame(game)"
+                                              matTooltip="Edit game">
+            <mat-icon>edit</mat-icon>
+        </a><a class="mat-icon-button pull-right" mat-button (click)="setAsCurrentGame(game)"
+               matTooltip="Set as current game">
+            <mat-icon>videogame_asset</mat-icon>
+        </a></data-cell>
+    </ng-container>
 </data-table>

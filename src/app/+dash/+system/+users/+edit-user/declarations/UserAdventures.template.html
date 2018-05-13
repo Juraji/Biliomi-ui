@@ -1,21 +1,20 @@
-
 <data-table [dataSource]="dataSource" [disableFilter]="true">
-  <ng-container columnDef="Bet">
-    <header-cell *headerCellDef sortProperty="Bet">Bet</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Bet | points | async}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Payout">
-    <header-cell *headerCellDef sortProperty="Payout">Payout</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Payout | points | async}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="ByTamagotchi">
-    <header-cell *headerCellDef sortProperty="ByTamagotchi">By Tamagotchi</header-cell>
-    <data-cell *dataCellDef="let record">
-      <mat-icon *ngIf="record.ByTamagotchi" color="primary">done</mat-icon>
-    </data-cell>
-  </ng-container>
-  <ng-container columnDef="Date">
-    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
-  </ng-container>
+    <ng-container columnDef="Bet">
+        <header-cell *headerCellDef sortProperty="Bet">Bet</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Bet | points | async}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Payout">
+        <header-cell *headerCellDef sortProperty="Payout">Payout</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Payout | points | async}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="ByTamagotchi">
+        <header-cell *headerCellDef sortProperty="ByTamagotchi">By Tamagotchi</header-cell>
+        <data-cell *dataCellDef="let record">
+            <mat-icon *ngIf="record.ByTamagotchi" color="primary">done</mat-icon>
+        </data-cell>
+    </ng-container>
+    <ng-container columnDef="Date">
+        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+    </ng-container>
 </data-table>

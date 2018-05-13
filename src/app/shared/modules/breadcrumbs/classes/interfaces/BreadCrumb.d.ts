@@ -1,8 +1,8 @@
-import {Params} from "@angular/router";
+import { Params } from "@angular/router";
 
 interface Crumb {
-  name: string;
-  params: Params;
-  queryParams: Params;
-  url: string;
+    name: string;
+    params: Params;
+    queryParams: Params;
+    url: string;
 }

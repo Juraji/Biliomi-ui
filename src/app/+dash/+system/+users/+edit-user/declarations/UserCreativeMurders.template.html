@@ -1,19 +1,18 @@
-
 <data-table [dataSource]="dataSource" [disableFilter]="true">
-  <ng-container columnDef="Target">
-    <header-cell *headerCellDef sortProperty="Target.Username">Target</header-cell>
-    <data-cell *dataCellDef="let record">
-      <user-display *ngIf="!record.IsSuicide" [user]="record.Target"></user-display>
-    </data-cell>
-  </ng-container>
-  <ng-container columnDef="IsSuicide">
-    <header-cell *headerCellDef sortProperty="IsSuicide">Suicide</header-cell>
-    <data-cell *dataCellDef="let record">
-      <mat-icon *ngIf="record.IsSuicide" color="primary">done</mat-icon>
-    </data-cell>
-  </ng-container>
-  <ng-container columnDef="Date">
-    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
-  </ng-container>
+    <ng-container columnDef="Target">
+        <header-cell *headerCellDef sortProperty="Target.Username">Target</header-cell>
+        <data-cell *dataCellDef="let record">
+            <user-display *ngIf="!record.IsSuicide" [user]="record.Target"></user-display>
+        </data-cell>
+    </ng-container>
+    <ng-container columnDef="IsSuicide">
+        <header-cell *headerCellDef sortProperty="IsSuicide">Suicide</header-cell>
+        <data-cell *dataCellDef="let record">
+            <mat-icon *ngIf="record.IsSuicide" color="primary">done</mat-icon>
+        </data-cell>
+    </ng-container>
+    <ng-container columnDef="Date">
+        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+    </ng-container>
 </data-table>

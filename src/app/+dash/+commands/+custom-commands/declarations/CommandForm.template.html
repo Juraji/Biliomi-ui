@@ -1,27 +1,27 @@
 <ng-container [ngSwitch]="commandHasArgs">
-  <ng-container *ngSwitchCase="true">
-    <form [matTooltip]="command.Message">
-      <mat-form-field>
-        <input matInput [formControl]="commandArgsControl" [errorStateMatcher]="commandArgsControlMatcher"
-               required placeholder="arguments..."/>
-        <mat-hint>Supply any arguments required by this command.</mat-hint>
-        <mat-error *ngIf="commandArgsControl.hasError('required')">This field is required!</mat-error>
-        <mat-error *ngIf="commandArgsControl.hasError('failed')">Excuting command failed, try again.</mat-error>
-      </mat-form-field>
+    <ng-container *ngSwitchCase="true">
+        <form [matTooltip]="command.Message">
+            <mat-form-field>
+                <input matInput [formControl]="commandArgsControl" [errorStateMatcher]="commandArgsControlMatcher"
+                       required placeholder="arguments..."/>
+                <mat-hint>Supply any arguments required by this command.</mat-hint>
+                <mat-error *ngIf="commandArgsControl.hasError('required')">This field is required!</mat-error>
+                <mat-error *ngIf="commandArgsControl.hasError('failed')">Excuting command failed, try again.</mat-error>
+            </mat-form-field>
 
-      <button mat-raised-button color="primary"
-              [actionButton]="executeCommand.bind(this)"
-              [disabled]="commandArgsControl.invalid">
-        &#33;{{command.Command}}
-      </button>
-    </form>
-  </ng-container>
+            <button mat-raised-button color="primary"
+                    [actionButton]="executeCommand.bind(this)"
+                    [disabled]="commandArgsControl.invalid">
+                &#33;{{command.Command}}
+            </button>
+        </form>
+    </ng-container>
 
-  <ng-container *ngSwitchCase="false">
-    <button mat-raised-button color="primary"
-            [actionButton]="executeCommandNoArgs.bind(this)"
-            [matTooltip]="command.Message">
-      &#33;{{command.Command}}
-    </button>
-  </ng-container>
+    <ng-container *ngSwitchCase="false">
+        <button mat-raised-button color="primary"
+                [actionButton]="executeCommandNoArgs.bind(this)"
+                [matTooltip]="command.Message">
+            &#33;{{command.Command}}
+        </button>
+    </ng-container>
 </ng-container>

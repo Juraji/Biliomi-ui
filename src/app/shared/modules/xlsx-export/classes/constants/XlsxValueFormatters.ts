@@ -1,8 +1,8 @@
-import {XlsxFormatterFunction} from "../interfaces/Xlsx";
-import {TimeUtils} from "../../../tools/TimeUtils";
-import {DatePipe} from "../../../../pipes/Date.pipe";
-import {CaseToWordPipe, CaseType} from "../../../../pipes/CaseToWord.pipe";
-import {Dictionary, Function} from "../../../tools/FunctionalInterface";
+import { XlsxFormatterFunction } from "../interfaces/Xlsx";
+import { TimeUtils } from "../../../tools/TimeUtils";
+import { DatePipe } from "../../../../pipes/Date.pipe";
+import { CaseToWordPipe, CaseType } from "../../../../pipes/CaseToWord.pipe";
+import { Dictionary } from "../../../tools/FunctionalInterface";
 
 export const XLSX_FORMATTER_AS_TEXT: XlsxFormatterFunction = (v: any) => v.toString();
 export const XLSX_FORMATTER_BOOLEAN_YES_NO: XlsxFormatterFunction = (v: boolean) => v ? "Yes" : "No";

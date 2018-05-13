@@ -1,42 +1,47 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {ActivatedRoute, Router, Routes} from "@angular/router";
-import {RouterUtils} from "../modules/tools/RouterUtils";
+import { Component, Input, OnInit } from "@angular/core";
+import { ActivatedRoute, Router, Routes } from "@angular/router";
+import { RouterUtils } from "../modules/tools/RouterUtils";
 
 @Component({
-  selector: "route-tabs",
-  templateUrl: require("./RouteTabs.template.html")
+    selector: "route-tabs",
+    templateUrl: require("./RouteTabs.template.html")
 })
 export class RouteTabsComponent implements OnInit {
-  private _relativeTo: ActivatedRoute;
-  private _routes: Routes;
-  private _router: Router;
+    private _router: Router;
 
-  @Input("routes")
-  public get routes(): Routes {
-    return this._routes;
-  }
-
-  public set routes(routes: Routes) {
-    this._routes = routes;
-  }
-
-  @Input("relativeTo")
-  public set relativeTo(activatedRoute: ActivatedRoute) {
-    this._relativeTo = activatedRoute;
-  }
-
-  constructor(router: Router) {
-    this._router = router;
-  }
-
-  public ngOnInit(): void {
-    let firstRoutePath = this.routes[0].path;
-    if (!RouterUtils.routeEndsWith(this._relativeTo, firstRoutePath)) {
-      this._router.navigate([firstRoutePath], {relativeTo: this._relativeTo});
+    constructor(router: Router) {
+        this._router = router;
     }
-  }
 
-  public navigateToTab(i: number) {
-    this._router.navigate([this.routes[i].path], {relativeTo: this._relativeTo});
-  }
+    private _relativeTo: ActivatedRoute;
+
+    @Input("relativeTo")
+    public set relativeTo(activatedRoute: ActivatedRoute) {
+        this._relativeTo = activatedRoute;
+    }
+
+    private _routes: Routes;
+
+    @Input("routes")
+    public get routes(): Routes {
+        return this._routes;
+    }
+
+    public set routes(routes: Routes) {
+        this._routes = routes;
+    }
+
+    public ngOnInit(): void {
+        this.navigateToTab(0);
+    }
+
+    public navigateToTab(i: number) {
+        const path = this.routes[i].path;
+        if (!RouterUtils.routeEndsWith(this._relativeTo, path)) {
+            this._router.navigate([path], {
+                relativeTo: this._relativeTo,
+                replaceUrl: true
+            });
+        }
+    }
 }

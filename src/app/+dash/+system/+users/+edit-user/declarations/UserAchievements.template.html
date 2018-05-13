@@ -1,11 +1,10 @@
-
 <data-table [dataSource]="dataSource" [disableFilter]="true">
-  <ng-container columnDef="Achievement">
-    <header-cell *headerCellDef sortProperty="Achievement">Achievement</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Achievement}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Date">
-    <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
-  </ng-container>
+    <ng-container columnDef="Achievement">
+        <header-cell *headerCellDef sortProperty="Achievement">Achievement</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Achievement}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Date">
+        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+    </ng-container>
 </data-table>

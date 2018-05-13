@@ -1,32 +1,35 @@
-
 <p>Check out the latest followers and change the behaviour of Biliomi when new followers are registered.</p>
 <div class="columns">
-  <div class="col span-8-of-12">
-    <data-table tableId="incoming-hosts" [dataSource]="dataSource" [filterMapping]="tableFilterMapping" [exportConfig]="exportConfig">
-      <ng-container columnDef="Direction">
-        <header-cell *headerCellDef sortProperty="Direction">Direction</header-cell>
-        <data-cell *dataCellDef="let record">{{record.Direction | caseToWord:"ENUM"}}</data-cell>
-      </ng-container>
-      <ng-container columnDef="User">
-        <header-cell *headerCellDef sortProperty="User.Username">Username</header-cell>
-        <data-cell *dataCellDef="let record">
-          <user-display [user]="record.User"></user-display>
-        </data-cell>
-      </ng-container>
-      <ng-container columnDef="Date">
-        <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
-        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
-      </ng-container>
-      <ng-container columnDef="#Actions" [buttonsColumn]="2">
-        <header-cell *headerCellDef>&nbsp;</header-cell>
-        <data-cell *dataCellDef="let record"><a class="mat-icon-button pull-right" mat-button color="warn" (click)="deleteRecord(record)" matTooltip="Delete Record">
-            <mat-icon>delete_forever</mat-icon></a><a class="mat-icon-button pull-right" mat-button (click)="hostNow(record)" matTooltip="Host Now">
-            <mat-icon>queue_play_next</mat-icon></a></data-cell>
-      </ng-container>
-    </data-table>
-  </div>
-  <div class="col span-4-of-12">
-    <host-form-component (onRecordCreated)="dataSource.update()"></host-form-component>
-    <host-watch-settings></host-watch-settings>
-  </div>
+    <div class="col span-8-of-12">
+        <data-table tableId="incoming-hosts" [dataSource]="dataSource" [filterMapping]="tableFilterMapping"
+                    [exportConfig]="exportConfig">
+            <ng-container columnDef="Direction">
+                <header-cell *headerCellDef sortProperty="Direction">Direction</header-cell>
+                <data-cell *dataCellDef="let record">{{record.Direction | caseToWord:"ENUM"}}</data-cell>
+            </ng-container>
+            <ng-container columnDef="User">
+                <header-cell *headerCellDef sortProperty="User.Username">Username</header-cell>
+                <data-cell *dataCellDef="let record">
+                    <user-display [user]="record.User"></user-display>
+                </data-cell>
+            </ng-container>
+            <ng-container columnDef="Date">
+                <header-cell *headerCellDef sortProperty="Date" [sortDefault]="'DESC'">Date</header-cell>
+                <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+            </ng-container>
+            <ng-container columnDef="#Actions" [buttonsColumn]="2">
+                <header-cell *headerCellDef>&nbsp;</header-cell>
+                <data-cell *dataCellDef="let record"><a class="mat-icon-button pull-right" mat-button color="warn"
+                                                        (click)="deleteRecord(record)" matTooltip="Delete Record">
+                    <mat-icon>delete_forever</mat-icon>
+                </a><a class="mat-icon-button pull-right" mat-button (click)="hostNow(record)" matTooltip="Host Now">
+                    <mat-icon>queue_play_next</mat-icon>
+                </a></data-cell>
+            </ng-container>
+        </data-table>
+    </div>
+    <div class="col span-4-of-12">
+        <host-form-component (onRecordCreated)="dataSource.update()"></host-form-component>
+        <host-watch-settings></host-watch-settings>
+    </div>
 </div>

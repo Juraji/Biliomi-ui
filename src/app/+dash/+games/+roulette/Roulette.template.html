@@ -1,55 +1,62 @@
-
 <p>Check out the latest roulette records and change roulette settings</p>
 <div class="columns">
-  <div class="col span-8-of-12">
-    <data-table tableId="roulette-records" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="filterMapping">
-      <ng-container columnDef="User.DisplayName">
-        <header-cell *headerCellDef sortProperty="User.DisplayName">Username</header-cell>
-        <data-cell *dataCellDef="let record">
-          <user-display [user]="record.User"></user-display>
-        </data-cell>
-      </ng-container>
-      <ng-container columnDef="Fatal">
-        <header-cell *headerCellDef sortProperty="Fatal">Fatal</header-cell>
-        <data-cell *dataCellDef="let record">
-          <mat-icon *ngIf="record.Fatal" color="primary">done</mat-icon>
-        </data-cell>
-      </ng-container>
-      <ng-container columnDef="Date">
-        <header-cell *headerCellDef sortProperty="Date">Date</header-cell>
-        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
-      </ng-container>
-      <ng-container columnDef="#Actions" [buttonsColumn]="1">
-        <header-cell *headerCellDef>&nbsp;</header-cell>
-        <data-cell *dataCellDef="let record"><a class="mat-icon-button pull-right" mat-button color="warn" (click)="deleteRecord(record)" matTooltip="Delete Record">
-            <mat-icon>delete_forever</mat-icon></a></data-cell>
-      </ng-container>
-    </data-table>
-  </div>
-  <div class="col span-4-of-12">
-    <form #rouletteSettingsForm (submit)="saveSettings()">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Roulette Settings</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <mat-slide-toggle [formControl]="enableTimeoutControl">Enable Timeout on Death</mat-slide-toggle>
-          <mat-form-field *ngIf="enableTimeoutControl.value">
-            <input id="roulette-timeout-duration" matInput type="number" name="roulette-timeout-duration" placeholder="Timeout on Death Duration" required [formControl]="timeoutControl"/>
-            <mat-hint>The duration of a timeout on death in milliseconds ({{timeoutControl.value | time}}). Timeouts only apply to non-moderators.</mat-hint>
-            <mat-error *ngIf="timeoutControl.hasError('required')">This field is required!</mat-error>
-            <mat-error *ngIf="timeoutControl.hasError('min')">Please enter a valid amount (min. 10000).</mat-error>
-          </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary" [disabled]="!isSettingsFormOk" [actionButton]="saveSettings.bind(this)">
-            <mat-icon>done</mat-icon>
-          </button>
-          <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
-            <mat-icon>refresh</mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </form>
-  </div>
+    <div class="col span-8-of-12">
+        <data-table tableId="roulette-records" [dataSource]="dataSource" [exportConfig]="exportConfig"
+                    [filterMapping]="filterMapping">
+            <ng-container columnDef="User.DisplayName">
+                <header-cell *headerCellDef sortProperty="User.DisplayName">Username</header-cell>
+                <data-cell *dataCellDef="let record">
+                    <user-display [user]="record.User"></user-display>
+                </data-cell>
+            </ng-container>
+            <ng-container columnDef="Fatal">
+                <header-cell *headerCellDef sortProperty="Fatal">Fatal</header-cell>
+                <data-cell *dataCellDef="let record">
+                    <mat-icon *ngIf="record.Fatal" color="primary">done</mat-icon>
+                </data-cell>
+            </ng-container>
+            <ng-container columnDef="Date">
+                <header-cell *headerCellDef sortProperty="Date">Date</header-cell>
+                <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+            </ng-container>
+            <ng-container columnDef="#Actions" [buttonsColumn]="1">
+                <header-cell *headerCellDef>&nbsp;</header-cell>
+                <data-cell *dataCellDef="let record"><a class="mat-icon-button pull-right" mat-button color="warn"
+                                                        (click)="deleteRecord(record)" matTooltip="Delete Record">
+                    <mat-icon>delete_forever</mat-icon>
+                </a></data-cell>
+            </ng-container>
+        </data-table>
+    </div>
+    <div class="col span-4-of-12">
+        <form #rouletteSettingsForm (submit)="saveSettings()">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Roulette Settings</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <mat-slide-toggle [formControl]="enableTimeoutControl">Enable Timeout on Death</mat-slide-toggle>
+                    <mat-form-field *ngIf="enableTimeoutControl.value">
+                        <input id="roulette-timeout-duration" matInput type="number" name="roulette-timeout-duration"
+                               placeholder="Timeout on Death Duration" required [formControl]="timeoutControl"/>
+                        <mat-hint>The duration of a timeout on death in milliseconds ({{timeoutControl.value | time}}).
+                            Timeouts only apply to non-moderators.
+                        </mat-hint>
+                        <mat-error *ngIf="timeoutControl.hasError('required')">This field is required!</mat-error>
+                        <mat-error *ngIf="timeoutControl.hasError('min')">Please enter a valid amount (min. 10000).
+                        </mat-error>
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" [disabled]="!isSettingsFormOk"
+                            [actionButton]="saveSettings.bind(this)">
+                        <mat-icon>done</mat-icon>
+                    </button>
+                    <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
+                        <mat-icon>refresh</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card>
+        </form>
+    </div>
 </div>

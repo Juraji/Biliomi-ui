@@ -1,98 +1,106 @@
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractCSSPlugin = require("mini-css-extract-plugin");
 const helpers = require("./dev-scripts/paths.helpers");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const LessPluginCleanCSS = require("less-plugin-clean-css");
+const IncludeSiblingChunksPlugin = require('html-webpack-include-sibling-chunks-plugin');
 const Webpack = require("webpack");
 
-const webpackEntry = {
-  Angular: "./src/Angular.ts",
-  Polyfills: "./src/Polyfills.ts",
-  Rx: "./src/Rx.ts",
-  Vendor: "./src/Vendor.ts",
-  BiliomiUI: "./src/BiliomiUI.bootstrap.ts"
+const webpackEntries = {
+    BiliomiUI: "./src/BiliomiUI.bootstrap.ts"
 };
 
 module.exports = {
-  externals: {"Intl": "Intl"},
+    externals: {"Intl": "Intl"},
 
-  entry: webpackEntry,
+    entry: webpackEntries,
 
-  resolve: {
-    extensions: [".js", ".ts"],
-    enforceExtension: false
-  },
+    resolve: {
+        extensions: [".js", ".ts"],
+        enforceExtension: false
+    },
 
-  module: {
-    rules: [
-      {
-        test: /(?!\.d)..\.ts$/,
-        use: [
-          {loader: "ts-loader"},
-          {loader: "angular2-router-loader"}
-        ]
-      },
-      {
-        test: /\.html/,
-        exclude: helpers.root("src", "app"),
-        use: [
-          {loader: "html-loader"}
-        ]
-      },
-      {
-        test: /\.html$/,
-        include: helpers.root("src", "app"),
-        use: [
-          {
-            loader: "file-loader",
-            options: {name: "assets/html/[name].[hash].html"}
-          }
-        ]
-      },
-      {
-        test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9.]+)?$/,
-        exclude: [helpers.root("src", "images")],
-        use: [{
-          loader: "file-loader",
-          options: {name: "assets/fonts/[name].[hash].[ext]"}
-        }]
-      },
-      {
-        test: /\.(png|jpe?g|gif|ico|svg)$/,
-        exclude: [helpers.root("src", "styles", "fonts")],
-        use: [{
-          loader: "file-loader",
-          options: {name: "assets/images/[name].[hash].[ext]"}
-        }]
-      },
-      {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            {loader: "css-loader"},
-            {
-              loader: "less-loader",
-              options: {sourceMap: true, lessPlugins: [new LessPluginCleanCSS({advanced: true})]}
+    optimization: {
+        noEmitOnErrors: true,
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "Vendor",
+                    chunks: "all",
+                }
             }
-          ]
-        })
-      }
-    ]
-  },
+        }
+    },
 
-  plugins: [
-    new HtmlWebpackPlugin({
-      filename: "index.html",
-      template: helpers.root("src") + "/BiliomiUI.template.html",
-      favicon: helpers.root("src") + "/images/favicon.ico",
-      appleTouchIcon: helpers.root("src") + "/src/images/biliomi-icon-cropped-small.gif",
-      inject: "body",
-      hash: true,
-      xhtml: true,
-      chunks: Object.keys(webpackEntry),
-      chunksSortMode: "dependency"
-    }),
-    new Webpack.optimize.CommonsChunkPlugin({name: ["Angular", "Polyfills", "Rx", "Vendor"]}),
-    new Webpack.ContextReplacementPlugin(/(.+)?angular([\\\/])core(.+)?/, helpers.root("src"), {})
-  ]
+    module: {
+        rules: [
+            {
+                test: /(?!\.d)..\.ts$/,
+                use: [
+                    {loader: "ts-loader"},
+                    {loader: "angular2-router-loader"}
+                ]
+            },
+            {
+                test: /\.html/,
+                exclude: helpers.root("src", "app"),
+                use: [
+                    {loader: "html-loader"}
+                ]
+            },
+            {
+                test: /\.html$/,
+                include: helpers.root("src", "app"),
+                use: [
+                    {
+                        loader: "file-loader",
+                        options: {name: "assets/html/[name].[hash].html"}
+                    }
+                ]
+            },
+            {
+                test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9.]+)?$/,
+                exclude: [helpers.root("src", "images")],
+                use: [{
+                    loader: "file-loader",
+                    options: {name: "assets/fonts/[name].[hash].[ext]"}
+                }]
+            },
+            {
+                test: /\.(png|jpe?g|gif|ico|svg)$/,
+                exclude: [helpers.root("src", "styles", "fonts")],
+                use: [{
+                    loader: "file-loader",
+                    options: {name: "assets/images/[name].[hash].[ext]"}
+                }]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    ExtractCSSPlugin.loader,
+                    {loader: "css-loader"},
+                    {
+                        loader: "less-loader",
+                        options: {lessPlugins: [new LessPluginCleanCSS({advanced: true})]}
+                    }
+                ]
+            }
+        ]
+    },
+
+    plugins: [
+        new IncludeSiblingChunksPlugin(),
+        new HtmlWebpackPlugin({
+            filename: "index.html",
+            template: helpers.root("src") + "/BiliomiUI.template.html",
+            favicon: helpers.root("src") + "/images/favicon.ico",
+            appleTouchIcon: helpers.root("src") + "/src/images/biliomi-icon-cropped-small.gif",
+            inject: "body",
+            hash: true,
+            xhtml: true,
+            chunks: Object.keys(webpackEntries),
+            chunksSortMode: "none"
+        }),
+        new Webpack.ContextReplacementPlugin(/(.+)?angular([\\\/])core(.+)?/, helpers.root("src"), {})
+    ]
 };

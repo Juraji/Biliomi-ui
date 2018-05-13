@@ -1,43 +1,50 @@
-
 <form #customCommandEditForm (submit)="save()">
-  <h2 matDialogTitle><span *ngIf="!editedCommand?.Command">New command</span><span *ngIf="editedCommand?.Command">Editing command: &#33;{{editedCommand.Command}}</span></h2>
-  <mat-dialog-content>
-    <mat-spinner *ngIf="editedCommand == undefined"></mat-spinner>
-    <mat-form-field>
-      <input id="command-command" matInput name="command-command" placeholder="Command" required [formControl]="commandCommandControl"/>
-      <mat-hint>The command to post in the chat to trigger this command.</mat-hint>
-      <mat-error *ngIf="commandCommandControl.hasError('required')">This field is required!</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <textarea id="command-message" matInput name="command-message" placeholder="Message" required [formControl]="commandMessageControl" rows="4"></textarea>
-      <mat-hint>The message this command should trigger.</mat-hint>
-      <mat-error *ngIf="commandMessageControl.hasError('required')">This field is required!</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input id="command-cooldown" matInput type="number" name="command-cooldown" placeholder="Cooldown" required [formControl]="commandCooldownControl"/>
-      <mat-hint>The cooldown for this command in milliseconds.</mat-hint>
-      <mat-error *ngIf="commandCooldownControl.hasError('required')">This field is required!</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <input id="command-price" matInput type="number" name="command-price" placeholder="Price" required [formControl]="commandPriceControl"/>
-      <mat-hint>The price for this command in {{undefined | points | async}}.</mat-hint>
-      <mat-error *ngIf="commandPriceControl.hasError('required')">This field is required!</mat-error>
-    </mat-form-field>
-    <user-group-selector [(userGroup)]="userGroup"></user-group-selector>
-    <chip-list-input [(chips)]="commandAliases">An alias is like a different name for a command, like shorter syntax for instance.</chip-list-input>
-  </mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-raised-button color="primary" [disabled]="!isFormOk" matTooltip="Save">
-      <mat-icon>done</mat-icon>
-    </button>
-    <button mat-raised-button type="button" color="warn" (click)="cancelEdit()" matTooltip="Cancel edit">
-      <mat-icon>arrow_back</mat-icon>
-    </button>
-    <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
-      <mat-icon>backspace</mat-icon>
-    </button>
-    <button mat-button type="button" (click)="deleteCommand()" [disabled]="editedCommand?.Id == undefined" matTooltip="Delete command">
-      <mat-icon>delete_forever</mat-icon>
-    </button>
-  </mat-dialog-actions>
+    <h2 matDialogTitle><span *ngIf="!editedCommand?.Command">New command</span><span *ngIf="editedCommand?.Command">Editing command: &#33;{{editedCommand.Command}}</span>
+    </h2>
+    <mat-dialog-content>
+        <mat-spinner *ngIf="editedCommand == undefined"></mat-spinner>
+        <mat-form-field>
+            <input id="command-command" matInput name="command-command" placeholder="Command" required
+                   [formControl]="commandCommandControl"/>
+            <mat-hint>The command to post in the chat to trigger this command.</mat-hint>
+            <mat-error *ngIf="commandCommandControl.hasError('required')">This field is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea id="command-message" matInput name="command-message" placeholder="Message" required
+                      [formControl]="commandMessageControl" rows="4"></textarea>
+            <mat-hint>The message this command should trigger.</mat-hint>
+            <mat-error *ngIf="commandMessageControl.hasError('required')">This field is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input id="command-cooldown" matInput type="number" name="command-cooldown" placeholder="Cooldown" required
+                   [formControl]="commandCooldownControl"/>
+            <mat-hint>The cooldown for this command in milliseconds.</mat-hint>
+            <mat-error *ngIf="commandCooldownControl.hasError('required')">This field is required!</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input id="command-price" matInput type="number" name="command-price" placeholder="Price" required
+                   [formControl]="commandPriceControl"/>
+            <mat-hint>The price for this command in {{undefined | points | async}}.</mat-hint>
+            <mat-error *ngIf="commandPriceControl.hasError('required')">This field is required!</mat-error>
+        </mat-form-field>
+        <user-group-selector [(userGroup)]="userGroup"></user-group-selector>
+        <chip-list-input [(chips)]="commandAliases">An alias is like a different name for a command, like shorter syntax
+            for instance.
+        </chip-list-input>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-raised-button color="primary" [disabled]="!isFormOk" matTooltip="Save">
+            <mat-icon>done</mat-icon>
+        </button>
+        <button mat-raised-button type="button" color="warn" (click)="cancelEdit()" matTooltip="Cancel edit">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
+            <mat-icon>backspace</mat-icon>
+        </button>
+        <button mat-button type="button" (click)="deleteCommand()" [disabled]="editedCommand?.Id == undefined"
+                matTooltip="Delete command">
+            <mat-icon>delete_forever</mat-icon>
+        </button>
+    </mat-dialog-actions>
 </form>

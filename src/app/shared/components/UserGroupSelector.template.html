@@ -1,10 +1,11 @@
-
 <mat-form-field>
-  <mat-select [placeholder]="placeholder" [required]="required" [formControl]="_userGroupControl">
-    <mat-option *ngFor="let group of _userGroupsClient.getCache()" [value]="group">{{ group.Name }}<small class="text-muted">&nbsp;({{group.DefaultGroup ? 'Default' : group.Weight}})</small></mat-option>
-  </mat-select>
-  <mat-hint>Select a user group. The number behind the groups are the group weight.<br/>
-    A lower weighted group denies access for users with higher weighted groups.
-  </mat-hint>
-  <mat-error *ngIf="_userGroupControl.hasError('required')">This field is required!</mat-error>
+    <mat-select [placeholder]="placeholder" [required]="required" [formControl]="_userGroupControl">
+        <mat-option *ngFor="let group of _userGroupsClient.getCache()" [value]="group">{{ group.Name }}
+            <small class="text-muted">&nbsp;({{group.DefaultGroup ? 'Default' : group.Weight}})</small>
+        </mat-option>
+    </mat-select>
+    <mat-hint>Select a user group. The number behind the groups are the group weight.<br/>
+        A lower weighted group denies access for users with higher weighted groups.
+    </mat-hint>
+    <mat-error *ngIf="_userGroupControl.hasError('required')">This field is required!</mat-error>
 </mat-form-field>

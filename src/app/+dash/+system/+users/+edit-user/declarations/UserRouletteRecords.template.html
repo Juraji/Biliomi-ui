@@ -1,13 +1,12 @@
-
 <data-table [dataSource]="dataSource" [disableFilter]="true">
-  <ng-container columnDef="Date">
-    <header-cell *headerCellDef sortProperty="Date">Date</header-cell>
-    <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Fatal">
-    <header-cell *headerCellDef sortProperty="Fatal">Fatal</header-cell>
-    <data-cell *dataCellDef="let record">
-      <mat-icon *ngIf="record.Fatal" color="primary">done</mat-icon>
-    </data-cell>
-  </ng-container>
+    <ng-container columnDef="Date">
+        <header-cell *headerCellDef sortProperty="Date">Date</header-cell>
+        <data-cell *dataCellDef="let record">{{record.Date | date}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Fatal">
+        <header-cell *headerCellDef sortProperty="Fatal">Fatal</header-cell>
+        <data-cell *dataCellDef="let record">
+            <mat-icon *ngIf="record.Fatal" color="primary">done</mat-icon>
+        </data-cell>
+    </ng-container>
 </data-table>

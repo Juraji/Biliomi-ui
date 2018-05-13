@@ -1,9 +1,9 @@
 interface IVoiceCommand {
-  regex: RegExp;
-  executor: (...values: string[]) => void;
+    regex: RegExp;
+    executor: (...values: string[]) => void;
 }
 
 interface IVoiceNavigationRoutes {
-  commands: string[];
-  path: string;
+    commands: string[];
+    path: string;
 }

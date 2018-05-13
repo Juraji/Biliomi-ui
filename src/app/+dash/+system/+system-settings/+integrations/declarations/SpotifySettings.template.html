@@ -1,31 +1,39 @@
-
 <form>
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Spotify Integration</mat-card-title>
-      <mat-card-subtitle *ngIf="!_spotifySettingsClient._IntegrationEnabled">Spotify integration is disabled, run Biliomi in install or update mode to set it up via the installation process.</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content *ngIf="_spotifySettingsClient._IntegrationEnabled">
-      <mat-slide-toggle [formControl]="songrequestsEnabledControl">Enable Spotify Song Requests</mat-slide-toggle>
-      <mat-form-field *ngIf="songrequestsEnabledControl.value">
-        <input matInput name="spotify-playlist-id" [formControl]="songRequestPlaylistIdControl" required placeholder="Playlist Id"/>
-        <mat-hint>This should be the id of the Spotify playlist to which Biliomi will add requested songs.</mat-hint>
-        <mat-error *ngIf="songRequestPlaylistIdControl.hasError('required')">This field is required</mat-error>
-      </mat-form-field>
-      <mat-form-field *ngIf="songrequestsEnabledControl.value">
-        <input matInput type="number" name="spotify-max-duration" [formControl]="maxDurationControl" required placeholder="Maximum Song Duration"/>
-        <mat-hint>You can set a maximum duration for requested songs, for instance to keep people from requesting 1 hour+ mixes. ({{maxDurationControl.value | time}})</mat-hint>
-        <mat-error *ngIf="maxDurationControl.hasError('required')">This field is required</mat-error>
-        <mat-error *ngIf="maxDurationControl.hasError('min')">This field requires a minimum input of 60000 (60 seconds)</mat-error>
-      </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions *ngIf="_spotifySettingsClient._IntegrationEnabled">
-      <button mat-raised-button color="primary" [disabled]="!isFormOk" [actionButton]="save.bind(this)">
-        <mat-icon>done</mat-icon>
-      </button>
-      <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
-        <mat-icon>refresh</mat-icon>
-      </button>
-    </mat-card-actions>
-  </mat-card>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Spotify Integration</mat-card-title>
+            <mat-card-subtitle *ngIf="!_spotifySettingsClient._IntegrationEnabled">Spotify integration is disabled, run
+                Biliomi in install or update mode to set it up via the installation process.
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content *ngIf="_spotifySettingsClient._IntegrationEnabled">
+            <mat-slide-toggle [formControl]="songrequestsEnabledControl">Enable Spotify Song Requests</mat-slide-toggle>
+            <mat-form-field *ngIf="songrequestsEnabledControl.value">
+                <input matInput name="spotify-playlist-id" [formControl]="songRequestPlaylistIdControl" required
+                       placeholder="Playlist Id"/>
+                <mat-hint>This should be the id of the Spotify playlist to which Biliomi will add requested songs.
+                </mat-hint>
+                <mat-error *ngIf="songRequestPlaylistIdControl.hasError('required')">This field is required</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="songrequestsEnabledControl.value">
+                <input matInput type="number" name="spotify-max-duration" [formControl]="maxDurationControl" required
+                       placeholder="Maximum Song Duration"/>
+                <mat-hint>You can set a maximum duration for requested songs, for instance to keep people from
+                    requesting 1 hour+ mixes. ({{maxDurationControl.value | time}})
+                </mat-hint>
+                <mat-error *ngIf="maxDurationControl.hasError('required')">This field is required</mat-error>
+                <mat-error *ngIf="maxDurationControl.hasError('min')">This field requires a minimum input of 60000 (60
+                    seconds)
+                </mat-error>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions *ngIf="_spotifySettingsClient._IntegrationEnabled">
+            <button mat-raised-button color="primary" [disabled]="!isFormOk" [actionButton]="save.bind(this)">
+                <mat-icon>done</mat-icon>
+            </button>
+            <button mat-button type="button" (click)="initFields()" matTooltip="Refresh data">
+                <mat-icon>refresh</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
 </form>

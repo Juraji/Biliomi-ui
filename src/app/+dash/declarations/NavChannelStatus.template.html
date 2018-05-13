@@ -1,9 +1,11 @@
 <span [matTooltip]="channelInfoClient.IsOnline ? 'You are online!' : 'You are offline'">
   <mat-icon class="text-muted" *ngIf="!channelInfoClient.IsOnline">cast</mat-icon>
-  <mat-icon class="text-ok" *ngIf="channelInfoClient.IsOnline">cast_connected</mat-icon><span class="badge">{{channelInfoClient.CurrentGame.Name}}</span></span><span class="spacer"></span><span matTooltip="Viewers in chat">
+  <mat-icon class="text-ok" *ngIf="channelInfoClient.IsOnline">cast_connected</mat-icon><span class="badge">{{channelInfoClient.CurrentGame.Name}}</span></span>
+<span class="spacer"></span><span matTooltip="Viewers in chat">
   <mat-icon class="text-ok">chat</mat-icon>
   <div class="badge">{{viewersClient.count}}</div></span><span class="spacer"></span><span matTooltip="Followers">
   <mat-icon class="text-not-ok">favorite</mat-icon>
-  <div class="badge">{{channelInfoClient.FollowerCount}}</div></span><span class="spacer"></span><span *ngIf="channelInfoClient.Affiliate" matTooltip="Subscribers">
+  <div class="badge">{{channelInfoClient.FollowerCount}}</div></span><span class="spacer"></span><span
+        *ngIf="channelInfoClient.Affiliate" matTooltip="Subscribers">
   <mat-icon class="text-ok">attach_money</mat-icon>
   <div class="badge">{{channelInfoClient.SubscriberCount}}</div></span>

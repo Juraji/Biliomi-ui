@@ -1,3 +1,5 @@
 interface IConfig {
-  apiBase: string;
+    apiBase: string;
 }
+
+declare const PANEL_CONFIG: IConfig;

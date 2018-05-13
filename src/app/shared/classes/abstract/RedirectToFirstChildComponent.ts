@@ -1,21 +1,22 @@
-import {ActivatedRoute, Route} from "@angular/router";
+import { ActivatedRoute, Route } from "@angular/router";
 
 export const REDIRECT_COMPONENT_TEMPLATE: string = require("./RedirectToFirstChildComponentTemplate.html");
 
 export abstract class RedirectToFirstChildComponent {
-  private _activatedRoute: ActivatedRoute;
-  private _childRoutes: Route[] = [];
+    constructor(activatedRoute: ActivatedRoute) {
+        this._activatedRoute = activatedRoute;
+        this._childRoutes = activatedRoute.routeConfig.children.filter((child: Route) => !child.data.hideFromMenu);
+    }
 
-  public get activatedRoute(): ActivatedRoute {
-    return this._activatedRoute;
-  }
+    private _activatedRoute: ActivatedRoute;
 
-  public get childRoutes(): Route[] {
-    return this._childRoutes;
-  }
+    public get activatedRoute(): ActivatedRoute {
+        return this._activatedRoute;
+    }
 
-  constructor(activatedRoute: ActivatedRoute) {
-    this._activatedRoute = activatedRoute;
-    this._childRoutes = activatedRoute.routeConfig.children.filter((child: Route) => !child.data.hideFromMenu);
-  }
+    private _childRoutes: Route[] = [];
+
+    public get childRoutes(): Route[] {
+        return this._childRoutes;
+    }
 }

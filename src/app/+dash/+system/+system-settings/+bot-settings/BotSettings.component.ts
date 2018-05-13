@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
-  selector: "bot-settings-component",
-  templateUrl: require("./BotSettings.template.html")
+    selector: "bot-settings-component",
+    templateUrl: require("./BotSettings.template.html")
 })
 export class BotSettingsComponent {
 }

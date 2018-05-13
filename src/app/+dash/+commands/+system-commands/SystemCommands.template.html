@@ -1,37 +1,44 @@
-
 <p>Default commands are pre-defined commands for interaction with Biliomi.</p>
-<data-table tableId="system-commands" [dataSource]="dataSource" [exportConfig]="exportConfig" [filterMapping]="tableFilterMapping">
-  <ng-container columnDef="Command">
-    <header-cell *headerCellDef sortProperty="Command" [sortDefault]="'ASC'">Command</header-cell>
-    <data-cell *dataCellDef="let command">&#33;{{command.Command}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="System Command">
-    <header-cell *headerCellDef sortProperty="SystemCommand">System Command</header-cell>
-    <data-cell *dataCellDef="let command">{{command.SystemCommand | boolean}}<small class="text-muted" *ngIf="command.ModeratorCanAlwaysActivate"><br/>Moderators can use this command as well.</small></data-cell>
-  </ng-container>
-  <ng-container columnDef="User Group">
-    <header-cell *headerCellDef sortProperty="UserGroup.Name">Group</header-cell>
-    <data-cell *dataCellDef="let command"><span *ngIf="!command.SystemCommand">{{command.UserGroup.Name}}</span></data-cell>
-  </ng-container>
-  <ng-container columnDef="Cooldown">
-    <header-cell *headerCellDef sortProperty="Cooldown">Cooldown</header-cell>
-    <data-cell *dataCellDef="let command">{{command.Cooldown | time}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Price">
-    <header-cell *headerCellDef sortProperty="Price">Price</header-cell>
-    <data-cell *dataCellDef="let command">{{command.Price | points | async}}</data-cell>
-  </ng-container>
-  <ng-container columnDef="Aliasses">
-    <header-cell *headerCellDef>Aliasses</header-cell>
-    <data-cell *dataCellDef="let command">
-      <ul class="list-unstyled">
-        <li *ngFor="let alias of command.Aliasses">&#33;{{alias}}</li>
-      </ul>
-    </data-cell>
-  </ng-container>
-  <ng-container columnDef="#Edit" [buttonsColumn]="1">
-    <header-cell *headerCellDef></header-cell>
-    <data-cell *dataCellDef="let command"><a class="mat-icon-button pull-right" mat-button (click)="editCommand(command)" matTooltip="Edit command">
-        <mat-icon>edit</mat-icon></a></data-cell>
-  </ng-container>
+<data-table tableId="system-commands" [dataSource]="dataSource" [exportConfig]="exportConfig"
+            [filterMapping]="tableFilterMapping">
+    <ng-container columnDef="Command">
+        <header-cell *headerCellDef sortProperty="Command" [sortDefault]="'ASC'">Command</header-cell>
+        <data-cell *dataCellDef="let command">&#33;{{command.Command}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="System Command">
+        <header-cell *headerCellDef sortProperty="SystemCommand">System Command</header-cell>
+        <data-cell *dataCellDef="let command">{{command.SystemCommand | boolean}}
+            <small class="text-muted" *ngIf="command.ModeratorCanAlwaysActivate"><br/>Moderators can use this command as
+                well.
+            </small>
+        </data-cell>
+    </ng-container>
+    <ng-container columnDef="User Group">
+        <header-cell *headerCellDef sortProperty="UserGroup.Name">Group</header-cell>
+        <data-cell *dataCellDef="let command"><span *ngIf="!command.SystemCommand">{{command.UserGroup.Name}}</span>
+        </data-cell>
+    </ng-container>
+    <ng-container columnDef="Cooldown">
+        <header-cell *headerCellDef sortProperty="Cooldown">Cooldown</header-cell>
+        <data-cell *dataCellDef="let command">{{command.Cooldown | time}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Price">
+        <header-cell *headerCellDef sortProperty="Price">Price</header-cell>
+        <data-cell *dataCellDef="let command">{{command.Price | points | async}}</data-cell>
+    </ng-container>
+    <ng-container columnDef="Aliasses">
+        <header-cell *headerCellDef>Aliasses</header-cell>
+        <data-cell *dataCellDef="let command">
+            <ul class="list-unstyled">
+                <li *ngFor="let alias of command.Aliasses">&#33;{{alias}}</li>
+            </ul>
+        </data-cell>
+    </ng-container>
+    <ng-container columnDef="#Edit" [buttonsColumn]="1">
+        <header-cell *headerCellDef></header-cell>
+        <data-cell *dataCellDef="let command"><a class="mat-icon-button pull-right" mat-button
+                                                 (click)="editCommand(command)" matTooltip="Edit command">
+            <mat-icon>edit</mat-icon>
+        </a></data-cell>
+    </ng-container>
 </data-table>

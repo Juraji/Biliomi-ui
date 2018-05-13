@@ -1,11 +1,17 @@
-
 <mat-form-field>
-  <input matInput placeholder="Username" [required]="required" [formControl]="usernameControl" [matAutocomplete]="userAutoComplete"/>
-  <mat-autocomplete #userAutoComplete="matAutocomplete">
-    <mat-option *ngFor="let user of usersClient.searchCache(usernameControl.value)" [value]="user.Username">{{user.DisplayName}}</mat-option>
-  </mat-autocomplete>
-  <mat-icon matSuffix *ngIf="inputIsUnknownUser" (click)="performApiSearch()" matTooltip="Search on Twitch for this user">search</mat-icon>
-  <mat-hint>The autocomplete only knows users Biliomi knows. If an user is unknown a search icon will appear, click it!</mat-hint>
-  <mat-error *ngIf="usernameControl.hasError('required')">This field is required!</mat-error>
-  <mat-error *ngIf="usernameControl.hasError('unknownUser')">This user can not be found!</mat-error>
+    <input matInput placeholder="Username" [required]="required" [formControl]="usernameControl"
+           [matAutocomplete]="userAutoComplete"/>
+    <mat-autocomplete #userAutoComplete="matAutocomplete">
+        <mat-option *ngFor="let user of usersClient.searchCache(usernameControl.value)" [value]="user.Username">
+            {{user.DisplayName}}
+        </mat-option>
+    </mat-autocomplete>
+    <mat-icon matSuffix *ngIf="inputIsUnknownUser" (click)="performApiSearch()"
+              matTooltip="Search on Twitch for this user">search
+    </mat-icon>
+    <mat-hint>The autocomplete only knows users Biliomi knows. If an user is unknown a search icon will appear, click
+        it!
+    </mat-hint>
+    <mat-error *ngIf="usernameControl.hasError('required')">This field is required!</mat-error>
+    <mat-error *ngIf="usernameControl.hasError('unknownUser')">This user can not be found!</mat-error>
 </mat-form-field>

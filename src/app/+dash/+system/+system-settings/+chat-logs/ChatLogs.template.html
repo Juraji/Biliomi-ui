@@ -1,33 +1,35 @@
-
 <mat-sidenav-container>
-  <mat-sidenav #sideNav mode="side">
-    <nav>
-      <h3>Logs Archive</h3>
-      <ul>
-        <li><a (click)="loadLogFile(undefined)">Current</a></li>
-        <li><a *ngFor="let logFilename of logsArchive" (click)="loadLogFile(logFilename)">{{logFilename}}</a></li>
-      </ul>
-    </nav>
-  </mat-sidenav>
-  <mat-sidenav-container>
-    <div class="mat-button-row">
-      <button class="pull-right" mat-mini-fab color="primary" (click)="sideNav.toggle()" matTooltip="Show archive drawer">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <button class="pull-right" mat-mini-fab color="primary" (click)="refreshCurrentLog()" matTooltip="Refresh file">
-        <mat-icon>refresh</mat-icon>
-      </button>
-    </div>
-    <mat-progress-bar *ngIf="currentLog == undefined" mode="indeterminate"></mat-progress-bar>
-    <div class="log-view" *ngIf="currentLog != undefined">
-      <h4>Viewing log on {{currentLog.LogDate | date:"MMMM Do Y"}}</h4>
-      <div class="log-line-number-bg"></div>
-      <div class="log-content">
-        <div class="log-line" *ngFor="let line of currentLog.Lines; let row = index">
-          <div class="row-number">{{row + 1}}</div>
-          <div class="log-line-content">{{line}}</div>
+    <mat-sidenav #sideNav mode="side">
+        <nav>
+            <h3>Logs Archive</h3>
+            <ul>
+                <li><a (click)="loadLogFile(undefined)">Current</a></li>
+                <li><a *ngFor="let logFilename of logsArchive" (click)="loadLogFile(logFilename)">{{logFilename}}</a>
+                </li>
+            </ul>
+        </nav>
+    </mat-sidenav>
+    <mat-sidenav-container>
+        <div class="mat-button-row">
+            <button class="pull-right" mat-mini-fab color="primary" (click)="sideNav.toggle()"
+                    matTooltip="Show archive drawer">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <button class="pull-right" mat-mini-fab color="primary" (click)="refreshCurrentLog()"
+                    matTooltip="Refresh file">
+                <mat-icon>refresh</mat-icon>
+            </button>
         </div>
-      </div>
-    </div>
-  </mat-sidenav-container>
+        <mat-progress-bar *ngIf="currentLog == undefined" mode="indeterminate"></mat-progress-bar>
+        <div class="log-view" *ngIf="currentLog != undefined">
+            <h4>Viewing log on {{currentLog.LogDate | date:"MMMM Do Y"}}</h4>
+            <div class="log-line-number-bg"></div>
+            <div class="log-content">
+                <div class="log-line" *ngFor="let line of currentLog.Lines; let row = index">
+                    <div class="row-number">{{row + 1}}</div>
+                    <div class="log-line-content">{{line}}</div>
+                </div>
+            </div>
+        </div>
+    </mat-sidenav-container>
 </mat-sidenav-container>

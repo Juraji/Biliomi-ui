@@ -1,10 +1,9 @@
-
 <table-actions-row *ngIf="hideActions == false"></table-actions-row>
 <ng-container #headerRowPlaceHolder></ng-container>
 <data-source-progress-bar></data-source-progress-bar>
 <ng-container #dataRowPlaceHolder></ng-container>
 <data-source-paginator [lockPaging]="lockPagination"></data-source-paginator>
 <ng-container>
-  <header-row *headerRowDef="displayedColumnIds"></header-row>
-  <data-row *dataRowDef="displayedColumnIds;"></data-row>
+    <header-row *headerRowDef="displayedColumnIds"></header-row>
+    <data-row *dataRowDef="displayedColumnIds;"></data-row>
 </ng-container>

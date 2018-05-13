@@ -1,10 +1,11 @@
-
 <mat-toolbar class="mat-elevation-z4">
-  <ul class="crumb-list">
-    <li *ngFor="let crumb of _crumbsService.currentCrumbs"><a [routerLink]="[crumb.url, crumb.params]" [queryParams]="crumb.queryParams">{{crumb.name}}</a></li>
-  </ul>
-  <div class="flex-spacer"></div>
-  <ul class="version-info" *ngIf="_versionInfoClient.Version">
-    <li><a [matTooltip]="_versionInfoClient.BuildDate">{{_versionInfoClient.Version}}</a></li>
-  </ul>
+    <ul class="crumb-list">
+        <li *ngFor="let crumb of _crumbsService.currentCrumbs"><a [routerLink]="[crumb.url, crumb.params]"
+                                                                  [queryParams]="crumb.queryParams">{{crumb.name}}</a>
+        </li>
+    </ul>
+    <div class="flex-spacer"></div>
+    <ul class="version-info" *ngIf="_versionInfoClient.Version">
+        <li><a [matTooltip]="_versionInfoClient.BuildDate">{{_versionInfoClient.Version}}</a></li>
+    </ul>
 </mat-toolbar>
