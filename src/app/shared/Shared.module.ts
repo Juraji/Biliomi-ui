@@ -84,14 +84,8 @@ const SHARED_MODULES: Type<any>[] = [
 
 @NgModule({
     imports: SHARED_MODULES,
-    declarations: []
-        .concat(SHARED_PIPES)
-        .concat(SHARED_COMPONENTS)
-        .concat(SHARED_DIRECTIVES),
-    exports: SHARED_MODULES
-        .concat(SHARED_PIPES)
-        .concat(SHARED_COMPONENTS)
-        .concat(SHARED_DIRECTIVES),
+    declarations: [...SHARED_PIPES, ...SHARED_COMPONENTS, ...SHARED_DIRECTIVES],
+    exports: [...SHARED_MODULES, ...SHARED_PIPES, ...SHARED_COMPONENTS, ...SHARED_DIRECTIVES],
     entryComponents: SHARED_COMPONENTS
 })
 export class SharedModule {

@@ -1,5 +1,5 @@
-const webpack = require("webpack");
-const webpackMerge = require("webpack-merge");
+const Webpack = require("webpack");
+const WebpackMerge = require("webpack-merge");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ExtractCSSPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
@@ -7,14 +7,14 @@ const commonConfig = require("./webpack.common.conf");
 const helpers = require("./dev-scripts/paths.helpers");
 
 const uglifyJsPluginOptions = {
-    sourceMap: true,
+    sourceMap: false,
     beautify: false,
     comments: false,
     compress: {warnings: false, screw_ie8: true},
     mangle: {screw_ie8: true, keep_fnames: false}
 };
 
-module.exports = webpackMerge(commonConfig, {
+module.exports = WebpackMerge(commonConfig, {
     mode: "production",
 
     output: {
@@ -25,7 +25,10 @@ module.exports = webpackMerge(commonConfig, {
     },
 
     optimization: {
-        minimize: true
+        minimize: true,
+        minimizer: [
+            new Webpack.optimize.UglifyJsPlugin(uglifyJsPluginOptions)
+        ]
     },
 
     plugins: [
@@ -34,7 +37,7 @@ module.exports = webpackMerge(commonConfig, {
         new CopyWebpackPlugin([{from: "resources", to: ""}]),
 
         // Optimisation
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new Webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new CompressionPlugin({test: /\.js|\.html|\.css/}),
     ]
 });

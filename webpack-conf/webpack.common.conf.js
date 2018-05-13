@@ -23,10 +23,16 @@ module.exports = {
         noEmitOnErrors: true,
         splitChunks: {
             cacheGroups: {
+                angular: {
+                    test: /[\\/]node_modules[\\/]@angular/,
+                    name: false,
+                    chunks: "initial",
+                    priority: 1
+                },
                 commons: {
                     test: /[\\/]node_modules[\\/]/,
-                    name: "Vendor",
-                    chunks: "all",
+                    name: false,
+                    chunks: "initial"
                 }
             }
         }

@@ -65,7 +65,7 @@ const EXPORTED_DECLARATIONS: Type<any>[] = [
 
 @NgModule({
     imports: IMPORTS,
-    declarations: DECLARATIONS.concat(EXPORTED_DECLARATIONS),
+    declarations: [...DECLARATIONS, ...EXPORTED_DECLARATIONS],
     exports: EXPORTED_DECLARATIONS,
     entryComponents: [TableSetupModalComponent]
 })

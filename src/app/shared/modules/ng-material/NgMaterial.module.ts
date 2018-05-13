@@ -46,7 +46,7 @@ const NG_MATERIAL_DECLARATIONS: Type<any>[] = [
 @NgModule({
     imports: NG_MATERIAL_MODULES,
     declarations: NG_MATERIAL_DECLARATIONS,
-    exports: [].concat(NG_MATERIAL_MODULES, NG_MATERIAL_DECLARATIONS)
+    exports: [...NG_MATERIAL_MODULES, ...NG_MATERIAL_DECLARATIONS]
 
 })
 export class NgMaterialModule {
